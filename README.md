@@ -163,7 +163,7 @@ print trips[2:4]
 ```
 
 ```
-xprint(trips.slice(2,4));
+x.print(trips.slice(2,4));
 
 Console: [London, Paris]
 ```
@@ -171,6 +171,7 @@ Console: [London, Paris]
 Python:
 ```
 print trips[:5]
+
 >>> ['Dubai','New York','London','Paris','Moscow']
 ```
 
@@ -185,6 +186,7 @@ Negative and non-unit steps are supported:
 Python:
 ```
 print trips[::-1]
+
 >>> ['New York', 'Saint-Petersburg', 'London', 'Moscow', 'Paris', 'London', 'New York', 'Dubai']
 ```
 
@@ -198,6 +200,7 @@ Console: [New York, Saint-Petersburg, London, Moscow, Paris, London, New York, D
 Python:
 ```
 print trips[::2]
+
 >>> ['Dubai','London','Moscow','Saint-Petersburg']
 ```
 
@@ -213,6 +216,7 @@ Console: [Dubai, London, Moscow, Saint-Petersburg]
 
 ```
 Slice LAST_THREE = x.sliceFrom(-3);
+
 x.print(x.String("tic tac toe").slice(LAST_THREE));
 
 Console: toe
@@ -288,7 +292,6 @@ More complex lambda expressions:
 
 ```
 Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
-
 ```
 
 ```
@@ -297,7 +300,6 @@ list<Integer> ints = x.list(10, 50, 48);
 Function<Object,Integer> squareFun = x.LambdaF("x : x * x)",squareFun);
 
 Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
-
 ```
   
 #### Extended String functions
@@ -320,7 +322,9 @@ Python:
 
 ```
 colorsPattern = "|".join(["black","green","red","white"]);
+
 print(colorsPattern)
+
 >>> black|green|red|white
 ```
 
@@ -328,6 +332,7 @@ xpresso:
 
 ```
 String colorsPattern = x.String("|").join(x.list("black","green","red","white"));
+
 x.print(colorsPattern);
 
 Console: black|green|red|white
@@ -337,7 +342,9 @@ Python:
 
 ```
 tokens = "Moscow;London;Paris".split(";")
+
 print(tokens)
+
 >>> ['Moscow', 'London', 'Paris']
 ```
 
@@ -345,6 +352,7 @@ xpresso:
 
 ```
 list<String> tokens = x.String("Moscow;London;Paris").split(";");
+
 x.print(tokens);
 
 Console: [Moscow, London, Paris]
@@ -354,6 +362,7 @@ Console: [Moscow, London, Paris]
 
 ```
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
+
 x.print(cities.smallestN(2));
 
 Console: [Rome, Moscow]
@@ -361,6 +370,7 @@ Console: [Rome, Moscow]
 
 ```
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
+
 x.print(cities.largestN(2));
 
 Console: [Saint-Petersbourg, San Francisco]
@@ -369,9 +379,12 @@ Console: [Saint-Petersbourg, San Francisco]
 #### n-grams
 
 ```
-str phrase = "If you want something done right, you have to do it yourself."
+str phrase = "If you want something done right, you have to do it yourself.";
+
 list<str> tokens = phrase.split();
+
 list<list<str>> ngrams = tokens.ngrams(3);
+
 x.print(ngrams);
 
 Console: [[If, you, want], [you, want, something], [something, done, right]..., [do, it, yourself.]]
@@ -382,9 +395,8 @@ Console: [[If, you, want], [you, want, something], [something, done, right]..., 
 * cycle
 
 ```
-for (String letter : x.cycle(x.str("ABC"))){
+for (String letter : x.cycle(x.str("ABC")))
     x.print(letter);
-}
 
 Console: A
 B
@@ -399,9 +411,8 @@ C
 ```
 
 ```
-for (String letter : x.cycle(x.list("hello","world"),3)){
+for (String letter : x.cycle(x.list("hello","world"),3))
     x.print(letter);
-}
 
 Console: hello
 world
@@ -413,9 +424,8 @@ world
 * repeat
 
 ```
-for (String word : x.repeat("cool")){
+for (String word : x.repeat("cool"))
     x.print(word);
-}
 
 Console: cool
 cool
@@ -425,9 +435,8 @@ cool
 ```
 
 ```
-for (String word : x.repeat("cool"),3){
+for (String word : x.repeat("cool"),3)
     x.print(word);
-}
 
 Console: cool
 cool
@@ -435,9 +444,8 @@ cool
 ```
 * count
 ```
-for (Integer index : x.countTo(3)){
+for (Integer index : x.countTo(3))
     x.print(index);
-}
 
 Console: 0
 1
@@ -445,9 +453,8 @@ Console: 0
 ```
 
 ```
-for (Integer index : x.countFrom(10)){
+for (Integer index : x.countFrom(10))
     x.print(index);
-}
 
 Console: 10
 11
@@ -457,9 +464,8 @@ Console: 10
 ```
 
 ```
-for (Integer index : x.count(3,10)){
+for (Integer index : x.count(3,10))
     x.print(index);
-}
 
 Console: 3
 4
@@ -471,9 +477,8 @@ Console: 3
 ```
 
 ```
-for (Integer index : x.count(3,10,3)){
+for (Integer index : x.count(3,10,3))
     x.print(index);
-}
 
 Console: 3
 6
