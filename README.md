@@ -141,14 +141,16 @@ tuple myCar = x.tuple("Honda", "red", 2010, true);
 Python:
 
 ```
+trips = ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
+
 print trips[2:4]
->>> ['London','Paris']
+>>> ['London', 'Paris']
 ```
 
 ```
 xprint(trips.slice(2,4));
 
-Console: ["London","Paris"]
+Console: [London, Paris]
 ```
 
 Python:
@@ -160,7 +162,7 @@ print trips[:5]
 ```
 x.print(trips.sliceTo(4));
 
-Console: ["Dubai","New York","London","Paris","Moscow"]
+Console: [Dubai, New York, London, Paris, Moscow]
 ```
 
 Negative and non-unit steps are supported:
@@ -175,7 +177,7 @@ xpresso:
 ```
 x.print(trips.slice(-1));
 
-Console: ["New York", "Saint-Petersburg", "London", "Moscow", "Paris", "London", "New York", "Dubai"]
+Console: [New York, Saint-Petersburg, London, Moscow, Paris, London, New York, Dubai]
 ```
 
 Python:
@@ -185,18 +187,18 @@ print trips[::2]
 ```
 
 xpresso:
+
 ```
 x.print(trips.slice(2));
 
-Console: ["Dubai","London","Moscow","Saint-Petersburg"]
+Console: [Dubai, London, Moscow, Saint-Petersburg]
 ```
 
 #### Slice object
 
 ```
-
 Slice LAST_THREE = x.sliceFrom(-3);
-x.print(x.String("tic tac toe").sclice(LAST_THREE));
+x.print(x.String("tic tac toe").slice(LAST_THREE));
 
 Console: toe
 ```
@@ -271,14 +273,14 @@ Python:
 
 ```
 if "e" in "Hello World":
-    ...
+    do stuff
 ```
 
 xpresso:
 
 ```
 if(x.String("e").in("Hello World"))
-    ...
+    do stuff
 ```
 
 Python:
@@ -342,7 +344,7 @@ x.print(ngrams);
 Console: [[If, you, want], [you, want, something], [something, done, right]..., [do, it, yourself.]]
 ```
  
-#### Python itertools inspired methods
+#### Methods inspired from Python's itertools
 
 * cycle
 * repeat
