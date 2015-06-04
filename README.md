@@ -30,7 +30,7 @@ list1 = [element.upper() for element in list0 if element not in set0];
 xpresso:
 
 ```
-list\<String\> list1 = x.list(x.element().transformWith(x.upper).forElementIn(list0).ifElementNot(x.in(set0)));
+list<String> list1 = x.list(x.element().transformWith(x.upper).forElementIn(list0).ifElementNot(x.in(set0)));
 ```
  
  * iterable file: for(String line : f0)) {x.print(line);}
