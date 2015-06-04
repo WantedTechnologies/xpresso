@@ -48,8 +48,11 @@ import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.HappyFile;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.set;
-import com.wantedtech.common.xpresso.types.str;
 import com.wantedtech.common.xpresso.types.Bag;
+import com.wantedtech.common.xpresso.types.HappyString.HappyString;
+import com.wantedtech.common.xpresso.types.HappyString.HappyStringStatic;
+import com.wantedtech.common.xpresso.types.str.str;
+import com.wantedtech.common.xpresso.types.str.strStatic;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 import com.wantedtech.common.xpresso.types.tuple.tuple1;
 import com.wantedtech.common.xpresso.types.tuple.tuple2;
@@ -139,6 +142,52 @@ public class x {
 	 *                   
 	 * Console:   a|b|c
 	 * 
+	 * @param     char to wrap
+	 * @return    a HappyString object that wraps char
+	 */
+	public static HappyString String(char character){
+		return new HappyString(String.valueOf(character));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
+	 * 
+	 * Example 1: boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 *                   
+	 * Console:   true
+	 * 
+	 * 
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 *                   
+	 * Console:   a|b|c
+	 * 
+	 * @param     char to wrap
+	 * @return    a HappyString object that wraps char
+	 */
+	public static HappyString String(Character character){
+		return new HappyString(String.valueOf(character));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
+	 * 
+	 * Example 1: boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 *                   
+	 * Console:   true
+	 * 
+	 * 
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 *                   
+	 * Console:   a|b|c
+	 * 
 	 * @param     string to wrap
 	 * @return    a HappyString object that wraps string
 	 */
@@ -179,7 +228,7 @@ public class x {
 	 *                   
 	 * Console:   3
 	 */
-	public static StringStatic String = new StringStatic();
+	public static HappyStringStatic String = new HappyStringStatic();
 	
 	/**
 	 * ParametrizedFunction is an abstract class that extends a Function
@@ -190,7 +239,7 @@ public class x {
 	 *                   
 	 */
 	public static abstract class ParametrizedFunction<E,T> implements Function<E,T>{
-		ArrayList<Object> params = new ArrayList<Object>();
+		public ArrayList<Object> params = new ArrayList<Object>();
 		public ParametrizedFunction<E,T> params(Object value0,Object value1,Object... otherValues){
 			params = list.newArrayList(value0,value1,otherValues);
 			return this;
@@ -280,7 +329,7 @@ public class x {
 	 *                   
 	 */
 	public static abstract class ParametrizedPredicate<E> implements Predicate<E>{
-		ArrayList<Object> params = new ArrayList<Object>();
+		public ArrayList<Object> params = new ArrayList<Object>();
 		public ParametrizedPredicate<E> params(Object value0,Object value1,Object... otherValues){
 			params = list.newArrayList(value0,value1,otherValues);
 			return this;
@@ -331,6 +380,66 @@ public class x {
 				return contains(iterable, (T)key);
 			}
 		}).params(iterable);
+	}
+	
+	/**
+	 * Creates and returns new {@link ParametrizedPredicate} that returns true
+	 * only if the input value of the predicate is contained within in the {@link java.lang.Iterable} @param string parameter.
+	 *
+	 * Example 1: Predicate\<Object\> notEmpty = x.NOT({@link x#empty empty});
+	 * 
+	 * @param iterable	an {@link kava.lang.Iterable} of type @param <T>
+	 * @return a new {@link ParametrizedPredicate}
+	 *             
+	 */
+	public static <T> ParametrizedPredicate<Object> in(final String string){
+		return (new ParametrizedPredicate<Object>() {
+			public Boolean apply(Object stringOrChar) {
+				try{
+					return x.String((char)stringOrChar).in((String)params.get(0));
+				}catch(Exception e0){
+					try{
+						return x.String((Character)stringOrChar).in((String)params.get(0));
+					}catch(Exception e1){
+						try{
+							return x.String((String)stringOrChar).in((String)params.get(0));
+						}catch(Exception e2){
+							throw new IllegalArgumentException("Could not intepret the input value as a character ort a string");
+						}
+					}
+				}
+			}
+		}).params(string);
+	}
+	
+	/**
+	 * Creates and returns new {@link ParametrizedPredicate} that returns true
+	 * only if the input value of the predicate is contained within in the {@link java.lang.Iterable} @param str parameter.
+	 *
+	 * Example 1: Predicate\<Object\> notEmpty = x.NOT({@link x#empty empty});
+	 * 
+	 * @param iterable	an {@link kava.lang.Iterable} of type @param <T>
+	 * @return a new {@link ParametrizedPredicate}
+	 *             
+	 */
+	public static <T> ParametrizedPredicate<Object> in(final str string){
+		return (new ParametrizedPredicate<Object>() {
+			public Boolean apply(Object stringOrChar) {
+				try{
+					return x.String((char)stringOrChar).in((str)params.get(0));
+				}catch(Exception e0){
+					try{
+						return x.String((Character)stringOrChar).in((str)params.get(0));
+					}catch(Exception e1){
+						try{
+							return x.String((String)stringOrChar).in((str)params.get(0));
+						}catch(Exception e2){
+							throw new IllegalArgumentException("Could not intepret the input value as a character ort a string");
+						}
+					}
+				}
+			}
+		}).params(string);
 	}
 	
 	/**
@@ -1949,6 +2058,8 @@ public class x {
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3)+" "+(object4==null?"NullType":object4)+" "+(object5==null?"NullType":object5)+" "+(object6==null?"NullType":object6)+" "+(object7==null?"NullType":object7)+" "+(object8==null?"NullType":object8));
 	}
 
+	public static strStatic str = new strStatic();
+	
 	public static str strOf(){
 		return new str();
 	}
@@ -2059,38 +2170,23 @@ public class x {
 	    return string;
 	}
 	
-	public static Function<Object, Object> escape = new Function<Object, Object>() {
-		public String apply(Object string) {
-			return escape((String)string);
-		}
-	};
+	public static Function<Object, String> escape = x.String.escape;
 	
 	public static String escape(String string){
-		return x.Regex("([\\[\\]/{}()*+?.\\\\^$\\|-])").sub("\\\\$1", string);
+		return x.String.escape(string);
 	}
 	
-	public static Function<Object, Object> strip = new Function<Object, Object>() {
-		public String apply(Object string) {
-			return ((String)string).trim();
-		}
-	};
-	public static Function<Object, Object> trim = strip;
+	public static Function<Object, String> strip = x.String.strip;
 	
-	public static Function<Object, String> toLowerCase = new Function<Object, String>() {
-		public String apply(Object string) {
-			String realString = string.toString();
-			return realString.toLowerCase();
-		}
-	};
-	public static Function<Object, String> lower = toLowerCase;
+	public static Function<Object, String> trim = x.String.strip;
 	
-	public static Function<Object, String> toUpperCase = new Function<Object, String>() {
-		public String apply(Object string) {
-			String realString = string.toString();
-			return realString.toUpperCase();
-		}
-	};
-	public static Function<Object, String> upper = toUpperCase;
+	public static Function<Object, String> toLowerCase = x.String.toLowerCase;
+	
+	public static Function<Object, String> lower = x.String.toLowerCase;
+	
+	public static Function<Object, String> toUpperCase = x.String.toUpperCase;
+	
+	public static Function<Object, String> upper = x.String.toUpperCase;
 	
 	public static Function<Object, Integer> len = new Function<Object, Integer>() {
 		public Integer apply(Object value) {
