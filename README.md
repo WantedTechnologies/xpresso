@@ -469,7 +469,7 @@ x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) a
 #### Print anything
 
 ```
-x.print("Hello World", 1, true, x.list(1,2,3), null);
+x.print("Hello World", 1, true, x.list(1, 2, 3), null);
 
 Console: Hello World
 1
