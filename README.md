@@ -459,4 +459,4 @@ Console:
 * invert dict: ```dict.inverted();```
 * flatten list: ```list.flattened();```
 * modify list using slicing: ```trips.setAt(3,5).values(x.listOf(1,2,3,4,5));```
-* and more (see the javadoc comments in ![Mockup for feature A](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java)
+* and more (see the [javadoc comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java))
