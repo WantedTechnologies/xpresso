@@ -178,9 +178,31 @@ for (String longWord re.findAll("\\b\\w{10,}\\b",text))
 ```
 
 #### Replace with a function
- 
+
+Python:
+```
+text = re.sub("\b\w{10,}\b",toUpperCaseFun,text)
+```
+
+xpresso:
+```
+text = Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
+```
+
 #### Replace with a dict
-  
+
+Python:
+```
+not available
+```
+
+xpresso:
+```
+dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
+
+text = Regex(replacer).sub(text);
+```
+
  * lambda expressions
  
  * standard Python type clones: str, set, dict, list, tuple, DefaultDict, OrderedDict, Bag (similar to Python's Counter)
