@@ -30,8 +30,7 @@ Console: New
 for(String character : city)
     x.print(character);
 
-Console:
-N
+Console: N
 e
 w
 
@@ -355,8 +354,7 @@ for (String letter : x.cycle(x.str("ABC"))){
     x.print(letter);
 }
 
-Console:
-A
+Console: A
 B
 C
 A
@@ -373,8 +371,7 @@ for (String letter : x.cycle(x.list("hello","world"),3)){
     x.print(letter);
 }
 
-Console:
-hello
+Console: hello
 world
 hello
 world
@@ -388,8 +385,7 @@ for (String word : x.repeat("cool")){
     x.print(word);
 }
 
-Console:
-cool
+Console: cool
 cool
 cool
 cool
@@ -401,8 +397,7 @@ for (String word : x.repeat("cool"),3){
     x.print(word);
 }
 
-Console:
-cool
+Console: cool
 cool
 cool
 ```
@@ -412,8 +407,7 @@ for (Integer index : x.countTo(3)){
     x.print(index);
 }
 
-Console:
-0
+Console: 0
 1
 2
 ```
@@ -423,8 +417,7 @@ for (Integer index : x.countFrom(10)){
     x.print(index);
 }
 
-Console:
-10
+Console: 10
 11
 12
 13
@@ -436,8 +429,7 @@ for (Integer index : x.count(3,10)){
     x.print(index);
 }
 
-Console:
-3
+Console: 3
 4
 5
 6
@@ -451,8 +443,7 @@ for (Integer index : x.count(3,10,3)){
     x.print(index);
 }
 
-Console:
-3
+Console: 3
 6
 9
 ```
@@ -464,8 +455,7 @@ x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) a
 ```
 x.print("Hello World", 1, true, x.list(1,2,3), null);
 
-Console:
-Hello World
+Console: Hello World
 1
 true
 [1, 2, 3]
