@@ -5,6 +5,17 @@ xpresso allows a line-into-line rewrite of a Python code into Java. It implement
 
 ## Main features
 
+#### Types similar to pythonic ones
+
+* str
+* set
+* dict
+* list
+* tuple
+* DefaultDict
+* OrderedDict
+* Bag
+
 #### One-line file open
  
 Python:
@@ -203,26 +214,84 @@ dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tu
 text = Regex(replacer).sub(text);
 ```
 
- * lambda expressions
- 
- * standard Python type clones: str, set, dict, list, tuple, DefaultDict, OrderedDict, Bag (similar to Python's Counter)
+#### Lambda expressions
+
+Python:
+```
+best_cities = reversed(sorted(item[0] for item in rank.items(),lambda x:x[0]))
+```
+
+xpresso:
+```
+bestCities = x.reversed(x.sorted(element(0).forElementIn(rank.items()),x.lambdaF("x:x[0]")));
+```
   
- * extended String functions (via x.String)
+#### Extended String functions
+
+Python:
+
+```
+if "e" in "Hello World":
+    ...
+```
+
+xpresso:
+
+```
+if(x.String("e").in("Hello World"))
+    ...
+```
+
+Python:
+
+```
+colorsPattern = "|".join(["black","green","red","white"]);
+print(colorsPattern)
+>>> black|green|red|white
+```
+
+xpresso:
+
+```
+String colorsPattern = x.String("|").join(x.list("black","green","red","white"));
+x.print(colorsPattern);
+
+Console: black|green|red|white
+```
+
+Python:
+
+```
+tokens = "Moscow;London;Paris".split(";")
+print(tokens)
+>>> ['Moscow', 'London', 'Paris']
+```
+
+xpresso:
+
+```
+list<String> tokens = x.String("Moscow;London;Paris").split(";");
+x.print(tokens);
+
+Console: [Moscow, London, Paris]
+```
+
+#### Slicer object
  
- * flattening list
+#### largest and smallest
+
+elements of an iterable (x.largestN, x.slmallestN)
  
- * list assignement via a slice
+#### n-grams
  
- * Slicer object
+#### Python itertools inspired methods
+
+* cycle
+* repeat
+* count
  
- * inverted dict
- 
- * largest and smallest elements of an iterable (x.largestN, x.slmallestN)
- 
- * n-grams
- 
- * str in String, x.String in String, str in str, x.String in str
- 
- * itertools clones: cycle, repeat, count (combining Python's itertools.count and range methods)
- 
- * and more
+#### More:
+* inverted dict
+* flattening list
+* list assignement via a slice
+* and more
