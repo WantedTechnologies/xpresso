@@ -20,10 +20,9 @@
  * SOFTWARE.
  */
 
-package com.wantedtech.common.xpresso.types.HappyString;
+package com.wantedtech.common.xpresso;
 
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -37,7 +36,7 @@ import com.wantedtech.common.xpresso.regex.Match;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.str.str;
+import com.wantedtech.common.xpresso.types.str;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 import com.wantedtech.common.xpresso.x;
 
@@ -127,20 +126,6 @@ public class HappyString {
 		return split(" ");
 	}
 	
-	public String stripAccents(){
-	    String newValue = Normalizer.normalize(value, Normalizer.Form.NFD);
-	    newValue = newValue.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-	    return newValue;
-	}
-	
-	public int count(String substring){
-		return x.len(x.Regex(substring).searchAll(value));
-	}
-	
-	public int count(char character){
-		return count(String.valueOf(character));
-	}
-	
 	@SuppressWarnings("unchecked")
 	public String translated(list<tuple> fromTo){
 		String translatedString = "";
@@ -162,14 +147,6 @@ public class HappyString {
 		return translatedString;
 	}
 
-	public String asTitle(){
-		return x.String("").join(x.element().transformWith(x.String.capitalized).forElementIn(this.split()));
-	}
-	
-	public String capitalized(){
-		return Character.toUpperCase(this.toString().charAt(0)) + this.toString().substring(1);
-	}
-	
 	public boolean in(String... elements){
 		list<String> lst = x.listOf(elements);
 		return lst.contains(this.value);

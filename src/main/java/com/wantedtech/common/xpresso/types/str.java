@@ -1,11 +1,11 @@
-package com.wantedtech.common.xpresso.types.str;
+package com.wantedtech.common.xpresso.types;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.IOException;
+import java.lang.IllegalArgumentException;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 
 public class str extends list<String> implements Iterable<String>{
@@ -138,22 +138,26 @@ public class str extends list<String> implements Iterable<String>{
 		return constructor;
 	}
 
-	public str stripAccents(){
-		return x.str(x.String(this).stripAccents());
-	}
-	
 	public int count(String character){
-		return x.String(this).count(character);
+		if (character.length() == 0 || character.length() > 1){
+			throw new IllegalArgumentException();
+		}
+		int counter = 0;
+		for(String element: list){
+			if((element).equals(character)){
+				counter++;
+			}	
+		}
+		return counter;
 	}
 	
 	public int count(char character){
-		return x.String(this).count(character);
+		return count(String.valueOf(character));
 	}
 	
 	public str toUpperCase(){
 		return x.strOf(this.list.toString().toUpperCase());
 	}
-	
 	public str upper(){
 		return toUpperCase();
 	}
@@ -161,42 +165,26 @@ public class str extends list<String> implements Iterable<String>{
 	public str toLowerCase(){
 		return x.str(this.toString().toLowerCase());
 	}
-	
 	public str lower(){
 		return x.str(this.toString().toLowerCase());
 	}
 	
-	public str strip(){
+	public str trim(){
 		return x.str(this.toString().trim());
 	}
-	
-	public str strip(String chars){
+	public str strip(){
+		return trim();
+	}
+	public str trim(String chars){
 		return x.str(toString().replaceAll("^["+chars+"]+", "").replaceAll("["+chars+"]+$", ""));
 	}
-	
-	public str trim(){
-		return strip();
-	}
-	
-	public str trim(str chars){
-		return trim(chars);
-	}
-	
-	public str trim(String chars){
+	public str strip(String chars){
 		return trim(chars);
 	}
 	
 	public str translated(list<tuple> fromTo){
 		list<tuple> fromToAsStrings = x.list(x.element(0, 1).transformWith(x.joinOn(""), x.joinOn("")).forElementIn(fromTo));
 		return x.str(x.String(this).translated(fromToAsStrings));
-	}
-	
-	public str asTitle(){
-		return x.str("").join(x.element().transformWith(x.String.capitalized).forElementIn(this.split()));
-	}
-	
-	public str capitalized(){
-		return x.str(Character.toUpperCase(this.toString().charAt(0)) + this.toString().substring(1));
 	}
 	
 	public boolean notEquals(String string){

@@ -14,7 +14,7 @@ import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.Bag;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.str.str;
+import com.wantedtech.common.xpresso.types.str;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 import com.wantedtech.common.xpresso.types.tuple.tuple2;
 
@@ -125,7 +125,7 @@ public class Test {
 			
 			x.print(x.Regex("(?<name1>a)|(?<name2>b)").search("mama").group(1));
 			
-			list<String> flatten = lst6.flattened(String.class);
+			list<String> flatten = lst6.flatten(String.class);
 			
 			x.print(flatten); 
 			

@@ -315,13 +315,13 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
     }
 
 	
-	public <E> list<E> flattened(Class<E> classOfelements){
+	public <E> list<E> flatten(Class<E> classOfelements){
 		list<E> result = x.list();
 		for(T element : this){
 			if(element instanceof list<?>){
-				result.extend(((list<?>)element).<E>flattened(classOfelements));
+				result.extend(((list<?>)element).<E>flatten(classOfelements));
 			}else if(element instanceof Iterable<?>){
-					result.extend((x.list((Iterable<?>)element)).<E>flattened(classOfelements));
+					result.extend((x.list((Iterable<?>)element)).<E>flatten(classOfelements));
 			}else{	
 				result.append(classOfelements.cast(element));
 			}

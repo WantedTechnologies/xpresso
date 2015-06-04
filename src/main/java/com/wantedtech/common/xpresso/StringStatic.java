@@ -1,104 +1,8 @@
-package com.wantedtech.common.xpresso.types.HappyString;
+package com.wantedtech.common.xpresso;
 
 import java.util.Locale;
 
-import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.x.ParametrizedFunction;
-
-public class HappyStringStatic {
-	
-	public static ParametrizedFunction<Object,Integer> count(String substring){
-		return (new ParametrizedFunction<Object,Integer>() {
-			public Integer apply(Object string) {
-				try{
-					return x.String((String)string).count((String)this.params.get(0));	
-				}catch(Exception e){
-					throw new IllegalArgumentException("Could not interpret the input object as a String.");
-				}
-			}
-		}).params(substring);
-	}
-	
-	public static ParametrizedFunction<Object,Integer> count(char character){
-		return (new ParametrizedFunction<Object,Integer>() {
-			public Integer apply(Object string) {
-				try{
-					return x.String(((String)string)).count((char)this.params.get(0));	
-				}catch(Exception e){
-					throw new IllegalArgumentException("Could not interpret the input object as a char.");
-				}
-			}
-		}).params(character);
-	}
-	
-	public String stripAccents(String string){
-		return x.String(string).stripAccents();
-	}
-	public Function<Object, String> stripAccents = new Function<Object, String>() {
-		public String apply(Object string) {
-			return stripAccents((String)string);
-		}
-	};
-	
-	public String escape(String string){
-		return x.Regex("([\\[\\]/{}()*+?.\\\\^$\\|-])").sub("\\\\$1", string);
-	}
-	public Function<Object, String> escape = new Function<Object, String>() {
-		public String apply(Object string) {
-			return escape((String)string);
-		}
-	};
-	
-	public Function<Object, String> strip = new Function<Object, String>() {
-		public String apply(Object string) {
-			return ((String)string).trim();
-		}
-	};
-	
-	public Function<Object, String> trim = strip;
-
-	public String toLowerCase(String string){
-		return string.toLowerCase();
-	}
-	public Function<Object, String> toLowerCase = new Function<Object, String>() {
-		public String apply(Object string) {
-			String realString = string.toString();
-			return realString.toLowerCase();
-		}
-	};
-
-	public Function<Object, String> lower = toLowerCase;
-	
-	public Function<Object, String> toUpperCase = new Function<Object, String>() {
-		public String apply(Object string) {
-			String realString = string.toString();
-			return realString.toUpperCase();
-		}
-	};
-	
-	public Function<Object, String> upper = toUpperCase;
-	
-	public String capitalized(String string){
-		return x.String(string.toString()).capitalized();
-	}
-	public Function<Object, String> capitalized = new Function<Object, String>() {
-		public String apply(Object string) {
-			return x.String(string.toString()).capitalized();
-		}
-	};
-	
-	public String asTitle(String string){
-		return x.String(string.toString()).asTitle();
-	}
-	public Function<Object, String> asTitle = new Function<Object, String>() {
-		public String apply(Object string) {
-			return x.String(string.toString()).asTitle();
-		}
-	};
-	
-	public Function<Object, Integer> len = x.len;
-	
+public class StringStatic {
     /**
      * Returns a formatted string using the specified format string and
      * arguments.
@@ -137,7 +41,7 @@ public class HappyStringStatic {
      * @see  java.util.Formatter
      * @since  1.5
      */
-    public String format(String format, Object... args) {
+    public static String format(String format, Object... args) {
     	return String.format(format, args);
     }
 
@@ -181,7 +85,7 @@ public class HappyStringStatic {
      * @see  java.util.Formatter
      * @since  1.5
      */
-    public String format(Locale l, String format, Object... args) {
+    public static String format(Locale l, String format, Object... args) {
     	return String.format(l, format, args);
     }
 
@@ -194,7 +98,7 @@ public class HappyStringStatic {
      *          <code>obj.toString()</code> is returned.
      * @see     java.lang.Object#toString()
      */
-    public String valueOf(Object obj) {
+    public static String valueOf(Object obj) {
     	return String.valueOf(obj);
     }
 
@@ -208,7 +112,7 @@ public class HappyStringStatic {
      * @return  a newly allocated string representing the same sequence of
      *          characters contained in the character array argument.
      */
-    public String valueOf(char data[]) {
+    public static String valueOf(char data[]) {
     	return String.valueOf(data);
     }
 
@@ -233,7 +137,7 @@ public class HappyStringStatic {
      *          <code>offset+count</code> is larger than
      *          <code>data.length</code>.
      */
-    public String valueOf(char data[], int offset, int count) {
+    public static String valueOf(char data[], int offset, int count) {
     	return String.valueOf(data, offset, count);
     }
 
@@ -247,7 +151,7 @@ public class HappyStringStatic {
      * @return  a <code>String</code> that contains the characters of the
      *          specified subarray of the character array.
      */
-    public String copyValueOf(char data[], int offset, int count) {
+    public static String copyValueOf(char data[], int offset, int count) {
         // All public String constructors now copy the data.
     	return String.copyValueOf(data, offset, count);
     }
@@ -260,7 +164,7 @@ public class HappyStringStatic {
      * @return  a <code>String</code> that contains the characters of the
      *          character array.
      */
-    public String copyValueOf(char data[]) {
+    public static String copyValueOf(char data[]) {
     	return String.copyValueOf(data);
     }
 
@@ -272,7 +176,7 @@ public class HappyStringStatic {
      *          <code>"true"</code> is returned; otherwise, a string equal to
      *          <code>"false"</code> is returned.
      */
-    public String valueOf(boolean b) {
+    public static String valueOf(boolean b) {
     	return String.valueOf(b);
     }
 
@@ -284,7 +188,7 @@ public class HappyStringStatic {
      * @return  a string of length <code>1</code> containing
      *          as its single character the argument <code>c</code>.
      */
-    public String valueOf(char c) {
+    public static String valueOf(char c) {
     	return String.valueOf(c);
     }
 
@@ -298,7 +202,7 @@ public class HappyStringStatic {
      * @return  a string representation of the <code>int</code> argument.
      * @see     java.lang.Integer#toString(int, int)
      */
-    public String valueOf(int i) {
+    public static String valueOf(int i) {
         return Integer.toString(i);
     }
 
@@ -312,7 +216,7 @@ public class HappyStringStatic {
      * @return  a string representation of the <code>long</code> argument.
      * @see     java.lang.Long#toString(long)
      */
-    public String valueOf(long l) {
+    public static String valueOf(long l) {
         return Long.toString(l);
     }
 
@@ -326,7 +230,7 @@ public class HappyStringStatic {
      * @return  a string representation of the <code>float</code> argument.
      * @see     java.lang.Float#toString(float)
      */
-    public String valueOf(float f) {
+    public static String valueOf(float f) {
         return Float.toString(f);
     }
 
@@ -340,7 +244,7 @@ public class HappyStringStatic {
      * @return  a  string representation of the <code>double</code> argument.
      * @see     java.lang.Double#toString(double)
      */
-    public String valueOf(double d) {
+    public static String valueOf(double d) {
         return Double.toString(d);
     }
 }
