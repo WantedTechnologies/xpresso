@@ -233,7 +233,7 @@ for long_word_match re.finditer("\b\w{10,}\b",text):
 xpresso:
 ```
 for (Match longWordMatch re.searchIter("\\b\\w{10,}\\b",text))
-    x.print(longWordMatch);
+    x.print(longWordMatch.group(0));
 ```
 
 Python:
