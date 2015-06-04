@@ -332,6 +332,15 @@ Console: [Saint-Petersbourg, San Francisco]
 ```
  
 #### n-grams
+
+```
+str phrase = "If you want something done right, you have to do it yourself."
+list<str> tokens = phrase.split();
+list<list<str>> ngrams = tokens.ngrams(3);
+x.print(ngrams);
+
+Console: [[If, you, want], [you, want, something], [something, done, right]..., [do, it, yourself.]]
+```
  
 #### Python itertools inspired methods
 
