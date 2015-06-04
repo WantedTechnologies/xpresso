@@ -5,7 +5,7 @@ Xpresso allows a line-into-line rewrite of a Python code into Java. It implement
 
 ## Main features
 
- * **One-line file open** for write/read/append in both text and binary mode:
+#### One-line file open
  
 Python:
 
@@ -18,30 +18,91 @@ xpresso:
  ```
  HappyFile f = x.open("name.txt","r","utf-8");
  ```
- 
- * **List comprehensions:**
+
+Works for write/read/append in both text and binary mode.
+
+#### Iterable file
+
+Python:
+
+ ```
+ for line in f: print line
+ ```
+
+xpresso:
+
+ ```
+ for (String line : f) x.print(line);
+ ```
+
+#### Neat standard object creation
 
 Python:
 
 ```
-list1 = [element.upper() for element in list0 if element not in set0];
+trips = ["New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
+
+russian_cities = set(["Moscow","Saint-Petersburg"])
+
+rank = dict(("Moscow":"30"),("Saint-Petersburg":15),("New York":20),("London":10),("Paris":5)])
+
+```
+
+xpresso
+
+```
+list<String> trips = x.list("New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
+
+set<String> russianCities = x.set("Moscow","Saint-Petersburg")
+
+dict<Integer> rank = x.dict(x.tuple("Moscow":"30"),x.tuple("Saint-Petersburg":15),x.tuple("New York":20),x.tuple("London":10),x.tuple("Paris":5)])
+```
+
+#### List comprehensions
+
+Python:
+
+```
+foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities];
 ```
 
 xpresso:
 
 ```
-list<String> list1 = x.list(x.element().transformWith(x.upper).forElementIn(list0).ifElementNot(x.in(set0)));
+list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
 ```
  
- * iterable file: for(String line : f0)) {x.print(line);}
+#### Pythonic iterable dict
+
+Python:
+
+```
+for city in rank print rank[city]
+```
+
+xpresso:
+
+```
+for (String city : rank) x.print(rank.get(city));
+```
+
+#### Pythonic tuples
+
+Python:
+
+```
+my_car = ("Honda", "red", 2010, True)
+```
+
+xpresso:
+
+```
+tuple myCar = x.tuple("Honda", "red", 2010, true);
+```
+
+#### Slicing for list, String, and str
  
- * iterable dict: for(String key : dict0) {x.print(dict0.get(key));}
-
- * fast list, set and tuple definition by simply providing member values: tuple tuple0 = x.tupleOf("Hello",1,true);
-
- * fast dict definition from a list of tuples: dict\<String\> dict0 = x.dictOf(x.tupleOf("key0","value0"),x.tupleOf("key1","value1"),...);
-
- * slicing for list, strings (via x.String), and str (negative steps are supported)
+Negative steps are supported.
  
  * Regex with function and dict as a replacement
  
