@@ -16,7 +16,7 @@ Python:
 xpresso:
 
  ```
- HappyFile f0 = x.open("name.txt","r","utf-8");
+ HappyFile f = x.open("name.txt","r","utf-8");
  ```
  
  * **List comprehensions:**
