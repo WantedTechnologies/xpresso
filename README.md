@@ -5,8 +5,10 @@ Xpresso allows a line-into-line rewrite of a Python code into Java. It implement
 
 Main features:
 
- * one-line file open for write/read/append in text and binary mode (HappyFile): HappyFile f0 = x.open("name.txt","r","utf-8");
-
+ * one-line file open for write/read/append in text and binary mode (HappyFile):
+ ```
+ HappyFile f0 = x.open("name.txt","r","utf-8");
+ ```
  * list comprehensions: list\<String\> list1 = x.list(x.scalar().transformWith(x.upper).forScalarIn(list0).ifNotScalar(x.in(set0)));
  
  * iterable file: for(String line : f0)) {x.print(line);}
