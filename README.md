@@ -77,7 +77,7 @@ list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forEl
 Python:
 
 ```
-for city in rank print rank[city]
+for city in rank: print rank[city]
 ```
 
 xpresso:
