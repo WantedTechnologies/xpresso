@@ -14,9 +14,9 @@ Licence: [MIT] (https://en.wikipedia.org/wiki/MIT_License)
 * dict
 * list
 * tuple
-* DefaultDict (in Python: defaultdict)
-* OrderedDict (in Python: OrderedDict)
-* Bag (in Python: Count)
+* DefaultDict (in Python: collections.defaultdict)
+* OrderedDict (in Python: collections.OrderedDict)
+* Bag (in Python: collections.Counter)
 
 #### Slicable and iterable **str** type
 
