@@ -3,7 +3,7 @@ The pythonic way to code in Java.
 
 xpresso allows a line-into-line rewrite of a Python code into Java. It's also a great way to prototype your algorithms directly in Java instead of using less verbose languages, such as Python or Ruby. It implements, in Java, familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
-Less boilerplate, more pleasure, more work done.
+Less boilerplate, more fun, more work done.
 
 License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
 
