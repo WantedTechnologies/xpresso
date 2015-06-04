@@ -16,7 +16,7 @@ xpresso allows a line-into-line rewrite of a Python code into Java. It implement
 * OrderedDict
 * Bag
 
-#### Slicable and iterable str type
+#### Slicable and iterable **str** type
 
 ```
 str city = x.str("New York");
