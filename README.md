@@ -1,7 +1,7 @@
 # xpresso
 The most pythonic way to code in Java.
 
-Xpresso allows a line-into-line rewrite of a Python code into Java. It implements in Java familiar pythonic methods (e.g., len, enumerate, range, split/join) and coding paradigms (everything is iterable, list comprehensions, lambda expressions, filtering iterables using predicates and modifying them using functions).
+**x**presso allows a line-into-line rewrite of a Python code into Java. It implements in Java familiar pythonic methods (e.g., len, enumerate, range, split/join) and coding paradigms (everything is iterable, list comprehensions, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
 ## Main features
 
@@ -13,7 +13,7 @@ Python:
  f = open("name.txt","r","utf-8");
  ```
 
-xpresso:
+**x**presso:
 
  ```
  HappyFile f = x.open("name.txt","r","utf-8");
@@ -29,7 +29,7 @@ Python:
  for line in f: print line
  ```
 
-xpresso:
+**x**presso:
 
  ```
  for (String line : f) x.print(line);
@@ -48,7 +48,7 @@ rank = dict(("Moscow":"30"),("Saint-Petersburg":15),("New York":20),("London":10
 
 ```
 
-xpresso
+**x**presso
 
 ```
 list<String> trips = x.list("New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
@@ -66,7 +66,7 @@ Python:
 foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities];
 ```
 
-xpresso:
+**x**presso:
 
 ```
 list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
@@ -80,7 +80,7 @@ Python:
 for city in rank: print rank[city]
 ```
 
-xpresso:
+**x**presso:
 
 ```
 for (String city : rank) x.print(rank.get(city));
@@ -94,7 +94,7 @@ Python:
 my_car = ("Honda", "red", 2010, True)
 ```
 
-xpresso:
+**x**presso:
 
 ```
 tuple myCar = x.tuple("Honda", "red", 2010, true);
