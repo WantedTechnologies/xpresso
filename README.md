@@ -92,9 +92,9 @@ xpresso
 ```
 list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
 
-set<String> russianCities = x.set("Moscow","Saint-Petersburg")
+set<String> russianCities = x.set("Moscow","Saint-Petersburg");
 
-dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",5))
+dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",5));
 ```
 
 #### List comprehensions
@@ -102,7 +102,7 @@ dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),
 Python:
 
 ```
-foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities];
+foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities]
 ```
 
 xpresso:
@@ -114,7 +114,7 @@ list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forEl
 Python:
 
 ```
-new_list = [element.upper() if element[0] == "a" else element.lower() for element in old_list if element[0] not in ["x", "y", "z"]];
+new_list = [element.upper() if element[0] == "a" else element.lower() for element in old_list if element[0] not in ["x", "y", "z"]]
 ```
 
 xpresso:
@@ -229,7 +229,7 @@ for long_word_match re.finditer("\b\w{10,}\b",text):
 xpresso:
 ```
 for (Match longWordMatch re.searchIter("\\b\\w{10,}\\b",text))
-    x.print(longWordMatch)
+    x.print(longWordMatch);
 ```
 
 Python:
@@ -241,7 +241,7 @@ for long_word re.findall("\b\w{10,}\b",text):
 xpresso:
 ```
 for (String longWord re.findAll("\\b\\w{10,}\\b",text))
-    x.print(longWord)
+    x.print(longWord);
 ```
 
 #### Replace with a function
