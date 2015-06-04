@@ -12,9 +12,9 @@ xpresso allows a line-into-line rewrite of a Python code into Java. It implement
 * dict
 * list
 * tuple
-* DefaultDict
-* OrderedDict
-* Bag
+* DefaultDict (in Python: defaultdict)
+* OrderedDict (in Python: OrderedDict)
+* Bag (in Python: Count)
 
 #### Slicable and iterable **str** type
 
