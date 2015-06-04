@@ -160,7 +160,7 @@ print trips[:5]
 ```
 
 ```
-x.print(trips.sliceTo(4));
+x.print(trips.sliceTo(5));
 
 Console: [Dubai, New York, London, Paris, Moscow]
 ```
@@ -273,14 +273,14 @@ Python:
 
 ```
 if "e" in "Hello World":
-    do stuff
+    #do stuff
 ```
 
 xpresso:
 
 ```
 if(x.String("e").in("Hello World"))
-    do stuff
+    //do stuff
 ```
 
 Python:
@@ -344,14 +344,119 @@ x.print(ngrams);
 Console: [[If, you, want], [you, want, something], [something, done, right]..., [do, it, yourself.]]
 ```
  
-#### Methods inspired from Python's itertools
+#### Built-in iterators
 
 * cycle
+
+```
+for (String letter : x.cycle(x.str("ABC"))){
+    x.print(letter);
+}
+
+Console:
+A
+B
+C
+A
+B
+C
+A
+B
+C
+...
+```
+
+```
+for (String letter : x.cycle(x.list("hello","world"),3)){
+    x.print(letter);
+}
+
+Console:
+hello
+world
+hello
+world
+hello
+world
+```
 * repeat
+
+```
+for (String word : x.repeat("cool")){
+    x.print(word);
+}
+
+Console:
+cool
+cool
+cool
+cool
+...
+```
+
+```
+for (String word : x.repeat("cool"),3){
+    x.print(word);
+}
+
+Console:
+cool
+cool
+cool
+```
 * count
- 
+```
+for (Integer index : x.countTo(3)){
+    x.print(index);
+}
+
+Console:
+0
+1
+2
+```
+
+```
+for (Integer index : x.countFrom(10)){
+    x.print(index);
+}
+
+Console:
+10
+11
+12
+13
+...
+```
+
+```
+for (Integer index : x.count(3,10)){
+    x.print(index);
+}
+
+Console:
+3
+4
+5
+6
+7
+8
+9
+```
+
+```
+for (Integer index : x.count(3,10,3)){
+    x.print(index);
+}
+
+Console:
+3
+6
+9
+```
+
 #### More:
-* inverted dict
-* flattening list
-* list assignement via a slice
+* inverted dict: ```dict.inverted();```
+* flattening list: ```list.flattened();```
+* list assignement using slicing: ```trips.setAt(3,5).values(x.listOf(1,2,3,4,5));```
 * and more
