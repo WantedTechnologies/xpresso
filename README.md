@@ -16,6 +16,8 @@ import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.str.str;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 import com.wantedtech.common.xpresso.types.HappyFile;
+
+x.print("Hello World!");
 ```
 
 ## Main features
