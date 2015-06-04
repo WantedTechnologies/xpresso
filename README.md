@@ -108,7 +108,19 @@ xpresso:
 ```
 list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
 ```
- 
+
+Python:
+
+```
+new_list = [element.upper() if element[0] == "a" else element.lower() for element in old_list if element[0] not in ["x", "y", "z"]];
+```
+
+xpresso:
+
+```
+list<String> newList = [x.element().transformWith(x.upper).ifElement(x.LambdaP("x:x[0] == "a").elseTransfromWith(x.lower).forElementIn(oldList).ifElement(x.LabmdaP("x:x[0]",x.NOT(x.in(x.list("x", "y", "z")))));
+```
+
 #### Pythonic iterable dict
 
 Python:
