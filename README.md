@@ -455,8 +455,21 @@ Console:
 9
 ```
 
+#### Print anything
+
+```
+x.print("Hello World", 1, true, x.list(1,2,3), null);
+
+Console:
+Hello World
+1
+true
+[1, 2, 3]
+NullType
+```
+
 #### More:
 * invert dict: ```dict.inverted();```
 * flatten list: ```list.flattened();```
 * modify list using slicing: ```trips.setAt(3,5).values(x.listOf(1,2,3,4,5));```
-* and more (see the [javadoc comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java))
+* for more see the [comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java).
