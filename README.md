@@ -16,6 +16,31 @@ xpresso allows a line-into-line rewrite of a Python code into Java. It implement
 * OrderedDict
 * Bag
 
+#### Slicable and iterable str type
+
+```
+str city = x.str("New York");
+
+x.print(city.sliceTo(3));
+
+Console: New
+```
+
+```
+for(String character : city)
+    x.print(character);
+
+Console:
+N
+e
+w
+
+Y
+o
+r
+k
+```
+
 #### One-line file open
  
 Python:
@@ -122,6 +147,7 @@ print trips[2:4]
 
 ```
 xprint(trips.slice(2,4));
+
 Console: ["London","Paris"]
 ```
 
@@ -133,6 +159,7 @@ print trips[:5]
 
 ```
 x.print(trips.sliceTo(4));
+
 Console: ["Dubai","New York","London","Paris","Moscow"]
 ```
 
@@ -147,6 +174,7 @@ print trips[::-1]
 xpresso:
 ```
 x.print(trips.slice(-1));
+
 Console: ["New York", "Saint-Petersburg", "London", "Moscow", "Paris", "London", "New York", "Dubai"]
 ```
 
@@ -159,7 +187,18 @@ print trips[::2]
 xpresso:
 ```
 x.print(trips.slice(2));
+
 Console: ["Dubai","London","Moscow","Saint-Petersburg"]
+```
+
+#### Slice object
+
+```
+
+Slice LAST_THREE = x.sliceFrom(-3);
+x.print(x.String("tic tac toe").sclice(LAST_THREE));
+
+Console: toe
 ```
 
 #### Iterable Regex search results
@@ -275,12 +314,22 @@ x.print(tokens);
 
 Console: [Moscow, London, Paris]
 ```
-
-#### Slicer object
  
 #### largest and smallest
 
-elements of an iterable (x.largestN, x.slmallestN)
+```
+list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
+x.print(cities.smallestN(2));
+
+Console: [Rome, Moscow]
+```
+
+```
+list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
+x.print(cities.largestN(2));
+
+Console: [Saint-Petersbourg, San Francisco]
+```
  
 #### n-grams
  
