@@ -241,6 +241,8 @@ xpresso:
 text = Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
 ```
 
+Regex.searchIter and Regex.searchAll replace Python's re.findIter and re.findAll.
+
 #### Replace with a dict
 
 Python:
@@ -454,6 +456,8 @@ Console:
 6
 9
 ```
+
+x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) and range(min, max, step).
 
 #### Print anything
 
