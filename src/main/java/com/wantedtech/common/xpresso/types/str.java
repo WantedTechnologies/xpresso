@@ -183,7 +183,7 @@ public class str extends list<String> implements Iterable<String>{
 	}
 	
 	public str translated(list<tuple> fromTo){
-		list<tuple> fromToAsStrings = x.list(x.tuple(0, 1).transformWith(x.joinOn(""), x.joinOn("")).forElementIn(fromTo));
+		list<tuple> fromToAsStrings = x.list(x.element(0, 1).transformWith(x.joinOn(""), x.joinOn("")).forElementIn(fromTo));
 		return x.str(x.String(this).translated(fromToAsStrings));
 	}
 	

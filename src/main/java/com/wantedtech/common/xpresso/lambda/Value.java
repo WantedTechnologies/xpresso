@@ -1,6 +1,9 @@
 package com.wantedtech.common.xpresso.lambda;
 
-public class Value {
+import com.wantedtech.common.xpresso.Lengthful;
+import com.wantedtech.common.xpresso.x;
+
+public class Value implements Lengthful {
 	public Object value;
 	public Value(Object value){
 		this.value = value;
@@ -47,7 +50,7 @@ public class Value {
 	public <T> Value lessorequals(Value value){
 		if(value.value instanceof Comparable){
 			if(this.value instanceof Comparable){
-				int result	= ((Comparable<T>)this.value).compareTo((T)value);
+				int result	= ((Comparable<T>)this.value).compareTo((T)value.value);
 				if (result <= 0){
 					return new Value(true);
 				}
@@ -141,5 +144,12 @@ public class Value {
 			return false;
 		}
 		return this.value.equals(((Value)anotherValue).value);
+	}
+	@Override
+	public int len(){
+		if(this.value instanceof Iterable<?>){
+			return x.len(((Iterable<?>)this.value));
+		}
+		return 0;
 	}
 }

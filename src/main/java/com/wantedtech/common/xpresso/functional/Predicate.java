@@ -29,7 +29,7 @@ package com.wantedtech.common.xpresso.functional;
  * @since 2.0 (imported from Google Collections Library)
  */
 
-public interface Predicate<T> {
+public interface Predicate<T> extends Function<T,Boolean> {
   /**
    * Returns the result of applying this predicate to {@code input}. This method is <i>generally
    * expected</i>, but not absolutely required, to have the following properties:

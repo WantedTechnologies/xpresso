@@ -113,7 +113,9 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 	
 	protected dict<T> put(String key, T value){
 		this.dict.put(key,value);
-		this.valueType = (Class<T>)(value.getClass());
+		if(value != null){
+			this.valueType = (Class<T>)(value.getClass());	
+		}
 		return this;
 	}
 	

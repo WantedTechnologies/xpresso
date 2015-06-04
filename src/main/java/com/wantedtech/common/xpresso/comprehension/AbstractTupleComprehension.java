@@ -11,15 +11,15 @@ import com.wantedtech.common.xpresso.types.tuple.tuple;
 public abstract class AbstractTupleComprehension implements Iterable<tuple>{
 
 	boolean before_for = true;
-	Function<Object,?> if_function_0 = x.doNothing();
-	Function<Object,?> else_function_0 = x.doNothing();
-	Function<Object,?> if_function_1 = x.doNothing();
-	Function<Object,?> else_function_1 = x.doNothing();
-	Function<Object,?> if_function_2 = x.doNothing();
-	Function<Object,?> else_function_2 = x.doNothing();
-	Function<Object,?> if_function_3 = x.doNothing();
-	Function<Object,?> else_function_3 = x.doNothing();
-	Predicate<Object> if_predicate = x.TRUE();
+	Function<Object,?> if_function_0 = x.doNothing;
+	Function<Object,?> else_function_0 = x.doNothing;
+	Function<Object,?> if_function_1 = x.doNothing;
+	Function<Object,?> else_function_1 = x.doNothing;
+	Function<Object,?> if_function_2 = x.doNothing;
+	Function<Object,?> else_function_2 = x.doNothing;
+	Function<Object,?> if_function_3 = x.doNothing;
+	Function<Object,?> else_function_3 = x.doNothing;
+	Predicate<Object> if_predicate = x.TRUE;
 	ArrayList<Object> original_elements = new ArrayList<Object>();
 	ArrayList<tuple> elements = new ArrayList<tuple>();
 	ArrayList<tuple> transformed_elements = new ArrayList<tuple>();

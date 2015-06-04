@@ -19,10 +19,10 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 
 	boolean isBeforeFor = true;
 			
-	Function<Object,O> ifFunction = x.<Object,O>chainOf(x.doNothing());
-	Function<Object,O> elseFunction = x.<Object,O>chainOf(x.doNothing());
-	Predicate<Object> filterPredicate = x.TRUE();
-	Predicate<Object> ifPredicate = x.TRUE();
+	Function<Object,O> ifFunction = x.<Object,O>chainOf(x.doNothing);
+	Function<Object,O> elseFunction = x.<Object,O>chainOf(x.doNothing);
+	Predicate<Object> filterPredicate = x.TRUE;
+	Predicate<Object> ifPredicate = x.TRUE;
 	
 	Iterable<O> transformedElements = list.<O>newArrayList();
 	Iterable<Object> originalElements = list.<Object>newArrayList();

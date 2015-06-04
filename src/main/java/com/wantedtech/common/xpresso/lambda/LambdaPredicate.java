@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 import org.antlr.v4.runtime.*;
 
+import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 
-public class LambdaPredicate<I> implements Predicate<Object>{
+public class LambdaPredicate implements Predicate<Object>{
 
 	String lambdaExpression;
-	Predicate<Object>[] predicates;
+	Function<Object,?>[] functions;
 	
 	@SafeVarargs
-	public LambdaPredicate(String lambdaExpression,Predicate<Object>... predicates){
+	public LambdaPredicate(String lambdaExpression,Function<Object,?>... functions){
 		this.lambdaExpression = lambdaExpression;
-		this.predicates = predicates;
+		this.functions = functions;
 	}
 	
 	public LambdaPredicate(String lambdaExpression){
@@ -43,7 +44,7 @@ public class LambdaPredicate<I> implements Predicate<Object>{
 			}
 		}
 		parser.inputValue = new Value(inputObj);
-		parser.inputPredicate = this.predicates;
+		parser.inputFunction = this.functions;
 		Object value = parser.eval().value.value;
 		return (boolean)value;
 	}	

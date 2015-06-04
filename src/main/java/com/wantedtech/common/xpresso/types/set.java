@@ -183,6 +183,15 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		return this.set.contains(value);
 	}
 	
+	public T get(T value){
+		if(this.set.contains(value)){
+			this.set.remove(value);
+			return value;
+		}else{
+			throw new IllegalArgumentException("No such element "+value.toString()+" in the set.");
+		}
+	}
+	
 	boolean isSubsetOf(set<T> anotherSet){
 		if(x.len(anotherSet) >= x.len(this) && x.len(this.minus(anotherSet)) == 0){
 			return true;
@@ -190,7 +199,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		return false;
 	}
 	
-	public set<T> add(T value){
+	public set<T> put(T value){
 		this.set.add(value);
 		return this;
 	}

@@ -8,7 +8,7 @@ import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 
-public class LambdaFunction<I,O> implements Function<Object,O>{
+public class LambdaFunction<O> implements Function<Object,O>{
 
 	String lambdaExpression;
 	Function<Object,?>[] functions;
