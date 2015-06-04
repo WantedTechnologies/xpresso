@@ -7,6 +7,15 @@ Less boilerplate, more pleasure, more work done.
 
 License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
 
+```
+import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.types.dict;
+import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.str.str;
+import com.wantedtech.common.xpresso.types.tuple.tuple;
+import com.wantedtech.common.xpresso.types.HappyFile;
+```
+
 ## Main features
 
 #### Types similar to pythonic ones
