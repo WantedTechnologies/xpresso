@@ -142,18 +142,44 @@ Console: ["New York", "Saint-Petersburg", "London", "Moscow", "Paris", "London",
 Python:
 ```
 print trips[::2]
->>> ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
+>>> ['Dubai','London','Moscow','Saint-Petersburg']
 ```
 
 xpresso:
 ```
-x.print(trips.slice(-1));
-Console: ['New York','London','Paris','Moscow']
+x.print(trips.slice(2));
+Console: ["Dubai","London","Moscow","Saint-Petersburg"]
 ```
 
- * Regex with function and dict as a replacement
+#### Iterable Regex search results
+
+Python:
+```
+for long_word_match re.finditer("\b\w{10,}\b",text):
+    print long_word_match.group(0)
+```
+
+xpresso:
+```
+for (Match longWordMatch re.searchIter("\\b\\w{10,}\\b",text))
+    x.print(longWordMatch)
+```
+
+Python:
+```
+for long_word re.findall("\b\w{10,}\b",text):
+    print long_word
+```
+
+xpresso:
+```
+for (String longWord re.findAll("\\b\\w{10,}\\b",text))
+    x.print(longWord)
+```
+
+#### Replace with a function
  
- * Iterable Regex search results (via searchIter and searchAll)
+#### Replace with a dict
   
  * lambda expressions
  
