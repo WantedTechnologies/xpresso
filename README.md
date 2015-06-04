@@ -44,7 +44,7 @@ trips = ["New York","London","Paris","Moscow","London","Saint-Petersburg","New Y
 
 russian_cities = set(["Moscow","Saint-Petersburg"])
 
-rank = dict(("Moscow":"30"),("Saint-Petersburg":15),("New York":20),("London":10),("Paris":5)])
+rank = dict(("Moscow":30),("Saint-Petersburg":15),("New York":20),("London":10),("Paris":5)])
 
 ```
 
@@ -55,7 +55,7 @@ list<String> trips = x.list("New York","London","Paris","Moscow","London","Saint
 
 set<String> russianCities = x.set("Moscow","Saint-Petersburg")
 
-dict<Integer> rank = x.dict(x.tuple("Moscow":"30"),x.tuple("Saint-Petersburg":15),x.tuple("New York":20),x.tuple("London":10),x.tuple("Paris":5)])
+dict<Integer> rank = x.dict(x.tuple("Moscow":30),x.tuple("Saint-Petersburg":15),x.tuple("New York":20),x.tuple("London":10),x.tuple("Paris":5)])
 ```
 
 #### List comprehensions
