@@ -7,6 +7,8 @@ Less boilerplate, more pleasure, more work done.
 
 License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
 
+## Usage
+
 ```
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.dict;
