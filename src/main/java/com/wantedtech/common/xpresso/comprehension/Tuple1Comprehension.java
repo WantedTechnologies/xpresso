@@ -29,15 +29,15 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 			tuple outputElement;
 			if(if_predicate.apply(element)){
 				if(element instanceof tuple){
-					outputElement = x.tupleOf(if_function_0.apply((((tuple)element).get(outputIndices[0]))));	
+					outputElement = x.tuple(if_function_0.apply((((tuple)element).get(outputIndices[0]))));	
 				}else{
-					outputElement = x.tupleOf(if_function_0.apply((((list<?>)element).get(outputIndices[0]))));
+					outputElement = x.tuple(if_function_0.apply((((list<?>)element).get(outputIndices[0]))));
 				}
 			}else{
 				if(element instanceof tuple){
-					outputElement = x.tupleOf(else_function_0.apply((((tuple)element).get(outputIndices[0]))));	
+					outputElement = x.tuple(else_function_0.apply((((tuple)element).get(outputIndices[0]))));	
 				}else{
-					outputElement = x.tupleOf(else_function_0.apply((((list<?>)element).get(outputIndices[0]))));
+					outputElement = x.tuple(else_function_0.apply((((list<?>)element).get(outputIndices[0]))));
 				}
 			}
 			original_elements.add(element);

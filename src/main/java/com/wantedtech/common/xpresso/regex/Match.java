@@ -13,9 +13,9 @@ public class Match implements Serializable {
 	private static final long serialVersionUID = -7977241631907730960L;
 	
 	int groupCount = 0;
-	list<String> groupStringsList = x.listOf();
-	list<Integer> groupStartsList = x.listOf();
-	list<Integer> groupEndsList = x.listOf();
+	list<String> groupStringsList = x.list();
+	list<Integer> groupStartsList = x.list();
+	list<Integer> groupEndsList = x.list();
 	dict<String> namedGroups = x.dictOf();
 	public Match(Matcher matcher){
 		for(Match groupNameMatch:x.Regex("\\(\\?<([^>]+)>").searchIter(matcher.pattern().toString())){

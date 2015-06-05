@@ -145,11 +145,11 @@ public class Regex implements Serializable{
 	
 	
 	public list<String> split(String string,int limit){
-		return x.listOf(pattern.split(string,limit));
+		return x.list(pattern.split(string,limit));
 	}
 	public list<str> split(str str,int limit){
-		list<String> listOfStrings = x.listOf(pattern.split(str.toString(),limit));
-		list<str> listOfStrs = x.<str>listOf();
+		list<String> listOfStrings = x.list(pattern.split(str.toString(),limit));
+		list<str> listOfStrs = x.<str>list();
 		for (String string : listOfStrings){
 			listOfStrs = listOfStrs.append(x.str(string));
 		}
@@ -164,7 +164,7 @@ public class Regex implements Serializable{
 	
 	public list<String> searchAll(String string){
 		Matcher m = pattern.matcher(string);
-		list<String> listOfStringMatches = x.listOf();
+		list<String> listOfStringMatches = x.list();
 		while (m.find()) {
 			listOfStringMatches = listOfStringMatches.append(m.group(0));
 		}
@@ -173,7 +173,7 @@ public class Regex implements Serializable{
 	public list<str> searchAll(str str){
 		String stringInput = str.toString();
 		list<String> lstStrings = searchAll(stringInput);
-		list<str> listStrs = x.<str>listOf();
+		list<str> listStrs = x.<str>list();
 		for (String string : lstStrings){
 			listStrs = listStrs.append(x.str(string));
 		}

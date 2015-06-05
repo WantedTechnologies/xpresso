@@ -151,7 +151,7 @@ public class str extends list<String> implements Iterable<String>{
 	}
 	
 	public str toUpperCase(){
-		return x.strOf(this.list.toString().toUpperCase());
+		return x.str(this.list.toString().toUpperCase());
 	}
 	
 	public str upper(){

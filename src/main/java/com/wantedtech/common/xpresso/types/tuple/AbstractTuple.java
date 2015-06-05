@@ -11,6 +11,10 @@ public abstract class AbstractTuple implements tuple {
 
     public abstract int size();
     
+    public int len(){
+    	return size();
+    }
+    
     public abstract <E> E get(int index, Class<E> elementClass);
     
     public int compareTo(tuple t){

@@ -6,7 +6,7 @@ import com.wantedtech.common.xpresso.x.ParametrizedFunction;
 
 public class strStatic {
 	
-	public str stripAccents(str value){
+	private str stripAccents(str value){
 	    return value.stripAccents();
 	}
 	public Function<Object, str> stripAccents = new Function<Object, str>() {
@@ -51,7 +51,7 @@ public class strStatic {
 		}).params(character);
 	}
 	
-	public str escape(str value){
+	private str escape(str value){
 		return x.str(x.String.escape(value.toString()));
 	}
 	public Function<Object, str> escape = new Function<Object, str>() {

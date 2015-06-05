@@ -23,13 +23,13 @@
 package com.wantedtech.common.xpresso;
 
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
 
@@ -54,6 +54,7 @@ import com.wantedtech.common.xpresso.types.HappyString.HappyStringStatic;
 import com.wantedtech.common.xpresso.types.str.str;
 import com.wantedtech.common.xpresso.types.str.strStatic;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
+import com.wantedtech.common.xpresso.types.tuple.tuple0;
 import com.wantedtech.common.xpresso.types.tuple.tuple1;
 import com.wantedtech.common.xpresso.types.tuple.tuple2;
 import com.wantedtech.common.xpresso.types.tuple.tuple3;
@@ -220,15 +221,245 @@ public class x {
 	
 	/**
 	 * For consistency, {@link x#String x.String} contains an instance of a utility
-	 * StringStatic object that implements some static methods
-	 * that a usual String class has as well.
+	 * {@link HappyStringStatic} object that implements some static methods
+	 * that a usual String class has as well plus some new Function and Predicate
+	 * objects that take {@link String} as input.
 	 * 
 	 * Example 1: String three = x.String.valueOf(3);
 	 *            x.print(three);
 	 *                   
 	 * Console:   3
+	 * 
+	 * Example 2: Function<Object,String> upperFun = x.String.upper;
+	 * 
 	 */
 	public static HappyStringStatic String = new HappyStringStatic();
+	
+	/**
+	 * {@link x#str str} contains an instance of a utility
+	 * {@link strStatic} object that implements some Function and Predicate
+	 * objects that take a {@link str} as input.
+	 * 
+	 * Example 1: Function<Object,str> upperFun = x.str.upper;
+	 * 
+	 */
+	public static strStatic str = new strStatic();
+	
+	/**
+	 * Factory method that creates a new empty {@link str} object.
+	 * 
+	 * Example 1: str newStr = x.str();
+	 * 
+	 * x.print(newStr);
+	 * 
+	 * Console:
+	 * 
+	 */
+	public static str str(){
+		return new str();
+	}
+	
+	/**
+	 * Factory method that creates a new {@link str} object
+	 * from the input {@link String} string.
+	 * 
+	 * Example 1: str newStr = x.str("I like xpresso!");
+	 * 
+	 * x.print(newStr.sliceFrom(7));
+	 * 
+	 * Console: xpresso!
+	 * 
+	 */
+	public static str str(String string){
+		return new str(string);
+	}
+	
+	/**
+	 * Factory method that creates a new {@link str} object
+	 * from the input {@link Iterable} of type {@link String}.
+	 * 
+	 * Example 1: str newStr = x.str(x.list("hello", " ", "world", "!"));
+	 * 
+	 * x.print(newStr);
+	 * 
+	 * Console: hello world!
+	 * 
+	 */
+	public static str str(Iterable<String> iterable){
+		return new str(x.String("").join(iterable));
+	}
+	
+	
+	/**
+	 * Factory method that creates a new {@link set} object
+	 * from the input {@link Iterable} iterable of type T. The elements
+	 * of the input iterable will become the members of the new set object.
+	 *  
+	 */
+	public static <T> set<T> set(Iterable<T> iterable){
+		set<T> constructor = new set<T>();
+		for (T element:iterable){
+			constructor.put(element);
+		}
+		return constructor;
+	}
+	
+	/**
+	 * Factory method that creates a new empty {@link set} object.
+	 *  
+	 */
+	public static <T> set<T> set(){
+		return new set<T>();
+	}
+	
+	/**
+	 * Factory method that creates a new {@link set} object
+	 * from all input elements of type T. The elements
+	 * of the input will become the members of the new set object.
+	 *  
+	 */
+	@SafeVarargs
+	public static <T> set<T> set(T element0, T element1, T... elements){
+		return new set<T>(set.newHashSet(elements)).put(element0).put(element1);
+	}
+	
+	/**
+	 * Factory method that creates a new {@link set} object
+	 * from the array of input elements of type T. The elements
+	 * of the input array will become the members of the new set object.
+	 *  
+	 */
+	public static <T> set<T> set(T[] elements){
+		return new set<T>(set.newHashSet(elements));
+	}
+	
+	/**
+	 * Factory method that creates a new {@link set} object
+	 * and puts into the set the input element.
+	 *  
+	 */
+	public static <T> set<T> setOf(T element){
+		return new set<T>().put(element);
+	}
+
+	/**
+	 * Factory method that creates a new empty {@link list} object.
+	 *  
+	 */
+	public static <T> list<T> list(){
+		return new list<T>();
+	}
+	
+	/**
+	 * Factory method that creates a new empty {@link list} object.
+	 *  
+	 */
+	public static <T> list<T> listOf(T element){
+		return (new list<T>()).append(element);
+	}
+	
+	/**
+	 * Factory method that creates a new {@link list} object
+	 * from the input {@link Iterable} iterable of type T. The elements
+	 * of the input iterable will become the members of the new list object.
+	 *  
+	 */
+	@SafeVarargs
+	public static <T> list<T> list(T element0, T element1, T... elements){
+		list<T> list = (new list<T>()).append(element0).append(element1);
+		for(T element : elements){
+			list.append(element);	
+		}
+		return list;
+	}
+	
+	/**
+	 * Factory method that creates a new {@link list} object
+	 * from the input array of type T.
+	 * 
+	 * The elements of the input array become the elements of new list.
+	 * 
+	 * The order of elements in the input array is preserved in the new list.
+	 *  
+	 */
+	public static <T> list<T> list(T[] values){ 
+		return new list<T>(list.newArrayList(values));
+	}
+	
+	/**
+	 * Factory method that creates a new {@link list} object
+	 * from the input {@link Iterable} iterable of type T.
+	 * 
+	 * The elements of the input iterable become the elements of new list.
+	 * 
+	 * The order of elements in the input iterable is preserved in the new list.
+	 *  
+	 */
+	public static <T> list<T> list(Iterable<T> iterable){ 
+		return new list<T>(iterable);
+	}
+	
+	/**
+	 * Factory method that starts a new scalar comprehension.
+	 * 
+	 * The difference of a scalar comprehension from a tuple comprehension 
+	 * is that scalar comprehension sees the elements of the input iterable
+	 * as scalars even if the latter are tuples, or iterables or other 
+	 * collection types.
+	 * 
+	 * Example 1, a list comprehension:
+	 * 
+	 * Python:
+	 * foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities]
+	 * 
+	 * xpresso:
+	 * 
+	 * list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
+	 * 
+	 */
+	public static <O> ScalarComprehensionStart<O> element(){
+		return ComprehensionFactory.scalar();
+	}
+	
+	/**
+	 * Factory method that starts a new tuple comprehension.
+	 * 
+	 * The difference of a scalar comprehension from a tuple comprehension 
+	 * is that tuple comprehension sees the elements of the input iterable
+	 * as tuples, or iterables or other, collection types.
+	 * 
+	 * Example 1, a list comprehension:
+	 * 
+	 * Python:
+	 * list1 = [element[1].lower() for element in list0]
+	 * 
+	 * xpresso:
+	 * list<tuple> list1 = x.list(x.element(1).transformWith(x.lower).forElementIn(list0));
+	 * 
+	 */
+	public static Tuple1ComprehensionStart element(int index0) {
+        return ComprehensionFactory.tuple(index0);
+    }
+	
+	/**
+	 * Factory method that starts a new tuple comprehension.
+	 * 
+	 * The difference of a scalar comprehension from a tuple comprehension 
+	 * is that tuple comprehension sees the elements of the input iterable
+	 * as tuples, or iterables or other, collection types.
+	 * 
+	 * Example 1, a list comprehension:
+	 * 
+	 * Python:
+	 * list1 = [element[1].lower() for element in list0]
+	 * 
+	 * xpresso:
+	 * list<tuple> list1 = x.list(x.element(1).transformWith(x.lower).forElementIn(list0));
+	 * 
+	 */
+	public static Tuple2ComprehensionStart element(int index0,int index1) {
+        return ComprehensionFactory.tuple(index0,index1);
+    }
 	
 	/**
 	 * ParametrizedFunction is an abstract class that extends a Function
@@ -622,14 +853,24 @@ public class x {
 		};
 	}
 	*/
-		
+
 	/**
 	 * Factory method that returns an {@link tuple} of one element.
 	 *
 	 * @param value			a value of any type
 	 * @return 				a {@link tuple} that contains @param value
 	 */
-	public static <T0> tuple tupleOf(T0 value) {
+	public static tuple tupleOf(tuple value) {
+		return value.copy();
+    }
+	
+	/**
+	 * Factory method that returns an {@link tuple} of one element.
+	 *
+	 * @param value			a value of any type
+	 * @return 				a {@link tuple} that contains @param value
+	 */
+	public static <T0> tuple tuple(T0 value) {
         return tuple1.valueOf(value);
     }
 
@@ -641,7 +882,7 @@ public class x {
 	 * @return 				a {@link tuple} that contains @param value0 as the first dimension
 	 * 						and @param value1 as the second dimension
 	 */
-    public static <T0, T1> tuple tupleOf(T0 value0, T1 value1) {
+    public static <T0, T1> tuple tuple(T0 value0, T1 value1) {
         return tuple2.valueOf(value0, value1);
     }
 
@@ -654,7 +895,7 @@ public class x {
 	 * @return 				a {@link tuple} that contains @param value0 as the first dimension,
 	 * 						@param value1 as the second dimension, and @param value2 as the third dimension
 	 */
-    public static <T0, T1, T2> tuple tupleOf(T0 value0, T1 value1, T2 value2) {
+    public static <T0, T1, T2> tuple tuple(T0 value0, T1 value1, T2 value2) {
         return tuple3.valueOf(value0, value1, value2);
     }
     
@@ -669,7 +910,7 @@ public class x {
 	 * 						@param value1 as the second dimension, @param value2 as the third dimension,
 	 * 						and @param value3 as the fourth dimension
 	 */
-    public static <T0, T1, T2, T3> tuple tupleOf(T0 value0, T1 value1, T2 value2, T3 value3) {
+    public static <T0, T1, T2, T3> tuple tuple(T0 value0, T1 value1, T2 value2, T3 value3) {
         return tuple4.valueOf(value0, value1, value2, value3);
     }
 
@@ -886,63 +1127,50 @@ public class x {
 	}
 	
 	/**
-	 * Returns the length of the input {@link Iterable}, that is the number of values it contains. 
+	 * Returns the length of the argument, usually it is the number of elements it contains. 
 	 * 
-	 * @input iterable	any subclass of {@link Iterable}
+	 * @input value	any Object
 	 * 
 	 */ 
-	public static <T> int len(Iterable<T> iterable){
-		if (iterable instanceof Collection<?>) {
-			  return ((Collection<?>)iterable).size();
-		}else{
+	public static <T> int len(Object value){
+		if(value instanceof Iterable<?>){
 			int counter = 0;
-			for (@SuppressWarnings("unused") T value : iterable){
+			for(@SuppressWarnings("unused") Object element : (Iterable<?>)value){
 				counter++;
 			}
 			return counter;
 		}
-	}
-
-	/**
-	 * Returns the length of the input {@link String}, that is the number of characters it contains. 
-	 * 
-	 * @input string	any {@link String}
-	 * 
-	 */ 
-	public static int len(String string){
-		return string.length();
-	}
-	
-	/**
-	 * For completeness, returns 0 as the length of a {@link Number}. 
-	 * 
-	 */
-	public static int len(Number number){
+		if(value instanceof String){
+			return ((String)value).length();
+		}
+		if(value instanceof Number){
+			return 0;
+		}
+		if(value instanceof Boolean){
+			return 0;
+		}
+		if(value instanceof Lengthful){
+			return ((Lengthful)value).len();
+		}
+		if(value instanceof Map<?,?>){
+			return ((Map<?,?>)value).size();
+		}
+		try{
+			return (Integer)(value.getClass().getMethod("length").invoke(value));
+		}catch(Exception e){
+			
+		}
+		try{
+			return (Integer)(value.getClass().getMethod("size").invoke(value));
+		}catch(Exception e){
+			
+		}
+		try{
+			return (Integer)(value.getClass().getMethod("len").invoke(value));
+		}catch(Exception e){
+			
+		}
 		return 0;
-	}
-	
-	/**
-	 * For completeness, returns 0 as the length of a {@link Boolean}. 
-	 * 
-	 */
-	public static int len(Boolean bool){
-		return 0;
-	}
-	
-	/**
-	 * Calls the {@link Lengthful#len()} method of a {@link Lengthful} object. 
-	 * 
-	 */
-	public static int len(Lengthful object){
-		return object.len();
-	}
-	
-	/**
-	 * Returns the {@link Map#size()} of the input {@link Map} object. 
-	 * 
-	 */
-	public static <T0,T1> int len(Map<T0,T1> map){
-		return map.size();
 	}
 	
 	/**
@@ -1787,7 +2015,7 @@ public class x {
 			for(tuple index__value : x.enumerate(iterable0)){
 				@SuppressWarnings("unchecked")
 				T0 value = (T0)index__value.get(1);
-				result.append(x.tupleOf(value));
+				result.append(x.tuple(value));
 			}	
 		}catch(Exception e){
 			
@@ -1817,7 +2045,7 @@ public class x {
 				int index = (int)index__value.get(0);
 				@SuppressWarnings("unchecked")
 				T0 value = (T0)index__value.get(1);
-				result.append(x.tupleOf(value,list1.get(index)));
+				result.append(x.tuple(value,list1.get(index)));
 			}	
 		}catch(Exception e){
 			
@@ -1848,7 +2076,7 @@ public class x {
 				int index = (int)index__value.get(0);
 				@SuppressWarnings("unchecked")
 				T0 value = (T0)index__value.get(1);
-				result.append(x.tupleOf(value,list1.get(index),list2.get(index)));
+				result.append(x.tuple(value,list1.get(index),list2.get(index)));
 			}	
 		}catch(Exception e){
 			
@@ -1880,7 +2108,7 @@ public class x {
 				int index = (int)index__value.get(0);
 				@SuppressWarnings("unchecked")
 				T0 value = (T0)index__value.get(1);
-				result.append(x.tupleOf(value,list1.get(index),list2.get(index),list3.get(index)));
+				result.append(x.tuple(value,list1.get(index),list2.get(index),list3.get(index)));
 			}	
 		}catch(Exception e){
 			
@@ -1907,11 +2135,11 @@ public class x {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T0> tuple unzip(Iterable<tuple> iterable,Class<T0> class0){
-		list<T0> list0 = x.listOf();
+		list<T0> list0 = x.list();
 		for (tuple T0__ : iterable){
 			list0.append((T0)T0__.get(0));
 		}
-		return x.tupleOf(list0);
+		return x.tuple(list0);
 	}
 	
 	/**
@@ -1933,13 +2161,13 @@ public class x {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T0,T1> tuple unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1){
-		list<T0> list0 = x.listOf();
-		list<T1> list1 = x.listOf();
+		list<T0> list0 = x.list();
+		list<T1> list1 = x.list();
 		for (tuple T0__T1 : iterable){
 			list0.append((T0)T0__T1.get(0));
 			list1.append((T1)T0__T1.get(1));
 		}
-		return x.tupleOf(list0,list1);
+		return x.tuple(list0,list1);
 	}
 	
 	/**
@@ -1961,15 +2189,15 @@ public class x {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T0,T1,T2> tuple unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1,Class<T2> class2){
-		list<T0> list0 = x.listOf();
-		list<T1> list1 = x.listOf();
-		list<T2> list2 = x.listOf();
+		list<T0> list0 = x.list();
+		list<T1> list1 = x.list();
+		list<T2> list2 = x.list();
 		for (tuple T0__T1__T2 : iterable){
 			list0.append((T0)T0__T1__T2.get(0));
 			list1.append((T1)T0__T1__T2.get(1));
 			list2.append((T2)T0__T1__T2.get(2));
 		}
-		return x.tupleOf(list0,list1,list2);
+		return x.tuple(list0,list1,list2);
 	}
 	
 	/**
@@ -1991,48 +2219,219 @@ public class x {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T0,T1,T2,T3> tuple unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1,Class<T2> class2,Class<T3> class3){
-		list<T0> list0 = x.listOf();
-		list<T1> list1 = x.listOf();
-		list<T2> list2 = x.listOf();
-		list<T3> list3 = x.listOf();
+		list<T0> list0 = x.list();
+		list<T1> list1 = x.list();
+		list<T2> list2 = x.list();
+		list<T3> list3 = x.list();
 		for (tuple T0__T1__T2__T3 : iterable){
 			list0.append((T0)T0__T1__T2__T3.get(0));
 			list1.append((T1)T0__T1__T2__T3.get(1));
 			list2.append((T2)T0__T1__T2__T3.get(2));
 			list3.append((T3)T0__T1__T2__T3.get(3));
 		}
-		return x.tupleOf(list0,list1,list2,list3);
+		return x.tuple(list0,list1,list2,list3);
 	}
 	
+	/**
+	 * Factory method that creates a new Regex object from a string 
+	 * regular expression. I takes an optional parameter flags
+	 * (the same values as {@link Pattern}'s flags).
+	 * 
+	 * Example:
+	 * Regex mama = x.Regex("\\bmama\\b", Regex.CASE_INSENSITIVE); 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @param flags 			flags (standard {@link Pattern} flags values are accepted)
+	 * @return 					a Regex object 
+	 */
 	public static Regex Regex(String regularExpression,int flags){
 		return new Regex(regularExpression,flags);
 	}
+	
+	/**
+	 * Factory method that creates a new Regex object from a string 
+	 * regular expression. I takes an optional parameter flags
+	 * (the same values as {@link Pattern}'s flags).
+	 * 
+	 * Example:
+	 * Regex mama = x.Regex("\\bmama\\b", Regex.CASE_INSENSITIVE); 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @param flags 			flags (standard {@link Pattern} flags values are accepted)
+	 * @return 					a Regex object 
+	 */
 	public static Regex Regex(String regularExpression){
 		return new Regex(regularExpression,0);
 	}
+	
+	/**
+	 * Factory method that creates a new case insensitive
+	 * Regex object from a string 
+	 * regular expression.
+	 * 
+	 * Example:
+	 * Regex mama = x.RegexNoCase("\\bmama\\b"); 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static Regex RegexNoCase(String regularExpression){
 		return new Regex(regularExpression,Regex.CASE_INSENSITIVE);
 	}
 	
+	/**
+	 * Factory method that creates a new Regex object with given optional flags. 
+	 * It takes a dictionary instead of the string and works as follows.
+	 * 
+	 * The translator dict is a dict\<String\> that contains pairs of the form:
+	 * 
+	 * (regular expressions string, replacement string)
+	 * 
+	 * When you call the {@link Regex#sub(str)} or the  {@link Regex#sub(String)}
+	 * method of such a Regex object, the algorithms replaces each regular expressions string
+	 * from the translator dict by the corresponding replacement string.
+	 * 
+	 * Example:
+	 * dict\<String\> happyReplacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
+	 *
+	 * text = x.Regex(happyReplacer).sub(text); 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static Regex Regex(dict<String> translator,int flags){
 		return new Regex(translator,flags);
 	}
+	
+	/**
+	 * Factory method that creates a new Regex object with given optional flags. 
+	 * It takes a dictionary instead of the string and works as follows.
+	 * 
+	 * The translator dict is a dict\<String\> that contains pairs of the form:
+	 * 
+	 * (regular expressions string, replacement string)
+	 * 
+	 * When you call the {@link Regex#sub(str)} or the  {@link Regex#sub(String)}
+	 * method of such a Regex object, the algorithms replaces each regular expressions string
+	 * from the translator dict by the corresponding replacement string.
+	 * 
+	 * Example:
+	 * dict\<String\> happyReplacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
+	 *
+	 * text = x.Regex(happyReplacer).sub(text); 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static Regex Regex(dict<String> translator){
 		return new Regex(translator,0);
 	}
+	
+	/**
+	 * Factory method that creates a new case insensitive Regex object. 
+	 * It takes a dictionary instead of the string and works as follows.
+	 * 
+	 * The translator dict is a dict\<String\> that contains pairs of the form:
+	 * 
+	 * (regular expressions string, replacement string)
+	 * 
+	 * When you call the {@link Regex#sub(str)} or the  {@link Regex#sub(String)}
+	 * method of such a Regex object, the algorithms replaces each regular expressions string
+	 * from the translator dict by the corresponding replacement string.
+	 * 
+	 * Example:
+	 * dict\<String\> happyReplacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
+	 *
+	 * text = x.Regex(happyReplacer).sub(text); 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static Regex RegexNoCase(dict<String> translator){
 		return new Regex(translator,Regex.CASE_INSENSITIVE);
 	}
 	
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer slice(int startIndex,int endIndex){
 		return slice(startIndex, endIndex, 1);
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer slice(int startIndex,int endIndex, int step){
 		return new Slicer(startIndex, endIndex, step, false);	
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer slice(){
 		return slice(1);
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer slice(int step){
 		if (step < 0){
 			return new Slicer(Integer.MAX_VALUE,0,step,true);	
@@ -2040,6 +2439,24 @@ public class x {
 			return new Slicer(0,Integer.MAX_VALUE,step,false);
 		}	
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer sliceTo(int endIndex, int step){
 		int startIndex = 0;
 		if (step < 0){
@@ -2048,9 +2465,45 @@ public class x {
 		}
 		return slice(startIndex,endIndex,step);
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer sliceTo(int endIndex){
 		return sliceTo(endIndex, 1);
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer sliceFrom(int startIndex, int step){
 		int endIndex = Integer.MAX_VALUE-1;
 		if (step < 0){
@@ -2058,121 +2511,226 @@ public class x {
 		}
 		return new Slicer(startIndex,endIndex,step,true);
 	}
+	
+	/**
+	 * Factory method that creates a new Slicer object.
+	 * 
+	 * Slicer objects can be used as input for the slice method of any Slicable
+	 * object (like {@link list} or {@link str})
+	 *
+	 * Example:
+	 * 
+	 * Slice LAST_THREE = x.sliceFrom(-3);
+	 * 
+	 * x.print(x.String("tic tac toe").slice(LAST_THREE));
+	 * 
+	 * Console: toe 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public Slicer sliceFrom(int startIndex){
 		return sliceFrom(startIndex,1);
 	}
 	
-	//high level print
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0> void print(T0 object){
 		System.out.println(object==null?"NullType":object);
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1> void print(T0 object0,T1 object1){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2> void print(T0 object0,T1 object1,T2 object2){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2,T3> void print(T0 object0,T1 object1,T2 object2,T3 object3){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2,T3,T4> void print(T0 object0,T1 object1,T2 object2,T3 object3,T4 object4){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3)+" "+(object4==null?"NullType":object4));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2,T3,T4,T5> void print(T0 object0,T1 object1,T2 object2,T3 object3,T4 object4,T5 object5){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3)+" "+(object4==null?"NullType":object4)+" "+(object5==null?"NullType":object5));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2,T3,T4,T5,T6> void print(T0 object0,T1 object1,T2 object2,T3 object3,T4 object4,T5 object5,T6 object6){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3)+" "+(object4==null?"NullType":object4)+" "+(object5==null?"NullType":object5)+" "+(object6==null?"NullType":object6));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2,T3,T4,T5,T6,T7> void print(T0 object0,T1 object1,T2 object2,T3 object3,T4 object4,T5 object5,T6 object6,T7 object7){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3)+" "+(object4==null?"NullType":object4)+" "+(object5==null?"NullType":object5)+" "+(object6==null?"NullType":object6)+" "+(object7==null?"NullType":object7));
 	}
+	
+	/**
+	 * A less verbose console print method. Preferrred over System.out.println.
+	 * 
+	 * x.print is also more versatile. It can take values of any type as input.
+	 * 
+	 * Example:
+	 * 
+	 * x.print("Hello World", 1, true, x.list(1, 2, 3), null);
+	 * 
+	 * Console: Hello World 1 true [1, 2, 3] NullType 
+	 * 
+	 * @param regularExpression	a string with a valid Java regular expression
+	 * @return 					a Regex object 
+	 */
 	public static <T0,T1,T2,T3,T4,T5,T6,T7,T8> void print(T0 object0,T1 object1,T2 object2,T3 object3,T4 object4,T5 object5,T6 object6,T7 object7,T8 object8){
 		System.out.println(""+(object0==null?"NullType":object0)+" "+(object1==null?"NullType":object1)+" "+(object2==null?"NullType":object2)+" "+(object3==null?"NullType":object3)+" "+(object4==null?"NullType":object4)+" "+(object5==null?"NullType":object5)+" "+(object6==null?"NullType":object6)+" "+(object7==null?"NullType":object7)+" "+(object8==null?"NullType":object8));
 	}
-
-	public static strStatic str = new strStatic();
 	
-	public static str strOf(){
-		return new str();
-	}
-	public static str strOf(String string){
-		return new str(string);
-	}
-	public static str strOf(Iterable<String> iterable){
-		return new str(x.String("").join(iterable));
-	}
-	public static str str(){
-		return new str();
-	}
-	public static str str(String string){
-		return new str(string);
-	}
-	public static str str(Iterable<String> iterable){
-		return new str(x.String("").join(iterable));
-	}
 	
-	public static <T> set<T> setOf(Iterable<T> iterable){
-		set<T> constructor = new set<T>();
-		for (T element:iterable){
-			constructor.put(element);
-		}
-		return constructor;
-	}
-	
-	//high-level set processing (plus, minus, and, or)
-	public static <T> set<T> setOf(){
-		return new set<T>();
-	}
-	@SafeVarargs
-	public static <T> set<T> setOf(T... elements){
-		return new set<T>(set.newHashSet(elements));
-	}
-	public static <T> set<T> set(Iterable<T> iterable){
-		return new set<T>(iterable);
-	}
-
-	//high-level list processing (concat, product, slicing)
-	public static <T> list<T> listOf(){
-		return new list<T>();
-	}
-	
-	@SafeVarargs
-	public static <T> list<T> listOf(T... elements){
-		list<T> list = new list<T>();
-		for(T element : elements){
-			list.append(element);	
-		}
-		return list;
-	}
-	
-	public static <T> list<T> list(){
-		return listOf();
-	}
-	
-	public static <T> list<T> list(Iterable<T> iterable){ 
-		return new list<T>(iterable);
-	}
-	
-	//comprehension factory methods
-	
-	public static <O> ScalarComprehensionStart<O> element(){
-		return ComprehensionFactory.scalar();
-	}
-	
-	public static Tuple1ComprehensionStart element(int index0) {
-        return ComprehensionFactory.tuple(index0);
-    }
-	
-	public static Tuple2ComprehensionStart element(int index0,int index1) {
-        return ComprehensionFactory.tuple(index0,index1);
-    }
-	
+	/**
+	 * This static method evaluates an input object as true or false.
+	 * 
+	 * An object is evaluates as true only in following cases:
+	 * 
+	 * 1) It's an {@link Boolean} that equals to <code>false</code>
+	 * 2) It's an {@link Double} that equals to 0.0
+	 * 3) It's an {@link Double} that equals to 0.0
+	 * 4) It's an {@link Float} that equals to 0.0
+	 * 5) It's an empty {@link String}
+	 * 6) It's an empty {@link Iterable}
+	 * 7) It's a {@link tuple0}
+	 * 8) It's a <code>null</code>
+	 * 9) It's a {@link Truthful} whose isTrue() method returns <code>false</code>
+	 *  
+	 * @param value
+	 * @return
+	 */
 	public static boolean isTrue(Object value){
-		if(value instanceof Iterable<?> && x.len((Iterable<?>)value) == 0){
+		if(value == null){
 			return false;
 		}
-		if(value instanceof String && x.len((String)value) == 0){
+		if(value instanceof Truthful){
+			return ((Truthful)value).isTrue();
+		}
+		if(len(value) == 0){
+			return false;
+		}
+		if(value instanceof Iterable<?> && len(value) == 0){
+			return false;
+		}
+		if(value instanceof tuple && len(value) == 0){
+			return false;
+		}
+		if(value instanceof String && len(value) == 0){
 			return false;
 		}
 		try{
@@ -2182,86 +2740,148 @@ public class x {
 		}catch(Exception e){
 			
 		}
-		if(value == null){
-			return false;
+		try{
+			if((Double)value == 0.0){
+				return false;
+			}	
+		}catch(Exception e){
+			
+		}
+		try{
+			if((Float)value == 0.0){
+				return false;
+			}	
+		}catch(Exception e){
+			
+		}
+		try{
+			if((Boolean)value == false){
+				return false;
+			}	
+		}catch(Exception e){
+			
 		}
 		return true;
 	}
 	
+	/**
+	 * This static method evaluates an input object as false or true.
+	 * 
+	 * An object is evaluates as true only in following cases:
+	 * 
+	 * 1) It's an {@link Boolean} that equals to <code>false</code>
+	 * 2) It's an {@link Double} that equals to 0.0
+	 * 3) It's an {@link Double} that equals to 0.0
+	 * 4) It's an {@link Float} that equals to 0.0
+	 * 5) It's an empty {@link String}
+	 * 6) It's an empty {@link Iterable}
+	 * 7) It's a {@link tuple0}
+	 * 8) It's a <code>null</code>
+	 * 9) It's a {@link Truthful} whose isTrue() method returns <code>false</code>
+	 *  
+	 * @param value
+	 * @return
+	 */
 	public static boolean isFalse(Object value){
 		return !isTrue(value);
 	}
 	
-	public static Function<Object, Object> stripAccents = new Function<Object, Object>() {
-		public String apply(Object string) {
-			return stripAccents((String)string);
-		}
-	};
-	public static String stripAccents(String string){
-	    string = Normalizer.normalize(string, Normalizer.Form.NFD);
-	    string = string.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-	    return string;
-	}
-	
+	/**
+	 * A synonym to {@link x#String.escape}
+	 */
 	public static Function<Object, String> escape = x.String.escape;
 	
+	/**
+	 * A synonym to {@link x#String.escape(String)}
+	 */
 	public static String escape(String string){
 		return x.String.escape(string);
 	}
 	
+	/**
+	 * A synonym to {@link x#String.strip}
+	 */
 	public static Function<Object, String> strip = x.String.strip;
 	
+	/**
+	 * A synonym to {@link x#String.trim}
+	 */
 	public static Function<Object, String> trim = x.String.strip;
 	
+	/**
+	 * A synonym to {@link x#String.toLowerCase}
+	 */
 	public static Function<Object, String> toLowerCase = x.String.toLowerCase;
 	
+	/**
+	 * A synonym to {@link x#String.lower}
+	 */
 	public static Function<Object, String> lower = x.String.toLowerCase;
 	
+	/**
+	 * A synonym to {@link x#String.toUpperCase}
+	 */
 	public static Function<Object, String> toUpperCase = x.String.toUpperCase;
 	
+	/**
+	 * A synonym to {@link x#String.upper}
+	 */
 	public static Function<Object, String> upper = x.String.toUpperCase;
 	
+	/**
+	 * A {@link Function} that takes any object as input and returns its "length", e.g.
+	 * the number of elements in case of Iterable or tuple. 
+	 */
 	public static Function<Object, Integer> len = new Function<Object, Integer>() {
 		public Integer apply(Object value) {
-			if(value instanceof Iterable<?>){
-				return len((Iterable<?>) value);	
-			}else{
-				return len((String) value);
-			}
+			return len(value);
 		}
 	};
 	
+	/**
+	 * A {@link Function} that takes any object as input and returns the same object.
+	 */
 	public static Function<Object, Object> doNothing = new Function<Object, Object>() {
 		public Object apply(Object string) {
 			return string;
 		}
 	};
 
-	//predicate that is always false no matter the input
+	/**
+	 * A {@link Predicate} that is always false no matter the input. 
+	 */
 	public static Predicate<Object> FALSE = new Predicate<Object>() {
 		public Boolean apply(Object string) {
 			return false;
 		}
 	};
 	
-	//predicate that is always true no matter the input
+	/**
+	 * A {@link Predicate} that is always true no matter the input. 
+	 */
 	public static Predicate<Object> TRUE = new Predicate<Object>() {
 		public Boolean apply(Object string) {
 			return true;
 		}
 	};
 	
+	/**
+	 * A {@link Predicate} that only true if {@link x#len(Object)} returns 0 for the input value. 
+	 */
 	public static Predicate<Object> empty = new Predicate<Object>() {
-		public Boolean apply(Object iterable) {
-			if(iterable instanceof String){
-				return x.len((String)iterable) == 0;	
-			}else{
-				return x.len((Iterable<?>)iterable) == 0;
-			}
+		public Boolean apply(Object value) {
+			return len(value) == 0;
 		}
 	};
+	
+	/**
+	 * A synonym to {@link x#empty}. 
+	 */
 	public static Predicate<Object> isEmpty = empty;	
 	
+	/**
+	 * A {@link Function} that retursn the value of the hash code of the input object. 
+	 */
 	public static Function<Object,Integer> getHashCode = new Function<Object,Integer>() {
 		public Integer apply(Object value) {
 			return value.hashCode();

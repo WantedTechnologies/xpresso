@@ -43,28 +43,28 @@ public class Test {
 			
 			
 			dict<String> analogs = x.dictOf(
-		            x.tupleOf("«","\""),
-		            x.tupleOf("»","\""),
-		            x.tupleOf("‹","<"),
-		            x.tupleOf("›",">"),
-		            x.tupleOf("„","\""),
-		            x.tupleOf("‚",","),
-		            x.tupleOf("‘","\""),
-		            x.tupleOf("“","\""),
-		            x.tupleOf("”","\""),
-		            x.tupleOf("’","'"),
-		            x.tupleOf("–"," - "),
-		            x.tupleOf("—"," - ")
+		            x.tuple("«","\""),
+		            x.tuple("»","\""),
+		            x.tuple("‹","<"),
+		            x.tuple("›",">"),
+		            x.tuple("„","\""),
+		            x.tuple("‚",","),
+		            x.tuple("‘","\""),
+		            x.tuple("“","\""),
+		            x.tuple("”","\""),
+		            x.tuple("’","'"),
+		            x.tuple("–"," - "),
+		            x.tuple("—"," - ")
 		    );
 			
 			str title = x.str("Hello‹„ World");
 			title = x.sorted(title,x.len,true);
 			
-			title = x.str(x.<String>element().transformWith(x.<String>asKeyOn(analogs)).ifElement(x.in(analogs)).elseTransformWith(x.upper).forElementIn(title).ifNotElement(x.in(x.listOf("o","r"))));
+			title = x.str(x.<String>element().transformWith(x.<String>asKeyOn(analogs)).ifElement(x.in(analogs)).elseTransformWith(x.upper).forElementIn(title).ifNotElement(x.in(x.list("o","r"))));
 			
 			x.print(title);
 			
-			list<list<String>> lists_lst = x.listOf(x.listOf("aaa","bbb","ccc"),x.listOf("ddd","eee","fff")); 
+			list<list<String>> lists_lst = x.list(x.list("aaa","bbb","ccc"),x.list("ddd","eee","fff")); 
 			
 			list<tuple> lists_lst2 = x.list(x.element(0,1).forElementIn(lists_lst));
 			
@@ -72,7 +72,7 @@ public class Test {
 			
 			x.print(x.String("a").in("a","["));
 			
-			list<dict<String>> lst2 = x.listOf(x.<String>dictOf(x.tupleOf("aaa", "bbb"),x.tupleOf("bbb", "bbb")));
+			list<dict<String>> lst2 = x.list(x.<String>dictOf(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")),x.<String>dictOf(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")));
 			
 			x.print(lst2);
 			
@@ -80,13 +80,13 @@ public class Test {
 			
 			x.print(lst3);
 			
-			x.print(x.dictOf(x.tupleOf("aaaa",1)));
+			x.print(x.dictOf(x.tuple("aaaa",1)));
 			
 			str new_str = x.str("hello");
 			new_str = x.str(x.<String>element().transformWith(x.upper).forElementIn(new_str));
 			x.print(new_str); 
 			
-			list<tuple> lst4 = x.listOf(x.tupleOf("aaa", "bbb"),x.tupleOf("xxxx", "yy Y yy"));
+			list<tuple> lst4 = x.list(x.tuple("aaa", "bbb"),x.tuple("xxxx", "yy Y yy"));
 			list<tuple> lst5 = x.list(x.element(0,1).transformWith(x.len,x.toUpperCase).forElementIn(lst4));
 			x.print("uuu",lst5);
 			
@@ -100,24 +100,24 @@ public class Test {
 			
 			//x.print(x.str("dddddaaaaassssooooxxxxxiiiiiii").translate(lst4));
 			
-			tuple t = x.tupleOf((Object)1, (Object)"ddd");
+			tuple t = x.tuple((Object)1, (Object)"ddd");
 			tuple2<Integer,String> t2 = (tuple2<Integer,String>)t;
 			x.print(t2.value0+4,t2.value1+"yyy");
 			
-			list<list<String>> lst6 = x.listOf(x.listOf("aaa", "bbb"),x.listOf("xxxx", "yyYyy"));
+			list<list<String>> lst6 = x.list(x.list("aaa", "bbb"),x.list("xxxx", "yyYyy"));
 			
 			list<String> lst7 = x.list(x.<String>element().transformWith(new LambdaFunction<String>("x : f0(x[0])",x.upper)).forElementIn(lst6).ifElement(new LambdaPredicate("x : f0(x[0]) && f1(x[0]) && (x[1] != \"bbb\")",x.TRUE,x.TRUE)));
 			
 			x.print(lst7);
 			
-			list<Integer> lst8 = x.listOf(1,2,3,4,5);
+			list<Integer> lst8 = x.list(1,2,3,4,5);
 			x.print(lst8.sliceTo(-100,-1));
 			
 			x.print(x.String("hello").sliceTo(4),"0");
 			
 			x.print(Time.time());
 			
-			dict<String> translator = x.dictOf(x.tupleOf("a", "A"),x.tupleOf("b", "B"));
+			dict<String> translator = x.dictOf(x.tuple("a", "A"),x.tuple("b", "B"));
 			
 			x.print(x.Regex("\\w").sub(translator, "Mama papa bonjour!"));
 			
@@ -129,12 +129,12 @@ public class Test {
 			
 			x.print(flatten); 
 			
-			list<Integer> ints = x.listOf(1,2,3,4,5);
-			ints.setAt(1,3).values(x.listOf(7,8,9));
+			list<Integer> ints = x.list(1,2,3,4,5);
+			ints.setAt(1,3).values(x.list(7,8,9));
 			
 			x.print(ints); 
 			
-			ints = x.listOf(1,2,3,4,5);
+			ints = x.list(1,2,3,4,5);
 			x.print(ints.slice(Slicer.EVERY_THIRD));
 			
 			List<Integer> list_int = new ArrayList<Integer>();
@@ -156,24 +156,24 @@ public class Test {
 				x.print(val);
 			}
 			
-			dict<String> replacer = x.dictOf(x.tupleOf("\\bhaha\\b","ohoh"),x.tupleOf("\\bhjehe\\b","wow"));
+			dict<String> replacer = x.dictOf(x.tuple("\\bhaha\\b","ohoh"),x.tuple("\\bhjehe\\b","wow"));
 			x.print(x.Regex(replacer).sub("lala haha bebeb hehe ogogo"));
 			
-			x.print(x.largestN(x.setOf(1,2,3),2));
+			x.print(x.largestN(x.set(1,2,3),2));
 			
-			x.print(x.listOf(1,2,3,4,5).ngrams(6));
+			x.print(x.list(1,2,3,4,5).ngrams(6));
 			
 			x.print(x.String("aab").in("xaaabx"));
 			
 			x.print(x.String("aab").in(x.str("xaaabx")));
 			
-			Bag<String> bag = x.Bag(x.dictOf(x.tupleOf("aa", 10),x.tupleOf("bb", 10)));
+			Bag<String> bag = x.Bag(x.dictOf(x.tuple("aa", 10),x.tuple("bb", 10)));
 			
 			for(String element : bag.elements()){
 				x.print(element);
 			}
 			
-			list<String> lst10= x.listOf(" aaa "," кккк "," ccc ");
+			list<String> lst10= x.list(" aaa "," кккк "," ccc ");
 			
 			lst10 = x.list(x.<String>element().transformWith(x.lambdaF("x : f1(f0(x)) + '''rrr'''",x.upper,x.strip)).forElementIn(lst10).ifElement(x.lambdaP("x : (f0(x) > 5) && (f1(x) != '''жжж''')",x.len,x.strip)));
 			

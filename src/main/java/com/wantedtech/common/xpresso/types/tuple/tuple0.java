@@ -35,5 +35,9 @@ public final class tuple0 extends AbstractTuple{
     public int size() {
         return 0;
     }
+    
+    public tuple copy(){
+    	return new tuple0();
+    }
 
 }

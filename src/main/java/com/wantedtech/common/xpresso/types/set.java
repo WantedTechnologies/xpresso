@@ -113,7 +113,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	
 	@SuppressWarnings("unchecked")
 	public set<T> union(T... elements){
-		return union(x.setOf(elements));
+		return union(x.set(elements));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -133,7 +133,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	}
 	@SuppressWarnings("unchecked")
 	public set<T> intersection(T... elements){
-		return intersection(x.setOf(elements));
+		return intersection(x.set(elements));
 	}
 	public set<T> and(set<T> set){
 		return intersection(set);
@@ -166,7 +166,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	}
 	@SuppressWarnings("unchecked")
 	public set<T> difference(T... elements){
-		return difference(x.setOf(elements));
+		return difference(x.set(elements));
 	}
 	public set<T> minus(set<T> set){
 		return difference(set);

@@ -13,6 +13,7 @@ public interface Slicable<T> {
 	public Slicable<T> slice(int startIndex,int endIndex, int step);
 	public Slicable<T> slice();
 	public Slicable<T> slice(int step);
+	public Slicable<T> slice(Slicer slicer);
 	public Slicable<T> sliceTo(int endIndex, int step);
 	public Slicable<T> sliceTo(int endIndex);
 	public Slicable<T> sliceFrom(int startIndex, int step);

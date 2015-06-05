@@ -57,6 +57,14 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return newArrayList;
 	}
 	
+	public static <T> ArrayList<T> newArrayList(T[] values){
+		ArrayList<T> newArrayList = new ArrayList<T>();
+		for (T element : values){
+			newArrayList.add(element);	
+		}
+		return newArrayList;
+	}
+	
 	@SafeVarargs
 	public static <T> ArrayList<T> newArrayList(T element0,T element1,T... elements){
 		ArrayList<T> newArrayList = new ArrayList<T>();
@@ -67,6 +75,8 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		}
 		return newArrayList;
 	}
+	
+	
 	
 	public list<T> plus(Iterable<T> iterable){
 		ArrayList<T> newList = new ArrayList<T>();
@@ -88,7 +98,7 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 
 	@SuppressWarnings("unused")
 	public list<T> times(int multiplier){
-		list<T> newList = x.listOf();
+		list<T> newList = x.list();
 		for(int i : x.countTo(multiplier)){
 			for(T element : this.list){
 				newList.append(element);
@@ -278,7 +288,7 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 	}
 	
 	public boolean in(@SuppressWarnings("unchecked") list<T>... lists){
-		return x.listOf(lists).contains(this);
+		return x.list(lists).contains(this);
 	}
 	
 	public boolean notIn(Iterable<list<T>> anotherList){
@@ -307,7 +317,7 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 	}
 	
     public list<list<T>> ngrams(int n) {
-        list<list<T>> ngrams = x.listOf();
+        list<list<T>> ngrams = x.list();
         for (int i = 0; i < x.len(this) - n + 1; i++){
             ngrams.append(this.slice(i, i+n));	
         }

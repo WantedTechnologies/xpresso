@@ -206,7 +206,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		ArrayList<tuple> items = new ArrayList<tuple>();
 		for(String key:this){
 			try{
-				items.add(x.tupleOf(this.get(key).toString(),key));	
+				items.add(x.tuple(this.get(key).toString(),key));	
 			}catch(Exception e){
 				
 			}

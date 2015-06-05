@@ -111,7 +111,7 @@ public class HappyString {
 		
 	public list<String> split(String regex, int limit){
 		if(!regex.equals("")){
-			return x.listOf(this.value.split(x.escape(regex)));			
+			return x.list(this.value.split(x.escape(regex)));			
 		}else{
 			ArrayList<String> newList = new ArrayList<String>();
 			char[] arr = this.value.toCharArray();
@@ -171,7 +171,7 @@ public class HappyString {
 	}
 	
 	public boolean in(String... elements){
-		list<String> lst = x.listOf(elements);
+		list<String> lst = x.list(elements);
 		return lst.contains(this.value);
 	}
 	

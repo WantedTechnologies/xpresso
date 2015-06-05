@@ -96,4 +96,9 @@ public final class tuple4<T0, T1, T2, T3> extends AbstractTuple {
     public int size() {
         return 4;
     }
+    
+    public tuple copy(){
+    	return new tuple4<T0,T1,T2,T3>(this.value0,this.value1,this.value2,this.value3);
+    }
+    
 }

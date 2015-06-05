@@ -76,5 +76,9 @@ public final class tuple2<T0, T1> extends AbstractTuple {
     public int size() {
         return 2;
     }
+    
+    public tuple copy(){
+    	return new tuple2<T0,T1>(this.value0,this.value1);
+    }
 
 }

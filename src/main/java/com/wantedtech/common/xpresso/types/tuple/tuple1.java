@@ -65,5 +65,9 @@ public final class tuple1<T> extends AbstractTuple {
     public int size() {
         return 1;
     }
+    
+    public tuple copy(){
+    	return new tuple1<T>(this.value);
+    }
 
 }
