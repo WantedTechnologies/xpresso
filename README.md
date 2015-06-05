@@ -107,7 +107,7 @@ list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London
 
 set<String> russianCities = x.set("Moscow","Saint-Petersburg");
 
-dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",5));
+dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",32));
 ```
 
 #### List comprehensions
@@ -172,6 +172,7 @@ Python:
 trips = ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
 
 print trips[2:4]
+
 >>> ['London', 'Paris']
 ```
 
@@ -239,7 +240,7 @@ Console: toe
 
 Python:
 ```
-for long_word_match re.finditer("\b\w{10,}\b",text):
+for long_word_match in re.finditer("\b\w{10,}\b",text):
     print long_word_match.group(0)
 ```
 
