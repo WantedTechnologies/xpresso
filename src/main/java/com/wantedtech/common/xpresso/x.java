@@ -43,6 +43,7 @@ import com.wantedtech.common.xpresso.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.DefaultDict;
+import com.wantedtech.common.xpresso.types.OrderedDict;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.HappyFile;
 import com.wantedtech.common.xpresso.types.list;
@@ -759,8 +760,41 @@ public class x {
 	 * @input <T> 			any type
 	 *
 	 */   
-	public static <T> DefaultDict<T> defaultDict(Class<T> defaultType){
+	public static <T> DefaultDict<T> DefaultDict(Class<T> defaultType){
 		return new DefaultDict<T>(defaultType);
+	}
+	
+	/**
+	 * Factory method that returns an new {@link OrderedDict} from an input {@link Iterable}.
+	 * 
+	 * The input iterable object has to be an Iterable<tuple> or
+	 * two dimensions or an Iterable<tuple2<String,T>> or an OrderedDict
+	 * 
+	 * OrderedDict in xpresso works similarly to Python's OrderedDict.
+	 * 
+	 * @see the page about Python's <a href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">collections</a>.
+	 * 
+	 * @input defaultType	a Class<T> object
+	 * @input <T> 			any type
+	 *
+	 */   
+	public static <T> OrderedDict<T> OrderedDict(Iterable<?> iterable){
+		return new OrderedDict<T>(iterable);
+	}
+	
+	/**
+	 * Factory method that returns an new empty {@link OrderedDict}.
+	 * 
+	 * OrderedDict in xpresso works similarly to Python's OrderedDict.
+	 * 
+	 * @see the page about Python's <a href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">collections</a>.
+	 * 
+	 * @input defaultType	a Class<T> object
+	 * @input <T> 			any type
+	 *
+	 */   
+	public static <T> OrderedDict<T> OrderedDict(){
+		return new OrderedDict<T>();
 	}
 	
 	/**

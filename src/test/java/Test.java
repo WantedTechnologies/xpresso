@@ -4,7 +4,6 @@ import java.util.List;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.str.str;
 import com.wantedtech.common.xpresso.Slicer;
 import com.wantedtech.common.xpresso.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
@@ -15,6 +14,7 @@ import com.wantedtech.common.xpresso.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.Bag;
+import com.wantedtech.common.xpresso.types.str.str;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 import com.wantedtech.common.xpresso.types.tuple.tuple2;
 
@@ -94,7 +94,7 @@ public class Test {
 			JsonArray loaded_lst = Json.loads("[[\"aaa\",\"bbb\",\"ccc\"],[\"ddd\",\"eee\",\"fff\"]]");
 			x.print(Json.dump(loaded_lst));
 			
-			dict<Character> def = x.defaultDict(Character.class);
+			dict<Character> def = x.DefaultDict(Character.class);
 		
 			x.print("ff",def.get("llll"),"jj");
 			
