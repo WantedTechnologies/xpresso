@@ -246,7 +246,7 @@ for long_word_match in re.finditer("\b\w{10,}\b",text):
 
 xpresso:
 ```
-for (Match longWordMatch re.searchIter("\\b\\w{10,}\\b",text))
+for (Match longWordMatch : re.searchIter("\\b\\w{10,}\\b",text))
     x.print(longWordMatch.group(0));
 ```
 
@@ -524,7 +524,7 @@ list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apple", "p
 
 x.print(lookAlikes);
 
-Console: ["ape", "apple"]
+Console: [ape, apple]
 ```
 
 * Find longest match:
@@ -534,7 +534,7 @@ tuple match = x.String("I like apples.").longestMatch("My girlfriend likes apple
 
 x.print(match);
 
-Console: ("apples",7,20)
+Console: ("apples", 7, 20)
 ```
 
 * Mistyping detection: ```x.String("Random").isMistypingOf("Randon","qwerty") --> true```
