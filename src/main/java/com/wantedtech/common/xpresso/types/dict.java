@@ -211,7 +211,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 				
 			}
 		}
-		return x.dictOf(items);
+		return x.dict(items);
 	}
 	
 	public Iterator<String> iterator(){

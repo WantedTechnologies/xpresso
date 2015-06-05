@@ -42,7 +42,7 @@ public class Test {
 			);
 			
 			
-			dict<String> analogs = x.dictOf(
+			dict<String> analogs = x.dict(
 		            x.tuple("«","\""),
 		            x.tuple("»","\""),
 		            x.tuple("‹","<"),
@@ -72,7 +72,7 @@ public class Test {
 			
 			x.print(x.String("a").in("a","["));
 			
-			list<dict<String>> lst2 = x.list(x.<String>dictOf(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")),x.<String>dictOf(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")));
+			list<dict<String>> lst2 = x.list(x.<String>dict(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")),x.<String>dict(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")));
 			
 			x.print(lst2);
 			
@@ -80,7 +80,7 @@ public class Test {
 			
 			x.print(lst3);
 			
-			x.print(x.dictOf(x.tuple("aaaa",1)));
+			x.print(x.dict(x.tuple("aaaa",1)));
 			
 			str new_str = x.str("hello");
 			new_str = x.str(x.<String>element().transformWith(x.upper).forElementIn(new_str));
@@ -117,7 +117,7 @@ public class Test {
 			
 			x.print(Time.time());
 			
-			dict<String> translator = x.dictOf(x.tuple("a", "A"),x.tuple("b", "B"));
+			dict<String> translator = x.dict(x.tuple("a", "A"),x.tuple("b", "B"));
 			
 			x.print(x.Regex("\\w").sub(translator, "Mama papa bonjour!"));
 			
@@ -156,7 +156,7 @@ public class Test {
 				x.print(val);
 			}
 			
-			dict<String> replacer = x.dictOf(x.tuple("\\bhaha\\b","ohoh"),x.tuple("\\bhjehe\\b","wow"));
+			dict<String> replacer = x.dict(x.tuple("\\bhaha\\b","ohoh"),x.tuple("\\bhjehe\\b","wow"));
 			x.print(x.Regex(replacer).sub("lala haha bebeb hehe ogogo"));
 			
 			x.print(x.largestN(x.set(1,2,3),2));
@@ -167,7 +167,7 @@ public class Test {
 			
 			x.print(x.String("aab").in(x.str("xaaabx")));
 			
-			Bag<String> bag = x.Bag(x.dictOf(x.tuple("aa", 10),x.tuple("bb", 10)));
+			Bag<String> bag = x.Bag(x.dict(x.tuple("aa", 10),x.tuple("bb", 10)));
 			
 			for(String element : bag.elements()){
 				x.print(element);

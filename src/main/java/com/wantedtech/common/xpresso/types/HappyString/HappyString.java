@@ -142,10 +142,10 @@ public class HappyString {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String translated(list<tuple> fromTo){
+	public String translate(list<tuple> fromTo){
 		String translatedString = "";
 		int lastStop = 0;
-		dict<String> replacementDict = x.dictOf(fromTo);
+		dict<String> replacementDict = x.dict(fromTo);
 		list<tuple> sortedFromTo = x.list(x.reversed(x.sorted(fromTo,new LambdaFunction<Integer>("x:f0(x[0])",x.len))));
 		tuple froms__tos = x.unzip(sortedFromTo,String.class,String.class);
 		list<String> froms = (list<String>)froms__tos.get(0);

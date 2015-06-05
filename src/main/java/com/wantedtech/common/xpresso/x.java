@@ -918,17 +918,8 @@ public class x {
 	 * Factory method that returns an new empty {@link dict}.
 	 *
 	 */
-	public static <T> dict<T> dictOf(){
-		return new dict<T>();
-	}
-	
-	/**
-	 * Factory method that returns an new empty {@link dict}.
-	 * Has the same meaning as {@link x#dictOf()} 
-	 *
-	 */
 	public static <T> dict<T> dict(){
-		return dictOf();
+		return new dict<T>();
 	}
 	
 	/**
@@ -942,7 +933,7 @@ public class x {
 	 * @input <T> 	any type
 	 *
 	 */
-	public static <T> dict<T> dictOf(Iterable<tuple> tuples){
+	public static <T> dict<T> dict(Iterable<tuple> tuples){
 		dict<T> dict = new dict<T>();
 		dict.update(tuples);
 		return dict;
@@ -960,7 +951,7 @@ public class x {
 	 *
 	 */ 
 	@SafeVarargs
-	public static <T> dict<T> dictOf(tuple... tuples){
+	public static <T> dict<T> dict(tuple... tuples){
 		dict<T> dict = new dict<T>();
 		dict.update(tuples);
 		return dict;
@@ -987,7 +978,7 @@ public class x {
 	 *
 	 */   
 	public static <T> dict<T> dict(dict<T> dict){
-		return new dict<T>(dict);
+		return dict.copy();
 	}
 	
 	/**

@@ -16,7 +16,7 @@ public class Match implements Serializable {
 	list<String> groupStringsList = x.list();
 	list<Integer> groupStartsList = x.list();
 	list<Integer> groupEndsList = x.list();
-	dict<String> namedGroups = x.dictOf();
+	dict<String> namedGroups = x.dict();
 	public Match(Matcher matcher){
 		for(Match groupNameMatch:x.Regex("\\(\\?<([^>]+)>").searchIter(matcher.pattern().toString())){
 			namedGroups.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
