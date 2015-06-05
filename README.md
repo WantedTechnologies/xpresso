@@ -517,4 +517,39 @@ Console: Hello World 1 true [1, 2, 3] NullType
 
 #### Future:
 * Approximate string comparison: ```x.String("Hello World").similarity("Helo Wold!") --> .89```
+* Get similar strings:
+
+```
+list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apple", "peach", "puppy"),2,.8);
+
+x.print(lookAlikes);
+
+Console: ["ape", "apple"]
+```
+
+* Find longest match:
+
+```
+tuple match = x.String("I like apples.").longestMatch("My girlfriend likes apples too.");
+
+x.print(match);
+
+Console: ("apples",7,20)
+```
+
 * Mistyping detection: ```x.String("Random").isMistypingOf("Randon","qwerty") --> true```
+* Wrap a string (similar to Python's [textwrap](https://docs.python.org/3.4/library/textwrap.html)):
+
+```
+x.print(x.String("If you want something done right you have to do it yourself.").wrap(25));
+
+Console: [If you want something, done right you have to, do it yourself.]
+```
+
+
+* Shorten a string:
+```
+x.print(x.String("Hello World!").shorten(10, "..."));
+
+Console: Hello...
+```
