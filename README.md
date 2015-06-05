@@ -252,13 +252,13 @@ for (Match longWordMatch re.searchIter("\\b\\w{10,}\\b",text))
 
 Python:
 ```
-for long_word re.findall("\b\w{10,}\b",text):
+for long_word in re.findall("\b\w{10,}\b",text):
     print long_word
 ```
 
 xpresso:
 ```
-for (String longWord re.findAll("\\b\\w{10,}\\b",text))
+for (String longWord : re.searchAll("\\b\\w{10,}\\b",text))
     x.print(longWord);
 ```
 
