@@ -230,7 +230,7 @@ for long_word_match in re.finditer("\b\w{10,}\b",text):
 
 xpresso:
 ```
-for (Match longWordMatch : re.searchIter("\\b\\w{10,}\\b",text))
+for (Match longWordMatch : x.Regex("\\b\\w{10,}\\b").searchIter(text))
     x.print(longWordMatch.group(0));
 ```
 
@@ -242,7 +242,7 @@ for long_word in re.findall("\b\w{10,}\b",text):
 
 xpresso:
 ```
-for (String longWord : re.searchAll("\\b\\w{10,}\\b",text))
+for (String longWord : x.Regex("\\b\\w{10,}\\b").searchAll(,text))
     x.print(longWord);
 ```
 
@@ -255,7 +255,7 @@ text = re.sub("\b\w{10,}\b",toUpperCaseFun,text)
 
 xpresso:
 ```
-text = Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
+text = x.Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
 ```
 
 Regex.searchIter and Regex.searchAll replace Python's re.findIter and re.findAll.
@@ -271,7 +271,7 @@ xpresso:
 ```
 dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
 
-text = Regex(replacer).sub(text);
+text = x.Regex(replacer).sub(text);
 ```
 
 #### Lambda expressions
