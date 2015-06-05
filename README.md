@@ -73,13 +73,11 @@ Works for write/read/append in both text and binary mode.
 #### Iterable file
 
 Python:
-
  ```
  for line in f: print line
  ```
 
 xpresso:
-
  ```
  for (String line : f) x.print(line);
  ```
@@ -87,7 +85,6 @@ xpresso:
 #### Neat standard object creation
 
 Python:
-
 ```
 trips = ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
 
@@ -97,8 +94,7 @@ rank = dict(("Moscow":30),("Saint-Petersburg":15),("New York":20),("London":10),
 
 ```
 
-xpresso
-
+xpresso:
 ```
 list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
 
@@ -110,25 +106,21 @@ dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),
 #### List comprehensions
 
 Python:
-
 ```
 foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities]
 ```
 
 xpresso:
-
 ```
 list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
 ```
 
 Python:
-
 ```
 new_list = [element.upper() if element[0] == "a" else element.lower() for element in old_list if element[0] not in ["x", "y", "z"]]
 ```
 
 xpresso:
-
 ```
 list<String> newList = [x.element().transformWith(x.upper).ifElement(x.LambdaP("x:x[0] == "a")).elseTransfromWith(x.lower).forElementIn(oldList).ifNotElement(x.LabmdaP("x:f0(x[0])",x.in(x.list("x", "y", "z"))));
 ```
@@ -136,13 +128,11 @@ list<String> newList = [x.element().transformWith(x.upper).ifElement(x.LambdaP("
 #### Pythonic iterable dict
 
 Python:
-
 ```
 for city in rank: print rank[city]
 ```
 
 xpresso:
-
 ```
 for (String city : rank) x.print(rank.get(city));
 ```
@@ -150,13 +140,11 @@ for (String city : rank) x.print(rank.get(city));
 #### Pythonic tuples
 
 Python:
-
 ```
 my_car = ("Honda", "red", 2010, True)
 ```
 
 xpresso:
-
 ```
 tuple myCar = x.tuple("Honda", "red", 2010, true);
 ```
@@ -164,7 +152,6 @@ tuple myCar = x.tuple("Honda", "red", 2010, true);
 #### Slicing for list, String, and str
 
 Python:
-
 ```
 trips = ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
 
@@ -173,6 +160,7 @@ print trips[2:4]
 >>> ['London', 'Paris']
 ```
 
+xpresso:
 ```
 x.print(trips.slice(2,4));
 
@@ -186,6 +174,7 @@ print trips[:5]
 >>> ['Dubai','New York','London','Paris','Moscow']
 ```
 
+xpresso:
 ```
 x.print(trips.sliceTo(5));
 
@@ -216,7 +205,6 @@ print trips[::2]
 ```
 
 xpresso:
-
 ```
 x.print(trips.slice(2));
 
@@ -224,7 +212,6 @@ Console: [Dubai, London, Moscow, Saint-Petersburg]
 ```
 
 #### Slice object
-
 ```
 Slice LAST_THREE = x.sliceFrom(-3);
 
@@ -300,7 +287,6 @@ bestCities = x.reversed(x.sorted(element(0).forElementIn(rank.items()),x.lambdaF
 ```
 
 More complex lambda expressions:
-
 ```
 Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
 ```
@@ -312,25 +298,22 @@ Function<Object,Integer> squareFun = x.LambdaF("x : x * x)",squareFun);
 
 Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
 ```
-  
+
 #### Extended String functions
 
 Python:
-
 ```
 if "e" in "Hello World":
     #do stuff
 ```
 
 xpresso:
-
 ```
 if(x.String("e").in("Hello World"))
     //do stuff
 ```
 
 Python:
-
 ```
 colorsPattern = "|".join(["black","green","red","white"]);
 
@@ -340,7 +323,6 @@ print(colorsPattern)
 ```
 
 xpresso:
-
 ```
 String colorsPattern = x.String("|").join(x.list("black","green","red","white"));
 
@@ -350,7 +332,6 @@ Console: black|green|red|white
 ```
 
 Python:
-
 ```
 tokens = "Moscow;London;Paris".split(";")
 
@@ -360,7 +341,6 @@ print(tokens)
 ```
 
 xpresso:
-
 ```
 list<String> tokens = x.String("Moscow;London;Paris").split(";");
 
@@ -388,7 +368,6 @@ Console: [Saint-Petersbourg, San Francisco]
 ```
  
 #### n-grams
-
 ```
 str phrase = "If you want something done right, you have to do it yourself.";
 
@@ -404,7 +383,6 @@ Console: [[If, you, want], [you, want, something], [something, done, right]..., 
 #### Built-in iterators
 
 * cycle
-
 ```
 for (String letter : x.cycle(x.str("ABC")))
     x.print(letter);
@@ -432,8 +410,8 @@ world
 hello
 world
 ```
-* repeat
 
+* repeat
 ```
 for (String word : x.repeat("cool"))
     x.print(word);
@@ -453,6 +431,7 @@ Console: cool
 cool
 cool
 ```
+
 * count
 ```
 for (Integer index : x.countTo(3))
@@ -499,7 +478,6 @@ Console: 3
 x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) and range(min, max, step).
 
 #### Print anything
-
 ```
 x.print("Hello World", 1, true, x.list(1, 2, 3), null);
 
