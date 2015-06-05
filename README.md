@@ -527,7 +527,7 @@ x.print(lookAlikes);
 Console: [ape, apple]
 ```
 
-* Find longest match:
+* Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
 
 ```
 tuple match = x.String("I like apples.").longestMatch("My girlfriend likes apples too.");
