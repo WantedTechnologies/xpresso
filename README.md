@@ -11,11 +11,6 @@ License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
 
 ```
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.types.dict;
-import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.str.str;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
-import com.wantedtech.common.xpresso.types.HappyFile;
 
 x.print("Hello World!");
 ```
@@ -35,6 +30,8 @@ x.print("Hello World!");
 
 #### Slicable and iterable **str** type
 ```
+import com.wantedtech.common.xpresso.types.str.str;
+
 str city = x.str("New York");
 
 x.print(city.sliceTo(3));
@@ -57,7 +54,8 @@ k
 ```
 
 #### One-line file open
- 
+import com.wantedtech.common.xpresso.types.HappyFile;
+
 Python:
  ```
  f = open("name.txt","r","utf-8");
@@ -83,6 +81,10 @@ xpresso:
  ```
 
 #### Neat standard object creation
+import com.wantedtech.common.xpresso.types.dict;
+import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.set;
+import com.wantedtech.common.xpresso.types.tuple.tuple;
 
 Python:
 ```
