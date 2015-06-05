@@ -54,7 +54,6 @@ k
 ```
 
 #### One-line file open
-import com.wantedtech.common.xpresso.types.HappyFile;
 
 Python:
  ```
@@ -63,6 +62,8 @@ Python:
 
 xpresso:
  ```
+ import com.wantedtech.common.xpresso.types.HappyFile;
+ 
  HappyFile f = x.open("name.txt","r","utf-8");
  ```
 
@@ -81,10 +82,6 @@ xpresso:
  ```
 
 #### Neat standard object creation
-import com.wantedtech.common.xpresso.types.dict;
-import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.set;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
 
 Python:
 ```
@@ -98,6 +95,11 @@ rank = dict(("Moscow":30),("Saint-Petersburg":15),("New York":20),("London":10),
 
 xpresso:
 ```
+import com.wantedtech.common.xpresso.types.dict;
+import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.set;
+import com.wantedtech.common.xpresso.types.tuple.tuple;
+
 list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
 
 set<String> russianCities = x.set("Moscow","Saint-Petersburg");
