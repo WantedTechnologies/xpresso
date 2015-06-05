@@ -112,12 +112,22 @@ public class Regex implements Serializable{
 		return x.str(sub(str.toString()));
 	}
 	
-	//a shirtcut for sub(string,emptyString)
+	/**
+	 * a shortcut for {@link Regex#sub(String, String)}(emptyString, string)
+	 * @param string
+	 * @return
+	 */
 	public String clean(String string){
-		return sub(string);
+		return sub("", string);
 	}
+	
+	/**
+	 * a shortcut for {@link Regex#sub(}(emptyString, str)
+	 * @param string
+	 * @return
+	 */
 	public str clean(str str){
-		return sub(str);
+		return sub("", str);
 	}
 	
 	public MatchIterator searchIter(String string){
@@ -127,8 +137,6 @@ public class Regex implements Serializable{
 	public MatchIterator searchIter(str str){
 		return searchIter(str.toString());
 	}
-	
-	
 	
 	public Match search(String string){
 		Matcher m = pattern.matcher(string);
