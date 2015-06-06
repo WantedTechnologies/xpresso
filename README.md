@@ -249,7 +249,7 @@ for long_word in re.findall("\b\w{10,}\b",text):
 
 xpresso:
 ```
-for (String longWord : x.Regex("\\b\\w{10,}\\b").searchAll(,text))
+for (String longWord : x.Regex("\\b\\w{10,}\\b").searchAll(text))
     x.print(longWord);
 ```
 
