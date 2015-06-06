@@ -377,7 +377,7 @@ The second call with the same value of *count*, the result is instantaneous:
 ```
 String moreCopies = cachedXerox.apply(5000000);
 ```
-
+*x.memo* can be used to cache methods of object of any Java type, not only Function.
 #### largest and smallest
 
 ```
