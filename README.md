@@ -369,13 +369,21 @@ In order to avoid the long computation for the same value of *count*, we first c
 ```
 Function<Integer,String> cachedXerox = x.memo(xerox);
 ```			
-The first call, of the function, the computation takes a very long time:
+The first call of the function. The computation takes a very long time:
 ```
+double start = x.time();
 String copies = cachedXerox.apply(5000000);
+x.print(x.round(x.time() - start, 3),"s");
+
+Console: 18.898 s
 ```
 The second call with the same value of *count*, the result is instantaneous:
 ```
+start = x.time();
 String moreCopies = cachedXerox.apply(5000000);
+x.print(x.round(x.time() - start, 3),"s");
+
+Console: 0.0 s
 ```
 *x.memo* can be used to cache methods of object of any Java type, not only Function.
 #### largest and smallest
