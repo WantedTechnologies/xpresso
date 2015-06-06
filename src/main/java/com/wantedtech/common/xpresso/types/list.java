@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.Slicable;
 import com.wantedtech.common.xpresso.Slicer;
 import com.wantedtech.common.xpresso.x;
@@ -32,51 +33,9 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		if (elements instanceof list<?>){
 			this.list = ((list<T>)elements).toArrayList();
 		}else{
-			this.list = newArrayList(elements);	
+			this.list = Helpers.newArrayList(elements);	
 		}
 	}
-
-	public static <T> ArrayList<T> newArrayList(){
-		ArrayList<T> newArrayList = new ArrayList<T>();
-		return newArrayList;
-	}
-	
-	public static <T> ArrayList<T> newArrayList(Iterator<T> iterator){
-		ArrayList<T> newArrayList = new ArrayList<T>();
-		while(iterator.hasNext()){
-			newArrayList.add(iterator.next());
-		}
-		return newArrayList;
-	}
-	
-	public static <T> ArrayList<T> newArrayList(Iterable<T> iterable){
-		ArrayList<T> newArrayList = new ArrayList<T>();
-		for (T element : iterable){
-			newArrayList.add(element);	
-		}
-		return newArrayList;
-	}
-	
-	public static <T> ArrayList<T> newArrayList(T[] values){
-		ArrayList<T> newArrayList = new ArrayList<T>();
-		for (T element : values){
-			newArrayList.add(element);	
-		}
-		return newArrayList;
-	}
-	
-	@SafeVarargs
-	public static <T> ArrayList<T> newArrayList(T element0,T element1,T... elements){
-		ArrayList<T> newArrayList = new ArrayList<T>();
-		newArrayList.add(element0);
-		newArrayList.add(element1);
-		for (T element : elements){
-			newArrayList.add(element);
-		}
-		return newArrayList;
-	}
-	
-	
 	
 	public list<T> plus(Iterable<T> iterable){
 		ArrayList<T> newList = new ArrayList<T>();
@@ -86,14 +45,14 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		}else if(iterable instanceof list<?>){
 			newList.addAll(((list<T>)iterable).toArrayList());
 		}else{
-			newList.addAll(newArrayList(iterable));	
+			newList.addAll(Helpers.newArrayList(iterable));	
 		}
 		return new list<T>(newList);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public list<T> plus(T element0,T element1,T... elements){
-		return plus(newArrayList(element0,element1,elements));
+		return plus(Helpers.newArrayList(element0,element1,elements));
 	}
 
 	@SuppressWarnings("unused")
@@ -340,12 +299,12 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 	}
 	
 	public list<T> copy(){
-		ArrayList<T> newArrayList = newArrayList(this.list);
+		ArrayList<T> newArrayList = Helpers.newArrayList(this.list);
 		return x.list(newArrayList);
 	}
 	
 	public ArrayList<T> toArrayList(){
-		return newArrayList(this);
+		return Helpers.newArrayList(this);
 	}
 	
 	@Override

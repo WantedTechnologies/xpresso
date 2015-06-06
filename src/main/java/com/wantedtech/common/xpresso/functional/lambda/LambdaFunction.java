@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.antlr.v4.runtime.*;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 
 public class LambdaFunction<O> implements Function<Object,O>{
@@ -35,7 +35,7 @@ public class LambdaFunction<O> implements Function<Object,O>{
         LambdaParser parser = new LambdaParser(tokens);
 		Object inputObj = input;
 		if(input instanceof Iterable<?>){ 
-			inputObj = list.newArrayList((Iterable<?>)inputObj);
+			inputObj = Helpers.newArrayList((Iterable<?>)inputObj);
 		}else if(input instanceof tuple){
 			inputObj = new ArrayList<Object>();
 			for (int i = 0;i<((tuple)input).size();i++){

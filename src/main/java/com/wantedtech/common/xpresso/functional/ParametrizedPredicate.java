@@ -2,7 +2,7 @@ package com.wantedtech.common.xpresso.functional;
 
 import java.util.ArrayList;
 
-import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.Helpers;
 
 /**
  * ParametrizedPredicate is an abstract class that extends a {@link Predicate}
@@ -15,16 +15,16 @@ import com.wantedtech.common.xpresso.types.list;
 public abstract class ParametrizedPredicate<E> implements Predicate<E>{
 	public ArrayList<Object> params = new ArrayList<Object>();
 	public ParametrizedPredicate<E> params(Object value0,Object value1,Object... otherValues){
-		params = list.newArrayList(value0,value1,otherValues);
+		params = Helpers.newArrayList(value0,value1,otherValues);
 		return this;
 	}
 	public ParametrizedPredicate<E> params(Object value){
-		params = list.newArrayList();
+		params = Helpers.newArrayList();
 		params.add(value);
 		return this;
 	}
 	public ParametrizedPredicate<E> params(){
-		params = list.newArrayList();
+		params = Helpers.newArrayList();
 		return this;
 	}
 }

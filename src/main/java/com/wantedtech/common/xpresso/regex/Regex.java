@@ -1,4 +1,5 @@
 package com.wantedtech.common.xpresso.regex;
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.types.dict;
@@ -30,7 +31,7 @@ public class Regex implements Serializable{
 	}
 	
 	public Regex(dict<String> translator,int flags){
-		Iterable<String> keys = list.newArrayList(translator.keys());
+		Iterable<String> keys = Helpers.newArrayList(translator.keys());
 		this.replacements = new ArrayList<String>();
 		pattern = Pattern.compile("("+x.String(")|(").join(keys)+")",flags);
 		for(String key : keys){

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.ObjectFactory;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
@@ -40,7 +41,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		if(x.len(map)!=0){
 			this.valueType = (Class<T>)(map.values().iterator().next().getClass());	
 		}
-		this.dict = newHashMap(map);
+		this.dict = Helpers.newHashMap(map);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -90,17 +91,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 	}
 		
 	public HashMap<String,T> toHashMap(){
-		return newHashMap(this.dict);
-	}
-	
-	public static <T0,T1> HashMap<T0,T1> newHashMap(Map<T0,T1> map){
-		HashMap<T0,T1> newHashMap = new HashMap<T0,T1>();
-		newHashMap.putAll(map);
-		return newHashMap; 
-	}
-	
-	public static <T> HashMap<String,T> newHashMap(dict<T> dict){
-		return dict.toHashMap();
+		return Helpers.newHashMap(this.dict);
 	}
 	
 	public T get(String key) throws NoSuchFieldException{

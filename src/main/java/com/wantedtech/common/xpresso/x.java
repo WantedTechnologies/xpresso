@@ -387,7 +387,7 @@ public class x {
 	 *  
 	 */
 	public static <T> list<T> list(T[] values){ 
-		return new list<T>(list.newArrayList(values));
+		return new list<T>(Helpers.newArrayList(values));
 	}
 	
 	/**
@@ -493,7 +493,7 @@ public class x {
 								return ((list<O>)(params.get(0))).get((O)key);	
 							}catch(Exception e3){
 								try{
-									return (list.newArrayList((Iterable<O>)(params.get(0)))).get((Integer)key);	
+									return (Helpers.newArrayList((Iterable<O>)(params.get(0)))).get((Integer)key);	
 								}catch(Exception e4){
 									throw new IllegalArgumentException("asKeyOn could not interpret the input object as a container of values.");
 								}	
@@ -1024,7 +1024,7 @@ public class x {
 	 * 
 	 */   
 	public static Bag<String> Bag(String string0,String string1,String... otherStrings){
-		Iterable<String> iterable = list.newArrayList(string0,string1,otherStrings);
+		Iterable<String> iterable = Helpers.newArrayList(string0,string1,otherStrings);
 		return new Bag<String>(iterable);
 	}
 	
@@ -1038,7 +1038,7 @@ public class x {
 	 * 
 	 */ 
 	public static Bag<Number> Bag(Number number0,Number number1,Number... otherNumbers){
-		Iterable<Number> iterable = list.newArrayList(number0,number1,otherNumbers);
+		Iterable<Number> iterable = Helpers.newArrayList(number0,number1,otherNumbers);
 		return new Bag<Number>(iterable);
 	}
 	
@@ -1052,7 +1052,7 @@ public class x {
 	 * 
 	 */ 
 	public static Bag<Boolean> Bag(Boolean boolean0,Boolean boolean1,Boolean... otherBooleans){
-		Iterable<Boolean> iterable = list.newArrayList(boolean0,boolean1,otherBooleans);
+		Iterable<Boolean> iterable = Helpers.newArrayList(boolean0,boolean1,otherBooleans);
 		return new Bag<Boolean>(iterable);
 	}
 	
@@ -1248,7 +1248,7 @@ public class x {
 	 */
 	@SafeVarargs
 	public static <T extends Comparable<? super T>> T max(T value0,T value1,T... values){
-		return max(list.newArrayList(value0,value1,values));
+		return max(Helpers.newArrayList(value0,value1,values));
 	}
 	
 	/**
@@ -1280,7 +1280,7 @@ public class x {
 	 */
 	@SafeVarargs
 	public static <T extends Comparable<? super T>> T min(T value0,T value1,T... values){
-		return min(list.newArrayList(value0,value1,values));
+		return min(Helpers.newArrayList(value0,value1,values));
 	}
 	
 	
@@ -1612,7 +1612,7 @@ public class x {
 	 */  
 	@SafeVarargs
 	public static <T> Iterable<tuple2<Integer,T>> enumerate(T value0, T value1, T... values){
-		List<T> lst = list.newArrayList(value0,value1,values);
+		List<T> lst = Helpers.newArrayList(value0,value1,values);
 		return enumerate(lst,0);
 	}
 	
@@ -1898,7 +1898,7 @@ public class x {
 	 * 
 	 */
 	public static <T> Iterable<T> reversed(Iterable<T> iterable){
-		ArrayList<T> newArrayList = list.newArrayList(iterable);
+		ArrayList<T> newArrayList = Helpers.newArrayList(iterable);
 		Collections.reverse(newArrayList);
 		return x.list(newArrayList);
 
@@ -1910,7 +1910,7 @@ public class x {
 	 * 
 	 */
 	public static str reversed(str str) throws IOException{
-		return x.str(reversed(list.newArrayList(str)));
+		return x.str(reversed(Helpers.newArrayList(str)));
 	}
 	
 	/**

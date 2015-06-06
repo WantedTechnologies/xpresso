@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.comprehension;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.types.list;
@@ -24,7 +25,7 @@ class Tuple2Comprehension extends AbstractTupleComprehension{
 
 	@SuppressWarnings("unchecked")
 	public void forElementIn(Iterable<?> elements){
-		original_elements = list.<Object>newArrayList((Iterable<Object>)elements);
+		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
 			tuple outputElement;
 			if(if_predicate.apply(element)){

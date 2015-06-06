@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.antlr.v4.runtime.*;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.types.list;
@@ -36,7 +37,7 @@ public class LambdaPredicate implements Predicate<Object>{
         LambdaParser parser = new LambdaParser(tokens);
 		Object inputObj = input;
 		if(input instanceof Iterable<?>){ 
-			inputObj = list.newArrayList((Iterable<?>)inputObj);
+			inputObj = Helpers.newArrayList((Iterable<?>)inputObj);
 		}else if(input instanceof tuple){
 			inputObj = new ArrayList<Object>();
 			for (int i = 0;i<((tuple)input).size();i++){

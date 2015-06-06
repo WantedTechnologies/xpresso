@@ -2,6 +2,7 @@ package com.wantedtech.common.xpresso.comprehension;
 
 import java.util.ArrayList;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.types.list;
@@ -24,7 +25,7 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 	@SuppressWarnings("unchecked")
 	@Override
 	void forElementIn(Iterable<?> elements){
-		original_elements = list.<Object>newArrayList((Iterable<Object>)elements);
+		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
 			tuple outputElement;
 			if(if_predicate.apply(element)){
@@ -48,7 +49,7 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 	}
 	
 	public void forElementIn(Object element0,Object element1,Object... elements){
-		ArrayList<Object> lst = list.newArrayList(element0,element1,elements);
+		ArrayList<Object> lst = Helpers.newArrayList(element0,element1,elements);
 		forElementIn(lst);
 	}
 	

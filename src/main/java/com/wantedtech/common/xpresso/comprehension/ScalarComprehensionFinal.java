@@ -2,6 +2,7 @@ package com.wantedtech.common.xpresso.comprehension;
 
 import java.util.Iterator;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.types.list;
 
@@ -15,17 +16,17 @@ public class ScalarComprehensionFinal<O> implements Iterable<O> {
 	
 	public Iterable<O> ifElement(Predicate<Object> scalarPredicate){
 		this.comprehension.ifElement(scalarPredicate);
-		return list.newArrayList(comprehension);
+		return Helpers.newArrayList(comprehension);
 	}
 	
 	public Iterable<O> ifNotElement(Predicate<?> scalarPredicate){
 		this.comprehension.ifNotElement(scalarPredicate);
-		return list.newArrayList(comprehension);
+		return Helpers.newArrayList(comprehension);
 	}
 	
 	public Iterable<O> ifElementNot(Predicate<?> scalarPredicate){
 		this.comprehension.ifElementNot(scalarPredicate);
-		return list.newArrayList(comprehension);
+		return Helpers.newArrayList(comprehension);
 	}
 
 	public Iterator<O> iterator() {

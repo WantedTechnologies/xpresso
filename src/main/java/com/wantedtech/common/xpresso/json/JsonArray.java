@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 
@@ -33,7 +34,7 @@ public class JsonArray extends ArrayList{
 	 * @param c the collection whose elements are to be placed into this JSONArray
 	 */
 	public JsonArray(Iterable<?> c){
-		super(list.newArrayList(c));
+		super(Helpers.newArrayList(c));
 	}
 	
     /**

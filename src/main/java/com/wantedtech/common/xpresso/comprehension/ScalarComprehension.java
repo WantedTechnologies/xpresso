@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
@@ -24,8 +25,8 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 	Predicate<Object> filterPredicate = x.TRUE;
 	Predicate<Object> ifPredicate = x.TRUE;
 	
-	Iterable<O> transformedElements = list.<O>newArrayList();
-	Iterable<Object> originalElements = list.<Object>newArrayList();
+	Iterable<O> transformedElements = Helpers.newArrayList();
+	Iterable<Object> originalElements = Helpers.newArrayList();
 	
 	@SuppressWarnings("unchecked")
 	protected ScalarComprehension<O> transformWith(Function<Object,?> scalarFunction){
@@ -40,8 +41,8 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 	}
 	
 	protected ScalarComprehension<O> forElementIn(Iterable<?> listOfElements){
-		ArrayList<O> new_transformed_scalars = list.<O>newArrayList();
-		ArrayList<Object> new_original_scalars = list.<Object>newArrayList();
+		ArrayList<O> new_transformed_scalars = Helpers.newArrayList();
+		ArrayList<Object> new_original_scalars = Helpers.newArrayList();
 		for(Object scalar: listOfElements){
 			if(ifPredicate.apply(scalar)){
 				new_transformed_scalars.add(ifFunction.apply(scalar));
@@ -57,8 +58,8 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 		return this;
 	}
 	protected ScalarComprehension<O> forElementIn(list<?> listOfElements){
-		ArrayList<O> new_transformed_scalars = list.<O>newArrayList();
-		ArrayList<Object> new_original_scalars = list.<Object>newArrayList();
+		ArrayList<O> new_transformed_scalars = Helpers.newArrayList();
+		ArrayList<Object> new_original_scalars = Helpers.newArrayList();
 		for(Object scalar: listOfElements){
 			if(ifPredicate.apply(scalar)){
 				new_transformed_scalars.add(ifFunction.apply(scalar));
@@ -75,7 +76,7 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 	}
 	
 	protected ScalarComprehension<O> forElementIn(Object scalar0,Object scalar1,Object... scalars){
-		ArrayList<Object> scalarsList = list.newArrayList(scalar0, scalar1, scalars);
+		ArrayList<Object> scalarsList = Helpers.newArrayList(scalar0, scalar1, scalars);
 		return forElementIn(scalarsList);
 	}
 	

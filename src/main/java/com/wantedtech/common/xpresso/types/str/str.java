@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.IOException;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
@@ -32,7 +33,7 @@ public class str extends list<String> implements Iterable<String>{
 	}
 	
 	public str(Iterable<String> list){
-		ArrayList<String> listCopy = newArrayList(this.list);
+		ArrayList<String> listCopy = Helpers.newArrayList(this.list);
 		for(String element : list){
 			listCopy.addAll(x.str(element).toArrayList());
 		}

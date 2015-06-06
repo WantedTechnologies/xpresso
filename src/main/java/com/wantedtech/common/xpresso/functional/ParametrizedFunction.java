@@ -2,6 +2,7 @@ package com.wantedtech.common.xpresso.functional;
 
 import java.util.ArrayList;
 
+import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.types.list;
 
 /**
@@ -15,15 +16,15 @@ import com.wantedtech.common.xpresso.types.list;
 public abstract class ParametrizedFunction<E,T> implements Function<E,T>{
 	public ArrayList<Object> params = new ArrayList<Object>();
 	public ParametrizedFunction<E,T> params(Object value0,Object value1,Object... otherValues){
-		params = list.newArrayList(value0,value1,otherValues);
+		params = Helpers.newArrayList(value0,value1,otherValues);
 		return this;
 	}
 	public ParametrizedFunction<E,T> params(){
-		params = list.newArrayList();
+		params = Helpers.newArrayList();
 		return this;
 	}
 	public ParametrizedFunction<E,T> params(Object value){
-		params = list.newArrayList();
+		params = Helpers.newArrayList();
 		params.add(value);
 		return this;
 	}
