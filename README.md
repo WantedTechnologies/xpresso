@@ -353,12 +353,12 @@ x.print(tokens);
 Console: [Moscow, London, Paris]
 ```
 
-#### Easy caching of method results
+#### Easy caching of any object's method results
 
 ```
-        /* xerox is a Function that copy the string "hello"
-           the given number *count* of times
-           it's a long to execute function for large values of count
+        /* xerox is a Function object whose method apply copies
+           the string "hello" the given number *count* of times.
+           It's a long to execute function for large values of *count*:
         */
 	Function<Integer, String> xerox = new Function<Integer, String>() {
 		public String apply(Integer count) {
@@ -366,13 +366,13 @@ Console: [Moscow, London, Paris]
 		}
 	};
 			
-	//we create a cached version of xerox using *x.memo*
+	//We create a cached version of xerox using *x.memo*:
 	Function<Integer,String> cachedXerox = x.memo(xerox);
 			
-	//first call -- very long execution time
+	//First call, a very long execution time:
 	String copies = cachedXerox.apply(5000000);
 			
-	//second call with the same count -- instantaneous
+	//Second call with the same count, instantaneous:
 	String moreCopies = cachedXerox.apply(5000000);
 ```
 
