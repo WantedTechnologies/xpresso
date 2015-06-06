@@ -1120,8 +1120,24 @@ public class x {
 	 * Returns the time in seconds since the epoch as a floating point number. 
 	 * 
 	 */
-	public static float time(){
+	public static double time(){
 		return Time.time();
+	}
+	
+	/**
+	 * Return the double value number rounded to ndigits digits after the decimal point.
+	 * If ndigits is omitted, it defaults to zero. The result is a double.
+	 */
+	public static double round(double number, int nDigits){
+		return (double)Math.round(number * Math.pow(10, nDigits)) / Math.pow(10, nDigits);
+	}
+	
+	/**
+	 * Return the double value number rounded to ndigits digits after the decimal point.
+	 * If ndigits is omitted, it defaults to zero. The result is a double.
+	 */
+	public static double round(double number){
+		return (double)Math.round(number * Math.pow(10, 0)) / Math.pow(10, 0);
 	}
 	
 	/**

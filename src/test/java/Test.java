@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import com.spaceprogram.kittycache.KittyCache;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
@@ -116,7 +115,7 @@ public class Test {
 			
 			x.print(x.String("hello").sliceTo(4),"0");
 			
-			x.print(Time.time());
+			//x.print(Time.time());
 			
 			dict<String> translator = x.dict(x.tuple("a", "A"),x.tuple("b", "B"));
 			
@@ -190,15 +189,17 @@ public class Test {
 				}
 			};
 			
+			
 			Function<Integer,String> cachedFunction = x.memo(strCopy);
 			
-			x.print("started");
-			cachedFunction.apply(5000000);
-			x.print("ended");
+			double start = x.time();
+			String copies = cachedFunction.apply(5000000);
+			x.print(x.round(x.time() - start, 3),"s");
 			
-			x.print("started2");
-			cachedFunction.apply(5000000);
-			x.print("ended2");
+			start = x.time();
+			copies = cachedFunction.apply(5000000);
+			x.print(x.round(x.time() - start, 3),"s");
+			
 			
 		}catch(Exception e){
 			throw e;
