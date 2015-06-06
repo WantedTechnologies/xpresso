@@ -56,30 +56,33 @@ k
 #### One-line file open
 
 Python:
- ```
- f = open("name.txt","r","utf-8");
- ```
+```
+with open("name.txt","r","utf-8") as f:
+	#do stuff
+```
 
 xpresso:
- ```
- import com.wantedtech.common.xpresso.types.HappyFile;
+```
+import com.wantedtech.common.xpresso.types.HappyFile;
  
- HappyFile f = x.open("name.txt","r","utf-8");
- ```
+try(HappyFile f = x.open("name.txt","r","utf-8")){
+	//do stuff
+}
+```
 
 Works for write/read/append in both text and binary mode.
 
 #### Iterable file
 
 Python:
- ```
- for line in f: print line
- ```
+```
+for line in f: print line
+```
 
 xpresso:
- ```
- for (String line : f) x.print(line);
- ```
+```
+for (String line : f) x.print(line);
+```
 
 #### Neat standard object creation
 
