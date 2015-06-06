@@ -32,11 +32,11 @@ x.print("Hello World!");
 ```
 import com.wantedtech.common.xpresso.types.str.str;
 
-str city = x.str("New York");
+str city = x.str("New York City");
 
-x.print(city.sliceTo(3));
+x.print(city.slice(4,8));
 
-Console: New
+Console: York
 ```
 
 ```
