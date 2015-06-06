@@ -356,10 +356,10 @@ Console: [Moscow, London, Paris]
 #### Easy caching of any object's method results
 
 ```
-        /* xerox is a Function object whose method apply copies
-           the string "hello" the given number *count* of times.
-           It's a long to execute function for large values of *count*:
-        */
+	/* xerox is a Function object whose method apply copies
+	   the string "hello" the given number *count* of times.
+	   It's a long to execute function for large values of *count*:
+	*/
 	Function<Integer, String> xerox = new Function<Integer, String>() {
 		public String apply(Integer count) {
 			return x.String("hello").times(count);
