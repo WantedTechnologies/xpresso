@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.time;
 
 import java.util.concurrent.TimeUnit;
 

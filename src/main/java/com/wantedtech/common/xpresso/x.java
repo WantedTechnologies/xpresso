@@ -44,6 +44,8 @@ import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.regex.Regex;
+import com.wantedtech.common.xpresso.time.Time;
+import com.wantedtech.common.xpresso.time.Timer;
 import com.wantedtech.common.xpresso.types.DefaultDict;
 import com.wantedtech.common.xpresso.types.OrderedDict;
 import com.wantedtech.common.xpresso.types.dict;
@@ -1122,6 +1124,20 @@ public class x {
 	 */
 	public static double time(){
 		return Time.time();
+	}
+	
+	/**
+	 * Returns the running Timer object. This object can be then stopped and printed:
+	 * 
+	 *  Timer timer = x.Timer();
+	 *  //do something
+	 *  x.print(timer.stop());
+	 *  
+	 *  Console: 0.133s
+	 * 
+	 */
+	public static Timer Timer(){
+		return new Timer();
 	}
 	
 	/**

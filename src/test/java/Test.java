@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.time.Time;
+import com.wantedtech.common.xpresso.time.Timer;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.Slicer;
-import com.wantedtech.common.xpresso.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
@@ -192,13 +193,13 @@ public class Test {
 			
 			Function<Integer,String> cachedFunction = x.memo(strCopy);
 			
-			double start = x.time();
+			Timer timer = x.Timer();
 			String copies = cachedFunction.apply(5000000);
-			x.print(x.round(x.time() - start, 3),"s");
+			x.print(timer.stop());
 			
-			start = x.time();
+			timer.start();
 			copies = cachedFunction.apply(5000000);
-			x.print(x.round(x.time() - start, 3),"s");
+			x.print(timer.stop());
 			
 			
 		}catch(Exception e){
