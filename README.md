@@ -357,17 +357,17 @@ Console: [Moscow, London, Paris]
 
 As a quick example, *xerox* is a Function object whose method *apply* copies the string *"hello"* the given number *count* of times:
 ```
-	Function<Integer, String> xerox = new Function<Integer, String>() {
-		public String apply(Integer count) {
-			return x.String("hello").times(count);
-		}
-	};
+Function<Integer, String> xerox = new Function<Integer, String>() {
+	public String apply(Integer count) {
+		return x.String("hello").times(count);
+	}
+};
 ```
 It's a long to execute function for large values of *count*.
 
 In order to avoid the long computation for the same value of *count*, we first create a cached version of xerox using **x.memo**:
 ```
-	Function<Integer,String> cachedXerox = x.memo(xerox);
+Function<Integer,String> cachedXerox = x.memo(xerox);
 ```			
 The first call, of the function, the computation takes a very long time:
 ```
