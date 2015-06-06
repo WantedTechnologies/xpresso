@@ -355,7 +355,7 @@ Console: [Moscow, London, Paris]
 
 #### Easy caching of any object's method results
 
-As a quick example, *xerox* is a Function object whose method *apply* copies the string *"hello"* the given number *count* of times:
+As a quick example, let *xerox* be a *Function* object whose method *apply* copies the string *"hello"* the given number *count* of times:
 ```
 Function<Integer, String> xerox = new Function<Integer, String>() {
 	public String apply(Integer count) {
