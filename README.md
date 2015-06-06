@@ -363,9 +363,9 @@ As a quick example, *xerox* is a Function object whose method *apply* copies the
 		}
 	};
 ```
-It's a long to execute function for large values of count.
+It's a long to execute function for large values of *count*.
 
-In order to avoid the long computation for the same input, we first create a cached version of xerox using *x.memo*:
+In order to avoid the long computation for the same value of *count*, we first create a cached version of xerox using **x.memo**:
 ```
 	Function<Integer,String> cachedXerox = x.memo(xerox);
 ```			
