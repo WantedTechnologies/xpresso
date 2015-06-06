@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.time.Timer;
+import com.wantedtech.common.xpresso.types.HappyFile;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.Slicer;
@@ -26,8 +26,10 @@ public class Test {
 			
 			String ref_file_dir = "/Users/andriy.burkov/p/workspace/python/InternationalTitleCleanup/ref";
 			
-			for(String line : x.open(ref_file_dir+"/test.txt", "r")){
-				x.print(line);
+			try(HappyFile f = x.open(ref_file_dir+"/test.txt", "r")){
+				for(String line : f){
+					x.print(line);
+				}	
 			}
 			
 			String dd = x.String.valueOf(3);

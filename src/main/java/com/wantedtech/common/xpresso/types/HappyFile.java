@@ -19,7 +19,7 @@ import java.util.Iterator;
 
 import com.wantedtech.common.xpresso.x;
 
-public class HappyFile implements Iterable<String>,Iterator<String>, Serializable {
+public class HappyFile implements Iterable<String>,Iterator<String>, Serializable, AutoCloseable {
 	
 	/**
 	 * 
