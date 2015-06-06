@@ -1,6 +1,6 @@
 // Generated from Lambda.g by ANTLR 4.5
 
-package com.wantedtech.common.xpresso.lambda;
+package com.wantedtech.common.xpresso.functional.lambda;
 
 import java.util.*;
 import com.wantedtech.common.xpresso.functional.Function;

@@ -2,7 +2,7 @@ package com.wantedtech.common.xpresso.types.str;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.x.ParametrizedFunction;
+import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 
 public class strStatic {
 	

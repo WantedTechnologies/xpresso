@@ -38,9 +38,11 @@ import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
 import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
+import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
 import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.lambda.LambdaFunction;
-import com.wantedtech.common.xpresso.lambda.LambdaPredicate;
+import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
+import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.DefaultDict;
 import com.wantedtech.common.xpresso.types.OrderedDict;
@@ -462,31 +464,6 @@ public class x {
     }
 	
 	/**
-	 * ParametrizedFunction is an abstract class that extends a Function
-	 * with a possibility to take a supplementary parameter that can be used
-	 * in the apply method of Function.
-	 *
-	 * Example 1: @see x#joinOn(String) joinOn
-	 *                   
-	 */
-	public static abstract class ParametrizedFunction<E,T> implements Function<E,T>{
-		public ArrayList<Object> params = new ArrayList<Object>();
-		public ParametrizedFunction<E,T> params(Object value0,Object value1,Object... otherValues){
-			params = list.newArrayList(value0,value1,otherValues);
-			return this;
-		}
-		public ParametrizedFunction<E,T> params(){
-			params = list.newArrayList();
-			return this;
-		}
-		public ParametrizedFunction<E,T> params(Object value){
-			params = list.newArrayList();
-			params.add(value);
-			return this;
-		}
-	}
-	
-	/**
 	 * Creates and returns a {@link ParametrizedFunction} that takes as a parameter an {@link java.lang.Iterable} or a {@link java.util.Map} 
 	 * and uses the Function's input value as key to get a value from the
 	 * corresponding {@link java.lang.Iterable} or {@link java.util.Map}
@@ -549,31 +526,6 @@ public class x {
 				}
 			}
 		}).params(separator);
-	}
-	
-	/**
-	 * ParametrizedPredicate is an abstract class that extends a {@link Predicate}
-	 * with a possibility to take a supplementary parameter that can be used
-	 * in the apply method of {@link Predicate}.
-	 *
-	 * Example 1: @see x.in(Iterable) in
-	 *                   
-	 */
-	public static abstract class ParametrizedPredicate<E> implements Predicate<E>{
-		public ArrayList<Object> params = new ArrayList<Object>();
-		public ParametrizedPredicate<E> params(Object value0,Object value1,Object... otherValues){
-			params = list.newArrayList(value0,value1,otherValues);
-			return this;
-		}
-		public ParametrizedPredicate<E> params(Object value){
-			params = list.newArrayList();
-			params.add(value);
-			return this;
-		}
-		public ParametrizedPredicate<E> params(){
-			params = list.newArrayList();
-			return this;
-		}
 	}
 	
 	/**
@@ -2775,6 +2727,10 @@ public class x {
 	 */
 	public static boolean isFalse(Object value){
 		return !isTrue(value);
+	}
+	
+	public static <T> T memo(T object){
+		return (T)(Memoizer.memoize(object));
 	}
 	
 	/**

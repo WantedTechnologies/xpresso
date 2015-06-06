@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.lambda;
+package com.wantedtech.common.xpresso.functional.lambda;
 
 import java.util.ArrayList;
 

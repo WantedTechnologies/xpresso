@@ -27,5 +27,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/andriy.burkov/Downloads/KittyCache-1.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

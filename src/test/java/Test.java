@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spaceprogram.kittycache.KittyCache;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
@@ -8,10 +9,10 @@ import com.wantedtech.common.xpresso.Slicer;
 import com.wantedtech.common.xpresso.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
+import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.json.JsonArray;
-import com.wantedtech.common.xpresso.lambda.LambdaFunction;
-import com.wantedtech.common.xpresso.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.Bag;
 import com.wantedtech.common.xpresso.types.str.str;
@@ -182,6 +183,22 @@ public class Test {
 			Function<Object,Integer> increment = x.<Integer>lambdaF("x : x + 1");
 			
 			Function<Integer,Integer> incrementAndMultiplyBy5 = x.chainOf(increment,x.<Integer>lambdaF("x : x * 5"));
+			
+			Function<Integer, String> strCopy = new Function<Integer, String>() {
+				public String apply(Integer count) {
+					return x.String("hello").times(count);
+				}
+			};
+			
+			Function<Integer,String> cachedFunction = x.memo(strCopy);
+			
+			x.print("started");
+			cachedFunction.apply(5000000);
+			x.print("ended");
+			
+			x.print("started2");
+			cachedFunction.apply(5000000);
+			x.print("ended2");
 			
 		}catch(Exception e){
 			throw e;

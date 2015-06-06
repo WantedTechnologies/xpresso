@@ -32,7 +32,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
-import com.wantedtech.common.xpresso.lambda.LambdaFunction;
+import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.regex.Match;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.dict;
