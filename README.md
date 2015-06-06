@@ -357,8 +357,8 @@ Console: [Moscow, London, Paris]
 
 ```
 	/* xerox is a Function object whose method apply copies
-	   the string "hello" the given number *count* of times.
-	   It's a long to execute function for large values of *count*:
+	   the string "hello" the given number **count** of times.
+	   It's a long to execute function for large values of **count**:
 	*/
 	Function<Integer, String> xerox = new Function<Integer, String>() {
 		public String apply(Integer count) {
@@ -366,7 +366,7 @@ Console: [Moscow, London, Paris]
 		}
 	};
 			
-	//We create a cached version of xerox using *x.memo*:
+	//We create a cached version of xerox using **x.memo**:
 	Function<Integer,String> cachedXerox = x.memo(xerox);
 			
 	//First call, a very long execution time:
