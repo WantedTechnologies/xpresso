@@ -355,9 +355,7 @@ Console: [Moscow, London, Paris]
 
 #### Easy caching of any object's method results
 
-As a quick example, *xerox* is a Function object whose method apply copies the string "hello" the given *count* of times.
-
-It's a long to execute function for large values of count:
+As a quick example, *xerox* is a Function object whose method *apply* copies the string *"hello"* the given number *count* of times:
 ```
 	Function<Integer, String> xerox = new Function<Integer, String>() {
 		public String apply(Integer count) {
@@ -365,7 +363,9 @@ It's a long to execute function for large values of count:
 		}
 	};
 ```
-We first create a cached version of xerox using *x.memo*:
+It's a long to execute function for large values of count.
+
+In order to avoid the long computation for the same input, we first create a cached version of xerox using *x.memo*:
 ```
 	Function<Integer,String> cachedXerox = x.memo(xerox);
 ```			
