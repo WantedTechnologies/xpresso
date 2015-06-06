@@ -356,23 +356,24 @@ Console: [Moscow, London, Paris]
 #### Easy caching of method results
 
 ```
-            //*xerox* is a Function that copy the string "hello"
-            //the given number *count* of times
-            //it's a long to execute function for large values of count
-			Function<Integer, String> xerox = new Function<Integer, String>() {
-				public String apply(Integer count) {
-					return x.String("hello").times(count);
-				}
-			};
+        /* xerox is a Function that copy the string "hello"
+           the given number *count* of times
+           it's a long to execute function for large values of count
+        */
+	Function<Integer, String> xerox = new Function<Integer, String>() {
+		public String apply(Integer count) {
+			return x.String("hello").times(count);
+		}
+	};
 			
-			//we create a cached version of xerox using *x.memo*
-			Function<Integer,String> cachedXerox = x.memo(xerox);
+	//we create a cached version of xerox using *x.memo*
+	Function<Integer,String> cachedXerox = x.memo(xerox);
 			
-			//first call -- very long execution time
-			String copies = cachedXerox.apply(5000000);
+	//first call -- very long execution time
+	String copies = cachedXerox.apply(5000000);
 			
-			//second call -- instantaneous
-			String moreCopies = cachedXerox.apply(5000000);
+	//second call with the same count -- instantaneous
+	String moreCopies = cachedXerox.apply(5000000);
 ```
 
 #### largest and smallest
