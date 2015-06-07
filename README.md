@@ -534,7 +534,7 @@ x.print("Hello World", 1, true, x.list(1, 2, 3), null);
 Console: Hello World 1 true [1, 2, 3] NullType
 ```
 
-#### largest and smallest
+#### largestN and smallestN
 
 ```
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
