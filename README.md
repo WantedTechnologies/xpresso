@@ -389,23 +389,6 @@ x.print(timer.stop());
 Console: 0.0s
 ```
 *x.memo* can be used to cache methods of object of any Java type, not only Function.
-#### largest and smallest
-
-```
-list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
-
-x.print(cities.smallestN(2));
-
-Console: [Rome, Moscow]
-```
-
-```
-list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
-
-x.print(cities.largestN(2));
-
-Console: [Saint-Petersbourg, San Francisco]
-```
 
 #### Automatic building of o.hashCode() and o1.equals(Object o2)
 When defining a class:
@@ -540,6 +523,24 @@ x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) a
 x.print("Hello World", 1, true, x.list(1, 2, 3), null);
 
 Console: Hello World 1 true [1, 2, 3] NullType
+```
+
+#### largest and smallest
+
+```
+list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
+
+x.print(cities.smallestN(2));
+
+Console: [Rome, Moscow]
+```
+
+```
+list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
+
+x.print(cities.largestN(2));
+
+Console: [Saint-Petersbourg, San Francisco]
 ```
 
 #### More
