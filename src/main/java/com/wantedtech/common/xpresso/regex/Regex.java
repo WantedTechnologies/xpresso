@@ -1,7 +1,7 @@
 package com.wantedtech.common.xpresso.regex;
-import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.str.str;

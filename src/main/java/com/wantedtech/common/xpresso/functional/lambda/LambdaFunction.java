@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.antlr.v4.runtime.*;
 
-import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 
 public class LambdaFunction<O> implements Function<Object,O>{

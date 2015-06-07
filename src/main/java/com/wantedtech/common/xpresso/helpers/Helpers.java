@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +56,14 @@ public class Helpers {
 	
 	public static <T> HashMap<String,T> newHashMap(dict<T> dict){
 		return dict.toHashMap();
+	}
+	
+	public static int hashCode(Object o, String... excludeFields){
+		return new HashCode(o,excludeFields).hashCode();
+	}
+
+	public static int Equals(Object o, String... excludeFields){
+		return new HashCode(o,excludeFields).hashCode();
 	}
 	
 }

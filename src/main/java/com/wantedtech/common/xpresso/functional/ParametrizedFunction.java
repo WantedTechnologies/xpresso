@@ -2,7 +2,7 @@ package com.wantedtech.common.xpresso.functional;
 
 import java.util.ArrayList;
 
-import com.wantedtech.common.xpresso.Helpers;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.list;
 
 /**

@@ -3,8 +3,8 @@ package com.wantedtech.common.xpresso.comprehension;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 

@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
 
+import com.wantedtech.common.xpresso.HappyObject.HappyObject;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
@@ -43,6 +44,7 @@ import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.time.Timer;
@@ -74,6 +76,10 @@ import com.wantedtech.common.xpresso.types.tuple.tuple4;
  */
 
 public class x {
+	
+	HappyObject Object(Object o){
+		return new HappyObject(o);
+	}
 	
 	/**
 	 * Opens a {@link HappyFile} for reading or writing, in binary or text mode.
@@ -2599,7 +2605,7 @@ public class x {
 	}
 	
 	/**
-	 * A less verbose console print method. Preferrred over System.out.println.
+	 * A less verbose console print method. Preferred over System.out.println.
 	 * 
 	 * x.print is also more versatile. It can take values of any type as input.
 	 * 

@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.wantedtech.common.xpresso.Helpers;
 import com.wantedtech.common.xpresso.ObjectFactory;
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuple.tuple;
 import com.wantedtech.common.xpresso.types.tuple.tuple2;
 
