@@ -227,7 +227,7 @@ x.print(x.String("tic tac toe").slice(LAST_THREE));
 Console: toe
 ```
 
-#### Iterable Regex search results
+#### Iterable regex search results
 
 Python:
 ```
@@ -253,15 +253,24 @@ for (String longWord : x.Regex("\\b\\w{10,}\\b").searchAll(text))
     x.print(longWord);
 ```
 
-#### Replace with a function
+#### Replace with a Function
 
 Python:
 ```
+def toUpperCaseFun(value):
+	return value.upper()
+
 text = re.sub("\b\w{10,}\b",toUpperCaseFun,text)
 ```
 
 xpresso:
 ```
+Function<String,String> toUpperCaseFun = new Function<String,String>(){
+	public String apply(String value) {
+		return value.toUpperCase();
+	}
+}
+
 text = x.Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
 ```
 
