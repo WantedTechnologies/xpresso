@@ -417,19 +417,6 @@ boolean equals(Object obj){
 ```
 The code above works by exploring the members of the two objects (*this* and *obj*), as well as of each of their respective superclasses, and by comparing the values of those members.
 
-#### n-grams
-```
-str phrase = "If you want something done right, you have to do it yourself.";
-
-list<str> tokens = phrase.split();
-
-list<list<str>> ngrams = tokens.ngrams(3);
-
-x.print(ngrams);
-
-Console: [[If, you, want], [you, want, something], [something, done, right]..., [do, it, yourself.]]
-```
- 
 #### Built-in iterators
 
 * cycle
@@ -532,6 +519,19 @@ x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) a
 x.print("Hello World", 1, true, x.list(1, 2, 3), null);
 
 Console: Hello World 1 true [1, 2, 3] NullType
+```
+
+#### N-grams
+```
+str phrase = "If you want something done right, you have to do it yourself.";
+
+list<str> tokens = phrase.split();
+
+list<list<str>> ngrams = tokens.ngrams(3);
+
+x.print(ngrams);
+
+Console: [[If, you, want], [you, want, something], [something, done, right]..., [do, it, yourself.]]
 ```
 
 #### largestN and smallestN
