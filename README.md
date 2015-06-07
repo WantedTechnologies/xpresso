@@ -129,7 +129,7 @@ new_list = [element.upper() if element[0] == "a" else element.lower() for elemen
 
 xpresso:
 ```
-list<String> newList = [x.element().transformWith(x.upper).ifElement(x.LambdaP("x:x[0] == "a")).elseTransfromWith(x.lower).forElementIn(oldList).ifNotElement(x.LambdaP("x:f0(x[0])",x.in(x.list("x", "y", "z"))));
+list<String> newList = x.list(x.element().transformWith(x.upper).ifElement(x.LambdaP("x:x[0] == "a")).elseTransfromWith(x.lower).forElementIn(oldList).ifNotElement(x.LambdaP("x:f0(x[0])",x.in(x.list("x", "y", "z"))));
 ```
 
 #### Pythonic iterable dict
