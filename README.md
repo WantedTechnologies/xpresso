@@ -406,7 +406,25 @@ x.print(cities.largestN(2));
 
 Console: [Saint-Petersbourg, San Francisco]
 ```
- 
+
+#### Automatic building of o.hashCode() and o1.equals(Object o2)
+When defining a class:
+```
+@Override
+int hashCode(){
+	return x.Object(this).hashCode();
+}
+```
+The code above works by exploring the members of *this* and of each of its superclasses (via reflections) and by dynamically computing the hash code for *this* based on the values of those members.
+
+```
+@Override
+boolean equals(Object obj){
+	return x.Object(this).equals(obj);
+}
+```
+The code above works by exploring the members of the two objects (*this* and *obj*), as well as of each of their respective superclasses, and by comparing the values of those members.
+
 #### n-grams
 ```
 str phrase = "If you want something done right, you have to do it yourself.";
