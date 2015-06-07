@@ -30,7 +30,7 @@ x.print("Hello World!");
 
 #### Slicable and iterable **str** type
 ```
-import com.wantedtech.common.xpresso.types.str.str;
+import com.wantedtech.common.xpresso.types.str;
 
 str city = x.str("New York City");
 
@@ -98,10 +98,7 @@ rank = dict(("Moscow":30),("Saint-Petersburg":15),("New York":20),("London":10),
 
 xpresso:
 ```
-import com.wantedtech.common.xpresso.types.dict;
-import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.set;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
+import com.wantedtech.common.xpresso.types.*; //imports list, set, dict, tuple,...
 
 list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
 
