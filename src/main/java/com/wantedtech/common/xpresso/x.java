@@ -677,7 +677,7 @@ public class x {
 	 * Chains functions in the following way: ..f2(f1(f0(x))) where x is the input
 	 * of the chained function and f0, f1, ... are the functions to apply to x in chain.
 	 * 
-	 * Example 1: Function<Integer,Integer> incrementAndMultiplyBy5 = x.chainOf(increment,x.\<Integer\>lambdaF("x : x * 5"));
+	 * Example 1: Function<Integer,Integer> incrementAndMultiplyBy5 = x.chain(increment,x.\<Integer\>lambdaF("x : x * 5"));
 	 *
 	 * @param functions	functions to chain (optional)
 	 * @param <I,O>		input and output types for the final chained function
@@ -685,7 +685,7 @@ public class x {
 	 *                   
 	 */
 	@SafeVarargs
-	public static <I,O> Function<I,O> chainOf(final Function<Object,?>... functions){
+	public static <I,O> Function<I,O> chain(final Function<Object,?>... functions){
 		return new Function<I,O>(){
 			@SuppressWarnings("unchecked")
 			@Override
@@ -710,7 +710,7 @@ public class x {
 	 * @return 			an {@link java.lang.Iterable}<T>
 	 */
 	@SafeVarargs
-	public static <T> Iterable<T> chainOf(final Iterable<T> iterable0, final Iterable<T> iterable1, final Iterable<T>... iterables){
+	public static <T> Iterable<T> chain(final Iterable<T> iterable0, final Iterable<T> iterable1, final Iterable<T>... iterables){
 		Iterable<T> generator = new Iterable<T>(){
 			public Iterator<T> iterator(){
 				final ArrayList<Iterator<T>> iterators = new ArrayList<Iterator<T>>();
@@ -756,7 +756,7 @@ public class x {
 	 * @return 				an {@link java.lang.Iterable}<String>
 	 */
 	@SafeVarargs
-	public static Iterable<String> chainOf(final String string0,final String string1,final String... otherStrings){
+	public static Iterable<String> chain(final String string0,final String string1,final String... otherStrings){
 		String[] stingArr = otherStrings;
 		str[] strArr = new str[stingArr.length];
 		int counter = 0;
@@ -764,7 +764,7 @@ public class x {
 			strArr[counter] = x.str(string);
 			counter++;
 		}
-		return chainOf(x.str(string0),x.str(string1),strArr);
+		return chain(x.str(string0),x.str(string1),strArr);
 	}
 	
 	/*

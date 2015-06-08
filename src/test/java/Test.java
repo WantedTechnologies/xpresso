@@ -178,7 +178,7 @@ public class Test {
 			
 			Function<Object,Integer> increment = x.<Integer>lambdaF("x : x + 1");
 			
-			Function<Integer,Integer> incrementAndMultiplyBy5 = x.chainOf(increment,x.<Integer>lambdaF("x : x * 5"));
+			Function<Integer,Integer> incrementAndMultiplyBy5 = x.chain(increment,x.<Integer>lambdaF("x : x * 5"));
 			
 			Function<Integer, String> strCopy = new Function<Integer, String>() {
 				public String apply(Integer count) {
@@ -229,6 +229,11 @@ public class Test {
 
 			list<String> tripsO = trips.filtered(containsO);
 			x.print(tripsO);
+			
+			Function<Object,Integer> incrementFun = x.lambdaF("x : x + 1");
+			Function<Object,Integer> squareFun = x.lambdaF("x : x * x");
+
+			Function<Object,Integer> chainFun = x.chain(incrementFun,squareFun);
 			
 		}catch(Exception e){
 			throw e;
