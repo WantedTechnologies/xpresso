@@ -109,13 +109,13 @@ dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),
 
 #### Functions and predicates
 ```
-Function<Object, String> toUpperCase = new Function<Object, String>() {
+Function<Object, String> toUpperCaseFun = new Function<Object, String>() {
 	public String apply(Object value) {
 		return value.toString().toUpperCase();
 	}
 };
 
-list<String> tripsUp = trips.transformed(toUpperCase);
+list<String> tripsUp = trips.transformed(toUpperCaseFun);
 x.print(tripsUp);
 
 Console: [DUBAI, NEW YORK, LONDON, PARIS, MOSCOW, LONDON, SAINT-PETERSBURG, NEW YORK]
