@@ -153,8 +153,6 @@ Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.
 ```
 
 ```
-list<Integer> ints = x.list(10, 50, 48);
-
 Function<Object,Integer> squareFun = x.<Integer>LambdaF("x : x * x");
 
 Function<Object,Integer> fun = x.<Integer>LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
