@@ -165,9 +165,9 @@ Function chains:
 Function<Object,Integer> incrementFun = x.<Integer>lambdaF("x : x + 1");
 Function<Object,Integer> squareFun = x.<Integer>lambdaF("x : x * x");
 
-Function<Integer,Integer> chainFun = x.chainOf(incrementFun,squareFun);
-//chainFun will first increment, then square its input
+Function<Object,Integer> chainFun = x.chainOf(incrementFun,squareFun);
 ```
+*chainFun* will first increment, then square its input. *x.chainOf(...)* can take more than two functions as argument. The last function in the chain has to return the value of the desired output type.
 
 #### List comprehensions
 
