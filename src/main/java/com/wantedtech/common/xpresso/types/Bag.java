@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.wantedtech.common.xpresso.KeyValue;
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.types.tuple.tuple2;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
 public class Bag<T> implements Iterable<T>{
 	

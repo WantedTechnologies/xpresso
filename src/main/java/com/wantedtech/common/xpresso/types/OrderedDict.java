@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
-import com.wantedtech.common.xpresso.types.tuple.tuple2;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
 public class OrderedDict<T> extends dict<T> {
 

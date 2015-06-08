@@ -3,7 +3,7 @@ package com.wantedtech.common.xpresso.json;
 import java.util.Map;
 
 import com.wantedtech.common.xpresso.types.dict;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
+import com.wantedtech.common.xpresso.types.tuple;
 
 public class Json {
 	public static String dump(Map<?,?> o){

@@ -33,18 +33,18 @@ import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
 
-import com.wantedtech.common.xpresso.HappyObject.HappyObject;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
+import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
-import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.time.Timer;
@@ -55,16 +55,17 @@ import com.wantedtech.common.xpresso.types.HappyFile;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.set;
 import com.wantedtech.common.xpresso.types.Bag;
+import com.wantedtech.common.xpresso.types.str;
+import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.HappyObject.HappyObject;
 import com.wantedtech.common.xpresso.types.HappyString.HappyString;
 import com.wantedtech.common.xpresso.types.HappyString.HappyStringStatic;
-import com.wantedtech.common.xpresso.types.str.str;
-import com.wantedtech.common.xpresso.types.str.strStatic;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
-import com.wantedtech.common.xpresso.types.tuple.tuple0;
-import com.wantedtech.common.xpresso.types.tuple.tuple1;
-import com.wantedtech.common.xpresso.types.tuple.tuple2;
-import com.wantedtech.common.xpresso.types.tuple.tuple3;
-import com.wantedtech.common.xpresso.types.tuple.tuple4;
+import com.wantedtech.common.xpresso.types.strs.strStatic;
+import com.wantedtech.common.xpresso.types.tuples.tuple0;
+import com.wantedtech.common.xpresso.types.tuples.tuple1;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
+import com.wantedtech.common.xpresso.types.tuples.tuple3;
+import com.wantedtech.common.xpresso.types.tuples.tuple4;
 
 /**
  * This class contains high-level static utility methods.
@@ -77,7 +78,7 @@ import com.wantedtech.common.xpresso.types.tuple.tuple4;
 
 public class x {
 	
-	HappyObject Object(Object o){
+	public static HappyObject Object(Object o){
 		return new HappyObject(o);
 	}
 	

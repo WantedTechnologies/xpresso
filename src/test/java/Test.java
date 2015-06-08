@@ -2,22 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.time.Timer;
-import com.wantedtech.common.xpresso.types.HappyFile;
-import com.wantedtech.common.xpresso.types.dict;
-import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.Slicer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
+import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.json.JsonArray;
-import com.wantedtech.common.xpresso.regex.Regex;
-import com.wantedtech.common.xpresso.types.Bag;
-import com.wantedtech.common.xpresso.types.str.str;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
-import com.wantedtech.common.xpresso.types.tuple.tuple2;
+import com.wantedtech.common.xpresso.types.*;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
 public class Test {
 	
@@ -196,13 +191,21 @@ public class Test {
 			Function<Integer,String> cachedFunction = x.memo(strCopy);
 			
 			Timer timer = x.Timer();
-			String copies = cachedFunction.apply(5000000);
+			String copies = cachedFunction.apply(500);
 			x.print(timer.stop());
 			
 			timer.start();
-			copies = cachedFunction.apply(5000000);
+			copies = cachedFunction.apply(500);
 			x.print(timer.stop());
 			
+			x.print(x.tuple(0,1).equals(x.tuple(0,2)));
+			
+			x.print(x.tuple(0,1).equals(x.tuple(0,1)));
+			
+			x.print(x.tuple(0,1).compareTo(x.tuple(0,2)));
+			
+			x.print(x.tuple(1,1).hashCode());
+			x.print(x.tuple(0,1).hashCode());
 			
 		}catch(Exception e){
 			throw e;

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
+import com.wantedtech.common.xpresso.types.tuple;
 
 public abstract class AbstractTupleComprehension implements Iterable<tuple>{
 

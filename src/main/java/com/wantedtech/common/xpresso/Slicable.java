@@ -1,5 +1,7 @@
 package com.wantedtech.common.xpresso;
 
+import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
+
 public interface Slicable<T> {
 
 	public Slicable<T> plus(Iterable<T> list);

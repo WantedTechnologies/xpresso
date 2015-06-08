@@ -37,8 +37,8 @@ import com.wantedtech.common.xpresso.regex.Match;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.str.str;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
+import com.wantedtech.common.xpresso.types.str;
+import com.wantedtech.common.xpresso.types.tuple;
 import com.wantedtech.common.xpresso.x;
 
 /**

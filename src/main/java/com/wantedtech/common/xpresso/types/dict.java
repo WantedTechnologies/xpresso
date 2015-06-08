@@ -8,9 +8,8 @@ import java.util.Map;
 
 import com.wantedtech.common.xpresso.ObjectFactory;
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.helpers.Helpers;
-import com.wantedtech.common.xpresso.types.tuple.tuple;
-import com.wantedtech.common.xpresso.types.tuple.tuple2;
+import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
 public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<T>>{
 	
@@ -169,7 +168,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		put(setAtKey, value);
 	}
 	
-	boolean contains(String string){
+	public boolean contains(String string){
 		return ((HashMap<String,T>)dict).containsKey(string);
 	}
 	

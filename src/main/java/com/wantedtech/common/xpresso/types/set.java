@@ -179,7 +179,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		return difference(elements);
 	}
 	
-	public boolean contains(T value){
+	public boolean contains(Object value){
 		return this.set.contains(value);
 	}
 	

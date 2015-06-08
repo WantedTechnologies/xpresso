@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.wantedtech.common.xpresso.Slicable;
-import com.wantedtech.common.xpresso.Slicer;
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.helpers.Helpers;
+import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 
 public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Serializable{
 	
