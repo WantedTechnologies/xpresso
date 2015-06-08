@@ -321,9 +321,9 @@ x.print(trips.slice(2));
 Console: [Dubai, London, Moscow, Saint-Petersburg]
 ```
 
-#### Slice object
+#### Slicer object
 ```
-Slice LAST_THREE = x.sliceFrom(-3);
+Slicer LAST_THREE = x.sliceFrom(-3);
 
 x.print(x.String("tic tac toe").slice(LAST_THREE));
 
