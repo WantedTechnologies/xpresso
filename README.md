@@ -594,12 +594,12 @@ Console: [Saint-Petersbourg, San Francisco]
 ```
 
 #### More
-* invert dict: ```dict.inverted();```
-* flatten list: ```list.flattened();```
-* modify list using slicing: ```trips.setAt(3, 5).values(x.list(1, 2, 3, 4, 5));```
-* for more see the [comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java).
+* Invert dict: ```dict.inverted();```
+* Flatten list: ```list.flattened();```
+* Modify list using slicing: ```trips.setAt(3, 5).values(x.list(1, 2, 3, 4, 5));```
 * Case insensitive regex shortcut: ```x.RegexNoCase("\\bmama\\b")```
 * Replace each match by an empty string: ```x.Regex("[,.;]").clear(inputString)```
+* For more see the [comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java).
 
 #### Future
 * Approximate string comparison: ```x.String("Hello World").similarity("Helo Wold!") --> .89```
