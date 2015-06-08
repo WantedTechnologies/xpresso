@@ -8,6 +8,8 @@ import com.wantedtech.common.xpresso.Slicable;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
+import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.functional.Predicate;
 
 public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Serializable{
 	
@@ -236,6 +238,24 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 	
 	public void value(T value){
 		set(setAtIndex,value);
+	}
+	
+	public list<T> transformed(Function<Object,T> function){
+		list<T> newList = x.list();
+		for(T element : this.list){
+			newList.append(function.apply(element));
+		}
+		return newList;
+	}
+	
+	public list<T> filtered(Predicate<Object> predicate){
+		list<T> newList = x.list();
+		for(T element : this.list){
+			if(predicate.apply(element)){
+				newList.append(element);	
+			}
+		}
+		return newList;
 	}
 	
 	public boolean contains(T value){

@@ -425,7 +425,7 @@ public class x {
 	 * 
 	 * xpresso:
 	 * 
-	 * list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
+	 * list<String> foreignTripsLower = x.list(x.yield().apply(x.lower).forIter(trips).unless(x.in(russianCities)));
 	 * 
 	 */
 	public static <O> ScalarComprehensionStart<O> yield(){
@@ -445,7 +445,7 @@ public class x {
 	 * list1 = [element[1].lower() for element in list0]
 	 * 
 	 * xpresso:
-	 * list<tuple> list1 = x.list(x.element(1).transformWith(x.lower).forElementIn(list0));
+	 * list<tuple> list1 = x.list(x.yield(1).apply(x.lower).forIter(list0));
 	 * 
 	 */
 	public static Tuple1ComprehensionStart yield(int index0) {
@@ -465,7 +465,7 @@ public class x {
 	 * list1 = [element[1].lower() for element in list0]
 	 * 
 	 * xpresso:
-	 * list<tuple> list1 = x.list(x.element(1).transformWith(x.lower).forElementIn(list0));
+	 * list<tuple> list1 = x.list(x.yield(1).apply(x.lower).forIter(list0));
 	 * 
 	 */
 	public static Tuple2ComprehensionStart yield(int index0,int index1) {

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.functional.Predicate;
 
 public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	/**
@@ -177,6 +179,24 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	@SuppressWarnings("unchecked")
 	public set<T> minus(T... elements){
 		return difference(elements);
+	}
+	
+	public set<T> transformed(Function<Object,T> function){
+		set<T> newSet = x.set();
+		for(T element : this.set){
+			newSet.put(function.apply(element));
+		}
+		return newSet;
+	}
+	
+	public set<T> filtered(Predicate<Object> predicate){
+		set<T> newSet = x.set();
+		for(T element : this.set){
+			if(predicate.apply(element)){
+				newSet.put(element);	
+			}
+		}
+		return newSet;
 	}
 	
 	public boolean contains(Object value){

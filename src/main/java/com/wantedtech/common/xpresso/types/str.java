@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.functional.Predicate;
 
 public class str extends list<String> implements Iterable<String>{
 	
@@ -98,6 +100,24 @@ public class str extends list<String> implements Iterable<String>{
 	
 	public boolean contains(str str){
 		return this.toString().contains(str.toString());
+	}
+	
+	public str transformed(Function<Object,String> function){
+		str newStr = x.str();
+		for(String element : this.list){
+			newStr.append(function.apply(element));
+		}
+		return newStr;
+	}
+	
+	public str filtered(Predicate<Object> predicate){
+		str newStr = x.str();
+		for(String element : this.list){
+			if(predicate.apply(element)){
+				newStr.append(element);	
+			}
+		}
+		return newStr;
 	}
 	
 	public str copy(){

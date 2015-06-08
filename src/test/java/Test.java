@@ -7,6 +7,7 @@ import com.wantedtech.common.xpresso.time.Timer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.json.JsonArray;
 import com.wantedtech.common.xpresso.types.*;
@@ -208,6 +209,27 @@ public class Test {
 			list<String> someList = x.list("good","bad","good");
 			list<Boolean> evals = x.list(x.<Boolean>yield().value(true).when(x.lambdaP("x : x == '''good'''")).valueOtherwise(false).forIter(someList));
 			x.print(evals);
+			
+			list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
+			
+			Function<Object, String> toUpper = new Function<Object, String>() {
+				public String apply(Object value) {
+					return value.toString().toUpperCase();
+				}
+			};
+
+			list<String> tripsUp = trips.transformed(toUpper);
+			x.print(tripsUp);
+
+			Predicate<Object> containsO = new Predicate<Object>() {
+				public Boolean apply(Object value) {
+					return value.toString().contains("o") ? true : false;
+				}
+			};
+
+			list<String> tripsO = trips.filtered(containsO);
+			x.print(tripsO);
+			
 		}catch(Exception e){
 			throw e;
 		}
