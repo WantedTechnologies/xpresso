@@ -155,9 +155,18 @@ Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.
 ```
 list<Integer> ints = x.list(10, 50, 48);
 
-Function<Object,Integer> squareFun = x.LambdaF("x : x * x");
+Function<Object,Integer> squareFun = x.<Integer>LambdaF("x : x * x");
 
-Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
+Function<Object,Integer> fun = x.<Integer>LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
+```
+
+Function chains:
+```
+Function<Object,Integer> incrementFun = x.<Integer>lambdaF("x : x + 1");
+Function<Object,Integer> squareFun = x.<Integer>lambdaF("x : x * x");
+
+Function<Integer,Integer> chainFun = x.chainOf(incrementFun,squareFun);
+//chainFun will first increment, then square its input
 ```
 
 #### List comprehensions
