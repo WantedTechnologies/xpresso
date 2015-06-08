@@ -404,7 +404,7 @@ int hashCode(){
 	return x.Object(this).hashCode();
 }
 ```
-The code above works by exploring the members of *this* and of each of its superclasses (via reflections) and by dynamically computing the hash code for *this* based on the values of those members.
+In the above code, xpresso first finds the members of *this* (via reflections) and then dynamically computes the hash code for *this* based on the values of its members.
 
 ```
 @Override
@@ -412,7 +412,7 @@ boolean equals(Object obj){
 	return x.Object(this).equals(obj);
 }
 ```
-The code above works by exploring the members of the two objects (*this* and *obj*), as well as of each of their respective superclasses, and by comparing the values of those members.
+In the above code, xpresso first finds the members of the two objects (*this* and *obj*), and then compares the values of those members.
 
 ```
 @Override
@@ -420,7 +420,7 @@ public int compareTo(Object obj){
 	return x.Object(this).compareTo(obj, fieldName0, fieldName1, ...);
 }
 ```
-The code above works by exploring the members of the two objects (*this* and *obj*), as well as of each of their respective superclasses, and by comparing the values of those members if the latter are listed among the input field names fieldName0, fieldName1, etc. The order of comparisons is the same as the order of input field names.
+In the above code, xpresso first finds the members of the two objects (*this* and *obj*). It then compares the values of those members between the two object if those members' names are listed among the input field names fieldName0, fieldName1, etc. The order of comparisons between the member's values is the same as the order of input field names.
 
 #### Built-in iterators
 
