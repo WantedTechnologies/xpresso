@@ -29,18 +29,21 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 	Iterable<Object> originalElements = Helpers.newArrayList();
 	
 	@SuppressWarnings("unchecked")
-	protected ScalarComprehension<O> transformWith(Function<Object,?> scalarFunction){
+	protected ScalarComprehension<O> apply(Function<Object,?> scalarFunction){
 		ifFunction = (Function<Object,O>)scalarFunction;
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected final ScalarComprehension<O> elseTransformWith(Function<Object,?> scalarFunction){
+	protected final ScalarComprehension<O> applyOtherwise(Function<Object,?> scalarFunction){
 		elseFunction = (Function<Object,O>)scalarFunction;
 		return this;
 	}
 	
-	protected ScalarComprehension<O> forElementIn(Iterable<?> listOfElements){
+	protected ScalarComprehension<O> forIter(Iterable<?> listOfElements){
+		if(!(listOfElements instanceof Iterable<?>)){
+			throw new IllegalArgumentException("The input of forIter has to be an Iterable.");
+		}
 		ArrayList<O> new_transformed_scalars = Helpers.newArrayList();
 		ArrayList<Object> new_original_scalars = Helpers.newArrayList();
 		for(Object scalar: listOfElements){
@@ -57,7 +60,7 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 		isBeforeFor = false;
 		return this;
 	}
-	protected ScalarComprehension<O> forElementIn(list<?> listOfElements){
+	/*protected ScalarComprehension<O> forIter(list<?> listOfElements){
 		ArrayList<O> new_transformed_scalars = Helpers.newArrayList();
 		ArrayList<Object> new_original_scalars = Helpers.newArrayList();
 		for(Object scalar: listOfElements){
@@ -73,14 +76,14 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 		originalElements = new_original_scalars;
 		isBeforeFor = false;
 		return this;
-	}
+	}*/
 	
-	protected ScalarComprehension<O> forElementIn(Object scalar0,Object scalar1,Object... scalars){
+	protected ScalarComprehension<O> forIter(Object scalar0,Object scalar1,Object... scalars){
 		ArrayList<Object> scalarsList = Helpers.newArrayList(scalar0, scalar1, scalars);
-		return forElementIn(scalarsList);
+		return forIter(scalarsList);
 	}
 	
-	protected ScalarComprehension<O> ifElement(Predicate<Object> scalarPredicate){
+	protected ScalarComprehension<O> when(Predicate<Object> scalarPredicate){
 		if(isBeforeFor){
 			ifPredicate = scalarPredicate;
 		}else{
@@ -98,14 +101,14 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected ScalarComprehension<O> ifNotElement(Predicate<?> scalarPredicate){
-		return ifElement(x.NOT((Predicate<Object>)scalarPredicate));
+	protected ScalarComprehension<O> unless(Predicate<?> scalarPredicate){
+		return when(x.NOT((Predicate<Object>)scalarPredicate));
 	}
 	
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	protected ScalarComprehension<O> ifElementNot(Predicate<?> scalarPredicate){
-		return ifElement(x.NOT((Predicate<Object>)scalarPredicate));
-	}
+		return when(x.NOT((Predicate<Object>)scalarPredicate));
+	}*/
 	
     public Iterator<O> iterator(){
     	return transformedElements.iterator();

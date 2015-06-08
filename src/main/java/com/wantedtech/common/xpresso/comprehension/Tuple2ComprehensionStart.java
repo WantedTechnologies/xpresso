@@ -2,6 +2,7 @@ package com.wantedtech.common.xpresso.comprehension;
 
 import java.util.ArrayList;
 
+import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 
 public class Tuple2ComprehensionStart {
@@ -12,24 +13,29 @@ public class Tuple2ComprehensionStart {
 		this.comprehension = comprehension;
 	}
 	
-	public Tuple2ComprehensionIf transformWith(Function<Object,?> function0,Function<Object,?> function1){
-		this.comprehension.transformWith(function0,function1);
+	public Tuple2ComprehensionIf apply(Function<Object,?> function0,Function<Object,?> function1){
+		this.comprehension.apply(function0,function1);
 		return new Tuple2ComprehensionIf(this.comprehension);
 	}
 	
-	public Tuple2ComprehensionFinal forElementIn(Iterable<?> elements){
-		this.comprehension.forElementIn(elements);
+	public Tuple2ComprehensionIf value(Object value0,Object value1){
+		this.comprehension.apply(x.constant(value0),x.constant(value1));
+		return new Tuple2ComprehensionIf(this.comprehension);
+	}
+	
+	public Tuple2ComprehensionFinal forIter(Iterable<?> elements){
+		this.comprehension.forIter(elements);
 		return new Tuple2ComprehensionFinal(this.comprehension);
 	}
 	
-	public Tuple2ComprehensionFinal forElementIn(Object element0,Object element1,Object... elements){
+	public Tuple2ComprehensionFinal forIter(Object element0,Object element1,Object... elements){
 		ArrayList<Object> inputList = new ArrayList<Object>();
 		inputList.add(element0);
 		inputList.add(element1);
 		for (Object element : elements){
 			inputList.add(element);
 		}
-		this.comprehension.forElementIn(inputList);
+		this.comprehension.forIter(inputList);
 		return new Tuple2ComprehensionFinal(this.comprehension);
 	}
 	

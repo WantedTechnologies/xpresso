@@ -8,13 +8,13 @@ public class ScalarComprehensionFor<O> {
 		this.comprehension = comprehension;	
 	}
 	
-	public ScalarComprehensionFinal<O> forElementIn(Iterable<?> listOfElements){
-		this.comprehension.forElementIn(listOfElements);
+	public ScalarComprehensionFinal<O> forIter(Iterable<?> listOfElements){
+		this.comprehension.forIter(listOfElements);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
 
-	public ScalarComprehensionFinal<O> forElementIn(Object scalar0,Object scalar1,Object... scalars){
-		this.comprehension.forElementIn(scalar0,scalar1,scalars);
+	public ScalarComprehensionFinal<O> forIter(Object scalar0,Object scalar1,Object... scalars){
+		this.comprehension.forIter(scalar0,scalar1,scalars);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
 	

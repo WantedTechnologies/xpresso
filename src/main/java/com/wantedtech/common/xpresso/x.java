@@ -428,7 +428,7 @@ public class x {
 	 * list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
 	 * 
 	 */
-	public static <O> ScalarComprehensionStart<O> element(){
+	public static <O> ScalarComprehensionStart<O> yield(){
 		return ComprehensionFactory.scalar();
 	}
 	
@@ -448,7 +448,7 @@ public class x {
 	 * list<tuple> list1 = x.list(x.element(1).transformWith(x.lower).forElementIn(list0));
 	 * 
 	 */
-	public static Tuple1ComprehensionStart element(int index0) {
+	public static Tuple1ComprehensionStart yield(int index0) {
         return ComprehensionFactory.tuple(index0);
     }
 	
@@ -468,7 +468,7 @@ public class x {
 	 * list<tuple> list1 = x.list(x.element(1).transformWith(x.lower).forElementIn(list0));
 	 * 
 	 */
-	public static Tuple2ComprehensionStart element(int index0,int index1) {
+	public static Tuple2ComprehensionStart yield(int index0,int index1) {
         return ComprehensionFactory.tuple(index0,index1);
     }
 	
@@ -2832,6 +2832,17 @@ public class x {
 			return string;
 		}
 	};
+	
+	/**
+	 * A {@link Function} that takes any object as input and returns the same object.
+	 */
+	public static <T> ParametrizedFunction<Object,T> constant(final T obj){
+		return (new ParametrizedFunction<Object,T>() {
+			public T apply(Object input) {
+				return (T)obj;
+			}
+		}).params(obj);
+	}
 
 	/**
 	 * A {@link Predicate} that is always false no matter the input. 

@@ -11,32 +11,32 @@ public class ScalarComprehensionIf<O> {
 		this.comprehension = comprehension;	
 	}
 	
-	public ScalarComprehensionElse<O> ifElement(Predicate<Object> scalarPredicate){
-		this.comprehension.ifElement(scalarPredicate);
+	public ScalarComprehensionElse<O> when(Predicate<Object> scalarPredicate){
+		this.comprehension.when(scalarPredicate);
 		return new ScalarComprehensionElse<O>(this.comprehension);
 	}
 	
-	protected ScalarComprehensionElse<O> ifNotElement(Predicate<?> scalarPredicate){
-		this.comprehension.ifNotElement(scalarPredicate);
+	protected ScalarComprehensionElse<O> unless(Predicate<?> scalarPredicate){
+		this.comprehension.unless(scalarPredicate);
 		return new ScalarComprehensionElse<O>(this.comprehension);
 	}
 	
-	protected ScalarComprehensionElse<O> ifElementNot(Predicate<?> scalarPredicate){
+	/*protected ScalarComprehensionElse<O> ifElementNot(Predicate<?> scalarPredicate){
 		this.comprehension.ifElementNot(scalarPredicate);
 		return new ScalarComprehensionElse<O>(this.comprehension);
-	}
+	}*/
 	
-	public ScalarComprehensionFinal<O> forElementIn(Iterable<?> listOfElements){
-		this.comprehension.forElementIn(listOfElements);
+	public ScalarComprehensionFinal<O> forIter(Iterable<?> listOfElements){
+		this.comprehension.forIter(listOfElements);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
-	public ScalarComprehensionFinal<O> forElementIn(list<?> listOfElements){
-		this.comprehension.forElementIn(listOfElements);
+	public ScalarComprehensionFinal<O> forIter(list<?> listOfElements){
+		this.comprehension.forIter(listOfElements);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
 	
-	public ScalarComprehensionFinal<O> forElementIn(Object scalar0,Object scalar1,Object... scalars){
-		this.comprehension.forElementIn(scalar0,scalar1,scalars);
+	public ScalarComprehensionFinal<O> forIter(Object scalar0,Object scalar1,Object... scalars){
+		this.comprehension.forIter(scalar0,scalar1,scalars);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
 

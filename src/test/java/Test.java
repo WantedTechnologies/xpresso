@@ -7,8 +7,6 @@ import com.wantedtech.common.xpresso.time.Timer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
-import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.json.JsonArray;
 import com.wantedtech.common.xpresso.types.*;
@@ -58,13 +56,13 @@ public class Test {
 			str title = x.str("Hello‹„ World");
 			title = x.sorted(title,x.len,true);
 			
-			title = x.str(x.<String>element().transformWith(x.<String>asKeyOn(analogs)).ifElement(x.in(analogs)).elseTransformWith(x.upper).forElementIn(title).ifNotElement(x.in(x.list("o","r"))));
+			title = x.str(x.<String>yield().apply(x.<String>asKeyOn(analogs)).when(x.in(analogs)).applyOtherwise(x.upper).forIter(title).unless(x.in(x.list("o","r"))));
 			
 			x.print(title);
 			
 			list<list<String>> lists_lst = x.list(x.list("aaa","bbb","ccc"),x.list("ddd","eee","fff")); 
 			
-			list<tuple> lists_lst2 = x.list(x.element(0,1).forElementIn(lists_lst));
+			list<tuple> lists_lst2 = x.list(x.yield(0,1).forIter(lists_lst));
 			
 			x.print(lists_lst2);
 			
@@ -81,11 +79,11 @@ public class Test {
 			x.print(x.dict(x.tuple("aaaa",1)));
 			
 			str new_str = x.str("hello");
-			new_str = x.str(x.<String>element().transformWith(x.upper).forElementIn(new_str));
+			new_str = x.str(x.<String>yield().apply(x.upper).forIter(new_str));
 			x.print(new_str); 
 			
 			list<tuple> lst4 = x.list(x.tuple("aaa", "bbb"),x.tuple("xxxx", "yy Y yy"));
-			list<tuple> lst5 = x.list(x.element(0,1).transformWith(x.len,x.toUpperCase).forElementIn(lst4));
+			list<tuple> lst5 = x.list(x.yield(0,1).apply(x.len,x.toUpperCase).forIter(lst4));
 			x.print("uuu",lst5);
 			
 			x.print(Json.dump(lists_lst));
@@ -104,7 +102,7 @@ public class Test {
 			
 			list<list<String>> lst6 = x.list(x.list("aaa", "bbb"),x.list("xxxx", "yyYyy"));
 			
-			list<String> lst7 = x.list(x.<String>element().transformWith(new LambdaFunction<String>("x : f0(x[0])",x.upper)).forElementIn(lst6).ifElement(new LambdaPredicate("x : f0(x[0]) && f1(x[0]) && (x[1] != \"bbb\")",x.TRUE,x.TRUE)));
+			list<String> lst7 = x.list(x.<String>yield().apply(x.lambdaF("x : f0(x[0])",x.upper)).forIter(lst6).when(x.lambdaP("x : f0(x[0]) && f1(x[0]) && (x[1] != \"bbb\")",x.TRUE,x.TRUE)));
 			
 			x.print(lst7);
 			
@@ -173,7 +171,7 @@ public class Test {
 			
 			list<String> lst10= x.list(" aaa "," кккк "," ccc ");
 			
-			lst10 = x.list(x.<String>element().transformWith(x.lambdaF("x : f1(f0(x)) + '''rrr'''",x.upper,x.strip)).forElementIn(lst10).ifElement(x.lambdaP("x : (f0(x) > 5) && (f1(x) != '''жжж''')",x.len,x.strip)));
+			lst10 = x.list(x.<String>yield().apply(x.lambdaF("x : f1(f0(x)) + '''rrr'''",x.upper,x.strip)).forIter(lst10).when(x.lambdaP("x : (f0(x) > 5) && (f1(x) != '''жжж''')",x.len,x.strip)));
 			
 			x.print(lst10);
 			
@@ -207,6 +205,9 @@ public class Test {
 			x.print(x.tuple(1,1).hashCode());
 			x.print(x.tuple(0,1).hashCode());
 			
+			list<String> someList = x.list("good","bad","good");
+			list<Boolean> evals = x.list(x.<Boolean>yield().value(true).when(x.lambdaP("x : x == '''good'''")).valueOtherwise(false).forIter(someList));
+			x.print(evals);
 		}catch(Exception e){
 			throw e;
 		}

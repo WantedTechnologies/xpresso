@@ -26,7 +26,7 @@ public abstract class AbstractTupleComprehension implements Iterable<tuple>{
 	
 	int[] outputIndices = new int[]{0};
 
-	public void ifElement(Predicate<Object> predicate){
+	public void when(Predicate<Object> predicate){
 		if(before_for){
 			if_predicate = predicate;
 		}else{
@@ -44,14 +44,14 @@ public abstract class AbstractTupleComprehension implements Iterable<tuple>{
 	}
 	
 	
-	public void ifNotElement(Predicate<Object> predicate){
-		ifElement(x.NOT(predicate));
+	public void unless(Predicate<Object> predicate){
+		when(x.NOT(predicate));
 	}
-	public void ifElementNot(Predicate<Object> predicate){
-		ifElement(x.NOT(predicate));
-	}
+	/*public void ifElementNot(Predicate<Object> predicate){
+		when(x.NOT(predicate));
+	}*/
 	
-	abstract void forElementIn(Iterable<?> elements);
+	abstract void forIter(Iterable<?> elements);
 		
 	public Iterator<tuple> iterator() {
 		return elements.iterator();

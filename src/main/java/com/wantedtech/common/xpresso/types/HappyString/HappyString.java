@@ -163,7 +163,7 @@ public class HappyString {
 	}
 
 	public String asTitle(){
-		return x.String("").join(x.element().transformWith(x.String.capitalized).forElementIn(this.split()));
+		return x.String("").join(x.yield().apply(x.String.capitalized).forIter(this.split()));
 	}
 	
 	public String capitalized(){

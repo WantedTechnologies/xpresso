@@ -12,31 +12,32 @@ public class Tuple2ComprehensionIf {
 		this.comprehension = comprehension;
 	}
 	
-	public Tuple2ComprehensionElse ifElement(Predicate<Object> predicate){
-		this.comprehension.ifElement(predicate);
+	public Tuple2ComprehensionElse when(Predicate<Object> predicate){
+		this.comprehension.when(predicate);
 		return new Tuple2ComprehensionElse(this.comprehension);
 	}
-	public Tuple2ComprehensionElse ifNotElement(Predicate<Object> predicate){
-		this.comprehension.ifNotElement(predicate);
+	public Tuple2ComprehensionElse unless(Predicate<Object> predicate){
+		this.comprehension.unless(predicate);
 		return new Tuple2ComprehensionElse(this.comprehension);
 	}
+	/*
 	public Tuple2ComprehensionElse ifElementNot(Predicate<Object> predicate){
 		this.comprehension.ifElementNot(predicate);
 		return new Tuple2ComprehensionElse(this.comprehension);
-	}
+	}*/
 	
-	public Tuple2ComprehensionFinal forElementIn(Iterable<?> elements){
-		this.comprehension.forElementIn(elements);
+	public Tuple2ComprehensionFinal forIter(Iterable<?> elements){
+		this.comprehension.forIter(elements);
 		return new Tuple2ComprehensionFinal(this.comprehension);
 	}
-	public Tuple2ComprehensionFinal forElementIn(Object element0,Object element1,Object... elements){
+	public Tuple2ComprehensionFinal forIter(Object element0,Object element1,Object... elements){
 		ArrayList<Object> inputList = new ArrayList<Object>();
 		inputList.add(element0);
 		inputList.add(element1);
 		for (Object element : elements){
 			inputList.add(element);
 		}
-		this.comprehension.forElementIn(inputList);
+		this.comprehension.forIter(inputList);
 		return new Tuple2ComprehensionFinal(this.comprehension);
 	}
 	

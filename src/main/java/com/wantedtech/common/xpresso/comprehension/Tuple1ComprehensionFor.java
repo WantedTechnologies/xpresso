@@ -8,13 +8,13 @@ public class Tuple1ComprehensionFor {
 		this.comprehension = comprehension;
 	}
 	
-	public Tuple1ComprehensionFinal forElementIn(Iterable<Object> elements){
-		this.comprehension.forElementIn(elements);
+	public Tuple1ComprehensionFinal forIter(Iterable<Object> elements){
+		this.comprehension.forIter(elements);
 		return new Tuple1ComprehensionFinal(this.comprehension);
 	}
 	
-	public Tuple1ComprehensionFinal forElementIn(Object element0,Object element1,Object... elements){
-		this.comprehension.forElementIn(element0,element1,elements);
+	public Tuple1ComprehensionFinal forIter(Object element0,Object element1,Object... elements){
+		this.comprehension.forIter(element0,element1,elements);
 		return new Tuple1ComprehensionFinal(this.comprehension);
 	}
 }

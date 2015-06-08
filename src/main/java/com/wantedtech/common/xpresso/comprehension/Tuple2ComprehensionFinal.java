@@ -21,18 +21,19 @@ public class Tuple2ComprehensionFinal implements Serializable, Iterable<tuple> {
 		this.comprehension = comprehension;
 	}
 	
-	public Iterable<tuple> ifElement(Predicate<Object> predicate){
-		this.comprehension.ifElement(predicate);
+	public Iterable<tuple> when(Predicate<Object> predicate){
+		this.comprehension.when(predicate);
 		return Helpers.newArrayList(this.comprehension.iterator());
 	}
-	public Iterable<tuple> ifNotElement(Predicate<Object> predicate){
-		this.comprehension.ifNotElement(predicate);
+	public Iterable<tuple> unless(Predicate<Object> predicate){
+		this.comprehension.unless(predicate);
 		return Helpers.newArrayList(this.comprehension.iterator());
 	}
+	/*
 	public Iterable<tuple> ifElementNot(Predicate<Object> predicate){
 		this.comprehension.ifElementNot(predicate);
 		return Helpers.newArrayList(this.comprehension.iterator());
-	}
+	}*/
 	
 	public Iterator<tuple> iterator() {
 		return this.comprehension.iterator();

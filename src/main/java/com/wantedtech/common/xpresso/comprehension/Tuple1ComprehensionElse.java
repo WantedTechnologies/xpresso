@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.comprehension;
 
+import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 
 
@@ -11,8 +12,13 @@ public class Tuple1ComprehensionElse {
 		this.comprehension = comprehension;
 	}	
 	
-	public Tuple1ComprehensionFor elseTransformWith(Function<Object,Object> function){
+	public Tuple1ComprehensionFor applyOtherwise(Function<Object,Object> function){
+		this.comprehension.applyOtherwise(function);
 		return new Tuple1ComprehensionFor(this.comprehension);
+	}
+	
+	public Tuple1ComprehensionFor valueOtherwise(Object value){
+		return applyOtherwise(x.constant(value));
 	}
 	
 }

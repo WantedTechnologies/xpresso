@@ -14,31 +14,40 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 		this.outputIndices[0] = index0; 
 	}
 	
-	public void transformWith(Function<Object,?> function){
+	public void apply(Function<Object,?> function){
 		this.if_function_0 = function;
 	}
 	
-	public void elseTransformWith(Function<Object,Object> function){
+	public void applyOtherwise(Function<Object,Object> function){
 		this.else_function_0 = function;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	void forElementIn(Iterable<?> elements){
+	void forIter(Iterable<?> elements){
+		if(!(elements instanceof Iterable<?>)){
+			throw new IllegalArgumentException("The input of forIter has to be an Iterable.");
+		}
 		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
 			tuple outputElement;
 			if(if_predicate.apply(element)){
 				if(element instanceof tuple){
 					outputElement = x.tuple(if_function_0.apply((((tuple)element).get(outputIndices[0]))));	
+				}else if(element instanceof Iterable<?>){
+					list<?> elementAsList = x.list((Iterable<?>)element); 
+					outputElement = x.tuple(if_function_0.apply(((elementAsList).get(outputIndices[0]))));
 				}else{
-					outputElement = x.tuple(if_function_0.apply((((list<?>)element).get(outputIndices[0]))));
+					outputElement = null;
 				}
 			}else{
 				if(element instanceof tuple){
 					outputElement = x.tuple(else_function_0.apply((((tuple)element).get(outputIndices[0]))));	
+				}else if(element instanceof Iterable<?>){
+					list<?> elementAsList = x.list((Iterable<?>)element);
+					outputElement = x.tuple(else_function_0.apply(((elementAsList).get(outputIndices[0]))));
 				}else{
-					outputElement = x.tuple(else_function_0.apply((((list<?>)element).get(outputIndices[0]))));
+					outputElement = null;
 				}
 			}
 			original_elements.add(element);
@@ -48,9 +57,9 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 		before_for = false;
 	}
 	
-	public void forElementIn(Object element0,Object element1,Object... elements){
+	public void forIter(Object element0,Object element1,Object... elements){
 		ArrayList<Object> lst = Helpers.newArrayList(element0,element1,elements);
-		forElementIn(lst);
+		forIter(lst);
 	}
 	
 	@Override

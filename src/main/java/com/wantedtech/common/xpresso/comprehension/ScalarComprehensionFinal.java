@@ -14,20 +14,20 @@ public class ScalarComprehensionFinal<O> implements Iterable<O> {
 		this.comprehension = comprehension;	
 	}
 	
-	public Iterable<O> ifElement(Predicate<Object> scalarPredicate){
-		this.comprehension.ifElement(scalarPredicate);
+	public Iterable<O> when(Predicate<Object> scalarPredicate){
+		this.comprehension.when(scalarPredicate);
 		return Helpers.newArrayList(comprehension);
 	}
 	
-	public Iterable<O> ifNotElement(Predicate<?> scalarPredicate){
-		this.comprehension.ifNotElement(scalarPredicate);
+	public Iterable<O> unless(Predicate<?> scalarPredicate){
+		this.comprehension.unless(scalarPredicate);
 		return Helpers.newArrayList(comprehension);
 	}
 	
-	public Iterable<O> ifElementNot(Predicate<?> scalarPredicate){
+	/*public Iterable<O> ifElementNot(Predicate<?> scalarPredicate){
 		this.comprehension.ifElementNot(scalarPredicate);
 		return Helpers.newArrayList(comprehension);
-	}
+	}*/
 
 	public Iterator<O> iterator() {
 		return this.comprehension.iterator();
