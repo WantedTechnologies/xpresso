@@ -139,12 +139,12 @@ Console: [New York, London, Moscow, London, New York]
 #### Lambda expressions
 Python:
 ```
-best_cities = reversed(sorted(item[0] for item in rank.items(),lambda x:x[0]))
+best_cities = reversed(sorted(item for item in rank.items(),lambda x: x[0]))
 ```
 
 xpresso:
 ```
-bestCities = x.reversed(x.sorted(yield(0).forIter(rank.items()),x.lambdaF("x:x[0]")));
+bestCities = x.reversed(x.sorted(yield().forIter(rank.items()),x.lambdaF("x: x[0]")));
 ```
 
 More complex lambda expressions:
