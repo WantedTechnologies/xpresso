@@ -107,6 +107,32 @@ set<String> russianCities = x.set("Moscow","Saint-Petersburg");
 dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",32));
 ```
 
+#### Functions and predicates
+```
+Function<Object, String> toUpperCase = new Function<Object, String>() {
+	public String apply(Object value) {
+		return value.toString().toUpperCase();
+	}
+};
+
+list<String> tripsUp = trips.transformed(toUpperCase);
+x.print(tripsUp);
+
+Console: [DUBAI, NEW YORK, LONDON, PARIS, MOSCOW, LONDON, SAINT-PETERSBURG, NEW YORK]
+```
+
+```
+Predicate<Object> containsO = new Predicate<Object>() {
+	public Boolean apply(Object value) {
+		return value.toString().contains("o") ? true : false;
+	}
+};
+
+list<String> tripsO = trips.filtered(containsO);
+x.print(tripsO);
+
+Console: [NEW YORK, LONDON, MOSCOW, LONDON, NEW YORK]
+```
 #### List comprehensions
 
 Python:
