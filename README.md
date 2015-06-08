@@ -133,6 +133,31 @@ x.print(tripsO);
 
 Console: [NEW YORK, LONDON, MOSCOW, LONDON, NEW YORK]
 ```
+
+#### Lambda expressions
+Python:
+```
+best_cities = reversed(sorted(item[0] for item in rank.items(),lambda x:x[0]))
+```
+
+xpresso:
+```
+bestCities = x.reversed(x.sorted(element(0).forElementIn(rank.items()),x.lambdaF("x:x[0]")));
+```
+
+More complex lambda expressions:
+```
+Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
+```
+
+```
+list<Integer> ints = x.list(10, 50, 48);
+
+Function<Object,Integer> squareFun = x.LambdaF("x : x * x");
+
+Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
+```
+
 #### List comprehensions
 
 Python:
@@ -321,31 +346,6 @@ xpresso:
 dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
 
 text = x.Regex(replacer).sub(text);
-```
-
-#### Lambda expressions
-
-Python:
-```
-best_cities = reversed(sorted(item[0] for item in rank.items(),lambda x:x[0]))
-```
-
-xpresso:
-```
-bestCities = x.reversed(x.sorted(element(0).forElementIn(rank.items()),x.lambdaF("x:x[0]")));
-```
-
-More complex lambda expressions:
-```
-Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
-```
-
-```
-list<Integer> ints = x.list(10, 50, 48);
-
-Function<Object,Integer> squareFun = x.LambdaF("x : x * x");
-
-Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
 ```
 
 #### Extended String functions
