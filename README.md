@@ -396,7 +396,7 @@ Console: 0.0s
 ```
 *x.memo* can be used to cache methods of object of any Java type, not only Function.
 
-#### Automatic building of o.hashCode() and o1.equals(Object o2)
+#### Automatic building of hashCode(), equals(...), and compareTo(...)
 When defining a class:
 ```
 @Override
