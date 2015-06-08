@@ -298,9 +298,9 @@ public class Equals {
             	result.append(lhs, rhs);
             } else {
                 reflectionAppend(result, REGISTRY, lhs, rhs, testClass, testTransients, excludeFields);
-                while (!testClass.getSuperclass().equals(Object.class) && testClass != reflectUpToClass) {
+                while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
                     testClass = testClass.getSuperclass();
-                    reflectionAppend2(result, REGISTRY, lhs, rhs, testClass, testTransients, excludeFields);
+                    reflectionAppend(result, REGISTRY, lhs, rhs, testClass, testTransients, excludeFields);
                 }
             }
         } catch (final IllegalArgumentException e) {
@@ -334,9 +334,9 @@ public class Equals {
         final boolean useTransients,
         final String[] excludeFields) {
 
-        //if (isRegistered(REGISTRY, lhs, rhs)) {
-        //    return;
-        //}
+        if (isRegistered(REGISTRY, lhs, rhs)) {
+            return;
+        }
 
 
             register(REGISTRY, lhs, rhs);
@@ -360,42 +360,6 @@ public class Equals {
             }
 
     }
-    
-    private static void reflectionAppend2(
-            final EqualsResult result,
-            final Set<Pair<IDKey, IDKey>> REGISTRY,
-            final Object lhs,
-            final Object rhs,
-            final Class<?> clazz,
-            final boolean useTransients,
-            final String[] excludeFields) {
-
-/*            if (isRegistered(REGISTRY, lhs, rhs)) {
-                return;
-            }*/
-
-
-                register(REGISTRY, lhs, rhs);
-                final Field[] fields = clazz.getDeclaredFields();
-                AccessibleObject.setAccessible(fields, true);
-                for (int i = 0; i < fields.length && result.isEqual; i++) {
-                    final Field f = fields[i];
-                    if (x.String(f.getName()).notIn(excludeFields)
-                        && !f.getName().contains("$")
-                        && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                        && (!Modifier.isStatic(f.getModifiers()))
-                        && (!f.isAnnotationPresent(EqualsExclude.class))) {
-                        try {
-                        	result.append(f.get(lhs), f.get(rhs));
-                        } catch (final IllegalAccessException e) {
-                            //this can't happen. Would get a Security exception instead
-                            //throw a runtime exception in case the impossible happens.
-                            throw new InternalError("Unexpected IllegalAccessException");
-                        }
-                    }
-                }
-
-        }
 
     //-------------------------------------------------------------------------
 }
