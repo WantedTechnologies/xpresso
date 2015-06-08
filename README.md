@@ -190,6 +190,40 @@ xpresso:
 list<Boolean> evals = x.list(x.<Boolean>yield().value(true).when(x.lambdaP("x : x == '''good'''")).valueOtherwise(false).forIter(someList));
 ```
 
+#### Easy memoization of any object's method results
+
+As a quick example, let *xerox* be a *Function* object whose method *apply* copies the string *"hello"* the given number *count* of times:
+```
+Function<Integer, String> xerox = new Function<Integer, String>() {
+	public String apply(Integer count) {
+		return x.String("hello").times(count);
+	}
+};
+```
+It's a long to execute function for large values of *count*.
+
+In order to avoid the long computation for the same value of *count*, we first create a cached version of xerox using **x.memo**:
+```
+Function<Integer,String> cachedXerox = x.memo(xerox);
+```			
+The first call of the function. The computation takes a very long time:
+```
+Timer timer = x.Timer();
+String copies = cachedXerox.apply(5000000);
+x.print(timer.stop());
+
+Console: 18.898s
+```
+The second call with the same value of *count*, the result is instantaneous:
+```
+timer.start();
+String moreCopies = cachedXerox.apply(5000000);
+x.print(timer.stop());
+
+Console: 0.0s
+```
+*x.memo* can be used to cache methods of object of any Java type, not only Function.
+
 #### Pythonic iterable dict
 
 Python:
@@ -397,40 +431,6 @@ x.print(tokens);
 
 Console: [Moscow, London, Paris]
 ```
-
-#### Easy caching of any object's method results
-
-As a quick example, let *xerox* be a *Function* object whose method *apply* copies the string *"hello"* the given number *count* of times:
-```
-Function<Integer, String> xerox = new Function<Integer, String>() {
-	public String apply(Integer count) {
-		return x.String("hello").times(count);
-	}
-};
-```
-It's a long to execute function for large values of *count*.
-
-In order to avoid the long computation for the same value of *count*, we first create a cached version of xerox using **x.memo**:
-```
-Function<Integer,String> cachedXerox = x.memo(xerox);
-```			
-The first call of the function. The computation takes a very long time:
-```
-Timer timer = x.Timer();
-String copies = cachedXerox.apply(5000000);
-x.print(timer.stop());
-
-Console: 18.898s
-```
-The second call with the same value of *count*, the result is instantaneous:
-```
-timer.start();
-String moreCopies = cachedXerox.apply(5000000);
-x.print(timer.stop());
-
-Console: 0.0s
-```
-*x.memo* can be used to cache methods of object of any Java type, not only Function.
 
 #### Automatic building of hashCode(), equals(...), and compareTo(...)
 When defining a class:
