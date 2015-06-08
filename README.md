@@ -116,17 +116,27 @@ foreign_trips_lower = [element.lower() for element in trips if element not in ru
 
 xpresso:
 ```
-list<String> foreignTripsLower = x.list(x.element().transformWith(x.lower).forElementIn(trips).ifElementNot(x.in(russianCities)));
+list<String> foreignTripsLower = x.list(x.<String>yield().apply(x.lower).forIter(trips).unless(x.in(russianCities)));
 ```
 
 Python:
 ```
-new_list = [element.upper() if element[0] == "a" else element.lower() for element in old_list if element[0] not in ["x", "y", "z"]]
+new_list = [value.upper() if value[0] == "a" else value.lower() for value in old_list if value[0] != "b"]
 ```
 
 xpresso:
 ```
-list<String> newList = x.list(x.element().transformWith(x.upper).ifElement(x.LambdaP("x:x[0] == "a")).elseTransfromWith(x.lower).forElementIn(oldList).ifNotElement(x.LambdaP("x:f0(x[0])",x.in(x.list("x", "y", "z"))));
+list<String> newList = x.list(x.<String>yield().apply(x.upper).when(x.LambdaP("x : x[0] == "a")).applyOtherwise(x.lower).forIter(oldList).when(x.LambdaP("x : x[0] != '''b'''"));
+```
+
+Python:
+```
+evals = [True if value == "good" else False for value in some_list]
+```
+
+xpresso:
+```
+list<Boolean> evals = x.list(x.<Boolean>yield().value(true).when(x.lambdaP("x : x == '''good'''")).valueOtherwise(false).forIter(someList));
 ```
 
 #### Pythonic iterable dict
