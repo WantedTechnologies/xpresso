@@ -178,7 +178,7 @@ foreign_trips_lower = [city.lower() for city in trips if city not in russian_cit
 
 xpresso:
 ```
-list<String> foreignTripsLower = x.list(x.<String>yield("city").apply(x.lower).where("city").in(trips).unless(x.in(russianCities)));
+list<String> foreignTripsLower = x.list(x.<String>yield().apply(x.lower).forEach(trips).unless(x.in(russianCities)));
 ```
 
 Python:
