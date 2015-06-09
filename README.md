@@ -233,7 +233,7 @@ x.print(x.timer.stop());
 
 Console: 0.0s
 ```
-*x.memo* can be used to cache methods of object of any Java type, not only Function.
+*x.memo* can be used to cache methods of object of any Java type, not only Function. Notice the usage of the standard *x.timer*: no additional timer object needs to be created.
 
 #### Pythonic iterable dict
 
