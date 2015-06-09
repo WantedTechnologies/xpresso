@@ -14,6 +14,12 @@ public class Timer {
 		started = true;
 	}
 	
+	public Timer(double start, double end){
+		this.start = start;
+		this.end = end;
+		this.started = false;
+	}
+	
 	public Timer stop(){
 		if(!this.started){
 			throw new IllegalStateException("Cannot stop the timer that doesn't run. Use start() method first.");

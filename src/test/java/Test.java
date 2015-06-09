@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.regex.Regex;
+import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.time.Timer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
@@ -69,7 +72,7 @@ public class Test {
 			
 			x.print(x.String("a").in("a","["));
 			
-			list<dict<String>> lst2 = x.list(x.<String>dict(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")),x.<String>dict(x.tuple("aaa", "bbb"),x.tuple("bbb", "bbb")));
+			list<dict<String>> lst2 = x.list(x.<String>dict(x.tuple("aaa", "bbb"),x.tuple("ccc", "ddd")),x.<String>dict(x.tuple("eee", "fff"),x.tuple("ggg", "hhh")));
 			
 			x.print(lst2);
 			
@@ -87,9 +90,9 @@ public class Test {
 			list<tuple> lst5 = x.list(x.yield(0,1).apply(x.len,x.toUpperCase).forIter(lst4));
 			x.print("uuu",lst5);
 			
-			x.print(Json.dump(lists_lst));
-			JsonArray loaded_lst = Json.loads("[[\"aaa\",\"bbb\",\"ccc\"],[\"ddd\",\"eee\",\"fff\"]]");
-			x.print(Json.dump(loaded_lst));
+			x.print(x.Json(lst2).toString());
+			List<Map<String,String>> loaded_lst2 = x.Json("[{\"aaa\":\"bbb\",\"ccc\":\"ddd\"},{\"eee\":\"fff\",\"ggg\":\"hhh\"}]").parse();
+			x.print(loaded_lst2);
 			
 			dict<Character> def = x.DefaultDict(Character.class);
 		
@@ -112,7 +115,7 @@ public class Test {
 			
 			x.print(x.String("hello").sliceTo(4),"0");
 			
-			//x.print(Time.time());
+			x.print(Time.time());
 			
 			dict<String> translator = x.dict(x.tuple("a", "A"),x.tuple("b", "B"));
 			
@@ -189,13 +192,13 @@ public class Test {
 			
 			Function<Integer,String> cachedFunction = x.memo(strCopy);
 			
-			Timer timer = x.Timer();
-			String copies = cachedFunction.apply(500);
-			x.print(timer.stop());
+			x.timer.start();
+			String copies = cachedFunction.apply(500000);
+			x.print(x.timer.stop());
 			
-			timer.start();
-			copies = cachedFunction.apply(500);
-			x.print(timer.stop());
+			x.timer.start();
+			copies = cachedFunction.apply(500000);
+			x.print(x.timer.stop());
 			
 			x.print(x.tuple(0,1).equals(x.tuple(0,2)));
 			

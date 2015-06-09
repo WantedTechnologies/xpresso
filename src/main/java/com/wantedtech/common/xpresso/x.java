@@ -33,6 +33,11 @@ import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
 
+import com.wantedtech.common.xpresso.json.Json;
+import com.wantedtech.common.xpresso.types.*;
+import com.wantedtech.common.xpresso.types.HappyObject.HappyObject;
+import com.wantedtech.common.xpresso.types.HappyString.HappyString;
+import com.wantedtech.common.xpresso.types.HappyString.HappyStringStatic;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
@@ -45,21 +50,12 @@ import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
+import com.wantedtech.common.xpresso.json.JsonArray;
+import com.wantedtech.common.xpresso.json.JsonObject;
 import com.wantedtech.common.xpresso.regex.Regex;
+import com.wantedtech.common.xpresso.time.ThreadTimer;
 import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.time.Timer;
-import com.wantedtech.common.xpresso.types.DefaultDict;
-import com.wantedtech.common.xpresso.types.OrderedDict;
-import com.wantedtech.common.xpresso.types.dict;
-import com.wantedtech.common.xpresso.types.HappyFile;
-import com.wantedtech.common.xpresso.types.list;
-import com.wantedtech.common.xpresso.types.set;
-import com.wantedtech.common.xpresso.types.Bag;
-import com.wantedtech.common.xpresso.types.str;
-import com.wantedtech.common.xpresso.types.tuple;
-import com.wantedtech.common.xpresso.types.HappyObject.HappyObject;
-import com.wantedtech.common.xpresso.types.HappyString.HappyString;
-import com.wantedtech.common.xpresso.types.HappyString.HappyStringStatic;
 import com.wantedtech.common.xpresso.types.strs.strStatic;
 import com.wantedtech.common.xpresso.types.tuples.tuple0;
 import com.wantedtech.common.xpresso.types.tuples.tuple1;
@@ -1147,6 +1143,8 @@ public class x {
 		return new Timer();
 	}
 	
+	public static ThreadTimer timer = new ThreadTimer(); 
+	
 	/**
 	 * Return the double value number rounded to ndigits digits after the decimal point.
 	 * If ndigits is omitted, it defaults to zero. The result is a double.
@@ -2215,6 +2213,95 @@ public class x {
 	}
 	
 	/**
+	 * Factory method that creates a new Json object from a valid Json string 
+	 * 
+	 * Example:
+	 * JsonArray arr = x.Json("[["a","b","c"],["d","e","f"]]").parse(); 
+	 * 
+	 * @param jsonString	a string with a valid Json expression
+	 * @return 				a Json object 
+	 */
+	public static Json Json(String jsonString){
+		return new Json(jsonString); 
+	}
+	
+	/**
+	 * Factory method that creates a new xpresso {@link Json} object from a {@link Map}. 
+	 * 
+	 * Example:
+	 * Map<String,Integer> map = Helpers.newHashMap();
+	 * map.put("a",1);
+	 * map.put("b",2);
+	 * String jsonString = x.Json(map).toString();
+	 * 
+	 * x.print(jsonString);
+	 * 
+	 *  Console {"a": 1, "b": 2}
+	 * 
+	 * @param jsonString	a Map object
+	 * @return 				a Json object 
+	 */
+	public static Json Json(Map<?,?> o){
+		return new Json(o);
+	}
+	
+	/**
+	 * Factory method that creates a new xpresso {@link Json} object from an {@link Iterable}. 
+	 * 
+	 * Example 1:
+	 * list<String> lst = x.list("a","b","c");
+	 * String jsonString = x.Json(lst).toString();
+	 * 
+	 * x.print(jsonString);
+	 * 
+	 *  Console {"a", "b", "c"}
+	 *  
+	 * Example 2:
+	 * dict<Integer> dic = x.list(x.tuple("a":1),x.tuple("b":2));
+	 * String jsonString = x.Json(lst).toString();
+	 * 
+	 * x.print(jsonString);
+	 * 
+	 *  Console {"a": 1, "b": 2}
+	 * 
+	 * @param jsonString	an Iterable
+	 * @return 				a Json object 
+	 */
+	public static Json Json(Iterable<?> o){
+		return new Json(o);
+	}
+	
+	/**
+	 * Factory method that creates a new xpresso {@link Json} object from a {@link tuple}. 
+	 * 
+	 * Example:
+	 * Map<String,Integer> map = Helpers.newHashMap();
+	 * map.put("a",1);
+	 * map.put("b",2);
+	 * String jsonString = x.Json(map).toString();
+	 * 
+	 * x.print(jsonString);
+	 * 
+	 *  Console {"a": 1, "b": 2}
+	 * 
+	 * @param jsonString	a Map object
+	 * @return 				a Json object 
+	 */	
+	public static Json Json(Integer v){
+		return new Json(v);
+	}
+	
+	/**
+	 * Factory method that creates a new xpresso {@link Json} object from a {@link Integer}. 
+	 *  
+	 * @param jsonString	a Map object
+	 * @return 				a Json object 
+	 */	
+	public static Json Json(tuple o){
+		return new Json(o);
+	}
+	
+	/**
 	 * Factory method that creates a new Regex object from a string 
 	 * regular expression. I takes an optional parameter flags
 	 * (the same values as {@link Pattern}'s flags).
@@ -2697,14 +2784,18 @@ public class x {
 	 * @return
 	 */
 	public static boolean isTrue(Object value){
+		try{
+			if((Boolean)value == false){
+				return false;
+			}	
+		}catch(Exception e){
+			
+		}
 		if(value == null){
 			return false;
 		}
 		if(value instanceof Truthful){
 			return ((Truthful)value).isTrue();
-		}
-		if(len(value) == 0){
-			return false;
 		}
 		if(value instanceof Iterable<?> && len(value) == 0){
 			return false;
@@ -2731,13 +2822,6 @@ public class x {
 		}
 		try{
 			if((Float)value == 0.0){
-				return false;
-			}	
-		}catch(Exception e){
-			
-		}
-		try{
-			if((Boolean)value == false){
 				return false;
 			}	
 		}catch(Exception e){

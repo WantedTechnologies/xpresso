@@ -13,6 +13,7 @@ import java.util.Map;
 import com.wantedtech.common.xpresso.json.JsonParser;
 import com.wantedtech.common.xpresso.json.ParseException;
 import com.wantedtech.common.xpresso.json.JsonObject;
+import com.wantedtech.common.xpresso.types.dict;
 
 
 /**
@@ -107,7 +108,11 @@ public class JsonValue {
 		}
 		
 		if(value instanceof Iterable<?>){
-			builder.append(JsonArray.dumps((Iterable<?>)value));
+			if(value instanceof dict<?>){
+				builder.append(JsonObject.dumps(((dict<?>)value).toHashMap()));
+			}else{
+				builder.append(JsonArray.dumps((Iterable<?>)value));
+			}
             return builder.toString();
 		}
 		
