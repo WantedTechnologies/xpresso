@@ -10,19 +10,19 @@ public class Tuple2ComprehensionFor {
 		this.comprehension = comprehension;
 	}
 	
-	public Tuple2ComprehensionFinal forIter(Iterable<Object> elements){
-		this.comprehension.forIter(elements);
+	public <T> Tuple2ComprehensionFinal in(Iterable<T> elements){
+		this.comprehension.in(elements);
 		return new Tuple2ComprehensionFinal(this.comprehension);
 	}
 	
-	public Tuple2ComprehensionFinal forIter(Object element0,Object element1,Object... elements){
-		ArrayList<Object> inputList = new ArrayList<Object>();
+	public <T> Tuple2ComprehensionFinal in(T element0,T element1,@SuppressWarnings("unchecked") T... elements){
+		ArrayList<T> inputList = new ArrayList<T>();
 		inputList.add(element0);
 		inputList.add(element1);
-		for (Object element : elements){
+		for (T element : elements){
 			inputList.add(element);
 		}
-		this.comprehension.forIter(inputList);
+		this.comprehension.in(inputList);
 		return new Tuple2ComprehensionFinal(this.comprehension);
 	}
 	

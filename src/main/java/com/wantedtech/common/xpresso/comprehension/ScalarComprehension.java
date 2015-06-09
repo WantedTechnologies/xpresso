@@ -8,7 +8,6 @@ import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple;
 
 class ScalarComprehension<O> implements Iterable<O>, Serializable {
@@ -40,7 +39,7 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 		return this;
 	}
 	
-	protected ScalarComprehension<O> forIter(Iterable<?> listOfElements){
+	protected ScalarComprehension<O> forEach(Iterable<?> listOfElements){
 		if(!(listOfElements instanceof Iterable<?>)){
 			throw new IllegalArgumentException("The input of forIter has to be an Iterable.");
 		}
@@ -60,27 +59,10 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 		isBeforeFor = false;
 		return this;
 	}
-	/*protected ScalarComprehension<O> forIter(list<?> listOfElements){
-		ArrayList<O> new_transformed_scalars = Helpers.newArrayList();
-		ArrayList<Object> new_original_scalars = Helpers.newArrayList();
-		for(Object scalar: listOfElements){
-			if(ifPredicate.apply(scalar)){
-				new_transformed_scalars.add(ifFunction.apply(scalar));
-				new_original_scalars.add(scalar);
-			}else{
-				new_transformed_scalars.add(elseFunction.apply(scalar));
-				new_original_scalars.add(scalar);
-			}
-		}
-		transformedElements = new_transformed_scalars;
-		originalElements = new_original_scalars;
-		isBeforeFor = false;
-		return this;
-	}*/
 	
-	protected ScalarComprehension<O> forIter(Object scalar0,Object scalar1,Object... scalars){
+	protected ScalarComprehension<O> forEach(Object scalar0,Object scalar1,Object... scalars){
 		ArrayList<Object> scalarsList = Helpers.newArrayList(scalar0, scalar1, scalars);
-		return forIter(scalarsList);
+		return forEach(scalarsList);
 	}
 	
 	protected ScalarComprehension<O> when(Predicate<Object> scalarPredicate){
@@ -104,11 +86,6 @@ class ScalarComprehension<O> implements Iterable<O>, Serializable {
 	protected ScalarComprehension<O> unless(Predicate<?> scalarPredicate){
 		return when(x.NOT((Predicate<Object>)scalarPredicate));
 	}
-	
-	/*@SuppressWarnings("unchecked")
-	protected ScalarComprehension<O> ifElementNot(Predicate<?> scalarPredicate){
-		return when(x.NOT((Predicate<Object>)scalarPredicate));
-	}*/
 	
     public Iterator<O> iterator(){
     	return transformedElements.iterator();

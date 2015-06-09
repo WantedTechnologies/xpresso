@@ -1,13 +1,24 @@
 package com.wantedtech.common.xpresso.comprehension;
 
+import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 
 public class Tuple1ComprehensionIf {
-	
+
 	Tuple1Comprehension comprehension;
 	
 	public Tuple1ComprehensionIf(Tuple1Comprehension comprehension){
 		this.comprehension = comprehension;
+	}
+	
+	public Tuple1ComprehensionIf apply(Function<Object,?> function){
+		this.comprehension.apply(function);
+		return new Tuple1ComprehensionIf(this.comprehension);
+	}
+	
+	public Tuple1ComprehensionIf replace(Object value){
+		this.comprehension.replace(value);
+		return new Tuple1ComprehensionIf(this.comprehension);
 	}
 	
 	public Tuple1ComprehensionElse when(Predicate<Object> predicate){
@@ -18,19 +29,9 @@ public class Tuple1ComprehensionIf {
 		this.comprehension.unless(predicate);
 		return new Tuple1ComprehensionElse(this.comprehension);
 	}
-	/*
-	public Tuple1ComprehensionElse ifElementNot(Predicate<Object> predicate){
-		this.comprehension.ifElementNot(predicate);
-		return new Tuple1ComprehensionElse(this.comprehension);
-	}
-	*/
-	Tuple1ComprehensionFinal forIter(Iterable<Object> elements){
-		this.comprehension.forIter(elements);
-		return new Tuple1ComprehensionFinal(this.comprehension);
-	}
-	@SafeVarargs
-	public final Tuple1ComprehensionFinal forIter(Object element0,Object element1,Object... elements){
-		this.comprehension.forIter(element0,element1,elements);
-		return new Tuple1ComprehensionFinal(this.comprehension);
+	
+	public Tuple1ComprehensionFor where(String fieldName0, String... fieldNames){
+		this.comprehension.where(fieldName0, fieldNames);
+		return new Tuple1ComprehensionFor(this.comprehension);
 	}
 }

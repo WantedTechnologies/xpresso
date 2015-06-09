@@ -21,22 +21,17 @@ public class ScalarComprehensionIf<O> {
 		return new ScalarComprehensionElse<O>(this.comprehension);
 	}
 	
-	/*protected ScalarComprehensionElse<O> ifElementNot(Predicate<?> scalarPredicate){
-		this.comprehension.ifElementNot(scalarPredicate);
-		return new ScalarComprehensionElse<O>(this.comprehension);
-	}*/
-	
-	public ScalarComprehensionFinal<O> forIter(Iterable<?> listOfElements){
-		this.comprehension.forIter(listOfElements);
+	public ScalarComprehensionFinal<O> forEach(Iterable<?> listOfElements){
+		this.comprehension.forEach(listOfElements);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
-	public ScalarComprehensionFinal<O> forIter(list<?> listOfElements){
-		this.comprehension.forIter(listOfElements);
+	public ScalarComprehensionFinal<O> forEach(list<?> listOfElements){
+		this.comprehension.forEach(listOfElements);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
 	
-	public ScalarComprehensionFinal<O> forIter(Object scalar0,Object scalar1,Object... scalars){
-		this.comprehension.forIter(scalar0,scalar1,scalars);
+	public ScalarComprehensionFinal<O> forEach(Object scalar0,Object scalar1,Object... scalars){
+		this.comprehension.forEach(scalar0,scalar1,scalars);
 		return new ScalarComprehensionFinal<O>(this.comprehension);
 	}
 

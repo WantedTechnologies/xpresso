@@ -217,6 +217,13 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return this;
 	}
 	
+	public list<T> extend(T[] array){
+		for(T element : array){
+			this.list.add(element);
+		}
+		return this;
+	}
+	
 	private list<T> set(int index,T value){
 		this.list.set(index, value);
 		return this;

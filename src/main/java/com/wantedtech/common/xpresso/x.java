@@ -50,8 +50,6 @@ import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
-import com.wantedtech.common.xpresso.json.JsonArray;
-import com.wantedtech.common.xpresso.json.JsonObject;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.time.ThreadTimer;
 import com.wantedtech.common.xpresso.time.Time;
@@ -432,40 +430,54 @@ public class x {
 	 * Factory method that starts a new tuple comprehension.
 	 * 
 	 * The difference of a scalar comprehension from a tuple comprehension 
-	 * is that tuple comprehension sees the elements of the input iterable
-	 * as tuples, or iterables or other, collection types.
+	 * is that the tuple comprehension returns tuples of values.
+	 * 
+	 * Usually it's used when the elements of the input iterable
+	 * are themselves tuples, or iterables or other collection types.
+	 * But it freely can be used with iterables of scalars if needed.
 	 * 
 	 * Example 1, a list comprehension:
 	 * 
 	 * Python:
-	 * list1 = [element[1].lower() for element in list0]
+	 * list1 = [a.lower() for a, b, c, d in list0]
 	 * 
 	 * xpresso:
-	 * list<tuple> list1 = x.list(x.yield(1).apply(x.lower).forIter(list0));
+	 * list<tuple> list1 = x.list(x.yield("a").apply(x.lower).where("a", "b", "c", "d").in(list0));
 	 * 
 	 */
-	public static Tuple1ComprehensionStart yield(int index0) {
-        return ComprehensionFactory.tuple(index0);
+	public static Tuple1ComprehensionStart yield(String fieldName) {
+        return ComprehensionFactory.tuple(fieldName);
     }
 	
 	/**
 	 * Factory method that starts a new tuple comprehension.
 	 * 
 	 * The difference of a scalar comprehension from a tuple comprehension 
-	 * is that tuple comprehension sees the elements of the input iterable
-	 * as tuples, or iterables or other, collection types.
+	 * is that the tuple comprehension returns tuples of values.
+	 * 
+	 * Usually it's used when the elements of the input iterable
+	 * are themselves tuples, or iterables or other collection types.
+	 * But it freely can be used with iterables of scalars if needed.
 	 * 
 	 * Example 1, a list comprehension:
 	 * 
 	 * Python:
-	 * list1 = [element[1].lower() for element in list0]
+	 * list1 = [a.lower(), b.upper() for a, b, c, d in list0]
 	 * 
 	 * xpresso:
-	 * list<tuple> list1 = x.list(x.yield(1).apply(x.lower).forIter(list0));
+	 * list<tuple> list1 = x.list(x.yield("a", "b").apply(x.lower, x.upper).where("a", "b", "c", "d").in(list0));
+	 * 
+	 * Example 2, a list comprehension:
+	 * 
+	 * Python:
+	 * list1 = [a.lower(), true for a, b, c, d in list0]
+	 * 
+	 * xpresso:
+	 * list<tuple> list1 = x.list(x.yield("a", "b").apply(x.lower).replace(True).where("a", "b", "c", "d").in(list0));
 	 * 
 	 */
-	public static Tuple2ComprehensionStart yield(int index0,int index1) {
-        return ComprehensionFactory.tuple(index0,index1);
+	public static Tuple2ComprehensionStart yield(String fieldName0, String fieldName1) {
+        return ComprehensionFactory.tuple(fieldName0, fieldName1);
     }
 	
 	/**
@@ -1143,6 +1155,27 @@ public class x {
 		return new Timer();
 	}
 	
+	/*
+	 * Starts the static {@link java.lang.ThreadLocal} timer of the {@link ThreadTimer} class.
+	 * This timer can be started, stopped and printed.
+	 * 
+	 * The difference between x.timer based on the {@link ThreadTimer}
+	 * and x.Timer() based on {@link Timer} it that if you use x.timer
+	 * you don't have to 
+	 * create any instance of any object. You can simply use the static
+	 * reference x.timer.start() and x.timer.stop();
+	 * The timer x.timer is global for the current thread and independent of
+	 * any other thread. 
+	 * 
+	 * Example:
+	 * 
+	 *  x.timer.start();
+	 *  //do something
+	 *  x.print(x.timer.stop());
+	 *  
+	 *  Console: 0.133s
+	 * 
+	 */
 	public static ThreadTimer timer = new ThreadTimer(); 
 	
 	/**
@@ -2852,6 +2885,7 @@ public class x {
 		return !isTrue(value);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> T memo(T object){
 		return (T)(Memoizer.memoize(object));
 	}

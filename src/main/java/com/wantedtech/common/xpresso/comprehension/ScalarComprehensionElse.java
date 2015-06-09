@@ -16,7 +16,7 @@ public class ScalarComprehensionElse<O> {
 		return new ScalarComprehensionFor<O>(this.comprehension);
 	}
 	
-	public ScalarComprehensionFor<O> valueOtherwise(O value){
+	public ScalarComprehensionFor<O> replaceOtherwise(O value){
 		return applyOtherwise(x.constant(value));
 	}
 

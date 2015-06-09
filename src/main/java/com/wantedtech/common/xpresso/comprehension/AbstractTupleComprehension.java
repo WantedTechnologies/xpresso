@@ -2,8 +2,10 @@ package com.wantedtech.common.xpresso.comprehension;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.types.tuple;
@@ -11,20 +13,15 @@ import com.wantedtech.common.xpresso.types.tuple;
 public abstract class AbstractTupleComprehension implements Iterable<tuple>{
 
 	boolean before_for = true;
-	Function<Object,?> if_function_0 = x.doNothing;
-	Function<Object,?> else_function_0 = x.doNothing;
-	Function<Object,?> if_function_1 = x.doNothing;
-	Function<Object,?> else_function_1 = x.doNothing;
-	Function<Object,?> if_function_2 = x.doNothing;
-	Function<Object,?> else_function_2 = x.doNothing;
-	Function<Object,?> if_function_3 = x.doNothing;
-	Function<Object,?> else_function_3 = x.doNothing;
+	List<Function<Object,?>> if_functions = Helpers.newArrayList();
+	List<Function<Object,?>> else_functions = Helpers.newArrayList();
 	Predicate<Object> if_predicate = x.TRUE;
 	ArrayList<Object> original_elements = new ArrayList<Object>();
 	ArrayList<tuple> elements = new ArrayList<tuple>();
 	ArrayList<tuple> transformed_elements = new ArrayList<tuple>();
 	
-	int[] outputIndices = new int[]{0};
+	List<String> outputFieldNames = Helpers.newArrayList();
+	List<String> elementFieldNames = Helpers.newArrayList();
 
 	public void when(Predicate<Object> predicate){
 		if(before_for){
@@ -50,8 +47,6 @@ public abstract class AbstractTupleComprehension implements Iterable<tuple>{
 	/*public void ifElementNot(Predicate<Object> predicate){
 		when(x.NOT(predicate));
 	}*/
-	
-	abstract void forIter(Iterable<?> elements);
 		
 	public Iterator<tuple> iterator() {
 		return elements.iterator();

@@ -60,13 +60,13 @@ public class Test {
 			str title = x.str("Hello‹„ World");
 			title = x.sorted(title,x.len,true);
 			
-			title = x.str(x.<String>yield().apply(x.<String>asKeyOn(analogs)).when(x.in(analogs)).applyOtherwise(x.upper).forIter(title).unless(x.in(x.list("o","r"))));
+			title = x.str(x.<String>yield().apply(x.<String>asKeyOn(analogs)).when(x.in(analogs)).applyOtherwise(x.upper).forEach(title).unless(x.in(x.list("o","r"))));
 			
 			x.print(title);
 			
 			list<list<String>> lists_lst = x.list(x.list("aaa","bbb","ccc"),x.list("ddd","eee","fff")); 
 			
-			list<tuple> lists_lst2 = x.list(x.yield(0,1).forIter(lists_lst));
+			list<tuple> lists_lst2 = x.list(x.yield("a","b").where("a","b","c").in(lists_lst));
 			
 			x.print(lists_lst2);
 			
@@ -83,12 +83,14 @@ public class Test {
 			x.print(x.dict(x.tuple("aaaa",1)));
 			
 			str new_str = x.str("hello");
-			new_str = x.str(x.<String>yield().apply(x.upper).forIter(new_str));
+			new_str = x.str(x.<String>yield().apply(x.upper).forEach(new_str));
 			x.print(new_str); 
 			
 			list<tuple> lst4 = x.list(x.tuple("aaa", "bbb"),x.tuple("xxxx", "yy Y yy"));
-			list<tuple> lst5 = x.list(x.yield(0,1).apply(x.len,x.toUpperCase).forIter(lst4));
+			list<tuple> lst5 = x.list(x.yield("a","b").apply(x.len,x.toUpperCase).where("a","b").in(lst4));
 			x.print("uuu",lst5);
+			list<tuple> lst55 = x.list(x.yield("a","b").apply(x.len).replace("HI!").where("a","b").in(lst4));
+			x.print("jjj",lst55);
 			
 			x.print(x.Json(lst2).toString());
 			List<Map<String,String>> loaded_lst2 = x.Json("[{\"aaa\":\"bbb\",\"ccc\":\"ddd\"},{\"eee\":\"fff\",\"ggg\":\"hhh\"}]").parse();
@@ -106,7 +108,7 @@ public class Test {
 			
 			list<list<String>> lst6 = x.list(x.list("aaa", "bbb"),x.list("xxxx", "yyYyy"));
 			
-			list<String> lst7 = x.list(x.<String>yield().apply(x.lambdaF("x : f0(x[0])",x.upper)).forIter(lst6).when(x.lambdaP("x : f0(x[0]) && f1(x[0]) && (x[1] != \"bbb\")",x.TRUE,x.TRUE)));
+			list<String> lst7 = x.list(x.<String>yield().apply(x.lambdaF("x : f0(x[0])",x.upper)).forEach(lst6).when(x.lambdaP("x : f0(x[0]) && f1(x[0]) && (x[1] != \"bbb\")",x.TRUE,x.TRUE)));
 			
 			x.print(lst7);
 			
@@ -175,7 +177,7 @@ public class Test {
 			
 			list<String> lst10= x.list(" aaa "," кккк "," ccc ");
 			
-			lst10 = x.list(x.<String>yield().apply(x.lambdaF("x : f1(f0(x)) + '''rrr'''",x.upper,x.strip)).forIter(lst10).when(x.lambdaP("x : (f0(x) > 5) && (f1(x) != '''жжж''')",x.len,x.strip)));
+			lst10 = x.list(x.<String>yield().apply(x.lambdaF("x : f1(f0(x)) + '''rrr'''",x.upper,x.strip)).forEach(lst10).when(x.lambdaP("x : (f0(x) > 5) && (f1(x) != '''жжж''')",x.len,x.strip)));
 			
 			x.print(lst10);
 			
@@ -210,7 +212,7 @@ public class Test {
 			x.print(x.tuple(0,1).hashCode());
 			
 			list<String> someList = x.list("good","bad","good");
-			list<Boolean> evals = x.list(x.<Boolean>yield().value(true).when(x.lambdaP("x : x == '''good'''")).valueOtherwise(false).forIter(someList));
+			list<Boolean> evals = x.list(x.<Boolean>yield().replace(true).when(x.lambdaP("x : x == '''good'''")).replaceOtherwise(false).forEach(someList));
 			x.print(evals);
 			
 			list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");

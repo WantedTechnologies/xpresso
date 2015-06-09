@@ -206,12 +206,12 @@ public class str extends list<String> implements Iterable<String>{
 	}
 	
 	public str translated(list<tuple> fromTo){
-		list<tuple> fromToAsStrings = x.list(x.yield(0, 1).apply(x.joinOn(""), x.joinOn("")).forIter(fromTo));
+		list<tuple> fromToAsStrings = x.list(x.yield("a", "b").apply(x.joinOn(""), x.joinOn("")).where("a","b").in(fromTo));
 		return x.str(x.String(this).translate(fromToAsStrings));
 	}
 	
 	public str asTitle(){
-		return x.str("").join(x.yield().apply(x.String.capitalized).forIter(this.split()));
+		return x.str("").join(x.yield().apply(x.String.capitalized).forEach(this.split()));
 	}
 	
 	public str capitalized(){

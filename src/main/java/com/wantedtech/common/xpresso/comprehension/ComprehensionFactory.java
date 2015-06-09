@@ -5,12 +5,12 @@ public class ComprehensionFactory {
 		ScalarComprehension<O> comprehension = new ScalarComprehension<O>();
 		return new ScalarComprehensionStart<O>(comprehension);
 	}
-	public static Tuple1ComprehensionStart tuple(int index0){
-		Tuple1Comprehension comprehension = new Tuple1Comprehension(index0);
+	public static Tuple1ComprehensionStart tuple(String fieldName0){
+		Tuple1Comprehension comprehension = new Tuple1Comprehension(fieldName0);
 		return new Tuple1ComprehensionStart(comprehension);
 	}
-	public static Tuple2ComprehensionStart tuple(int index0,int index1){
-		Tuple2Comprehension comprehension = new Tuple2Comprehension(index0,index1);
+	public static Tuple2ComprehensionStart tuple(String fieldName0,String fieldName1){
+		Tuple2Comprehension comprehension = new Tuple2Comprehension(fieldName0,fieldName1);
 		return new Tuple2ComprehensionStart(comprehension);
 	}
 }
