@@ -217,17 +217,17 @@ Function<Integer,String> cachedXerox = x.memo(xerox);
 ```			
 The first call of the function. The computation takes a very long time:
 ```
-Timer timer = x.Timer();
+x.timer.start();
 String copies = cachedXerox.apply(5000000);
-x.print(timer.stop());
+x.print(x.timer.stop());
 
 Console: 18.898s
 ```
 The second call with the same value of *count*, the result is instantaneous:
 ```
-timer.start();
+x.timer.start();
 String moreCopies = cachedXerox.apply(5000000);
-x.print(timer.stop());
+x.print(x.timer.stop());
 
 Console: 0.0s
 ```
