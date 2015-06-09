@@ -153,15 +153,15 @@ Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.
 ```
 
 ```
-Function<Object,Integer> squareFun = x.<Integer>LambdaF("x : x * x");
+Function<Object,Integer> squareFun = x.LambdaF("x : x * x");
 
-Function<Object,Integer> fun = x.<Integer>LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
+Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
 ```
 
 Function chains:
 ```
-Function<Object,Integer> incrementFun = x.<Integer>lambdaF("x : x + 1");
-Function<Object,Integer> squareFun = x.<Integer>lambdaF("x : x * x");
+Function<Object,Integer> incrementFun = x.lambdaF("x : x + 1");
+Function<Object,Integer> squareFun = x.lambdaF("x : x * x");
 
 Function<Object,Integer> chainFun = x.chain(incrementFun,squareFun);
 ```
