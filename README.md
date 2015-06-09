@@ -173,22 +173,22 @@ Function<Object,Integer> chainFun = x.chain(incrementFun,squareFun);
 
 Python:
 ```
-foreign_trips_lower = [element.lower() for element in trips if element not in russian_cities]
+foreign_trips_lower = [city.lower() for city in trips if city not in russian_cities]
 ```
 
 xpresso:
 ```
-list<String> foreignTripsLower = x.list(x.<String>yield().apply(x.lower).forIter(trips).unless(x.in(russianCities)));
+list<String> foreignTripsLower = x.list(x.<String>yield("city").apply(x.lower).where("city").in(trips).unless(x.in(russianCities)));
 ```
 
 Python:
 ```
-new_list = [value.upper() if value[0] == "a" else value.lower() for value in old_list if value[0] != "b"]
+cool_cities = dict([(city.upper(),true) for (city, score) in rank.items() if score > 5])
 ```
 
 xpresso:
 ```
-list<String> newList = x.list(x.<String>yield().apply(x.upper).when(x.LambdaP("x : x[0] == "a")).applyOtherwise(x.lower).forIter(oldList).when(x.LambdaP("x : x[0] != '''b'''"));
+dict<Integer> coolCities = x.dict(x.yield("city","score").apply(x.upper).replace(True).where("city","score").in(rank.items()).when(x.LambdaP(x : x[1] > 5)));
 ```
 
 Python:
@@ -198,7 +198,7 @@ evals = [True if value == "good" else False for value in some_list]
 
 xpresso:
 ```
-list<Boolean> evals = x.list(x.<Boolean>yield().value(true).when(x.lambdaP("x : x == '''good'''")).valueOtherwise(false).forIter(someList));
+list<Boolean> evals = x.list(x.<Boolean>yield().replace(true).when(x.lambdaP("x : x == '''good'''")).replaceOtherwise(false).forEach(someList));
 ```
 
 #### Memoization
