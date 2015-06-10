@@ -151,13 +151,13 @@ bestCities = x.reversed(x.sorted(yield().forEach(rank.items()),x.lambdaF("x: x[0
 
 More complex lambda expressions:
 ```
-Predicate<Object> pr = x.LambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
+Predicate<Object> pr = x.lambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
 ```
 
 ```
-Function<Object,Integer> squareFun = x.LambdaF("x : x * x");
+Function<Object,Integer> squareFun = x.lambdaF("x : x * x");
 
-Function<Object,Integer> fun = x.LambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
+Function<Object,Integer> fun = x.lambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
 ```
 
 Function chains:
@@ -188,7 +188,7 @@ cool_cities = dict([(city.upper(),true) for (city, score) in rank.items() if sco
 
 xpresso:
 ```
-dict<Integer> coolCities = x.dict(x.yield("city","score").apply(x.upper).replace(True).where("city","score").in(rank.items()).when(x.LambdaP(x : x[1] > 5)));
+dict<Integer> coolCities = x.dict(x.yield("city","score").apply(x.upper).replace(true).where("city","score").in(rank.items()).when(x.lambdaP("x : x[1] > 5")));
 ```
 
 Python:
