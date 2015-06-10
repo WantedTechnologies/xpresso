@@ -480,6 +480,7 @@ In the above code, xpresso first finds the members of the two objects (*this* an
 
 #### Assertions
 
+```
 x.assertTrue(condition);
 
 x.assertNotNull(parameter);
@@ -489,6 +490,7 @@ x.assertNotEmpty(iterable);
 x.assertNotEmpty(string);
 
 x.assertNotEmpty(array);
+```
 
 #### Built-in iterators
 
