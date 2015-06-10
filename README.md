@@ -146,7 +146,7 @@ best_cities = reversed(sorted(item for item in rank.items(),lambda x: x[0]))
 
 xpresso:
 ```
-bestCities = x.reversed(x.sorted(yield().forIter(rank.items()),x.lambdaF("x: x[0]")));
+bestCities = x.reversed(x.sorted(yield().forEach(rank.items()),x.lambdaF("x: x[0]")));
 ```
 
 More complex lambda expressions:
