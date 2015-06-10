@@ -259,6 +259,13 @@ xpresso:
 tuple myCar = x.tuple("Honda", "red", 2010, true);
 ```
 
+Dynamic name assignment to tuple elements:
+```
+myCar.name("make","color","year","good");
+x.print(myCar.get("good"),myCar.get("make"),myCar.get("year"));
+```
+If *name* method has not yet been called, but *get(someName)* is called for the first time, then the returned value will be *get(i)*, where *i* is the smallest index of a remaining unnamed element in the tuple. All the subsequent calls for the same value *someName*, the same element *i* will be returned by *get(someName)*.
+
 #### Slicing for list, String, and str
 
 Python:
