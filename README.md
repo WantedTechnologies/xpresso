@@ -478,6 +478,18 @@ public int compareTo(Object obj){
 ```
 In the above code, xpresso first finds the members of the two objects (*this* and *obj*). It then compares the values of those members between the two objects if those members' names are listed among the input field names fieldName0, fieldName1, etc. The order of comparisons between the member's values is the same as the order of input field names.
 
+#### Assertions
+
+x.assertTrue(condition);
+
+x.assertNotNull(parameter);
+
+x.assertNotEmpty(iterable);
+
+x.assertNotEmpty(string);
+
+x.assertNotEmpty(array);
+
 #### Built-in iterators
 
 * cycle
