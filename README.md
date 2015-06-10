@@ -188,7 +188,7 @@ cool_cities = dict([(city.upper(),true) for (city, score) in rank.items() if sco
 
 xpresso:
 ```
-dict<Integer> coolCities = x.dict(x.yield("city","_").apply(x.upper).replace(true).where("city","_").in(rank.items()).when(x.lambdaP("x : x[1] > 5")));
+dict<Integer> coolCities = x.dict(x.yield("city","_").apply(x.upper).replace(true).where("city","score").in(rank.items()).when(x.lambdaP("x : x[1] > 5")));
 ```
 
 Python:
