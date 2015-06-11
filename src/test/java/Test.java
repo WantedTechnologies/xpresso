@@ -7,6 +7,7 @@ import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.HappySQL;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
@@ -242,6 +243,12 @@ public class Test {
 			
 			dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",32));
 			
+			x.print(x.Json(rank));
+			
+			dict<Integer> rankCopy = x.<dict<Integer>>Json("{\"New York\":20,\"London\":10,\"Saint-Petersburg\":15,\"Moscow\":30,\"Dubai\":32,\"Paris\":5}").parse();
+			
+			x.print(x.Object(rank).equals(rankCopy));
+			
 			dict<Integer> coolCities = x.dict(x.yield("city","_").apply(x.chain(x.upper,x.strip,x.String.stripAccents)).replace(true).where("city","_").in(rank.items()).when(x.lambdaP("city, score : score > 20")));
 			
 			x.print(coolCities);
@@ -287,6 +294,24 @@ public class Test {
 			list<tuple> plansData = x.list(x.yield("year", "city").where("year", "city").in(plans).when(x.lambdaP("year, city : year > 2016")));
 
 			x.print(plansData);
+			
+			try(HappySQL conn = x.mySQL("10.0.5.32:3306", "wd", "", "jobs")){
+				String query =
+						"SELECT ID, Name FROM " +
+						"tbl_Skill s " +
+						"WHERE s.Name LIKE ?";
+				
+				conn.run(query, "%Java%");
+				
+				try(HappySQL conn2 = x.mySQL("10.0.5.32:3306", "wd", "", "workspace")){
+					for (tuple row : conn) {
+						query =
+								"INSERT IGNORE INTO tttt " +
+								"VALUES (?, ?)";
+						conn2.run(query, row.get("ID"), row.get("Name"));
+					}
+				}
+			}
 			
 		}catch(Exception e){
 			throw e;

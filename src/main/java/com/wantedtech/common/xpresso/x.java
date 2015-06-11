@@ -23,6 +23,7 @@
 package com.wantedtech.common.xpresso;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -37,6 +38,8 @@ import com.wantedtech.common.xpresso.helpers.HappyObject;
 import com.wantedtech.common.xpresso.helpers.HappyString;
 import com.wantedtech.common.xpresso.helpers.HappyStringStatic;
 import com.wantedtech.common.xpresso.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.HappyMySQL;
+import com.wantedtech.common.xpresso.helpers.HappySQL;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.types.*;
@@ -99,6 +102,31 @@ public class x {
 	}
 	
 	/**
+	 * 
+	 * Creates an instance of a HappySQL object.
+	 * 
+	 * @param	dbHost
+	 * @param	userName
+	 * @param	password
+	 * @param	dbName
+	 * @return	an object that has the {@link HappySQL#run(String)} method
+	 * 		  	that takes the query and params as input;
+	 * 
+	 * 			Example:
+	 * 			
+	 * 			try (HappySQL conn = x.mySQL("localhost", "user", "password", "db")) {
+	 * 					conn.run("SELECT * FROM Table WHERE ID = ? and UserName = ?", 1000, "John");
+	 * 			}
+	 * 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static HappySQL mySQL(String dbHost, String userName, String password, String dbName) throws ClassNotFoundException, SQLException{
+		return new HappyMySQL(dbHost, userName, password, dbName);
+	} 
+	
+	/**
 	 * Creates an instance of a HappyObject class. This class has utility methods 
 	 * equals, compareTo and HashCode.
 	 * 
@@ -144,12 +172,14 @@ public class x {
 	 * 
 	 * Example:
 	 * 
-	 * HappyFile f = x.open("filename.txt","r","utf-8");
+	 * try (HappyFile f = x.open("filename.txt","r","utf-8"){
+	 * 		//do stuff
+	 * }
 	 * 
 	 * In case of a text file, the {@link HappyFile} object is also an Iterable containing 
 	 * lines of the file:
 	 * 
-	 * for(String line : x.open("filename.txt","r","utf-8")){
+	 * for(String line : f){
 	 * 		x.print(line);
 	 * }
 	 * 
@@ -160,12 +190,8 @@ public class x {
 	 * @param encoding		the String object containing the encoding of the file
 	 * 						(can be "utf-8" or "latin-1")
 	 */
-	public static HappyFile open(String path,String operation,String encoding) throws Exception{
-		try{
-			return new HappyFile(path,operation,encoding);
-		}catch(Exception e){
-			throw e;
-		}
+	public static HappyFile open(String path,String operation,String encoding) throws IOException{
+		return new HappyFile(path,operation,encoding);
 	}
 	
 	/**
