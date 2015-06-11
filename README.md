@@ -224,6 +224,15 @@ x.print(plansData);
 
 Console: [(2015, Moscow), (2016, Paris)]
 ```
+You can also filter the extracted values:
+
+```
+list<tuple> plansData = x.list(x.yield("year", "city").where("year", "city").in(plans).when(x.lambdaP("year, city : year > 2015)));
+
+x.print(plansData);
+
+Console: [(2016, Paris)]
+```
 
 #### Memoization
 
