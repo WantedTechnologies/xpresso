@@ -1,6 +1,6 @@
 // Generated from JSONTree.g by ANTLR 4.5
 
-package com.wantedtech.common.xpresso.json2;
+package com.wantedtech.common.xpresso.json;
 
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.x;

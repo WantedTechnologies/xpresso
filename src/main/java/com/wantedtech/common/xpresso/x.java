@@ -38,7 +38,7 @@ import com.wantedtech.common.xpresso.helpers.HappyString;
 import com.wantedtech.common.xpresso.helpers.HappyStringStatic;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.Slicer;
-import com.wantedtech.common.xpresso.json2.Json;
+import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;

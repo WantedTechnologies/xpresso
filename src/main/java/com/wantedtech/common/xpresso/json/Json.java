@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.json2;
+package com.wantedtech.common.xpresso.json;
 
 import java.util.Collection;
 import java.util.Iterator;
