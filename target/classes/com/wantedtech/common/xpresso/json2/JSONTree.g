@@ -8,6 +8,7 @@ tokenVocab=JSON; // reuse token types
 package com.wantedtech.common.xpresso.json2;
 
 import com.wantedtech.common.xpresso.types.*;
+import com.wantedtech.common.xpresso.x;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 
@@ -163,9 +164,9 @@ elements    returns [list<Object> lst]
 @init {
     $lst = x.list();
 }
-    : v0=value {$lst.add($v0.result);}
+    : v0=value {$lst.append($v0.result);}
         (
-            COMMA v1=value {$lst.add($v1.result);}
+            COMMA v1=value {$lst.append($v1.result);}
         )*
     ;
     
@@ -183,7 +184,7 @@ pair    returns [dict dct]
 @init {
     $dct = x.dict();
 }
-    : key=String ':' v=value { $dct.put(extractString($key.text), $v.result); }
+    : key=String ':' v=value { $dct.setAt(extractString($key.text)).value($v.result); }
     ;
 
 Number  : '-'? Digit+ ( '.' Digit+)?;

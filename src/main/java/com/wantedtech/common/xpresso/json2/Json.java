@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.antlr.v4.runtime.*;
 
-import com.wantedtech.common.xpresso.json.JsonValue;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.tuple;
 
@@ -277,7 +276,7 @@ public class Json<O>{
 				continue;
 			}
 			
-			builder.append(JsonValue.dumps(value));
+			builder.append(dumps(value));
 		}
 		builder.append("]");
 		return builder.toString();
@@ -293,7 +292,7 @@ public class Json<O>{
 		builder.append("[");
 		
 		try{
-			builder.append(JsonValue.dumps(tuple.get(0)));
+			builder.append(dumps(tuple.get(0)));
 			Object anotherValue = tuple.get(1);
 			builder.append(",");
 			builder.append(anotherValue);
@@ -498,11 +497,11 @@ public class Json<O>{
 			builder.append("[]");
 		} else {
 			builder.append("[");
-			builder.append(JsonValue.dumps(array[0]));
+			builder.append(dumps(array[0]));
 			
 			for(int i = 1; i < array.length; i++){
 				builder.append(",");
-				builder.append(JsonValue.dumps(array[i]));
+				builder.append(dumps(array[i]));
 			}
 			
 			builder.append("]");
@@ -538,7 +537,7 @@ public class Json<O>{
             builder.append(escape(String.valueOf(entry.getKey())));
             builder.append('\"');
             builder.append(':');
-			builder.append(JsonValue.dumps(entry.getValue()));
+			builder.append(dumps(entry.getValue()));
 		}
 		builder.append('}');
 		return builder.toString();
