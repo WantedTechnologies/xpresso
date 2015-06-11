@@ -119,7 +119,7 @@ Function<Object, String> toUpperCaseFun = new Function<Object, String>() {
 	}
 };
 
-list<String> tripsUp = trips.transformed(toUpperCaseFun);
+list<String> tripsUp = trips.mapped(toUpperCaseFun);
 x.print(tripsUp);
 
 Console: [DUBAI, NEW YORK, LONDON, PARIS, MOSCOW, LONDON, SAINT-PETERSBURG, NEW YORK]
