@@ -292,6 +292,32 @@ x.print(x.Object(rank).equals(rankCopy));
 Console: true
 ```
 
+#### MySQL
+```
+String host = "host:port";
+String user = "user";
+String password = "password";
+String db = "db";
+
+try(HappySQL select = x.mysql(host, user, password, db)){
+	String query =
+		"SELECT ID FROM " +
+		"tbl_Employees e " +
+		"WHERE e.Name LIKE ?";
+	
+	select.run(query, "John %");
+	
+	try(HappySQL update = x.mysql(host, user, password, db)){
+		for (tuple row : select) {
+			query =
+				"UPDATE tbl_Employees " +
+				"SET Fired = true 
+				"WHERE ID = ?";
+			update.run(query, row.get("ID"));
+		}
+	}
+}
+```
 #### Pythonic iterable dict
 
 Python:
