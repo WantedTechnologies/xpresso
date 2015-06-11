@@ -201,6 +201,22 @@ xpresso:
 list<Boolean> evals = x.list(x.<Boolean>yield().replace(true).when(x.lambdaP("x : x == '''good'''")).replaceOtherwise(false).forEach(someList));
 ```
 
+Using list comprehensions to extract properties from element objects:
+```
+class SomeElement {
+    public int getField1() { return 1;}
+    public String getField2() { return "aa"; }
+}
+
+list<SomeElement> elems = x.list(new SomeElement(), new SomeElement());
+
+list<tuple> elemsData = x.list(x.yield("field1", "field2").where("field1", "field2").in(elems));
+
+x.print(elemsData);
+
+Console: [(1,aa), (1,aa)]
+```
+
 #### Memoization
 
 As a quick example, let *xerox* be a *Function* object whose method *apply* copies the string *"hello"* the given number *count* of times:
