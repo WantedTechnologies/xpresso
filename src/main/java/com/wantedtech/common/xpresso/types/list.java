@@ -128,7 +128,7 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 			}
 		}
 		if (startIndex > this.list.size()-1){
-			startIndex = this.list.size()-1;
+			return x.list();
 		}
 		if (endIndex > this.list.size()-1){
 			endIndex = this.list.size()-1;
@@ -247,7 +247,7 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		set(setAtIndex,value);
 	}
 	
-	public list<T> transformed(Function<Object,T> function){
+	public list<T> mapped(Function<Object,T> function){
 		list<T> newList = x.list();
 		for(T element : this.list){
 			newList.append(function.apply(element));

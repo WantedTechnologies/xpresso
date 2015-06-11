@@ -25,7 +25,7 @@ public class strStatic {
 					throw new IllegalArgumentException("Could not interpret the input object as a String.");
 				}
 			}
-		}).params(substring);
+		}).params(x.listOf((Object)substring));
 	}
 	
 	public ParametrizedFunction<Object,Integer> count(str substr){
@@ -37,7 +37,7 @@ public class strStatic {
 					throw new IllegalArgumentException("Could not interpret the input object as a str.");
 				}
 			}
-		}).params(substr);
+		}).params(x.listOf((Object)substr));
 	}
 	
 	public ParametrizedFunction<Object,Integer> count(char character){
@@ -49,7 +49,7 @@ public class strStatic {
 					throw new IllegalArgumentException("Could not interpret the input object as a char.");
 				}
 			}
-		}).params(character);
+		}).params(x.listOf((Object)character));
 	}
 	
 	private str escape(str value){

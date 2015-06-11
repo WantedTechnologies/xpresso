@@ -17,7 +17,7 @@ public class HappyStringStatic {
 					throw new IllegalArgumentException("Could not interpret the input object as a String.");
 				}
 			}
-		}).params(substring);
+		}).params(x.listOf((Object)substring));
 	}
 	
 	public static ParametrizedFunction<Object,Integer> count(char character){
@@ -29,7 +29,7 @@ public class HappyStringStatic {
 					throw new IllegalArgumentException("Could not interpret the input object as a char.");
 				}
 			}
-		}).params(character);
+		}).params(x.listOf((Object)character));
 	}
 	
 	public String stripAccents(String string){

@@ -102,7 +102,7 @@ public class str extends list<String> implements Iterable<String>{
 		return this.toString().contains(str.toString());
 	}
 	
-	public str transformed(Function<Object,String> function){
+	public str mapped(Function<Object,String> function){
 		str newStr = x.str();
 		for(String element : this.list){
 			newStr.append(function.apply(element));
@@ -205,16 +205,21 @@ public class str extends list<String> implements Iterable<String>{
 		return trim(chars);
 	}
 	
-	public str translated(list<tuple> fromTo){
+	public str translate(list<tuple> fromTo){
 		list<tuple> fromToAsStrings = x.list(x.yield("a", "b").apply(x.joinOn(""), x.joinOn("")).where("a","b").in(fromTo));
 		return x.str(x.String(this).translate(fromToAsStrings));
 	}
 	
-	public str asTitle(){
+	public str translate(dict<String> fromTo){
+		list<tuple> fromToAsStrings = x.list(x.yield("a", "b").apply(x.joinOn(""), x.joinOn("")).where("a","b").in(fromTo.items()));
+		return x.str(x.String(this).translate(fromToAsStrings));
+	}
+	
+	public str title(){
 		return x.str("").join(x.yield().apply(x.String.capitalized).forEach(this.split()));
 	}
 	
-	public str capitalized(){
+	public str capitalize(){
 		return x.str(Character.toUpperCase(this.toString().charAt(0)) + this.toString().substring(1));
 	}
 	

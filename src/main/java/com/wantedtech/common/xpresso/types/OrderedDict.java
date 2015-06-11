@@ -143,7 +143,7 @@ public class OrderedDict<T> extends dict<T> {
 	}
 	
 	@Override
-	list<tuple2<String,T>> items(){
+	public list<tuple2<String,T>> items(){
 		list<tuple2<String,T>> items = x.list();
 		for(String key : keys){
 			try{

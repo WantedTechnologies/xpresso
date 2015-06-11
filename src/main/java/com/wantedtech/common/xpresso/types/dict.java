@@ -172,7 +172,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		return ((HashMap<String,T>)dict).containsKey(string);
 	}
 	
-	list<tuple2<String,T>> items(){
+	public list<tuple2<String,T>> items(){
 		list<tuple2<String,T>> items = x.list();
 		for(String key:this){
 			try{

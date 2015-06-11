@@ -1,18 +1,13 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.time.Time;
-import com.wantedtech.common.xpresso.time.Timer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.json.Json;
-import com.wantedtech.common.xpresso.json.JsonArray;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
@@ -29,18 +24,7 @@ public class Test {
 				}	
 			}
 			
-			String dd = x.String.valueOf(3);
-			
-			x.print(dd);
-			
-			Regex a = x.Regex(
-					 "gdfgfdg"	//
-					+"sdfssdf"	//
-					+""			//
-					+""			//
-					+""			//
-			);
-			
+			str title = x.str("Hello‹„ World");
 			
 			dict<String> analogs = x.dict(
 		            x.tuple("«","\""),
@@ -56,9 +40,19 @@ public class Test {
 		            x.tuple("–"," - "),
 		            x.tuple("—"," - ")
 		    );
+			title = title.translate(analogs);
+			x.assertTrue(title.toString().equals("Hello<\" World"));
 			
-			str title = x.str("Hello‹„ World");
-			title = x.sorted(title,x.len,true);
+			str sortedTitle = x.sorted(title,true);
+			x.assertTrue(sortedTitle.toString().equals("roollledWH<\" "));
+			
+			for (tuple item : x.enumerate(title)){
+				x.assertTrue(item.get("index").equals(item.get("index")));
+				x.assertTrue(item.get("index").equals(item.get(0)));
+				x.assertTrue(item.get("char").equals(item.get("char")));
+				x.assertTrue(item.get("char").equals(item.get(1)));
+				x.assertTrue(!item.get("char").equals(item.get("index")));
+			}
 			
 			title = x.str(x.<String>yield().apply(x.<String>asKeyOn(analogs)).when(x.in(analogs)).applyOtherwise(x.upper).forEach(title).unless(x.in(x.list("o","r"))));
 			
@@ -223,7 +217,7 @@ public class Test {
 				}
 			};
 
-			list<String> tripsUp = trips.transformed(toUpper);
+			list<String> tripsUp = trips.mapped(toUpper);
 			x.print(tripsUp);
 
 			Predicate<Object> containsO = new Predicate<Object>() {
@@ -239,6 +233,20 @@ public class Test {
 			Function<Object,Integer> squareFun = x.lambdaF("x : x * x");
 
 			Function<Object,Integer> chainFun = x.chain(incrementFun,squareFun);
+			
+			dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",32));
+			
+			dict<Integer> coolCities = x.dict(x.yield("city","_").apply(x.chain(x.upper,x.strip,x.String.stripAccents)).replace(true).where("city","_").in(rank.items()).when(x.lambdaP("city, score : score > 20")));
+			
+			x.print(coolCities);
+			
+			list<Integer> ranks = x.list(x.<Integer>yield().apply(x.invoke("toLowerCase")).forEach(coolCities));
+			
+			list<tuple2<String,Integer>> sr = x.list(x.sorted(rank.items(), x.<Integer>invoke("get", 1)));
+			
+			x.print(sr);
+			
+			x.print(x.avg(x.list(1,2,3)));
 			
 		}catch(Exception e){
 			throw e;

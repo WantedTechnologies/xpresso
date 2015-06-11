@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
+import java.lang.reflect.InvocationTargetException;
 
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.types.*;
@@ -72,6 +73,69 @@ import com.wantedtech.common.xpresso.types.tuples.tuple4;
 
 public class x {
 	
+	/**
+	 * Creates an Assert class object that has useful assertion methods.
+	 */
+	public static Assert Assert = new Assert();
+	
+	/**
+	 * Creates an Assert class object and calls its True method.
+	 */
+	public static void assertTrue(boolean expression){
+		new Assert().True(expression);
+	}
+	
+	/**
+	 * Creates an Assert class object and calls its notNull method.
+	 */
+	public static <T> void assertNotNull(T expression){
+		new Assert().notNull(expression);
+	}
+	
+	/**
+	 * Creates an Assert class object and calls its notEmpty method.
+	 */
+	public static <T> void assertNotEmpty(T expression){
+		new Assert().notEmpty(expression);
+	}
+	
+	/**
+	 * Creates an instance of a HappyObject class. This class has utility methods 
+	 * equals, compareTo and HashCode.
+	 * 
+	 * Examples:
+	 * 
+	 * When defining a class:
+	 * 
+	 * @Override
+	 * int hashCode(){
+	 * 		return x.Object(this).hashCode();
+	 * }
+	 * In the above code, xpresso first finds the members of this (via reflections) and then
+	 * dynamically computes the hash code for this based on the values of its members.
+	 * 
+	 * @Override
+	 * boolean equals(Object obj){
+	 * 		return x.Object(this).equals(obj);
+	 * }
+	 * In the above code, xpresso first finds the members of the
+	 * two objects (this and obj), and then compares the values of those members.
+	 * 
+	 * @Override
+	 * public int compareTo(Object obj){
+	 *      return x.Object(this).compareTo(obj, fieldName0, fieldName1, ...);
+	 * }
+	 * 
+	 * In the above code, xpresso first finds the members of the
+	 * two objects (this and obj). It then compares the values of those
+	 * members between the two objects if those members' names are listed
+	 * among the input field names fieldName0, fieldName1, etc.
+	 * The order of comparisons between the member's values is the same
+	 * as the order of input field names.
+	 * 
+	 * @param o
+	 * @return
+	 */
 	public static HappyObject Object(Object o){
 		return new HappyObject(o);
 	}
@@ -517,7 +581,7 @@ public class x {
 					}
 				}
 			}
-		}).params(iterableOrMap);
+		}).params(x.listOf(iterableOrMap));
 	}
 	
 	/**
@@ -542,7 +606,7 @@ public class x {
 					throw new IllegalArgumentException("Could not interpret the input object as an Iterable.");
 				}
 			}
-		}).params(separator);
+		}).params(x.listOf((Object)separator));
 	}
 	
 	/**
@@ -1265,16 +1329,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Comparable<? super T>> T max(Iterable<T> iterable){
-		if(x.len(iterable) == 0){
-			throw new IndexOutOfBoundsException();
-		}
-		T max = iterable.iterator().next();
-	    for(T element : iterable){
-	    	if(max == null || element.compareTo(max) >= 0){
-	    		max = element;
-	    	}
-	    }
-	    return max;
+		return x.<T>reduce(iterable, x.<T>max());
 	}
 	
 	/**
@@ -1297,16 +1352,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Comparable<? super T>> T min(Iterable<T> iterable){
-		if(x.len(iterable) == 0){
-			throw new IndexOutOfBoundsException();
-		}
-		T min = iterable.iterator().next();
-	    for(T element : iterable){
-	    	if(min == null || element.compareTo(min) <= 0){
-	    		min = element;
-	    	}
-	    }
-	    return min;
+		return x.<T>reduce(iterable, x.<T>min());
 	}
 	
 	/**
@@ -1325,17 +1371,21 @@ public class x {
 	/**
 	 * Sums the elements of the input {@link Iterable} and returs the sum. 
 	 * 
-	 * @param iterable		an Iterable of type <T>
-	 * @param <T>			any type
+	 * @param iterable		an Iterable of Numbers
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T extends Number> T sum(Iterable<T> iterable){
-		Number sum = new Double(0);
-		for(T element : iterable){
-			sum = sum.doubleValue() + element.doubleValue(); 
-		}
-		return (T)sum;
+		return x.<T>reduce(iterable, x.<T>add());
+	}
+	
+	/**
+	 * Sums the elements of the input {@link Iterable} and returs the sum. 
+	 * 
+	 * @param iterable		an Iterable of Numbers
+	 * 
+	 */
+	public static <T extends Number> T avg(Iterable<T> iterable){
+		return x.<T>reduce(iterable, x.<T>avg());
 	}
 	
 	/**
@@ -1510,7 +1560,7 @@ public class x {
 	 * @param <I,O>		input and output element types
 	 * 
 	 */
-	public static <I,O> Iterable<O> transform(Iterable<I> iterable,Function<Object,O> function){
+	public static <I,O> Iterable<O> map(Iterable<I> iterable,Function<Object,O> function){
 		if(iterable instanceof set<?>){
 			set<O> newSet = new set<O>();
 			for (I element : iterable){
@@ -1524,6 +1574,26 @@ public class x {
 			}
 			return newList;
 		}
+	}
+	
+	/**
+	 * Applies the input {@link Function} to each element of the input {@link Iterable}
+	 * and returns a new {@link Iterable} containing the Functions' outputs of each element.
+	 * 
+	 * Preserves the order of elements.
+	 *  
+	 * @param iterable	
+	 * @param <I>		input and output element types
+	 * 
+	 */
+	public static <I> I reduce(Iterable<I> iterable,Function<tuple2<I,I>,I> function){
+		x.assertTrue(x.len(iterable) > 1);
+		Iterator<I> iter = iterable.iterator();
+		I output = function.apply(tuple2.valueOf(iter.next(), iter.next()));
+		while(iter.hasNext()){
+			output = function.apply(tuple2.valueOf(output, iter.next()));
+		}
+		return output;
 	}
 	
 	/**
@@ -1668,7 +1738,7 @@ public class x {
 	 * @input <T> 			any type
 	 *
 	 */  
-	public static <T> Iterable<tuple2<Integer,String>> enumerate(String string, int startCount){
+	public static Iterable<tuple2<Integer,String>> enumerate(String string, int startCount){
 		str str = x.str(string);
 		return enumerate(str,startCount);
 	}
@@ -1686,9 +1756,44 @@ public class x {
 	 * @input <T> 			any type
 	 *
 	 */  
-	public static <T> Iterable<tuple2<Integer,String>> enumerate(String string){
+	public static Iterable<tuple2<Integer,String>> enumerate(String string){
 		return enumerate(string,0);
 	}
+	
+	/**
+	 * Returns an {@link Iterable} of {@link tuple}s (int index, String character) for the input array,
+	 * thet iterates over the elements of the array.
+	 * 
+	 * enumerate in xpresso works similarly to Python's enumerate.
+	 * 
+	 * @see the page about Python's <a href="https://docs.python.org/2/library/functions.html#enumerate">enumerate</a>
+	 * 		for more details.
+	 * 
+	 * @input string		a {@link String} object
+	 * @input startCount	the value if the index of the first tuple in the output Iterable
+	 * @input <T> 			any type
+	 *
+	 */  
+	public static <T> Iterable<tuple2<Integer,T>> enumerate(T[] array, int startCount){
+		return enumerate(Helpers.newArrayList(array),startCount);
+	}
+	
+	/**
+	 * Returns an {@link Iterable} of {@link tuple}s (int index, String character) for the input array,
+	 * thet iterates over the elements of the array.
+	 * 
+	 * enumerate in xpresso works similarly to Python's enumerate.
+	 * 
+	 * @see the page about Python's <a href="https://docs.python.org/2/library/functions.html#enumerate">enumerate</a>
+	 * 		for more details.
+	 * 
+	 * @input string		a {@link String} object
+	 * @input <T> 			any type
+	 *
+	 */  
+	public static <T> Iterable<tuple2<Integer,T>> enumerate(T[] array){
+		return enumerate(Helpers.newArrayList(array),0);
+	}	
 	
 	/**
 	 * 
@@ -1928,6 +2033,19 @@ public class x {
 	 */
 	public static str sorted(str str){
 		return x.str(sorted(str.toArrayList(),null,false));
+	}
+	
+	/**
+	 * Sorts in the given order (directe or reversed) the characters of the input {@link str}
+	 * according to {@link String#compareTo(String)}
+	 * applied to each chracter of the input {@link str}
+	 * @param str	a {@link str} string
+	 * @param reverse	
+	 * @return a sorted {@link str} of type T
+	 * 
+	 */
+	public static str sorted(str str, boolean reverse){
+		return x.str(sorted(str.toArrayList(),null,reverse));
 	}
 	
 	/**
@@ -2959,9 +3077,139 @@ public class x {
 			public T apply(Object input) {
 				return (T)obj;
 			}
-		}).params(obj);
+		}).params(x.listOf((Object)obj));
 	}
+	
+	/**
+	 * A {@link Function} that takes an object's method name and method's
+	 * parameters values as input, invokes that method with those parameters
+	 * and returns the output.
+	 */
+	public static <T> ParametrizedFunction<Object,T> invoke(final String methodName, Object... methodParams){
+		return (new ParametrizedFunction<Object,T>() {
+			public T apply(Object obj) throws IllegalArgumentException{
+				String methodName = params.get(0).toString();
+				list<Object> methodParams = params.sliceFrom(1);
+				list<Class<?>> methodParamsTypes = x.list();
+				for (tuple item : x.enumerate(methodParams)){
+					item.name("idx","param");
+					Class<?> currentType = item.get("param").getClass();
+					if (currentType.equals(Integer.class)){
+						currentType = int.class;
+					}else if(currentType.equals(Double.class)){
+						currentType = double.class;
+					}else if(currentType.equals(Long.class)){
+						currentType = long.class;
+					}else if(currentType.equals(Float.class)){
+						currentType = float.class;
+					}
+					methodParamsTypes.append(currentType); 
+				}
+				try{
+					if(x.len(methodParams) > 0){
+						Class<?>[] typesArr = new Class<?>[x.len(methodParamsTypes)];
+						typesArr = methodParamsTypes.toArrayList().toArray(typesArr);
+						return (T)(obj.getClass().getMethod(methodName, typesArr).invoke(obj, methodParams.toArrayList().toArray()));	
+					}else{
+						return (T)(obj.getClass().getMethod(methodName).invoke(obj));
+					}
+				}catch(Exception e){
+					throw new IllegalArgumentException();
+				}
+			}
+		}).params(x.listOf((Object)methodName).extend(methodParams));
+	}
+	
+	/**
+	 * A {@link Function} that takes a tuple of arguments an adds them up.
+	 */
+	public static <T extends Number> Function<tuple2<T,T>, T> add(){
+		return new Function<tuple2<T,T>,T>() {
+			public T apply(tuple2<T,T> values) throws IllegalArgumentException{
+				T op1 = values.value0;
+				T op2 = values.value1;
 
+			    if( !(op1 instanceof Number) || !(op2 instanceof Number) ){
+			        throw new IllegalArgumentException("Invalid operands for mathematical operator [+]");
+			    }
+
+			    if(op1 instanceof Double || op2 instanceof Double){
+			        return (T)(Object)(((Number)op1).doubleValue() + ((Number)op2).doubleValue());
+			    }
+
+			    if(op1 instanceof Float || op2 instanceof Float){
+			        return (T)(Object)(((Number)op1).floatValue() + ((Number)op2).floatValue());
+			    }
+
+			    if(op1 instanceof Long || op2 instanceof Long){
+			        return (T)(Object)(((Number)op1).longValue() + ((Number)op2).longValue());
+			    }
+
+			    return (T)(Object)(((Number)op1).intValue() + ((Number)op2).intValue());
+			}
+		};
+	}
+	
+	/**
+	 * A {@link Function} that takes a tuple of arguments an adds them up.
+	 */
+	public static <T extends Number> Function<tuple2<T,T>, T> avg(){
+		return new Function<tuple2<T,T>,T>() {
+			public T apply(tuple2<T,T> values) throws IllegalArgumentException{
+				T op1 = values.value0;
+				T op2 = values.value1;
+
+			    if( !(op1 instanceof Number) || !(op2 instanceof Number) ){
+			        throw new IllegalArgumentException("Invalid operands for mathematical operator [+]");
+			    }
+
+			    if(op1 instanceof Double || op2 instanceof Double){
+			        return (T)(Object)((((Number)op1).doubleValue() + ((Number)op2).doubleValue())/2);
+			    }
+
+			    if(op1 instanceof Float || op2 instanceof Float){
+			        return (T)(Object)((((Number)op1).floatValue() + ((Number)op2).floatValue())/2);
+			    }
+
+			    if(op1 instanceof Long || op2 instanceof Long){
+			        return (T)(Object)((((Number)op1).longValue() + ((Number)op2).longValue())/2);
+			    }
+
+			    return (T)(Object)((((Number)op1).intValue() + ((Number)op2).intValue())/2);
+			}
+		};
+	}
+	
+	/**
+	 * A {@link Function} that takes a tuple of arguments an adds them up.
+	 */
+	public static <T extends Comparable<? super T>> Function<tuple2<T,T>, T> min(){
+		return new Function<tuple2<T,T>,T>() {
+			public T apply(tuple2<T,T> values) throws IllegalArgumentException{
+				if(values.value0.compareTo(values.value1) < 0){
+					return values.value0;
+				}else{
+					return values.value1;
+				}
+			}
+		};
+	}
+	
+	/**
+	 * A {@link Function} that takes a tuple of arguments an adds them up.
+	 */
+	public static <T extends Comparable<? super T>> Function<tuple2<T,T>, T> max(){
+		return new Function<tuple2<T,T>,T>() {
+			public T apply(tuple2<T,T> values) throws IllegalArgumentException{
+				if(values.value0.compareTo(values.value1) > 0){
+					return values.value0;
+				}else{
+					return values.value1;
+				}
+			}
+		};
+	}
+	
 	/**
 	 * A {@link Predicate} that is always false no matter the input. 
 	 */

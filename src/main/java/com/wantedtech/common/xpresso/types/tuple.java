@@ -10,6 +10,11 @@ public interface tuple extends Comparable<tuple>, Lengthful{
     
     public <E> E get(int index, Class<E> elementClass);
     public Object get(int index);
+    public Object get(String fieldName);
+    public <E> E get(String fieldName, Class<E> elementClass);
+    
+    public void name(String... fieldNames);
+    
     public int compareTo(tuple o);
     boolean in(Iterable<tuple> iterable);
     

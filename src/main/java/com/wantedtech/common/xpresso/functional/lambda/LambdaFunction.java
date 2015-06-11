@@ -29,10 +29,10 @@ public class LambdaFunction<O> implements Function<Object,O>{
 		ANTLRInputStream inputStream = new ANTLRInputStream(lambdaExpression);
 
         // create a lexer that feeds off of input CharStream
-        LambdaLexer lexer = new LambdaLexer(inputStream);
+        Lambda2Lexer lexer = new Lambda2Lexer(inputStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         // create a parser that feeds off the tokens buffer
-        LambdaParser parser = new LambdaParser(tokens);
+        Lambda2Parser parser = new Lambda2Parser(tokens);
 		Object inputObj = input;
 		if(input instanceof Iterable<?>){ 
 			inputObj = Helpers.newArrayList((Iterable<?>)inputObj);

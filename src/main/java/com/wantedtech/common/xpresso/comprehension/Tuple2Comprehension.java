@@ -87,7 +87,7 @@ class Tuple2Comprehension extends AbstractTupleComprehension{
 			}else{
 				index0 = elementFieldNames.indexOf(outputFieldNames.get(0));
 			}
-			if(outputFieldNames.get(0).equals("_")){
+			if(outputFieldNames.get(1).equals("_")){
 				index1 = elementFieldNames.size()-1;
 			}else{
 				index1 = elementFieldNames.indexOf(outputFieldNames.get(1));
@@ -111,7 +111,6 @@ class Tuple2Comprehension extends AbstractTupleComprehension{
 					outputElement = null;
 				}
 			}
-			original_elements.add(element);
 			transformed_elements.add(outputElement);
 		}
 		this.elements = transformed_elements;

@@ -84,7 +84,6 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 					outputElement = null;
 				}
 			}
-			original_elements.add(element);
 			transformed_elements.add(outputElement);
 		}
 		this.elements = transformed_elements;

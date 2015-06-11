@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.types.tuples;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,8 @@ import com.wantedtech.common.xpresso.types.tuple;
 
 public abstract class AbstractTuple implements tuple {
 
+    public ArrayList<String> fieldNames = new ArrayList<String>();
+	
     public abstract int size();
     
     public int len(){
@@ -54,4 +57,31 @@ public abstract class AbstractTuple implements tuple {
     	}
     }
     
+	@Override
+	public Object get(String fieldName) {
+		if(fieldNames.contains(fieldName)){
+			return get(fieldNames.indexOf(fieldName)); 
+		}else{
+			fieldNames.add(fieldName);
+			return get(fieldNames.indexOf(fieldName));
+		}
+	}
+
+	@Override
+	public <E> E get(String fieldName, Class<E> elementClass) {
+		if(fieldNames.contains(fieldName)){
+			return elementClass.cast(get(fieldNames.indexOf(fieldName))); 
+		}else{
+			fieldNames.add(fieldName);
+			return elementClass.cast(get(fieldNames.indexOf(fieldName)));
+		}
+	}
+    
+	@Override
+	public void name(String... fieldNames) {
+		for (String fieldName : fieldNames){
+			this.fieldNames.add(fieldName);
+		}
+	}
+	
 }
