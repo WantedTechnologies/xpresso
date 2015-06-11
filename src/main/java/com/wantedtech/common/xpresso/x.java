@@ -32,14 +32,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
-import java.lang.reflect.InvocationTargetException;
 
 import com.wantedtech.common.xpresso.helpers.HappyObject;
 import com.wantedtech.common.xpresso.helpers.HappyString;
 import com.wantedtech.common.xpresso.helpers.HappyStringStatic;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.Slicer;
-import com.wantedtech.common.xpresso.json.Json;
+import com.wantedtech.common.xpresso.json2.Json;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
@@ -2405,8 +2404,8 @@ public class x {
 	 * @param jsonString	a string with a valid Json expression
 	 * @return 				a Json object 
 	 */
-	public static Json Json(String jsonString){
-		return new Json(jsonString); 
+	public static <O> Json<O> Json(String jsonString){
+		return new Json<O>(jsonString); 
 	}
 	
 	/**
@@ -2425,8 +2424,8 @@ public class x {
 	 * @param jsonString	a Map object
 	 * @return 				a Json object 
 	 */
-	public static Json Json(Map<?,?> o){
-		return new Json(o);
+	public static <O> Json<O> Json(Map<?,?> o){
+		return new Json<O>(o);
 	}
 	
 	/**
@@ -2451,8 +2450,8 @@ public class x {
 	 * @param jsonString	an Iterable
 	 * @return 				a Json object 
 	 */
-	public static Json Json(Iterable<?> o){
-		return new Json(o);
+	public static <O> Json<O> Json(Iterable<?> o){
+		return new Json<O>(o);
 	}
 	
 	/**
@@ -2471,8 +2470,8 @@ public class x {
 	 * @param jsonString	a Map object
 	 * @return 				a Json object 
 	 */	
-	public static Json Json(Integer v){
-		return new Json(v);
+	public static <O> Json<O> Json(Integer v){
+		return new Json<O>(v);
 	}
 	
 	/**
@@ -2481,8 +2480,8 @@ public class x {
 	 * @param jsonString	a Map object
 	 * @return 				a Json object 
 	 */	
-	public static Json Json(tuple o){
-		return new Json(o);
+	public static <O> Json<O> Json(tuple o){
+		return new Json<O>(o);
 	}
 	
 	/**

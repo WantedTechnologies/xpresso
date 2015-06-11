@@ -87,9 +87,14 @@ public class Test {
 			list<tuple> lst55 = x.list(x.yield("a","b").apply(x.len).replace("HI!").where("a","b").in(lst4));
 			x.print("jjj",lst55);
 			
-			x.print(x.Json(lst2).toString());
-			List<Map<String,String>> loaded_lst2 = x.Json("[{\"aaa\":\"bbb\",\"ccc\":\"ddd\"},{\"eee\":\"fff\",\"ggg\":\"hhh\"}]").parse();
+			x.print(x.Json(lst2));
+			x.print(lst2);
+			list<dict<String>> loaded_lst2 = x.<list<dict<String>>>Json("[{\"aaa\":\"bbb\",\"ccc\":\"ddd\"},{\"eee\":\"fff\",\"ggg\":\"hhh\"}]").parse();
 			x.print(loaded_lst2);
+			
+			dict<String> dct = x.first(loaded_lst2);
+			
+			dict<String> dct2 = x.<String>dict(x.tuple("aaa", "bbb"),x.tuple("ccc", "ddd"));
 			
 			dict<Character> def = x.DefaultDict(Character.class);
 		
