@@ -2,7 +2,7 @@ package com.wantedtech.common.xpresso.functional;
 
 import java.util.ArrayList;
 
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 
 /**
  * ParametrizedPredicate is an abstract class that extends a {@link Predicate}

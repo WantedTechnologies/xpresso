@@ -5,11 +5,12 @@ import java.util.Map;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
-import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
+import com.wantedtech.common.xpresso.types.tuples.tuple3;
 
 public class Test {
 	
@@ -123,7 +124,7 @@ public class Test {
 			
 			list<String> flatten = lst6.flattened(String.class);
 			
-			x.print(flatten); 
+			x.print("flatten",flatten); 
 			
 			list<Integer> ints = x.list(1,2,3,4,5);
 			ints.setAt(1,3).values(x.list(7,8,9));
@@ -248,10 +249,39 @@ public class Test {
 			
 			x.print(x.avg(x.list(1,2,3)));
 			
-			class Element {
-			    int f1() { return 1;}
-			    String f2() { return ""; }
+			list<Integer> list = x.listOf(1);
+			x.print(list.toScalar());
+			
+			list<tuple> items = x.list(x.tuple("name1",1d,100),x.tuple("name2",3d,105),x.tuple("name1",4d,210));
+			
+			tuple3<list<String>,list<Double>,list<Integer>> unzipped = x.unzip(items, String.class, Double.class, Integer.class);
+			
+			x.print(x.tuple(x.last(unzipped.value0), x.avg(unzipped.value1), x.max(unzipped.value2)));
+			
+			list<String> ids = x.list("name1","name2");
+			
+			list<tuple> filtered = x.list(x.<tuple>yield().forEach(items).when(x.lambdaP("x : f1(f0(x))",x.invoke("get",0),x.in(ids))));
+			
+			x.print(filtered);
+			
+			class PlannedTrip {
+			    int year;
+			    String city;
+
+			    public PlannedTrip(int year, String city){
+			        this.year = year;
+			        this.city = city;
+			    }
+
+			    public int getYear() { return year; }
+			    public String getCity() { return city; }
 			}
+
+			list<PlannedTrip> plans = x.list(new PlannedTrip(2015, "Moscow"), new PlannedTrip(2016, "Paris"));
+
+			list<tuple> plansData = x.list(x.yield("year", "city").where("year", "city").in(plans).when(x.lambdaP("year, city : year > 2016")));
+
+			x.print(plansData);
 			
 		}catch(Exception e){
 			throw e;

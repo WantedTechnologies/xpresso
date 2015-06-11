@@ -16,7 +16,7 @@ public final class tuple1<T> extends AbstractTuple {
 
     @Override
     public String toString() {
-        return "(" + value + ')';
+        return "(" + value + ")";
     }
 
     @SuppressWarnings("unchecked")

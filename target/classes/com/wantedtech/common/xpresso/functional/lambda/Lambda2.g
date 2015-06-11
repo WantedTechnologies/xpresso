@@ -4,10 +4,12 @@ grammar Lambda2;
 package com.wantedtech.common.xpresso.functional.lambda;
 
 import java.util.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
-import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.x;
 }
 
@@ -29,6 +31,42 @@ eval returns [Value value]
 lambdaExpression returns [Value value]
     :   id10=inputVars {
                             inputVarNames = $id10.value;
+                            if(x.len(inputVarNames) > 1 && !(inputValue.value instanceof tuple) && !(inputValue.value instanceof Iterable<?>)){
+                                list<Object> replacedElement = x.list(); 
+                                for (String elementFieldName : inputVarNames){
+                                    if(x.Object(inputValue.value).hasField(elementFieldName)){
+                                        try {
+                                            Field f = inputValue.value.getClass().getField(elementFieldName);
+                                            f.setAccessible(true);
+                                            replacedElement.append(f.get(inputValue.value));
+                                        } catch (Exception e) {
+                                            // cant happen
+                                            e.printStackTrace();
+                                        }
+                                    }else if (x.Object(inputValue.value).hasMethod(elementFieldName)) {
+                                        try {
+                                            Method m = inputValue.value.getClass().getMethod(elementFieldName);
+                                            m.setAccessible(true);
+                                            replacedElement.append(m.invoke(inputValue.value));
+                                        } catch (Exception e) {
+                                            // cant happen
+                                            e.printStackTrace();
+                                        }
+                                    }else if (x.Object(inputValue.value).hasMethod("get"+x.String(elementFieldName).title())) {
+                                        try {
+                                            Method m = inputValue.value.getClass().getMethod("get"+x.String(elementFieldName).title());
+                                            m.setAccessible(true);
+                                            replacedElement.append(m.invoke(inputValue.value));
+                                        } catch (Exception e) {
+                                            // cant happen
+                                            e.printStackTrace();
+                                        }
+                                    }else{
+                                        throw new IllegalArgumentException("Could not find the field " + elementFieldName + " in an element of the input Iterable.");
+                                    }
+                                }
+                                inputValue.value = replacedElement;
+                            }
                             inputValues = new HashMap<String,Value>();
                             if(x.len(inputVarNames) > 1 && inputValue.value instanceof Iterable<?>){
                                 for (tuple2<Integer,String> index__var : x.enumerate(inputVarNames)){
@@ -39,10 +77,10 @@ lambdaExpression returns [Value value]
                                     inputValues.put(index__var.value1,new Value(((tuple)inputValue.value).get(index__var.value0)));
                                 }
                             }else{
-                                if(x.len(inputVarNames) != x.len(inputVarNames)){
-                                    throw new IllegalArgumentException("Expected the input value of dimensionality "+x.len(inputVarNames) + " Got "+x.len(inputVarNames));
-                                }
                                 inputValues.put(inputVarNames.get(0),inputValue);
+                            }
+                            if(x.len(inputVarNames) != x.len(inputValues)){
+                                throw new IllegalArgumentException("Expected the input value of dimensionality "+x.len(inputVarNames) + " Got "+x.len(inputValue));
                             }
                          }
         ' '* ':' ' '* an10=anyExpression {$value = $an10.value;}

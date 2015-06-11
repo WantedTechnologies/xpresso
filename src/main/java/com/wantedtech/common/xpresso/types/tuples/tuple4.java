@@ -22,7 +22,7 @@ public final class tuple4<T0, T1, T2, T3> extends AbstractTuple {
 
     @Override
     public String toString() {
-        return "(" + value0 + ',' + value1 + ',' + value2 + ',' + value3 + ')';
+        return "(" + value0 + ", " + value1 + ", " + value2 + ", " + value3 + ")";
     }
 
     @SuppressWarnings("unchecked")

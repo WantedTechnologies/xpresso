@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuple;
 
 class ScalarComprehension<O> implements Iterable<O>, Serializable {

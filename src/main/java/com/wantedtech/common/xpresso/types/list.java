@@ -6,10 +6,10 @@ import java.util.Iterator;
 
 import com.wantedtech.common.xpresso.Slicable;
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
-import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.Slicer;
 
 public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Serializable{
 	
@@ -128,7 +128,11 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 			}
 		}
 		if (startIndex > this.list.size()-1){
-			return x.list();
+			if (step < 0){
+				startIndex = this.list.size()-1;
+			}else{
+				return x.list();	
+			}
 		}
 		if (endIndex > this.list.size()-1){
 			endIndex = this.list.size()-1;

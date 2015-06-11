@@ -34,17 +34,17 @@ import java.lang.Iterable;
 import java.lang.Number;
 import java.lang.reflect.InvocationTargetException;
 
+import com.wantedtech.common.xpresso.helpers.HappyObject;
+import com.wantedtech.common.xpresso.helpers.HappyString;
+import com.wantedtech.common.xpresso.helpers.HappyStringStatic;
+import com.wantedtech.common.xpresso.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.types.*;
-import com.wantedtech.common.xpresso.types.HappyObject.HappyObject;
-import com.wantedtech.common.xpresso.types.HappyString.HappyString;
-import com.wantedtech.common.xpresso.types.HappyString.HappyStringStatic;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
-import com.wantedtech.common.xpresso.experimental.helpers.Slicer;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
@@ -1385,7 +1385,40 @@ public class x {
 	 * 
 	 */
 	public static <T extends Number> T avg(Iterable<T> iterable){
-		return x.<T>reduce(iterable, x.<T>avg());
+		x.assertNotEmpty(iterable);
+		double result = (x.<T>reduce(iterable, x.<T>add())).doubleValue()/x.len(iterable);
+		Class<?> cls = iterable.iterator().next().getClass();
+		if(cls.equals(Double.class)){
+			return (T)(Object)result;
+		}else if(cls.equals(Float.class)){
+			return (T)(Object)result;
+		}else{
+			return (T)(Object)(int)Math.round(result);
+		}
+	}
+	
+	/**
+	 * Returns the first element of the input {@link Iterable}. 
+	 * 
+	 * @param iterable		an Iterable
+	 * @param <T>			any type
+	 * 
+	 */
+	public static <T> T first(Iterable<T> iterable){
+		x.assertNotEmpty(iterable);
+		return iterable.iterator().next();
+	}
+	
+	/**
+	 * Returns the last element of the input {@link Iterable}. 
+	 * 
+	 * @param iterable		an Iterable
+	 * @param <T>			any type
+	 * 
+	 */
+	public static <T> T last(Iterable<T> iterable){
+		x.assertNotEmpty(iterable);
+		return x.list(iterable).sliceFrom(-1).toScalar();
 	}
 	
 	/**
@@ -2265,12 +2298,12 @@ public class x {
 	 * @return a tuple of lists. Each list of type class0, class1, ... 
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T0> tuple unzip(Iterable<tuple> iterable,Class<T0> class0){
+	public static <T0> tuple1<list<T0>> unzip(Iterable<tuple> iterable,Class<T0> class0){
 		list<T0> list0 = x.list();
 		for (tuple T0__ : iterable){
 			list0.append((T0)T0__.get(0));
 		}
-		return x.tuple(list0);
+		return tuple1.valueOf(list0);
 	}
 	
 	/**
@@ -2291,14 +2324,14 @@ public class x {
 	 * @return a tuple of lists. Each list of type class0, class1, ... 
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T0,T1> tuple unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1){
+	public static <T0,T1> tuple2<list<T0>,list<T1>> unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1){
 		list<T0> list0 = x.list();
 		list<T1> list1 = x.list();
 		for (tuple T0__T1 : iterable){
 			list0.append((T0)T0__T1.get(0));
 			list1.append((T1)T0__T1.get(1));
 		}
-		return x.tuple(list0,list1);
+		return tuple2.valueOf(list0,list1);
 	}
 	
 	/**
@@ -2319,7 +2352,7 @@ public class x {
 	 * @return a tuple of lists. Each list of type class0, class1, ... 
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T0,T1,T2> tuple unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1,Class<T2> class2){
+	public static <T0,T1,T2> tuple3<list<T0>,list<T1>,list<T2>> unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1,Class<T2> class2){
 		list<T0> list0 = x.list();
 		list<T1> list1 = x.list();
 		list<T2> list2 = x.list();
@@ -2328,7 +2361,7 @@ public class x {
 			list1.append((T1)T0__T1__T2.get(1));
 			list2.append((T2)T0__T1__T2.get(2));
 		}
-		return x.tuple(list0,list1,list2);
+		return tuple3.valueOf(list0,list1,list2);
 	}
 	
 	/**
@@ -2349,7 +2382,7 @@ public class x {
 	 * @return a tuple of lists. Each list of type class0, class1, ... 
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T0,T1,T2,T3> tuple unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1,Class<T2> class2,Class<T3> class3){
+	public static <T0,T1,T2,T3> tuple4<list<T0>,list<T1>,list<T2>,list<T3>>  unzip(Iterable<tuple> iterable,Class<T0> class0,Class<T1> class1,Class<T2> class2,Class<T3> class3){
 		list<T0> list0 = x.list();
 		list<T1> list1 = x.list();
 		list<T2> list2 = x.list();
@@ -2360,7 +2393,7 @@ public class x {
 			list2.append((T2)T0__T1__T2__T3.get(2));
 			list3.append((T3)T0__T1__T2__T3.get(3));
 		}
-		return x.tuple(list0,list1,list2,list3);
+		return tuple4.valueOf(list0,list1,list2,list3);
 	}
 	
 	/**

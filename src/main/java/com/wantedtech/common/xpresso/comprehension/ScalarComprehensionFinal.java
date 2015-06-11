@@ -2,8 +2,8 @@ package com.wantedtech.common.xpresso.comprehension;
 
 import java.util.Iterator;
 
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 
 public class ScalarComprehensionFinal<O> implements Iterable<O> {
 

@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.io.IOException;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 
 public class str extends list<String> implements Iterable<String>{
 	

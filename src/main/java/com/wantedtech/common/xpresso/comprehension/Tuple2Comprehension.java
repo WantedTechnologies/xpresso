@@ -1,8 +1,13 @@
 package com.wantedtech.common.xpresso.comprehension;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
 import com.wantedtech.common.xpresso.functional.Function;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple;
 
@@ -76,8 +81,46 @@ class Tuple2Comprehension extends AbstractTupleComprehension{
 		}
 		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
+			
+			if(!(element instanceof tuple) && !(element instanceof Iterable<?>)){
+				list<Object> replacedElement = x.list(); 
+				for (String elementFieldName : elementFieldNames){
+					if(x.Object(element).hasField(elementFieldName)){
+						try {
+							Field f = element.getClass().getField(elementFieldName);
+							f.setAccessible(true);
+							replacedElement.append(f.get(element));
+						} catch (Exception e) {
+							// cant happen
+							e.printStackTrace();
+						}
+					}else if (x.Object(element).hasMethod(elementFieldName)) {
+						try {
+							Method m = element.getClass().getMethod(elementFieldName);
+							m.setAccessible(true);
+							replacedElement.append(m.invoke(element));
+						} catch (Exception e) {
+							// cant happen
+							e.printStackTrace();
+						}
+					}else if (x.Object(element).hasMethod("get"+x.String(elementFieldName).title())) {
+						try {
+							Method m = element.getClass().getMethod("get"+x.String(elementFieldName).title());
+							m.setAccessible(true);
+							replacedElement.append(m.invoke(element));
+						} catch (Exception e) {
+							// cant happen
+							e.printStackTrace();
+						}
+					}else{
+						throw new IllegalArgumentException("Could not find the field " + elementFieldName + " in an element of the input Iterable.");
+					}
+				}
+				element = replacedElement;
+			}
+			
 			if(x.len(element) != elementFieldNames.size()){
-				throw new IllegalArgumentException("I was expecting the dimensionality of each element of the input Iterable to be "+elementFieldNames.size());
+				throw new IllegalArgumentException("I was expecting the dimensionality of each element of the input Iterable to be " + elementFieldNames.size());
 			}
 			tuple outputElement;
 			int index0;

@@ -3,10 +3,12 @@
 package com.wantedtech.common.xpresso.functional.lambda;
 
 import java.util.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.experimental.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
-import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.x;
 
 import org.antlr.v4.runtime.misc.NotNull;
