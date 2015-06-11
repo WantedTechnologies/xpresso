@@ -203,18 +203,26 @@ list<Boolean> evals = x.list(x.<Boolean>yield().replace(true).when(x.lambdaP("x 
 
 Using list comprehensions to extract properties from element objects:
 ```
-class SomeElement {
-    public int getField1() { return 1;}
-    public String getField2() { return "aa"; }
+class PlannedTrip {
+    int year;
+    String city;
+    
+    public PlannedTrip(int year, String city){
+        this.year = year;
+        this.city = city;
+    }
+ 
+    public int getYear() { return year; }
+    public String getCity() { return city; }
 }
 
-list<SomeElement> elems = x.list(new SomeElement(), new SomeElement());
+list<PlannedTrip> plans = x.list(new PlannedTrip(2015, "Moscow"), new PlannedTrip(2016, "Paris"));
 
-list<tuple> elemsData = x.list(x.yield("field1", "field2").where("field1", "field2").in(elems));
+list<tuple> plansData = x.list(x.yield("year", "city").where("year", "city").in(plans));
 
-x.print(elemsData);
+x.print(plansData);
 
-Console: [(1,aa), (1,aa)]
+Console: [(2015, Moscow), (2016, Paris)]
 ```
 
 #### Memoization
