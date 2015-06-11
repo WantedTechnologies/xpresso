@@ -39,7 +39,6 @@ import com.wantedtech.common.xpresso.helpers.HappyString;
 import com.wantedtech.common.xpresso.helpers.HappyStringStatic;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.HappyMySQL;
-import com.wantedtech.common.xpresso.helpers.HappySQL;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.types.*;
@@ -114,15 +113,15 @@ public class x {
 	 * 
 	 * 			Example:
 	 * 			
-	 * 			try (HappySQL conn = x.mySQL("localhost", "user", "password", "db")) {
-	 * 					conn.run("SELECT * FROM Table WHERE ID = ? and UserName = ?", 1000, "John");
+	 * 			try (HappySQL select = x.mysql("localhost", "user", "password", "db")) {
+	 * 					conn.run("SELECT * FROM Table WHERE ID BETWEEN ? and ? and UserName LIKE ?", 1000, 2000, "John %");
 	 * 			}
 	 * 
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static HappySQL mySQL(String dbHost, String userName, String password, String dbName) throws ClassNotFoundException, SQLException{
+	public static HappySQL mysql(String dbHost, String userName, String password, String dbName) throws ClassNotFoundException, SQLException{
 		return new HappyMySQL(dbHost, userName, password, dbName);
 	} 
 	

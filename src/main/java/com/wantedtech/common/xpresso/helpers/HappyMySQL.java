@@ -13,6 +13,7 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.types.HappySQL;
 import com.wantedtech.common.xpresso.types.tuple;
 import com.wantedtech.common.xpresso.types.tuples.tuple0;
 

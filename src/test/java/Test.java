@@ -7,7 +7,6 @@ import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.helpers.HappySQL;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
@@ -295,7 +294,7 @@ public class Test {
 
 			x.print(plansData);
 			
-			try(HappySQL conn = x.mySQL("10.0.5.32:3306", "wd", "", "jobs")){
+			try(HappySQL conn = x.mysql("10.0.5.32:3306", "wd", "", "jobs")){
 				String query =
 						"SELECT ID, Name FROM " +
 						"tbl_Skill s " +
@@ -303,7 +302,7 @@ public class Test {
 				
 				conn.run(query, "%Java%");
 				
-				try(HappySQL conn2 = x.mySQL("10.0.5.32:3306", "wd", "", "workspace")){
+				try(HappySQL conn2 = x.mysql("10.0.5.32:3306", "wd", "", "workspace")){
 					for (tuple row : conn) {
 						query =
 								"INSERT IGNORE INTO tttt " +

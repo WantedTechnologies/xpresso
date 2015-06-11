@@ -1,8 +1,7 @@
-package com.wantedtech.common.xpresso.helpers;
+package com.wantedtech.common.xpresso.types;
 
 import java.sql.SQLException;
 
-import com.wantedtech.common.xpresso.types.tuple;
 
 public interface HappySQL extends Iterable<tuple>, AutoCloseable{
 	
