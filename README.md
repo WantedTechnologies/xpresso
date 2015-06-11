@@ -201,7 +201,7 @@ xpresso:
 list<Boolean> evals = x.list(x.<Boolean>yield().replace(true).when(x.lambdaP("x : x == '''good'''")).replaceOtherwise(false).forEach(someList));
 ```
 
-Using list comprehensions to extract properties from element objects:
+You can use list comprehensions to extract properties from element objects:
 ```
 class PlannedTrip {
     int year;
