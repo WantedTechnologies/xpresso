@@ -248,6 +248,11 @@ public class Test {
 			
 			x.print(x.avg(x.list(1,2,3)));
 			
+			class Element {
+			    int f1() { return 1;}
+			    String f2() { return ""; }
+			}
+			
 		}catch(Exception e){
 			throw e;
 		}

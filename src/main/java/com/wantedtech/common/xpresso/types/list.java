@@ -334,6 +334,12 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return Helpers.newArrayList(this);
 	}
 	
+	public T toScalar(){
+		x.assertNotEmpty(this);
+		x.assertTrue(x.len(this) == 1);
+		return this.get(0);
+	}
+	
 	@Override
 	public String toString(){
 		return "["+x.String(", ").join(list)+"]";
