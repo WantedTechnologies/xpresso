@@ -269,19 +269,23 @@ Console: 0.0s
 *x.memo* can be used to cache methods of object of any Java type, not only Function. Notice the usage of the standard *x.timer*: no additional timer object needs to be created.
 
 #### JSON
+Remember the *rank* dict:
+```
+dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",32));
+```
 
-We first dump a the *rank* dict as String:
+Let's first dump it as a String:
 ```
 String rankAsString = x.Json(rank).toString();
 x.print(rankAsString);
 
 Console: {"New York":20,"London":10,"Saint-Petersburg":15,"Moscow":30,"Dubai":32,"Paris":5}
 ```
-Now we create a copy of the *rank* dict from its JSON string representation:
+Now let's create a copy of the *rank* dict from its JSON string representation:
 ```
 dict<Integer> rankCopy = x.<dict<Integer>>Json(rankAsString).parse();
 ```
-We compare the original *rank* dict and the copy:
+Compare the original *rank* dict to the copy:
 ```
 x.print(x.Object(rank).equals(rankCopy));
 
