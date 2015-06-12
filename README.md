@@ -591,12 +591,12 @@ In the above code, xpresso first finds the members of the two objects (*this* an
 #### Assertions
 
 ```
-x.assertTrue(condition); // throws IllegalArgumentException
+x.assertTrue(condition);	// throws IllegalArgumentException
 
-x.assertNotNull(parameter); // throws NullPointerException */
+x.assertNotNull(parameter);	// throws NullPointerException
 
-x.assertNotEmpty(iterable); /* throws NullPointerException if iterable is null,
-                               throws IllegalArgumentException if iterable is empty */
+x.assertNotEmpty(iterable);	/* throws NullPointerException if iterable is null,
+				throws IllegalArgumentException if iterable is empty */
 x.assertNotEmpty(string);
 
 x.assertNotEmpty(array);
