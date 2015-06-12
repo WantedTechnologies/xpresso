@@ -596,7 +596,7 @@ x.assertTrue(condition);	// throws IllegalArgumentException
 x.assertNotNull(parameter);	// throws NullPointerException
 
 x.assertNotEmpty(iterable);	/* throws NullPointerException if iterable is null,
-				throws IllegalArgumentException if iterable is empty */
+					throws IllegalArgumentException if iterable is empty */
 x.assertNotEmpty(string);
 
 x.assertNotEmpty(array);
