@@ -32,6 +32,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
+import com.ibm.icu.text.Transliterator;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.regex.Match;
 import com.wantedtech.common.xpresso.regex.Regex;
@@ -131,6 +132,10 @@ public class HappyString {
 	    String newValue = Normalizer.normalize(value, Normalizer.Form.NFD);
 	    newValue = newValue.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 	    return newValue;
+	}
+	
+	public String translit(){
+		return x.String.translit(value);
 	}
 	
 	public int count(String substring){
@@ -243,6 +248,10 @@ public class HappyString {
 
 	public String sliceFrom(int startIndex) {
 		return x.str(this.value).sliceFrom(startIndex).toString();
+	}
+	
+	public String compress() {
+		return x.str(this.value).compressed().toString();
 	}
 	
     /**

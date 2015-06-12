@@ -9,7 +9,9 @@ import java.lang.reflect.Method;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
-import com.wantedtech.common.xpresso.types.*;
+import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.x;
 }
 

@@ -269,6 +269,18 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return newList;
 	}
 	
+	public list<T> compressed(){
+		list<T> newList = x.list();
+		set<T> seen = x.set();
+		for(T element : this.list){
+			if (!seen.contains(element)){
+				newList.append(element);
+				seen.put(element);
+			}
+		}
+		return newList;
+	}
+	
 	public boolean contains(T value){
 		return this.list.contains(value);
 	}

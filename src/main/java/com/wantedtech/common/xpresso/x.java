@@ -62,6 +62,8 @@ import com.wantedtech.common.xpresso.types.tuples.tuple1;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 import com.wantedtech.common.xpresso.types.tuples.tuple3;
 import com.wantedtech.common.xpresso.types.tuples.tuple4;
+import com.wantedtech.common.xpresso.token.Token;
+import com.wantedtech.common.xpresso.token.TokenStatic;
 
 /**
  * This class contains high-level static utility methods.
@@ -108,13 +110,13 @@ public class x {
 	 * @param	userName
 	 * @param	password
 	 * @param	dbName
-	 * @return	an object that has the {@link HappySQL#run(String)} method
+	 * @return	an object that has the {@link HappySQL#execute(String)} method
 	 * 		  	that takes the query and params as input;
 	 * 
 	 * 			Example:
 	 * 			
-	 * 			try (HappySQL select = x.mysql("localhost", "user", "password", "db")) {
-	 * 					conn.run("SELECT * FROM Table WHERE ID BETWEEN ? and ? and UserName LIKE ?", 1000, 2000, "John %");
+	 * 			try (HappySQL sql = x.mysql("localhost", "user", "password", "db")) {
+	 * 					sql.execute("SELECT * FROM Table WHERE ID BETWEEN ? and ? and UserName LIKE ?", 1000, 2000, "John %");
 	 * 			}
 	 * 
 	 * 
@@ -123,6 +125,28 @@ public class x {
 	 */
 	public static HappySQL mysql(String dbHost, String userName, String password, String dbName) throws ClassNotFoundException, SQLException{
 		return new HappyMySQL(dbHost, userName, password, dbName);
+	} 
+	
+	/**
+	 * 
+	 * Creates a new instance of a HappyMySQL object with the same parameters as
+	 * those of the input HappyMySQL object.
+	 * 
+	 * @return	an object that has the {@link HappySQL#execute(String)} method
+	 * 		  	that takes the query and params as input;
+	 * 
+	 * 			Example:
+	 * 			
+	 * 			try (HappySQL sql2 = x.mysql(sql1)) {
+	 * 					sql2.execute("SELECT * FROM Table WHERE ID BETWEEN ? and ? and UserName LIKE ?", 1000, 2000, "John %");
+	 * 			}
+	 * 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static HappySQL mysql(HappyMySQL sql) throws ClassNotFoundException, SQLException{
+		return new HappyMySQL(sql.dbHost, sql.userName, sql.password, sql.dbName);
 	} 
 	
 	/**
@@ -1265,6 +1289,21 @@ public class x {
 	 * 
 	 */
 	public static ThreadTimer timer = new ThreadTimer(); 
+	
+	/**
+	 * An instance of a {@link Stemmer} object.
+	 * 
+	 * Example:
+	 * 
+	 * String stem = x.Stemmer.stem("Worker");
+	 * 
+	 * Example:
+	 * 
+	 * String stem = x.Stemmer.stem("Marcher", "french");
+	 *  
+	 * 
+	 */
+	public static TokenStatic Token = new TokenStatic();
 	
 	/**
 	 * Return the double value number rounded to ndigits digits after the decimal point.

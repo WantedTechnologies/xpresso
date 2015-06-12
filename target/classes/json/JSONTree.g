@@ -5,9 +5,11 @@ tokenVocab=JSON; // reuse token types
 } 
 
 @header {
-package com.wantedtech.common.xpresso.json2;
+package com.wantedtech.common.xpresso.json;
 
-import com.wantedtech.common.xpresso.types.*;
+import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.x;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;

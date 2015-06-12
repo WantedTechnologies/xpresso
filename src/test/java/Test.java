@@ -300,17 +300,26 @@ public class Test {
 						"tbl_Skill s " +
 						"WHERE s.Name LIKE ?";
 				
-				conn.run(query, "%Java%");
+				conn.execute(query, "%Java%");
 				
 				try(HappySQL conn2 = x.mysql("10.0.5.32:3306", "wd", "", "workspace")){
-					for (tuple row : conn) {
+					for (tuple row : conn.execute(query, "%Java%")) {
 						query =
 								"INSERT IGNORE INTO tttt " +
 								"VALUES (?, ?)";
-						conn2.run(query, row.get("ID"), row.get("Name"));
+						conn2.execute(query, row.get("ID"), row.get("Name"));
 					}
 				}
 			}
+			
+			 String stem = x.Token.stem("Working");
+			 x.print(stem);
+			 
+			 String stem2 = x.Token.stem("Marcher", "french");
+			 x.print(stem2);
+			 
+			 String tran = x.String.translit("Чичетка");
+			 x.print(tran);
 			
 		}catch(Exception e){
 			throw e;

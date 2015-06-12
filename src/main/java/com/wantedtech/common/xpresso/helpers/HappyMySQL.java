@@ -20,11 +20,11 @@ import com.wantedtech.common.xpresso.types.tuples.tuple0;
 public class HappyMySQL implements HappySQL{
 
 	String dbClass = "com.mysql.jdbc.Driver";
-	String dbHost;
-	String userName;
-	String username;
-	String password;
-	String dbName;
+	public String dbHost;
+	public String userName;
+	public String username;
+	public String password;
+	public String dbName;
 	
 	Connection connection;
 	
@@ -39,12 +39,13 @@ public class HappyMySQL implements HappySQL{
 		connection = DriverManager.getConnection("jdbc:mysql://" + dbHost + "/" + dbName, userName, password);
 	}
 	
-	public void run(String query) throws SQLException{
+	public HappyMySQL execute(String query) throws SQLException{
 		Statement statement = connection.createStatement();
 		resultSet = statement.executeQuery(query);
+		return this;
 	}
 	
-	public void run(String query, Object... params) throws SQLException{
+	public HappyMySQL execute(String query, Object... params) throws SQLException{
 		PreparedStatement statement = connection.prepareStatement(query);
 		for (tuple item : x.enumerate(params,1)){
 			item.name("idx", "param");
@@ -59,6 +60,7 @@ public class HappyMySQL implements HappySQL{
 		}else{
 			statement.executeUpdate();
 		}
+		return this;
 	}	
 
 	@Override

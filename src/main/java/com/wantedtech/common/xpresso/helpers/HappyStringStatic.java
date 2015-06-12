@@ -2,11 +2,14 @@ package com.wantedtech.common.xpresso.helpers;
 
 import java.util.Locale;
 
+import com.ibm.icu.text.Transliterator;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 
 public class HappyStringStatic {
+	
+    Transliterator anyLatin = Transliterator.getInstance("Any-Latin", Transliterator.FORWARD);
 	
 	public static ParametrizedFunction<Object,Integer> count(String substring){
 		return (new ParametrizedFunction<Object,Integer>() {
@@ -38,6 +41,15 @@ public class HappyStringStatic {
 	public Function<Object, String> stripAccents = new Function<Object, String>() {
 		public String apply(Object string) {
 			return stripAccents((String)string);
+		}
+	};
+	
+	public String translit(String string){
+        return anyLatin.transliterate(string);
+	}
+	public Function<Object, String> translit = new Function<Object, String>() {
+		public String apply(Object string) {
+			return translit((String)string);
 		}
 	};
 	
@@ -79,7 +91,7 @@ public class HappyStringStatic {
 	
 	public Function<Object, String> upper = toUpperCase;
 	
-	public String capitalized(String string){
+	public String capitalize(String string){
 		return x.String(string.toString()).capitalize();
 	}
 	public Function<Object, String> capitalized = new Function<Object, String>() {
@@ -88,7 +100,7 @@ public class HappyStringStatic {
 		}
 	};
 	
-	public String asTitle(String string){
+	public String title(String string){
 		return x.String(string.toString()).title();
 	}
 	public Function<Object, String> asTitle = new Function<Object, String>() {

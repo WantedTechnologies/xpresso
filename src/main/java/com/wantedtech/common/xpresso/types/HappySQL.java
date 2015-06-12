@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 public interface HappySQL extends Iterable<tuple>, AutoCloseable{
 	
-	public void run(String query) throws SQLException;
+	public HappySQL execute(String query) throws SQLException;
 	
-	public void run(String query, Object... params) throws SQLException;
+	public HappySQL execute(String query, Object... params) throws SQLException;
 	
 }
