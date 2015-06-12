@@ -316,6 +316,22 @@ try(HappySQL sql = x.mysql(host, user, password, db)){
 	}
 }
 ```
+
+#### The Token type
+```
+Token tok = x.Token("MySQL5");
+x.print(tok.shape, tok.isCamel, tok.hasDigits, tok.hasRussian);
+
+Console: ULUUUD, true, true, false
+```
+
+```
+tok = x.Token("Thinking");
+x.print(tok.stem());
+
+Console: Think
+```
+
 #### Pythonic iterable dict
 
 Python:
@@ -531,6 +547,19 @@ list<String> tokens = x.String("Moscow;London;Paris").split(";");
 x.print(tokens);
 
 Console: [Moscow, London, Paris]
+```
+
+Transliteration:
+```
+String trans = x.String("Чичётка").translit();
+
+x.print(trans);
+
+Console: Čičëtka
+
+x.print(trans.stripAccents());
+
+Console: Cicetka
 ```
 
 #### hashCode(), equals(...), and compareTo(...) builders
