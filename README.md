@@ -66,10 +66,9 @@ try(HappyFile f = x.open("name.txt","r","utf-8")){
 	//do stuff
 }
 ```
-
 Works for write/read/append in both text and binary mode.
 
-#### Iterable file
+As in Python, a file opened for reading is an Iterable:
 
 Python:
 ```
