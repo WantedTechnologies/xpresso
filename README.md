@@ -283,7 +283,7 @@ Console: {"New York":20,"London":10,"Saint-Petersburg":15,"Moscow":30,"Dubai":32
 ```
 Now let's create a copy of the *rank* dict from its JSON string representation:
 ```
-dict<Integer> rankCopy = x.<dict<Integer>>Json(rankAsString).parse();
+dict<Integer> rankCopy = x.String(rankAsString).parseJson();
 ```
 Compare the original *rank* dict to the copy:
 ```
