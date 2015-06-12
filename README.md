@@ -309,7 +309,7 @@ try(HappySQL sql = x.mysql(host, user, password, db)){
 		for (tuple row : sql.execute(query, "John %")) {
 			query =
 				"UPDATE tbl_Employees " +
-				"SET Fired = true " +
+				"SET Promoted = 1 " +
 				"WHERE ID = ?";
 			sql2.execute(query, row.get("ID"));
 		}
