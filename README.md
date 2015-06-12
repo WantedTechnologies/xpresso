@@ -317,53 +317,91 @@ try(HappySQL sql = x.mysql(host, user, password, db)){
 }
 ```
 
-#### The Token type
-```
-Token tok = x.Token("MySQL5");
-x.print(tok.shape, tok.isCamel, tok.hasDigits, tok.hasRussian);
-
-Console: ULUUUD, true, true, false
-```
-
-```
-tok = x.Token("Thinking");
-x.print(tok.stem());
-
-Console: Think
-```
-
-#### Pythonic iterable dict
+#### Extended String functions
 
 Python:
 ```
-for city in rank: print rank[city]
+if "e" in "Hello World":
+    #do stuff
 ```
 
 xpresso:
 ```
-for (String city : rank) x.print(rank.get(city));
+if(x.String("e").in("Hello World"))
+    //do stuff
 ```
-
-#### Pythonic tuples
 
 Python:
 ```
-my_car = ("Honda", "red", 2010, True)
+colorsPattern = "|".join(["black","green","red","white"]);
+
+print(colorsPattern)
+
+>>> black|green|red|white
 ```
 
 xpresso:
 ```
-tuple myCar = x.tuple("Honda", "red", 2010, true);
+String colorsPattern = x.String("|").join(x.list("black","green","red","white"));
+
+x.print(colorsPattern);
+
+Console: black|green|red|white
 ```
 
-Dynamic name assignment to tuple elements:
+Python:
 ```
-myCar.name("make","color","year","good");
-x.print(myCar.get("good"),myCar.get("make"),myCar.get("year"));
+tokens = "Moscow;London;Paris".split(";")
 
-Console: true Honda 2010
+print(tokens)
+
+>>> ['Moscow', 'London', 'Paris']
 ```
-If *name* method has not yet been called, but *get(someName)* is called for the first time, then the returned value will be *get(i)*, where *i* is the smallest index of a remaining unnamed element in the tuple. All the subsequent calls for the same value *someName*, the same element *i* will be returned by *get(someName)*.
+
+xpresso:
+```
+list<String> tokens = x.String("Moscow;London;Paris").split(";");
+
+x.print(tokens);
+
+Console: [Moscow, London, Paris]
+```
+
+Transliteration:
+```
+String trans = x.String("Чичётка").translit();
+
+x.print(trans);
+
+Console: Čičëtka
+
+x.print(trans.stripAccents());
+
+Console: Cicetka
+```
+
+Approximate string comparison:
+```
+x.print(x.String("Hello World").similarity("Hello Wold!"))
+
+Console:  0.82
+```
+
+Approximate pattern match:
+```
+x.print(x.String("You are cooding in Java.").search("coding"));
+
+Console:  8
+```
+
+Get similar strings:
+```
+list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
+
+x.print(lookAlikes);
+
+Console: [apple]
+```
 
 #### Slicing for list, String, and str
 
@@ -499,91 +537,42 @@ dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tu
 text = x.Regex(replacer).sub(text);
 ```
 
-#### Extended String functions
+#### The Token type
+```
+Token tok = x.Token("MySQL5");
+x.print(tok.shape, tok.isCamel, tok.hasDigits, tok.hasRussian);
+
+Console: ULUUUD, true, true, false
+```
+
+```
+tok = x.Token("Thinking");
+x.print(tok.stem());
+
+Console: Think
+```
+
+#### Pythonic tuples
 
 Python:
 ```
-if "e" in "Hello World":
-    #do stuff
+my_car = ("Honda", "red", 2010, True)
 ```
 
 xpresso:
 ```
-if(x.String("e").in("Hello World"))
-    //do stuff
+tuple myCar = x.tuple("Honda", "red", 2010, true);
 ```
 
-Python:
+Dynamic name assignment to tuple elements:
 ```
-colorsPattern = "|".join(["black","green","red","white"]);
+myCar.name("make","color","year","good");
+x.print(myCar.get("good"),myCar.get("make"),myCar.get("year"));
 
-print(colorsPattern)
-
->>> black|green|red|white
+Console: true Honda 2010
 ```
+If *name* method has not yet been called, but *get(someName)* is called for the first time, then the returned value will be *get(i)*, where *i* is the smallest index of a remaining unnamed element in the tuple. All the subsequent calls for the same value *someName*, the same element *i* will be returned by *get(someName)*.
 
-xpresso:
-```
-String colorsPattern = x.String("|").join(x.list("black","green","red","white"));
-
-x.print(colorsPattern);
-
-Console: black|green|red|white
-```
-
-Python:
-```
-tokens = "Moscow;London;Paris".split(";")
-
-print(tokens)
-
->>> ['Moscow', 'London', 'Paris']
-```
-
-xpresso:
-```
-list<String> tokens = x.String("Moscow;London;Paris").split(";");
-
-x.print(tokens);
-
-Console: [Moscow, London, Paris]
-```
-
-Transliteration:
-```
-String trans = x.String("Чичётка").translit();
-
-x.print(trans);
-
-Console: Čičëtka
-
-x.print(trans.stripAccents());
-
-Console: Cicetka
-```
-
-Approximate string comparison:
-```
-x.print(x.String("Hello World").similarity("Hello Wold!"))
-
-Console:  0.82
-```
-
-Approximate pattern match:
-```
-x.print(x.String("You are cooding in Java.").search("coding"));
-
-Console:  8
-```
-
-Get similar strings:
-```
-list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
-
-x.print(lookAlikes);
-
-Console: [apple]
-```
 
 #### hashCode(), equals(...), and compareTo(...) builders
 When defining a class:
