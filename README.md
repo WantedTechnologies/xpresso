@@ -397,11 +397,11 @@ Console:  8
 
 Get similar strings:
 ```
-list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
+list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.5);
 
 x.print(lookAlikes);
 
-Console: [apple]
+Console: [ape, apples]
 ```
 
 #### Slicing for list, String, and str
