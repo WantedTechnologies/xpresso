@@ -23,14 +23,7 @@ x.print("Hello World!");
 
 #### Types similar to pythonic ones
 
-* str
-* set
-* dict
-* list
-* tuple
-* DefaultDict (in Python: collections.defaultdict)
-* OrderedDict (in Python: collections.OrderedDict)
-* Bag (in Python: collections.Counter)
+set, dict, list, tuple, DefaultDict, OrderedDict, Bag (similar to Python's Counter)
 
 #### Slicable and iterable **str** type
 ```
