@@ -562,6 +562,29 @@ x.print(trans.stripAccents());
 Console: Cicetka
 ```
 
+Approximate string comparison:
+```
+x.print(x.String("Hello World").similarity("Hello Wold!"))
+
+Console:  0.82
+```
+
+Approximate pattern match:
+```
+x.print(x.String("You are cooding in Java.").search("coding"));
+
+Console:  8
+```
+
+Get similar strings:
+```
+list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
+
+x.print(lookAlikes);
+
+Console: [apple]
+```
+
 #### hashCode(), equals(...), and compareTo(...) builders
 When defining a class:
 ```
@@ -747,17 +770,6 @@ Console: [Saint-Petersbourg, San Francisco]
 * For more see the [comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java).
 
 #### Future
-* Approximate string comparison: ```x.String("Hello World").similarity("Helo Wold!") --> .89```
-* Get similar strings:
-
-```
-list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apple", "peach", "puppy"),2,.8);
-
-x.print(lookAlikes);
-
-Console: [ape, apple]
-```
-
 * Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
 
 ```
