@@ -361,24 +361,24 @@ Console: [Moscow, London, Paris]
 
 Transliterate:
 ```
-String trans = x.String("Чичётка").translit();
+String trans = x.String("Чичётка 北亰").translit();
 
 x.print(trans);
 
-Console: Čičëtka
+Console: Čičëtka bei jing
 
 x.print(trans.stripAccents());
 
-Console: Cicetka
+Console: Cicetka bei jing
 ```
 
 Convert unicode to ascii:
 ```
-String unidec = x.String("Чичётка").unidecode();
+String unidec = x.String("Чичётка 北亰").unidecode();
 
 x.print(unidec);
 
-Console: Chichiotka
+Console: Chichiotka bei jing
 ```
 
 Approximate string comparison:
