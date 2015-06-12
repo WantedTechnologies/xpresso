@@ -359,7 +359,7 @@ x.print(tokens);
 Console: [Moscow, London, Paris]
 ```
 
-Transliteration:
+Transliterate:
 ```
 String trans = x.String("Чичётка").translit();
 
@@ -372,6 +372,15 @@ x.print(trans.stripAccents());
 Console: Cicetka
 ```
 
+Convert unicode to ascii:
+```
+String unidec = x.String("Чичётка").unidecode();
+
+x.print(unidec);
+
+Console: Chichiotka
+```
+
 Approximate string comparison:
 ```
 x.print(x.String("Hello World").similarity("Hello Wold!"))
@@ -379,7 +388,7 @@ x.print(x.String("Hello World").similarity("Hello Wold!"))
 Console:  0.82
 ```
 
-Approximate pattern match:
+Approximate pattern matching:
 ```
 x.print(x.String("You are cooding in Java.").search("coding"));
 
