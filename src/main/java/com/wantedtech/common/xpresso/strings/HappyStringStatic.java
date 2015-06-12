@@ -53,6 +53,15 @@ public class HappyStringStatic {
 		}
 	};
 	
+	public String unidecode(String string){
+        return Unidecode.decode(string);
+	}
+	public Function<Object, String> unidecode = new Function<Object, String>() {
+		public String apply(Object string) {
+			return unidecode((String)string);
+		}
+	};
+	
 	public String escape(String string){
 		return x.Regex("([\\[\\]/{}()*+?.\\\\^$\\|-])").sub("\\\\$1", string);
 	}

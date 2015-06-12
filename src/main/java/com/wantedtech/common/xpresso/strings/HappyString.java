@@ -22,10 +22,6 @@
 
 package com.wantedtech.common.xpresso.strings;
 
-import com.wantedtech.common.xpresso.strings.diff_match_patch.Diff;
-import com.wantedtech.common.xpresso.strings.diff_match_patch.LinesToCharsResult;
-import com.wantedtech.common.xpresso.strings.diff_match_patch.Patch;
-
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -36,7 +32,6 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
-import com.ibm.icu.text.Transliterator;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
 import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.regex.Match;
@@ -58,7 +53,7 @@ import com.wantedtech.common.xpresso.x;
 
 public class HappyString {
 	
-	String value = "";
+	protected String value = "";
 	
 	/**
 	 * This class clones the String object functionality and adds
@@ -141,6 +136,10 @@ public class HappyString {
 	
 	public String translit(){
 		return x.String.translit(value);
+	}
+	
+	public String unidecode(){
+		return x.String.unidecode(value);
 	}
 	
 	public int count(String substring){

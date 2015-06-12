@@ -328,6 +328,10 @@ public class Test {
 			 list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
 
 			 x.print(lookAlikes);
+			 
+			 x.print(x.Token("Hello1").features());
+			 
+			 x.print(x.String("ø").unidecode());
 			
 		}catch(Exception e){
 			throw e;
