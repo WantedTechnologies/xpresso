@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.helpers;
+package com.wantedtech.common.xpresso.strings;
 
 import java.util.Locale;
 

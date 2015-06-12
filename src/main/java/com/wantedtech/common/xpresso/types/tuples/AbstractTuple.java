@@ -78,10 +78,11 @@ public abstract class AbstractTuple implements tuple {
 	}
     
 	@Override
-	public void name(String... fieldNames) {
+	public tuple name(String... fieldNames) {
 		for (String fieldName : fieldNames){
 			this.fieldNames.add(fieldName);
 		}
+		return this;
 	}
 	
 }

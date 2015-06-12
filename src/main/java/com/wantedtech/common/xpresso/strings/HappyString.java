@@ -20,7 +20,11 @@
  * SOFTWARE.
  */
 
-package com.wantedtech.common.xpresso.helpers;
+package com.wantedtech.common.xpresso.strings;
+
+import com.wantedtech.common.xpresso.strings.diff_match_patch.Diff;
+import com.wantedtech.common.xpresso.strings.diff_match_patch.LinesToCharsResult;
+import com.wantedtech.common.xpresso.strings.diff_match_patch.Patch;
 
 import java.io.IOException;
 import java.text.Normalizer;
@@ -253,6 +257,48 @@ public class HappyString {
 	
 	public String compress() {
 		return x.str(this.value).compressed().toString();
+	}
+	
+	public double similarity(String anotherString){
+		return (new diff_match_patch()).get_similarity_score(this.value, anotherString);
+	}
+	
+	public int search(String anotherString){
+		return (new diff_match_patch()).match_main(value, anotherString, 0);
+	}
+	
+	public double search(String anotherString, int approximateLocation){
+		return (new diff_match_patch()).match_main(value, anotherString, approximateLocation);
+	}
+	
+	public double search(String anotherString, int approximateLocation, double threshold){
+		diff_match_patch dmp = new diff_match_patch();
+		dmp.Match_Threshold = 1f - (float)threshold;
+		return dmp.match_main(value, anotherString, approximateLocation);
+	}
+	
+	public list<String> lookAlikes(Iterable<String> candidates, double threshold){
+		diff_match_patch dmp = new diff_match_patch();
+		dmp.Match_Threshold = 1f - (float)threshold;
+		
+		list<String> result = x.list();
+		for (String element : candidates) {
+			if(similarity(element) >= threshold){
+				result.append(element);
+			} 
+		}
+		return result;
+	}
+	
+	public list<String> lookAlikes(Iterable<String> candidates){
+		diff_match_patch dmp = new diff_match_patch();		
+		list<String> result = x.list();
+		for (String element : candidates) {
+			if(similarity(element) >= dmp.Match_Threshold){
+				result.append(element);
+			} 
+		}
+		return result;
 	}
 	
 	/**

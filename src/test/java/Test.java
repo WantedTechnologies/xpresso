@@ -320,6 +320,14 @@ public class Test {
 			 
 			 String tran = x.String.translit("Чичётка");
 			 x.print(x.String(tran).stripAccents());
+			 
+			 x.print(x.String("You are cooding in Java.").similarity("coding"));
+			 
+			 x.print(x.String("You are cooding in Java.").search("coding"));
+			 
+			 list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
+
+			 x.print(lookAlikes);
 			
 		}catch(Exception e){
 			throw e;

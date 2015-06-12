@@ -151,7 +151,19 @@ public class Regex implements Serializable{
 		return search(str.toString());
 	}
 	
+	public Match search(String string, int startIndex){
+		return search(x.String(string).sliceFrom(startIndex));
+	}
+	public Match search(str str, int startIndex){
+		return search(str.sliceFrom(startIndex));
+	}
 	
+	public Match search(String string, int startIndex, int endIndex){
+		return search(x.String(string).slice(startIndex, endIndex));
+	}
+	public Match search(str str, int startIndex, int endIndex){
+		return search(str.slice(startIndex, endIndex));
+	}
 	
 	public list<String> split(String string,int limit){
 		return x.list(pattern.split(string,limit));

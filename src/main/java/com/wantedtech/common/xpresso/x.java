@@ -35,12 +35,12 @@ import java.lang.Iterable;
 import java.lang.Number;
 
 import com.wantedtech.common.xpresso.helpers.HappyObject;
-import com.wantedtech.common.xpresso.helpers.HappyString;
-import com.wantedtech.common.xpresso.helpers.HappyStringStatic;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.HappyMySQL;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.json.Json;
+import com.wantedtech.common.xpresso.strings.HappyString;
+import com.wantedtech.common.xpresso.strings.HappyStringStatic;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
@@ -3087,21 +3087,21 @@ public class x {
 			return false;
 		}
 		try{
-			if((Integer)value == 0){
+			if((Integer)value <= 0){
 				return false;
 			}	
 		}catch(Exception e){
 			
 		}
 		try{
-			if((Double)value == 0.0){
+			if((Double)value <= 0.0){
 				return false;
 			}	
 		}catch(Exception e){
 			
 		}
 		try{
-			if((Float)value == 0.0){
+			if((Float)value <= 0.0){
 				return false;
 			}	
 		}catch(Exception e){
