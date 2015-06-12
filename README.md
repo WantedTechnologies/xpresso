@@ -299,21 +299,19 @@ String user = "user";
 String password = "password";
 String db = "db";
 
-try(HappySQL select = x.mysql(host, user, password, db)){
+try(HappySQL sql = x.mysql(host, user, password, db)){
 	String query =
 		"SELECT ID FROM " +
 		"tbl_Employees e " +
 		"WHERE e.Name LIKE ?";
 	
-	select.run(query, "John %");
-	
-	try(HappySQL update = x.mysql(host, user, password, db)){
-		for (tuple row : select) {
+	try(HappySQL sql2 = x.mysql(sql)){
+		for (tuple row : sql.execute(query, "John %")) {
 			query =
 				"UPDATE tbl_Employees " +
 				"SET Fired = true 
 				"WHERE ID = ?";
-			update.run(query, row.get("ID"));
+			sql2.execute(query, row.get("ID"));
 		}
 	}
 }
