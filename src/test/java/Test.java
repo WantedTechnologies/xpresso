@@ -89,7 +89,7 @@ public class Test {
 			
 			x.print(x.Json(lst2));
 			x.print(lst2);
-			list<dict<String>> loaded_lst2 = x.<list<dict<String>>>Json("[{\"aaa\":\"bbb\",\"ccc\":\"ddd\"},{\"eee\":\"fff\",\"ggg\":\"hhh\"}]").parse();
+			list<dict<String>> loaded_lst2 = x.String("[{\"aaa\":\"bbb\",\"ccc\":\"ddd\"},{\"eee\":\"fff\",\"ggg\":\"hhh\"}]").parseJson();
 			x.print(loaded_lst2);
 			
 			dict<String> dct = x.first(loaded_lst2);
@@ -244,7 +244,7 @@ public class Test {
 			
 			x.print(x.Json(rank));
 			
-			dict<Integer> rankCopy = x.<dict<Integer>>Json("{\"New York\":20,\"London\":10,\"Saint-Petersburg\":15,\"Moscow\":30,\"Dubai\":32,\"Paris\":5}").parse();
+			dict<Integer> rankCopy = x.String("{\"New York\":20,\"London\":10,\"Saint-Petersburg\":15,\"Moscow\":30,\"Dubai\":32,\"Paris\":5}").parseJson();
 			
 			x.print(x.Object(rank).equals(rankCopy));
 			
@@ -318,8 +318,8 @@ public class Test {
 			 String stem2 = x.Token.stem("Marcher", "french");
 			 x.print(stem2);
 			 
-			 String tran = x.String.translit("Чичетка");
-			 x.print(tran);
+			 String tran = x.String.translit("Чичётка");
+			 x.print(x.String(tran).stripAccents());
 			
 		}catch(Exception e){
 			throw e;

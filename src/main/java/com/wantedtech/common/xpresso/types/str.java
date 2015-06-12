@@ -223,6 +223,10 @@ public class str extends list<String> implements Iterable<String>{
 		return x.str(Character.toUpperCase(this.toString().charAt(0)) + this.toString().substring(1));
 	}
 	
+	public str translit(){
+		return x.str(x.String(this.toString()).translit());
+	}
+	
 	public boolean notEquals(String string){
 		return !toString().equals(string);
 	}

@@ -1291,19 +1291,42 @@ public class x {
 	public static ThreadTimer timer = new ThreadTimer(); 
 	
 	/**
-	 * An instance of a {@link Stemmer} object.
+	 * An instance of a {@link TokenStatic} object.
 	 * 
 	 * Example:
 	 * 
-	 * String stem = x.Stemmer.stem("Worker");
+	 * String stem = x.Token.stem("Worker");
 	 * 
 	 * Example:
 	 * 
-	 * String stem = x.Stemmer.stem("Marcher", "french");
+	 * String stem = x.Token.stem("Marcher", "french");
 	 *  
 	 * 
 	 */
 	public static TokenStatic Token = new TokenStatic();
+	
+	/**
+	 * An instance of a {@link Token} object.
+	 * 
+	 * Example:
+	 * 
+	 * String stem = x.Token("Worker").stem();
+	 * 
+	 * Example:
+	 * 
+	 * String stem = x.Token("Marcher").stem("french");
+	 *  
+	 * Example:
+	 * 
+	 * String stem = x.Token("Java8").shape();
+	 * 
+	 * Console: ULLLD
+	 *  
+	 * 
+	 */
+	public static Token Token(String string) {
+		return new Token(string);
+	};
 	
 	/**
 	 * Return the double value number rounded to ndigits digits after the decimal point.
@@ -2460,16 +2483,26 @@ public class x {
 	}
 	
 	/**
-	 * Factory method that creates a new Json object from a valid Json string 
+	 * Factory method that creates a new xpresso {@link Json} object from a {@link String}. 
 	 * 
 	 * Example:
-	 * JsonArray arr = x.Json("[["a","b","c"],["d","e","f"]]").parse(); 
+	 * String jsonString = x.Json("Hello").toString();
 	 * 
-	 * @param jsonString	a string with a valid Json expression
+	 * x.print(jsonString);
+	 * 
+	 *  Console: "Hello"
+	 *  
+	 * Compare that with:
+	 * 
+	 * x.print("Hello");
+	 * 
+	 *  Console: Hello
+	 * 
+	 * @param string		a String object
 	 * @return 				a Json object 
 	 */
-	public static <O> Json<O> Json(String jsonString){
-		return new Json<O>(jsonString); 
+	public static <O> Json<O> Json(String string){
+		return new Json<O>(string);
 	}
 	
 	/**
@@ -2485,7 +2518,7 @@ public class x {
 	 * 
 	 *  Console {"a": 1, "b": 2}
 	 * 
-	 * @param jsonString	a Map object
+	 * @param o				a Map object
 	 * @return 				a Json object 
 	 */
 	public static <O> Json<O> Json(Map<?,?> o){
@@ -2511,7 +2544,7 @@ public class x {
 	 * 
 	 *  Console {"a": 1, "b": 2}
 	 * 
-	 * @param jsonString	an Iterable
+	 * @param o				an Iterable
 	 * @return 				a Json object 
 	 */
 	public static <O> Json<O> Json(Iterable<?> o){
@@ -2531,7 +2564,7 @@ public class x {
 	 * 
 	 *  Console {"a": 1, "b": 2}
 	 * 
-	 * @param jsonString	a Map object
+	 * @param o				an Integer object
 	 * @return 				a Json object 
 	 */	
 	public static <O> Json<O> Json(Integer v){
@@ -2541,7 +2574,7 @@ public class x {
 	/**
 	 * Factory method that creates a new xpresso {@link Json} object from a {@link Integer}. 
 	 *  
-	 * @param jsonString	a Map object
+	 * @param o				a tuple object
 	 * @return 				a Json object 
 	 */	
 	public static <O> Json<O> Json(tuple o){

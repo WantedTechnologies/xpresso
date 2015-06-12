@@ -34,6 +34,7 @@ import java.util.regex.PatternSyntaxException;
 
 import com.ibm.icu.text.Transliterator;
 import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
+import com.wantedtech.common.xpresso.json.Json;
 import com.wantedtech.common.xpresso.regex.Match;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.dict;
@@ -252,6 +253,21 @@ public class HappyString {
 	
 	public String compress() {
 		return x.str(this.value).compressed().toString();
+	}
+	
+	/**
+	 * Factory method that creates a new instance of xpresso base type (dict, list, etc)
+	 * object from a valid Json object
+	 * string representation.
+	 * 
+	 * Example:
+	 * JsonArray arr = x.Json("[[\"a\",\"b\",\"c\"],[\"d\",\"e\",\"f\"]]").parse(); 
+	 * 
+	 * @param jsonString	a string with a valid Json expression
+	 * @return 				a Json object 
+	 */
+	public <T> T parseJson(){
+		return Json.parse(value); 
 	}
 	
     /**

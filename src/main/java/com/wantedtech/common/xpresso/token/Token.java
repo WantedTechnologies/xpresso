@@ -65,7 +65,7 @@ public class Token {
 	
 	public int length;
 	
-	public String fullShape;
+	public String shape;
 	public String compressedShape;
 	
 	public Token(String word){
@@ -160,8 +160,8 @@ public class Token {
 				fullShapeStr.append("S");
 			}
 		}
-		this.fullShape = fullShapeStr.toString();
-		this.compressedShape = x.String(compressedShape).compress();
+		this.shape = fullShapeStr.toString();
+		this.compressedShape = x.String(shape).compress();
 		
 		this.isComma = token.equals(",");
 		this.isDot = token.equals(".");

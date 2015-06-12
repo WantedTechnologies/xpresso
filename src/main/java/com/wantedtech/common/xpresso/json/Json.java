@@ -14,7 +14,11 @@ public class Json<O>{
 	String jsonString;
 	
 	public Json(String jsonString){
-		this.jsonString = jsonString;
+			this.jsonString = jsonString;
+	}
+	
+	public Json(String usualString, boolean isUsualString){
+		this.jsonString = "\"" + usualString + "\"";
 	}
 
 	public Json(Map<?,?> o){
@@ -47,7 +51,7 @@ public class Json<O>{
 	}
         
 	@SuppressWarnings("unchecked")
-	public O parse() {
+	public static <O> O parse(String jsonString) {
         // create a CharStream that reads from standard input
 		ANTLRInputStream inputStream = new ANTLRInputStream(jsonString);
 
