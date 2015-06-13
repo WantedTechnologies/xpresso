@@ -6,6 +6,7 @@ import com.ibm.icu.text.Transliterator;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
+import com.wantedtech.common.xpresso.functional.Predicate;
 
 public class HappyStringStatic {
 	
@@ -119,6 +120,44 @@ public class HappyStringStatic {
 	};
 	
 	public Function<Object, Integer> len = x.len;
+	
+	 /**
+     * <p>Checks if the String contains only whitespace.</p>
+     *
+     * <p>{@code null} will return {@code false}.
+     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <pre>
+     * StringUtils.isWhitespace(null)   = false
+     * StringUtils.isWhitespace("")     = true
+     * StringUtils.isWhitespace("  ")   = true
+     * StringUtils.isWhitespace("abc")  = false
+     * StringUtils.isWhitespace("ab2c") = false
+     * StringUtils.isWhitespace("ab-c") = false
+     * </pre>
+     *
+     * @param string  the String to check, may be null
+     * @return {@code true} if only contains whitespace, and is non-null
+     * @since 2.0
+     * @since 3.0 Changed signature from isWhitespace(String) to isWhitespace(CharSequence)
+     */
+    public boolean isWhitespace(final String string) {
+        if (string == null) {
+            return false;
+        }
+        final int sz = string.length();
+        for (int i = 0; i < sz; i++) {
+            if (Character.isWhitespace(string.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+	public Predicate<Object> isWhitespace = new Predicate<Object>() {
+		public Boolean apply(Object string) {
+			return isWhitespace(string.toString());
+		}
+	};
 	
     /**
      * Returns a formatted string using the specified format string and

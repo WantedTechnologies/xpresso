@@ -3,6 +3,7 @@ package com.wantedtech.common.xpresso.types.strs;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
+import com.wantedtech.common.xpresso.strings.Unidecode;
 import com.wantedtech.common.xpresso.types.str;
 
 public class strStatic {
@@ -13,6 +14,24 @@ public class strStatic {
 	public Function<Object, str> stripAccents = new Function<Object, str>() {
 		public str apply(Object value) {
 			return stripAccents((str)value);
+		}
+	};
+	
+	public str translit(str value){
+        return x.str(x.String(value.toString()).translit());
+	}
+	public Function<Object, str> translit = new Function<Object, str>() {
+		public str apply(Object value) {
+			return translit(x.str(value.toString()));
+		}
+	};
+	
+	public str unidecode(str value){
+        return x.str(x.String(value.toString()).translit());
+	}
+	public Function<Object, str> unidecode = new Function<Object, str>() {
+		public str apply(Object value) {
+			return unidecode(x.str(value.toString()));
 		}
 	};
 	

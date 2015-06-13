@@ -7,6 +7,8 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.wantedtech.common.xpresso.x;
+
 /**
  * <p>
  * Transliterate Unicode string to a valid 7-bit ASCII String.
@@ -49,7 +51,11 @@ public final class Unidecode {
 			int position = codepoint % 256; // Last two hex digits
 			String[] table = getCache(section);
 			if (table != null && table.length > position) {
-				sb.append(table[position]);
+				String charCandidate = table[position];
+				if (x.str(str).get(i).equals(x.str(str).get(i).toLowerCase())){
+					charCandidate = table[position].toLowerCase();
+				}
+				sb.append(charCandidate);
 			}
 		}
 		return sb.toString().trim();

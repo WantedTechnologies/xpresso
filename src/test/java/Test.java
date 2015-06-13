@@ -312,26 +312,38 @@ public class Test {
 				}
 			}
 			
-			 String stem = x.Token.stem("Working");
-			 x.print(stem);
+			String stem = x.Token.stem("Working");
+			x.print(stem);
 			 
-			 String stem2 = x.Token.stem("Marcher", "french");
-			 x.print(stem2);
+			String stem2 = x.Token.stem("Marcher", "french");
+			x.print(stem2);
 			 
-			 String tran = x.String.translit("Чичётка");
-			 x.print(x.String(tran).stripAccents());
+			String tran = x.String.translit("Чичётка 北亰");
+			x.print(x.String(tran).stripAccents());
 			 
-			 x.print(x.String("You are cooding in Java.").similarity("coding"));
+			x.print(x.String("Чичётка").similarity("Чичeтка"));
 			 
-			 x.print(x.String("You are cooding in Java.").search("coding"));
+			x.print(x.String("You are cooding in Java.").search("coding"));
 			 
-			 list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.8);
-
-			 x.print(lookAlikes);
+			list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.6);
+			
+			x.print(lookAlikes);
 			 
-			 x.print(x.Token("Hello1").features());
+			x.print(x.Token("Hello1").features());
 			 
-			 x.print(x.String("ø").unidecode());
+			x.print(x.String("Чичётка 北亰").unidecode());
+			 
+			try(csv csv = new csv("/Users/andriy.burkov/Downloads"+"/test2.txt", "w")){
+				for (list<String> l : csv) {
+					csv.writerow(l);
+				}
+			}
+			
+			try(HappyFile f = x.open("/Users/andriy.burkov/Downloads"+"/test2.txt", "r")){
+				for (String l : f) {
+					x.print(l);
+				}
+			}
 			
 		}catch(Exception e){
 			throw e;

@@ -245,6 +245,112 @@ public class x {
 	}
 	
 	/**
+	 * Opens a {@link HappyFile} for reading or writing in csv format.
+	 * 
+	 * Example 1:
+	 * 
+	 * try (csv f = x.csv("filename.txt","r","utf-8"){
+	 * 		for(list<String> line : f){
+	 * 			x.print(line);
+	 * 		}
+	 * }
+	 * 
+	 * Example 2:
+	 * 
+	 * try (csv f = x.csv("filename.txt","w","utf-8"){
+	 * 		for(list<?> line : iterable>){
+	 * 			csv.writerow(line);
+	 * 		}
+	 * }
+	 * 
+	 * In case of a text file, the {@link csf} object is also an Iterable containing 
+	 * list<String> objects for each line of the file:
+	 * 
+	 * for(list<String> line : f){
+	 * 		x.print(line);
+	 * }
+	 * 
+	 * @param path			a {@link String} object containing the path to the file
+	 * @param operation		can be "r" (read in text mode), "rb" (read in binary mode),
+	 * 						"w" (write in text mode), "wb" write in binary mode
+	 * 						"a" append in text mode, "ab" append in binary mode
+	 * @param encoding		the String object containing the encoding of the file
+	 * 						(can be "utf-8" or "latin-1")
+	 */
+	public static csv csv(String path,String operation,String encoding) throws IOException{
+		return new csv(path,operation,encoding);
+	}
+	
+	/**
+	 * Opens a {@link HappyFile} for reading or writing in csv format with the
+	 * default encoding "utf-8".
+	 * 
+	 * Example:
+	 * 
+	 * try (csv f = x.csv("filename.txt","r","utf-8"){
+	 * 		//do stuff
+	 * }
+	 * 
+	 * In case of a text file, the {@link csv} object is also an Iterable containing 
+	 * list<String> objects for each line of the file:
+	 * 
+	 * for(list<String> line : f){
+	 * 		x.print(line);
+	 * }
+	 * 
+	 * @param path			a {@link String} object containing the path to the file
+	 * @param operation		can be "r" (read in text mode), "rb" (read in binary mode),
+	 * 						"w" (write in text mode), "wb" write in binary mode
+	 * 						"a" append in text mode, "ab" append in binary mode
+	 */
+	public static csv csv(String path,String operation) throws Exception{
+		try{
+			return new csv(path,operation);
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	
+	/**
+	 * Creates a {@link csv} object from a {@link HappyFile}.
+	 * 
+	 * Example:
+	 * 
+	 * try (HappyFile f = x.open("filename.txt","r","utf-8"){
+	 * 		for (list<String> line : x.csv(f)){
+	 * 			//do stuff
+	 * 		}
+	 * }
+	 * 
+	 * 
+	 * @param file		a {@link HappyFile} object
+	 */
+	public static csv csv(HappyFile file){
+		return new csv(file);
+	}
+	
+	/**
+	 * Creates a {@link csv} object from a {@link StringBuilder}.
+	 * 
+	 * Example:
+	 * 
+	 * StringBuilder builder = new StringBuilder();
+	 * 
+	 * csv c = x.csv(builder);
+	 * 
+	 * for (list<?> line : iterable){
+	 * 		c.writerow(line);
+	 * }
+	 * 
+	 * String mycsv = c.toString();
+	 * 
+	 * @param file		a {@link HappyFile} object
+	 */
+	public static csv csv(StringBuilder builder){
+		return new csv(builder);
+	}
+	
+	/**
 	 * Returns a {@link HappyString HappyString} object that extends the String object
 	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
 	 * 

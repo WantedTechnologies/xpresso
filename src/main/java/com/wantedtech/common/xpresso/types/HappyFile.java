@@ -189,6 +189,10 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 		return this.fileOutputStream;
 	}
 	
+	public String getOperation(){
+		return operation;
+	}
+	
 	public void close(){
 		try{
 			outWriter.close();

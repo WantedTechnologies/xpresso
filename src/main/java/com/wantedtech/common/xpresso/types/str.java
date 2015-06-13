@@ -161,6 +161,14 @@ public class str extends list<String> implements Iterable<String>{
 		return x.str(x.String(this).stripAccents());
 	}
 	
+	public str translit(){
+		return x.str(x.String(this).translit());
+	}
+	
+	public str unidecode(){
+		return x.str(x.String(this).unidecode());
+	}
+	
 	public int count(String character){
 		return x.String(this).count(character);
 	}
@@ -222,11 +230,7 @@ public class str extends list<String> implements Iterable<String>{
 	public str capitalize(){
 		return x.str(Character.toUpperCase(this.toString().charAt(0)) + this.toString().substring(1));
 	}
-	
-	public str translit(){
-		return x.str(x.String(this.toString()).translit());
-	}
-	
+		
 	public boolean notEquals(String string){
 		return !toString().equals(string);
 	}
