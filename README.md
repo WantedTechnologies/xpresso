@@ -311,6 +311,11 @@ for (list<?> line : iterable) {
 String cs = c.toString();
 ```
 
+Because the constructor of *csv* class can take iterables as input, the previous block of code can be written in a much shorter way:
+```
+String cs = x.csv(iterable).toString();
+```
+
 #### MySQL
 ```
 String host = "host:port";
