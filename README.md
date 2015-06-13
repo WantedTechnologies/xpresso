@@ -291,12 +291,25 @@ try (csv f = x.csv("filename.txt","r","utf-8"){
 		//do stuff
 	}
 }
+```
 
+```
 try (csv f = x.csv("filename.txt","w","utf-8"){
 	for(list<?> line : iterable>){
 		csv.writerow(line);
 	}
 }
+```
+
+```
+StringBuilder builder = new StringBuilder();
+csv c = x.csv(builder);
+
+for (list<?> line : iterable){
+	c.writerow(line);
+}
+
+String cs = c.toString();
 ```
 
 #### MySQL
