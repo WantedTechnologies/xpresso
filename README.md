@@ -284,6 +284,21 @@ x.print(x.Object(rank).equals(rankCopy));
 Console: true
 ```
 
+#### CSV
+```
+try (csv f = x.csv("filename.txt","r","utf-8"){
+	for(list<String> line : f){
+		//do stuff
+	}
+}
+
+try (csv f = x.csv("filename.txt","w","utf-8"){
+	for(list<?> line : iterable>){
+		csv.writerow(line);
+	}
+}
+```
+
 #### MySQL
 ```
 String host = "host:port";
