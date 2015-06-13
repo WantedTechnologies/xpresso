@@ -37,8 +37,7 @@ Console: York
 ```
 
 ```
-for(String character : city)
-    x.print(character);
+for (String character : city) x.print(character);
 
 Console: N
 e
@@ -62,7 +61,7 @@ xpresso:
 ```
 import com.wantedtech.common.xpresso.types.HappyFile;
  
-try(HappyFile f = x.open("name.txt","r","utf-8")){
+try (HappyFile f = x.open("name.txt","r","utf-8")) {
 	//do stuff
 }
 ```
@@ -199,7 +198,7 @@ class PlannedTrip {
     int year;
     String city;
     
-    public PlannedTrip(int year, String city){
+    public PlannedTrip(int year, String city) {
         this.year = year;
         this.city = city;
     }
@@ -286,16 +285,16 @@ Console: true
 
 #### CSV
 ```
-try (csv f = x.csv("filename.txt","r","utf-8"){
-	for(list<String> line : f){
+try (csv f = x.csv("filename.txt","r","utf-8") {
+	for (list<String> line : f) {
 		//do stuff
 	}
 }
 ```
 
 ```
-try (csv f = x.csv("filename.txt","w","utf-8"){
-	for(list<?> line : iterable>){
+try (csv f = x.csv("filename.txt","w","utf-8") {
+	for (list<?> line : iterable>){
 		csv.writerow(line);
 	}
 }
@@ -305,7 +304,7 @@ try (csv f = x.csv("filename.txt","w","utf-8"){
 StringBuilder builder = new StringBuilder();
 csv c = x.csv(builder);
 
-for (list<?> line : iterable){
+for (list<?> line : iterable) {
 	c.writerow(line);
 }
 
@@ -319,18 +318,18 @@ String user = "user";
 String password = "password";
 String db = "db";
 
-try(HappySQL sql = x.mysql(host, user, password, db)){
-	String query =
+try (HappySQL sql = x.mysql(host, user, password, db)) {
+	try (HappySQL sql2 = x.mysql(sql)){
+		String query =
 		"SELECT ID FROM " +
 		"tbl_Employees e " +
 		"WHERE e.Name LIKE ?";
-	
-	try(HappySQL sql2 = x.mysql(sql)){
+		
 		for (tuple row : sql.execute(query, "John %")) {
 			query =
-				"UPDATE tbl_Employees " +
-				"SET Promoted = 1 " +
-				"WHERE ID = ?";
+			"UPDATE tbl_Employees " +
+			"SET Promoted = 1 " +
+			"WHERE ID = ?";
 			sql2.execute(query, row.get("ID"));
 		}
 	}
@@ -347,15 +346,16 @@ if "e" in "Hello World":
 
 xpresso:
 ```
-if(x.String("e").in("Hello World"))
+if(x.String("e").in("Hello World")) {
     //do stuff
+}
 ```
 
 Python:
 ```
 colorsPattern = "|".join(["black","green","red","white"]);
 
-print(colorsPattern)
+print colorsPattern
 
 >>> black|green|red|white
 ```
@@ -373,7 +373,7 @@ Python:
 ```
 tokens = "Moscow;London;Paris".split(";")
 
-print(tokens)
+print tokens
 
 >>> ['Moscow', 'London', 'Paris']
 ```
@@ -420,7 +420,7 @@ Approximate pattern matching:
 ```
 x.print(x.String("You are cooding in Java.").search("coding"));
 
-Console:  8
+Console: 8
 ```
 
 Get similar strings:
@@ -607,7 +607,7 @@ If *name* method has not yet been called, but *get(someName)* is called for the 
 When defining a class:
 ```
 @Override
-int hashCode(){
+int hashCode() {
 	return x.Object(this).hashCode();
 }
 ```
@@ -615,7 +615,7 @@ In the above code, xpresso first finds the members of *this* (via reflections) a
 
 ```
 @Override
-boolean equals(Object obj){
+boolean equals(Object obj) {
 	return x.Object(this).equals(obj);
 }
 ```
@@ -623,7 +623,7 @@ In the above code, xpresso first finds the members of the two objects (*this* an
 
 ```
 @Override
-public int compareTo(Object obj){
+public int compareTo(Object obj) {
 	return x.Object(this).compareTo(obj, fieldName0, fieldName1, ...);
 }
 ```
