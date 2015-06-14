@@ -5,6 +5,59 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>xpresso</name>
   <description>The most pythonic way to code in Java</description>
+  
+	<build>
+		<pluginManagement>
+		<plugins>
+		    <!-- Ignore/Execute plugin execution -->
+		    <plugin>
+		        <groupId>org.eclipse.m2e</groupId>
+		        <artifactId>lifecycle-mapping</artifactId>
+		        <version>1.0.0</version>
+		        <configuration>
+		            <lifecycleMappingMetadata>
+		                <pluginExecutions>
+		                    <!-- copy-dependency plugin -->
+		                    <pluginExecution>
+		                        <pluginExecutionFilter>
+		                            <groupId>org.apache.maven.plugins</groupId>
+		                            <artifactId>maven-dependency-plugin</artifactId>
+		                            <versionRange>[2.8.0,)</versionRange>
+		                            <goals>
+		                                <goal>copy-dependencies</goal>
+		                            </goals>
+		                        </pluginExecutionFilter>
+		                        <action>
+		                            <ignore />
+		                        </action>
+		                    </pluginExecution>
+		                </pluginExecutions>
+		            </lifecycleMappingMetadata>
+		        </configuration>
+		    </plugin>
+		   </plugins></pluginManagement>
+		   <plugins>
+<plugin>
+<artifactId>maven-assembly-plugin</artifactId>
+<version>2.2</version>
+<configuration>
+<descriptorRefs>
+<descriptorRef>jar-with-dependencies</descriptorRef>
+</descriptorRefs>
+</configuration>
+<executions>
+<execution>
+<id>make-assembly</id>
+<phase>package</phase>
+<goals>
+<goal>single</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+		   </plugins>
+	</build>
+  
   <dependencies>
   	<dependency>
   		<groupId>org.antlr</groupId>
@@ -22,4 +75,5 @@
   		<version>54.1.1</version>
   	</dependency>
   </dependencies>
+
 </project>

@@ -23,7 +23,6 @@ public final class tuple0 extends AbstractTuple{
         throw new IndexOutOfBoundsException();
     }
     
-    @Override
     public Object get(int index) {
         throw new IndexOutOfBoundsException();
     }

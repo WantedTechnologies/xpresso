@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 import com.wantedtech.common.xpresso.x;
 
-public abstract class Generator<T> implements Iterable<T> {
+public abstract class Generator<T> implements Iterable<T>, AutoCloseable {
 
 	static ThreadGroup THREAD_GROUP;
 
@@ -112,6 +112,18 @@ public abstract class Generator<T> implements Iterable<T> {
 		});
 		producer.setDaemon(true);
 		producer.start();
+	}
+	
+	@Override
+	public void close() {
+		try {
+			
+			isStillNeeded = false;
+			producer = null;
+			
+		} catch (Exception e) {
+			
+		}
 	}
 	
 	@Override
