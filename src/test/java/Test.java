@@ -335,21 +335,19 @@ public class Test {
 			x.print("uuuu",x.csv(lst6).toString());
 			
 			class InfiniteGen extends Generator<Integer> {
-				public void generator(int max, boolean hhh) {
+				public void generator(int max) {
 					int i = 0;
-					boolean ggg = hhh;
-					while (i < max || hhh) {
-						x.print("Still running");
+					while (i < max) {
 						i++;
 						yield(i);
 					}
 				}
-			};
+			}
 			
-			try (Generator<Integer> gen2 = x.generate(InfiniteGen.class, 5, true)) {
+			try (Generator<Integer> gen2 = x.generate(InfiniteGen.class, 500000000)) {
 				for (Integer i : gen2) {
 					x.print(i);
-					if (i == 10) {
+					if (i == 100000) {
 						break;
 					}
 				}

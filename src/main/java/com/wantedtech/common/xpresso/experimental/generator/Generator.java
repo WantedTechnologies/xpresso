@@ -32,19 +32,28 @@ public class Generator<T> implements Iterable<T>, AutoCloseable {
 	public Generator(){
 	}
 	
+	private synchronized void setAvaliable(boolean flag) {
+		nextItemAvailable = flag;
+		notifyAll();
+	}
+	
 	@Override
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 
 			public boolean hasNext() {
+				//x.print("has_in1");
 				if (producer == null) {
 					startProducer();
 				}
+				//x.print("has_in2");
 				waitForNext();
+				//x.print("has_out" + hasFinished);
 				return !hasFinished;
 			}
 
 			public T next() {
+				//x.print("next_in");
 				if (producer == null) {
 					startProducer();
 					waitForNext();
@@ -52,32 +61,40 @@ public class Generator<T> implements Iterable<T>, AutoCloseable {
 				if (hasFinished) {
 					throw new NoSuchElementException();
 				}
-				nextItemAvailable = false;
+				setAvaliable(false);
+				//x.print("next_out");
 				return nextItem;
-			}
-
-			private void waitForNext() {
-				
-				while (isStillNeeded) {
-					x.print("still running");
-					if (nextItemAvailable || hasFinished) {
-						break;
-					}
-				}
-				
 			}
 		};
 	}
 
-	protected void yield(T element) {
-		x.print("yields");
+	private synchronized void waitForNext() {
+		while (isStillNeeded && !nextItemAvailable && !hasFinished) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	protected synchronized void yield(T element) {
 		if (!isStillNeeded) {
 			throw new NoSuchElementException();
 		}
 		nextItem = element;
-		nextItemAvailable = true;
+		setAvaliable(true);
+		//x.print("gggg");
 		while (nextItemAvailable && isStillNeeded) {
-			x.print("still running2");
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+			//x.print(nextItemAvailable, nextItem, producer.isAlive());
 		} 
 	}
 
@@ -115,6 +132,7 @@ public class Generator<T> implements Iterable<T>, AutoCloseable {
 					//e.printStackTrace();
 					isStillNeeded = false;
 				}
+				//x.print("finished");
 				hasFinished = true;
 			}
 		});
