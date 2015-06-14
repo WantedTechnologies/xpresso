@@ -7,7 +7,7 @@ xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, spli
 
 xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.memo, x.Object, x.timer, x.Json, x.mysql, x.csv and others.
 
-Less boilerplate, more fun, more work done.
+Less boilerplate, more fun, more work done.ge
 
 License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
 
@@ -243,20 +243,20 @@ for i in firstn(500000):
 
 xpresso:
 ```
-class FirstN extends Generator<Integer> {
-	public void generator(int n) {
-		int num = 0;
-		while (num < n) {
-			yield(num);
-			num++;
+public Generator<Integer> firstn (final int max) {
+	return new Generator<Integer>() {
+		public void generate() {
+			int num = 0;
+			while (num < n) {
+				yield(num);
+				num++;
+			}
 		}
-	}
+	};
 }
 
-try (Generator<Integer> iter = x.generate(FirstN.class, 500000) {
-	for (int i : iter) 
-		x.print(i);
-}
+for (int i : firstn(500000)) 
+	x.print(i);
 ```
 
 #### Memoization
