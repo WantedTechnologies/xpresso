@@ -320,8 +320,8 @@ Console: true
 #### CSV
 Read from file:
 ```
-try (csv f = x.csv("filename.txt","r","utf-8") {
-	for (list<String> line : f) {
+try (HappyFile f = x.open("filename.txt","r","utf-8")) {
+	for (list<String> line : x.csv(f)) {
 		//do stuff
 	}
 }
@@ -333,9 +333,9 @@ list<list<String>> data = x.list(x.csv("filename.txt","r","utf-8"));
 
 Write to file:
 ```
-try (csv f = x.csv("filename.txt","w","utf-8") {
+try (HappyFile f = x.open("filename.txt","w","utf-8")) {
 	for (list<?> line : data){
-		csv.writerow(line);
+		x.csv(f).writerow(line);
 	}
 }
 ```
