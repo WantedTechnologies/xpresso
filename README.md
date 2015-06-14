@@ -30,7 +30,7 @@ Imports: set, dict, list, tuple, DefaultDict, OrderedDict, Bag, HappyFile
 
 
 #### Slicable and iterable str type
-
+```
 str city = x.str("New York City");
 
 x.print(city.slice(4,8));
@@ -105,6 +105,8 @@ dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),
 
 #### Functions and predicates
 ```
+import com.wantedtech.common.funcional.*
+
 Function<Object, String> toUpperCaseFun = new Function<Object, String>() {
 	public String apply(Object value) {
 		return value.toString().toUpperCase();
