@@ -349,10 +349,9 @@ try (HappyFile f = x.open("filename.txt","w","utf-8")) {
 Write to a StringBuilder:
 ```
 StringBuilder builder = new StringBuilder();
-csv c = x.csv(builder);
 
 for (list<?> line : data) {
-	c.writerow(line);
+	x.csv(builder).writerow(line);
 }
 
 String cs = c.toString();
