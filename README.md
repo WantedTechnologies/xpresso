@@ -3,7 +3,7 @@ The pythonic way to code in Java.
 
 xpresso is a Java library inspired by Python. It allows a (near) line-into-line rewrite of a Python code into Java. It's also a great way to prototype your algorithms directly in Java.
 
-xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, lambda expressions, filtering iterables using predicates and modifying them using functions).
+xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, generators, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
 xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.memo (a universal memoizer), x.Object (a universal *hashCode*, *compareTo*, and *equals* method builder), x.timer (a static timer), x.Json (a fast JSON I/O), x.mysql and others.
 
