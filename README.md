@@ -225,6 +225,38 @@ x.print(plansData);
 Console: [(2016, Paris)]
 ```
 
+#### Generators
+Python:
+```
+def firstn(n):
+	num = 0
+	while num < n:
+		yield num
+		num += 1
+
+for i in first(500000):
+	print i
+```
+
+xpresso:
+```
+class FirstN extends Generator<Integer> {
+	public void generator(int n) {
+		int num = 0;
+		while (num < n) {
+			yield(num);
+		}
+		num += 1;
+	}
+};
+
+try (Generator<Integer> iter = x.generate(FirstN.class, 500000) {
+	for (int i : iter) {
+		x.print(i);
+	}
+}
+```
+
 #### Memoization
 
 As a quick example, let *xerox* be a *Function* object whose method *apply* copies the string *"hello"* the given number *count* of times:
