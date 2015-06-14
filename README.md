@@ -243,7 +243,7 @@ for i in firstn(500000):
 
 xpresso:
 ```
-public Generator<Integer> firstn (final int max) {
+public Generator<Integer> firstn (final int n) {
 	return new Generator<Integer>() {
 		public void generate() {
 			int num = 0;
