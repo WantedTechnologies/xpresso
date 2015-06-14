@@ -245,8 +245,8 @@ class FirstN extends Generator<Integer> {
 		int num = 0;
 		while (num < n) {
 			yield(num);
+			num++;
 		}
-		num += 1;
 	}
 };
 
