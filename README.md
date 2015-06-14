@@ -23,11 +23,13 @@ x.print("Hello World!");
 
 #### Types similar to pythonic ones
 
-set, dict, list, tuple, DefaultDict, OrderedDict, Bag (similar to Python's Counter)
-
-#### Slicable and iterable **str** type
 ```
-import com.wantedtech.common.xpresso.types.str;
+import com.wantedtech.common.xpresso.types.*
+```
+Imports: set, dict, list, tuple, DefaultDict, OrderedDict, Bag, HappyFile
+
+
+#### Slicable and iterable str type
 
 str city = x.str("New York City");
 
@@ -37,7 +39,8 @@ Console: York
 ```
 
 ```
-for (String character : city) x.print(character);
+for (String character : city)
+	x.print(character);
 
 Console: N
 e
@@ -59,8 +62,6 @@ with open("name.txt","r","utf-8") as f:
 
 xpresso:
 ```
-import com.wantedtech.common.xpresso.types.HappyFile;
- 
 try (HappyFile f = x.open("name.txt","r","utf-8")) {
 	//do stuff
 }
@@ -71,12 +72,14 @@ As in Python, a file opened for reading in text mode is an Iterable of strings:
 
 Python:
 ```
-for line in f: print line
+for line in f:
+	print line
 ```
 
 xpresso:
 ```
-for (String line : f) x.print(line);
+for (String line : f)
+	x.print(line);
 ```
 
 #### Neat standard object creation
@@ -93,8 +96,6 @@ rank = dict(("Moscow":30),("Saint-Petersburg":15),("New York":20),("London":10),
 
 xpresso:
 ```
-import com.wantedtech.common.xpresso.types.*; //imports list, set, dict, tuple,...
-
 list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
 
 set<String> russianCities = x.set("Moscow","Saint-Petersburg");
@@ -449,7 +450,7 @@ Approximate string comparison:
 ```
 x.print(x.String("Hello World").similarity("Hello Wold!"))
 
-Console:  0.82
+Console: 0.82
 ```
 
 Approximate pattern matching:
@@ -556,13 +557,13 @@ for (Match longWordMatch : x.Regex("\\b\\w{10,}\\b").searchIter(text))
 Python:
 ```
 for long_word in re.findall("\b\w{10,}\b",text):
-    print long_word
+	print long_word
 ```
 
 xpresso:
 ```
 for (String longWord : x.Regex("\\b\\w{10,}\\b").searchAll(text))
-    x.print(longWord);
+	x.print(longWord);
 ```
 
 #### Replace with a Function
@@ -589,13 +590,6 @@ text = x.Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
 Regex.searchIter and Regex.searchAll replace Python's re.findIter and re.findAll.
 
 #### Replace with a dict
-
-Python:
-```
-not available
-```
-
-xpresso:
 ```
 dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
 
@@ -605,7 +599,7 @@ text = x.Regex(replacer).sub(text);
 #### The Token type
 ```
 Token tok = x.Token("MySQL5");
-x.print(tok.shape, tok.isCamel, tok.hasDigits, tok.hasRussian);
+x.print(tok.shape(), tok.isCamel(), tok.hasDigits(), tok.hasRussian());
 
 Console: ULUUUD, true, true, false
 ```
@@ -678,7 +672,6 @@ x.assertNotEmpty(string);
 
 x.assertNotEmpty(array);
 ```
-Throws
 
 #### Built-in iterators
 
