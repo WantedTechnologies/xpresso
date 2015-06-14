@@ -122,7 +122,7 @@ Console: [DUBAI, NEW YORK, LONDON, PARIS, MOSCOW, LONDON, SAINT-PETERSBURG, NEW 
 ```
 Predicate<Object> containsO = new Predicate<Object>() {
 	public Boolean apply(Object value) {
-		return value.toString().contains("o") ? true : false;
+		return x.String("o").in(value.toString()) ? true : false;
 	}
 };
 
