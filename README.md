@@ -318,6 +318,7 @@ Console: true
 ```
 
 #### CSV
+Read from file:
 ```
 try (csv f = x.csv("filename.txt","r","utf-8") {
 	for (list<String> line : f) {
@@ -325,29 +326,40 @@ try (csv f = x.csv("filename.txt","r","utf-8") {
 	}
 }
 ```
+Or, simply:
+```
+list<list<String>> data = x.list(x.csv("filename.txt","r","utf-8"));
+```
 
+Write to file:
 ```
 try (csv f = x.csv("filename.txt","w","utf-8") {
-	for (list<?> line : iterable){
+	for (list<?> line : data){
 		csv.writerow(line);
 	}
 }
 ```
+Or, simply:
+```
+try (HappyFile f = x.open("filename.txt","w","utf-8")) {
+	f.write(x.csv(data).toString());
+}
+```
 
+Write to a StringBuilder:
 ```
 StringBuilder builder = new StringBuilder();
 csv c = x.csv(builder);
 
-for (list<?> line : iterable) {
+for (list<?> line : data) {
 	c.writerow(line);
 }
 
 String cs = c.toString();
 ```
-
-Because the constructor of *csv* class can take iterables as input, the previous block of code can be written in a much shorter way:
+Or, simply:
 ```
-String cs = x.csv(iterable).toString();
+String cs = x.csv(data).toString();
 ```
 
 #### MySQL
@@ -363,7 +375,6 @@ try (HappySQL sql = x.mysql(host, user, password, db)) {
 		"SELECT ID FROM " +
 		"tbl_Employees e " +
 		"WHERE e.Name LIKE ?";
-		
 		for (tuple row : sql.execute(query, "John %")) {
 			query =
 			"UPDATE tbl_Employees " +
