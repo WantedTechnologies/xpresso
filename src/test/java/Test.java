@@ -13,6 +13,19 @@ import com.wantedtech.common.xpresso.types.tuples.tuple3;
 
 public class Test {
 	
+	public static Generator<Integer> gen5(final int max) {
+		return new Generator<Integer>() {
+			@Override
+			public void generate() {
+				int i = 0;
+				while (i < max) {
+					i++;
+					yield(i);
+				}
+			}
+		};
+	};
+	
 	public static void main(String[] args) throws Exception {
 		try{
 			
@@ -341,24 +354,12 @@ public class Test {
 			
 			x.print("uuuu",x.csv(lst6).toString());
 			
-			class InfiniteGen extends Generator<Integer> {
-				public void generator(int max) {
-					int i = 0;
-					while (i < max) {
-						i++;
-						yield(i);
-					}
-				}
-			}
-			
-			try (Generator<Integer> gen2 = x.generate(InfiniteGen.class, 500000000)) {
-				for (Integer i : gen2) {
+				for (Integer i : gen5(50000000)) {
 					x.print(i);
-					if (i == 100000) {
+					if (i == 10) {
 						break;
 					}
 				}
-			}
 			//x.Time.sleep(10);
 			
 			

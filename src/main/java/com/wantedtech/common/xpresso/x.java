@@ -50,7 +50,7 @@ import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
 import com.wantedtech.common.xpresso.csv.CSV;
-import com.wantedtech.common.xpresso.experimental.generator.Generator;
+import com.wantedtech.common.xpresso.experimental.generator.Generator0;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
@@ -128,7 +128,8 @@ public class x {
 		new Assert().notEmpty(expression, message);
 	}
 	
-	public static <T> Generator<T> generate(Class<? extends Generator<T>> generator, Object... params) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	/*
+	public static <T> Generator0<T> generate(Class<? extends Generator0<T>> generator, Object... params) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		x.assertNotNull(generator);
 		boolean foundGenerateMethod = false;
 		for (Method m : generator.getMethods()){
@@ -155,10 +156,11 @@ public class x {
 		x.assertTrue(foundGenerateMethod, "The class " + generator.getName() + " does not have the generate method. It's not a valid generator.");
 		Constructor<?> m = generator.getDeclaredConstructor();
 		m.setAccessible(true);
-		Generator<T> g = generator.cast(m.newInstance()).input(params);
+		Generator0<T> g = generator.cast(m.newInstance()).input(params);
 		return g;
 
 	}
+	*/
 	
 	/**
 	 * 

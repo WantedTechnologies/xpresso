@@ -1,11 +1,14 @@
 package com.wantedtech.common.xpresso.experimental.generator;
 
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
-public abstract class Generator<T> implements Iterable<T> {
+public abstract class Generator0<T> implements Iterable<T>, AutoCloseable {
 
 	static ThreadGroup THREAD_GROUP;
 
@@ -14,14 +17,21 @@ public abstract class Generator<T> implements Iterable<T> {
 	private T nextItem;
 	private boolean nextItemAvailable;
 	private boolean isStillNeeded = true;
+	Generator0<T> thisGeneratoObject = this;
 	
-	public Generator(boolean bool){
+	public Object[] params;
+	
+	
+	public Generator0<T> input(Object... params){
+		this.params = params;
+		return this;
 	}
 	
-	public Generator(){
+	public Generator0(boolean bool){
 	}
 	
-	public abstract void generate();
+	public Generator0(){
+	}
 	
 	private synchronized void setAvaliable(boolean flag) {
 		nextItemAvailable = flag;
@@ -61,11 +71,11 @@ public abstract class Generator<T> implements Iterable<T> {
 
 	private synchronized void waitForNext() {
 		while (isStillNeeded && !nextItemAvailable && !hasFinished) {
-			//x.print("I wait!");
 			try {
 				wait();
 			} catch (InterruptedException e) {
-
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
 			}
 		}
 		
@@ -77,13 +87,15 @@ public abstract class Generator<T> implements Iterable<T> {
 		}
 		nextItem = element;
 		setAvaliable(true);
+		//x.print("gggg");
 		while (nextItemAvailable && isStillNeeded) {
-			//x.print("I wait2!");
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
 			}
+			//x.print(nextItemAvailable, nextItem, producer.isAlive());
 		} 
 	}
 
@@ -97,31 +109,46 @@ public abstract class Generator<T> implements Iterable<T> {
 			@Override
 			public void run() {
 				try {
-					//x.print("starting!");
-					generate();
-					//x.print("finished!");
+						Class<?>[] classes = new Class<?>[x.len(params)];
+						
+						for (int idx : x.count(params)) {
+							Class<?> cls = params[idx].getClass();
+							if (cls.equals(Integer.class)) {
+								cls = int.class;
+							} else if (cls.equals(Float.class)) {
+								cls = float.class;
+							} else if (cls.equals(Double.class)) {
+								cls = double.class;
+							} else if (cls.equals(Boolean.class)) {
+								cls = boolean.class;
+							}
+							classes[idx] = cls;
+						}
+						Method m = thisGeneratoObject.getClass().getMethod("generator", classes);
+						m.setAccessible(true);
+						m.invoke(thisGeneratoObject, params);
 
 				} catch (Exception e) {
+					//e.printStackTrace();
 					isStillNeeded = false;
-				} finally {
-					//x.print("finally");
-					hasFinished = true;	
 				}
-
+				//x.print("finished");
+				hasFinished = true;
 			}
 		});
 		producer.setDaemon(true);
 		producer.start();
 	}
-	
-	@Override
-	protected void finalize() {
-		try {
-			//x.print("I finlize!");
-			isStillNeeded = false;
-		} catch (Exception e) {
 
+	@Override
+	public void close() {
+		try {
+			
+			isStillNeeded = false;
+			producer = null;
+			
+		} catch (Exception e) {
+			
 		}
 	}
-	
 }
