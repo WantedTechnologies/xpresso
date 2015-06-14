@@ -234,7 +234,7 @@ def firstn(n):
 		yield num
 		num += 1
 
-for i in first(500000):
+for i in firstn(500000):
 	print i
 ```
 
