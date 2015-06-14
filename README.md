@@ -321,7 +321,7 @@ Console: true
 Read from file:
 ```
 try (HappyFile f = x.open("filename.txt","r","utf-8")) {
-	for (list<String> line : x.csv(f)) {
+	for (list<String> row : x.csv(f)) {
 		//do stuff
 	}
 }
@@ -334,8 +334,8 @@ list<list<String>> data = x.list(x.csv("filename.txt","r","utf-8"));
 Write to file:
 ```
 try (HappyFile f = x.open("filename.txt","w","utf-8")) {
-	for (list<?> line : data){
-		x.csv(f).writerow(line);
+	for (list<?> row : data){
+		x.csv(f).writerow(row);
 	}
 }
 ```
@@ -350,8 +350,8 @@ Write to a StringBuilder:
 ```
 StringBuilder builder = new StringBuilder();
 
-for (list<?> line : data) {
-	x.csv(builder).writerow(line);
+for (list<?> row : data) {
+	x.csv(builder).writerow(row);
 }
 
 String cs = c.toString();
