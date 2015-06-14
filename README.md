@@ -110,7 +110,7 @@ Function<Object, String> toUpperCaseFun = new Function<Object, String>() {
 	}
 };
 
-list<String> tripsUp = trips.mapped(toUpperCaseFun);
+list<String> tripsUp = x.map(toUpperCaseFun, trips);
 x.print(tripsUp);
 
 Console: [DUBAI, NEW YORK, LONDON, PARIS, MOSCOW, LONDON, SAINT-PETERSBURG, NEW YORK]
@@ -123,7 +123,7 @@ Predicate<Object> containsO = new Predicate<Object>() {
 	}
 };
 
-list<String> tripsO = trips.filtered(containsO);
+list<String> tripsO = x.filter(containsO, trips);
 x.print(tripsO);
 
 Console: [New York, London, Moscow, London, New York]
@@ -137,7 +137,7 @@ best_cities = reversed(sorted(item for item in rank.items(),lambda x: x[0]))
 
 xpresso:
 ```
-list<String> bestCities = x.reversed(x.sorted(yield().forEach(rank.items()),x.lambdaF("x: x[0]")));
+list<String> bestCities = x.reverse(x.sort(yield().forEach(rank.items()),x.lambdaF("x: x[0]")));
 ```
 
 More complex lambda expressions:
@@ -816,8 +816,8 @@ Console: [Saint-Petersbourg, San Francisco]
 ```
 
 #### More
-* Invert dict: ```dict.inverted();```
-* Flatten list: ```list.flattened();```
+* Invert dict: ```dict.invert();```
+* Flatten list: ```list.flatten();```
 * Modify list using slicing: ```trips.setAt(3, 5).values(x.list(1, 2, 3, 4, 5));```
 * Case insensitive regex shortcut: ```x.RegexNoCase("\\bmama\\b")```
 * Replace each match by an empty string: ```x.Regex("[,.;]").clear(inputString)```
