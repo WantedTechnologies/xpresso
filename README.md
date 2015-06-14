@@ -26,7 +26,7 @@ x.print("Hello World!");
 ```
 import com.wantedtech.common.xpresso.types.*
 ```
-Imports: set, dict, list, tuple, DefaultDict, OrderedDict, Bag, HappyFile
+Imports: set, dict, list, tuple, DefaultDict, OrderedDict, Bag, HappyFile, HappySQL
 
 
 #### Slicable and iterable str type
