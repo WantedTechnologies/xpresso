@@ -1,5 +1,8 @@
 package com.wantedtech.common.xpresso.helpers;
 
+import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.types.set;
+
 
 public class HappyObject {
 	
@@ -37,6 +40,26 @@ public class HappyObject {
 		} catch (Exception e0) {
 			return false;
 		}
+	}
+	
+	public boolean in(Iterable<?> iterable) {
+		if(x.len(iterable) == 0) {
+			return false;
+		} else {
+			if (iterable instanceof set<?>) {
+				return ((set<?>)(iterable)).contains(lhs);
+			}
+			for (Object element : iterable) {
+				if (element.equals(lhs)) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
+	public boolean notIn(Iterable<?> iterable) {
+		return !in(iterable);
 	}
 	
 }

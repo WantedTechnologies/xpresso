@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.time.Time;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
@@ -44,7 +42,7 @@ public class Test {
 			title = title.translate(analogs);
 			x.assertTrue(title.toString().equals("Hello<\" World"));
 			
-			str sortedTitle = x.sorted(title,true);
+			str sortedTitle = x.sort(title,true);
 			x.assertTrue(sortedTitle.toString().equals("roollledWH<\" "));
 			
 			for (tuple item : x.enumerate(title)){
@@ -127,7 +125,7 @@ public class Test {
 			
 			x.print(x.Regex("(?<name1>a)|(?<name2>b)").search("mama").group(1));
 			
-			list<String> flatten = lst6.flattened(String.class);
+			list<String> flatten = lst6.flatten(String.class);
 			
 			x.print("flatten",flatten); 
 			
@@ -209,7 +207,7 @@ public class Test {
 				}
 			};
 
-			list<String> tripsUp = trips.mapped(toUpper);
+			list<String> tripsUp = x.list(x.map(toUpper, trips));
 			x.print(tripsUp);
 
 			Predicate<Object> containsO = new Predicate<Object>() {
@@ -218,7 +216,7 @@ public class Test {
 				}
 			};
 
-			list<String> tripsO = trips.filtered(containsO);
+			list<String> tripsO = x.list(x.filter(containsO, trips));
 			x.print(tripsO);
 			
 			Function<Object,Integer> incrementFun = x.lambdaF("x : x + 1");
@@ -240,7 +238,7 @@ public class Test {
 			
 			list<Integer> ranks = x.list(x.<Integer>yield().apply(x.invoke("toLowerCase")).forEach(coolCities));
 			
-			list<tuple2<String,Integer>> sr = x.list(x.sorted(rank.items(), x.<Integer>invoke("get", 1)));
+			list<tuple2<String,Integer>> sr = x.list(x.sort(rank.items(), x.<Integer>invoke("get", 1)));
 			
 			x.print(sr);
 			
@@ -256,6 +254,8 @@ public class Test {
 			x.print(x.tuple(x.last(unzipped.value0), x.avg(unzipped.value1), x.max(unzipped.value2)));
 			
 			list<String> ids = x.list("name1","name2");
+			
+			x.print(x.Object("name1").in(ids));
 			
 			list<tuple> filtered = x.list(x.<tuple>yield().forEach(items).when(x.lambdaP("x : f1(f0(x))",x.invoke("get",0),x.in(ids))));
 			

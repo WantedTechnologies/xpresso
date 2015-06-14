@@ -2,8 +2,11 @@ package com.wantedtech.common.xpresso.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.set;
@@ -60,6 +63,29 @@ public class Helpers {
 	
 	public static <T> HashMap<String,T> newHashMap(dict<T> dict){
 		return dict.toHashMap();
+	}
+	
+	public static <T> HashSet<T> newHashSet(Iterable<T> iterable){
+		HashSet<T> newHashSet = new HashSet<T>();
+		if(iterable instanceof Set<?>){
+			newHashSet.addAll((Set<T>)iterable);	
+		}else if(iterable instanceof List<?>){
+			newHashSet.addAll((List<T>)iterable);
+		}else{
+			for (T element : iterable){
+				newHashSet.add(element);
+			}	
+		}
+		return newHashSet;
+	}
+	
+	@SafeVarargs
+	public static <T> HashSet<T> newHashSet(T... elements){
+		HashSet<T> newHashSet = new HashSet<T>();
+		for (T element : elements){
+			newHashSet.add(element);
+		}
+		return newHashSet;
 	}
 	
 	public static int hashCode(Object o, String... excludeFields){

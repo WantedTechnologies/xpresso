@@ -177,10 +177,10 @@ public class Bag<T> implements Iterable<T>{
 		return mostCommonN(x.len(map));
 	}
 	public list<T> leastCommonN(int N){
-		return x.list(x.reversed(mostCommonN())).sliceTo(N);
+		return x.list(x.reverse(mostCommonN())).sliceTo(N);
 	}
 	public list<T> leastCommonN(){
-		return x.list(x.reversed(mostCommonN()));
+		return x.list(x.reverse(mostCommonN()));
 	}
 
 	@Override

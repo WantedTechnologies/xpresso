@@ -38,11 +38,11 @@ public abstract class AbstractTuple implements tuple {
     
     public boolean in(Iterable<tuple> iterable){
     	if(iterable instanceof Bag<?>){
-    		return ((Bag<tuple>)iterable).tokens().contains(this);
+    		return x.Object(this).in(((Bag<tuple>)iterable).tokens());
     	}else if(iterable instanceof list<?>){
-    		return ((list<tuple>)iterable).contains(this);
+    		return x.Object(this).in(((list<tuple>)iterable));
     	}else if(iterable instanceof set<?>){
-    		return ((set<tuple>)iterable).contains(this);
+    		return x.Object(this).in(((set<tuple>)iterable));
     	}else if(iterable instanceof List<?>){
     		return ((List<tuple>)iterable).contains(this);
     	}else if(iterable instanceof Set<?>){

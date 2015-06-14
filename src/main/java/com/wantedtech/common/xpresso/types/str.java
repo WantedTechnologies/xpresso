@@ -102,7 +102,7 @@ public class str extends list<String> implements Iterable<String>{
 		return this.toString().contains(str.toString());
 	}
 	
-	public str mapped(Function<Object,String> function){
+	public str map(Function<Object,String> function){
 		str newStr = x.str();
 		for(String element : this.list){
 			newStr.append(function.apply(element));
@@ -110,7 +110,7 @@ public class str extends list<String> implements Iterable<String>{
 		return newStr;
 	}
 	
-	public str filtered(Predicate<Object> predicate){
+	public str filter(Predicate<Object> predicate){
 		str newStr = x.str();
 		for(String element : this.list){
 			if(predicate.apply(element)){

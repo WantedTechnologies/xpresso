@@ -9,6 +9,7 @@ import java.util.Set;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 
 public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	/**
@@ -25,32 +26,10 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		if(iterable instanceof set<?>){
 			this.set = ((set<T>)iterable).toHashSet();
 		}else{			
-			this.set = newHashSet(iterable);
+			this.set = Helpers.newHashSet(iterable);
 		}
 	}
-	
-	public static <T> HashSet<T> newHashSet(Iterable<T> iterable){
-		HashSet<T> newHashSet = new HashSet<T>();
-		if(iterable instanceof Set<?>){
-			newHashSet.addAll((Set<T>)iterable);	
-		}else if(iterable instanceof List<?>){
-			newHashSet.addAll((List<T>)iterable);
-		}else{
-			for (T element : iterable){
-				newHashSet.add(element);
-			}	
-		}
-		return newHashSet;
-	}
-	
-	@SafeVarargs
-	public static <T> HashSet<T> newHashSet(T... elements){
-		HashSet<T> newHashSet = new HashSet<T>();
-		for (T element : elements){
-			newHashSet.add(element);
-		}
-		return newHashSet;
-	}
+
 	
 	public void absorb(Iterable<T> anotherSet){
 		if(anotherSet instanceof Set<?>){
@@ -88,7 +67,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		}else if(anotherSet instanceof set<?>){
 			this.set.retainAll(((set<T>)anotherSet).toHashSet());
 		}else{
-			HashSet<T> anotherSetAsSet = newHashSet(anotherSet);
+			HashSet<T> anotherSetAsSet = Helpers.newHashSet(anotherSet);
 			for (T element : this.set){
 				if(!anotherSetAsSet.contains(element)){
 					this.set.remove(element);
@@ -98,7 +77,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	}
 	
 	public set<T> union(Iterable<T> anotherSet){
-		HashSet<T> newHashSet = newHashSet(this.set);
+		HashSet<T> newHashSet = Helpers.newHashSet(this.set);
 		if(anotherSet instanceof Set<?>){
 			newHashSet.addAll((Set<T>)anotherSet);	
 		}else if(anotherSet instanceof List<?>){
@@ -124,12 +103,12 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	}
 	
 	public set<T> intersection(set<T> anotherSet){
-		Set<T> setCopy = newHashSet(this.set);
+		Set<T> setCopy = Helpers.newHashSet(this.set);
 		setCopy.retainAll(anotherSet.toHashSet());
 		return x.set(setCopy);
 	}
 	public set<T> intersection(Set<T> anotherSet){
-		Set<T> setCopy = newHashSet(this.set);
+		Set<T> setCopy = Helpers.newHashSet(this.set);
 		setCopy.retainAll(anotherSet);
 		return x.set(setCopy);
 	}
@@ -181,24 +160,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		return difference(elements);
 	}
 	
-	public set<T> transformed(Function<Object,T> function){
-		set<T> newSet = x.set();
-		for(T element : this.set){
-			newSet.put(function.apply(element));
-		}
-		return newSet;
-	}
-	
-	public set<T> filtered(Predicate<Object> predicate){
-		set<T> newSet = x.set();
-		for(T element : this.set){
-			if(predicate.apply(element)){
-				newSet.put(element);	
-			}
-		}
-		return newSet;
-	}
-	
+	@Deprecated
 	public boolean contains(Object value){
 		return this.set.contains(value);
 	}
@@ -229,7 +191,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	}
 	
 	public HashSet<T> toHashSet(){
-		return newHashSet(this.set);
+		return Helpers.newHashSet(this.set);
 	}
 		
 	@Override
@@ -252,7 +214,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 	public boolean equals(Object o) {
 		if(o instanceof set<?>){
 			try{
-				return x.sorted(this,x.getHashCode).toString().equals(x.sorted((set<T>)o,x.getHashCode).toString());	
+				return x.sort(this,x.getHashCode).toString().equals(x.sort((set<T>)o,x.getHashCode).toString());	
 			}catch(Exception e){
 				return false;
 			}

@@ -510,8 +510,8 @@ public class HashCode {
             AccessibleObject.setAccessible(fields, true);
             for (final Field field : fields) {
                 if(
-                	!x.list(excludeFields).contains(field.getName())
-                    && !field.getName().contains("$")
+                	x.Object(field.getName()).notIn(x.list(excludeFields))
+                    && x.String("$").notIn(field.getName())
                     && (!Modifier.isTransient(field.getModifiers()))
                     && (!Modifier.isStatic(field.getModifiers()))
                     && (!field.isAnnotationPresent(HashCodeExclude.class))

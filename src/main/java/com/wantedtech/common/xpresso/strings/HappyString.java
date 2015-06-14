@@ -155,7 +155,7 @@ public class HappyString {
 		String translatedString = "";
 		int lastStop = 0;
 		dict<String> replacementDict = x.dict(fromTo);
-		list<tuple> sortedFromTo = x.list(x.reversed(x.sorted(fromTo,new LambdaFunction<Integer>("x:f0(x[0])",x.len))));
+		list<tuple> sortedFromTo = x.list(x.reverse(x.sort(fromTo,new LambdaFunction<Integer>("x:f0(x[0])",x.len))));
 		tuple froms__tos = x.unzip(sortedFromTo,String.class,String.class);
 		list<String> froms = (list<String>)froms__tos.get(0);
 		Regex regex = x.Regex(x.String("|").join(froms));
@@ -181,7 +181,7 @@ public class HappyString {
 	
 	public boolean in(String... elements){
 		list<String> lst = x.list(elements);
-		return lst.contains(this.value);
+		return x.Object(this.value).in(lst);
 	}
 	
 	public boolean in(str str){
@@ -190,7 +190,7 @@ public class HappyString {
 	
 	public boolean in(Iterable<String> iterable){
 		list<String> lst = x.list(iterable);
-		return lst.contains(this.value);
+		return x.Object(this.value).in(lst);
 	}
 	
 	public boolean in(String string){
@@ -255,7 +255,7 @@ public class HappyString {
 	}
 	
 	public String compress() {
-		return x.str(this.value).compressed().toString();
+		return x.str(this.value).compress().toString();
 	}
 	
 	public double similarity(String anotherString){

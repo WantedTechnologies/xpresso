@@ -603,7 +603,7 @@ public class x {
 	 */
 	@SafeVarargs
 	public static <T> set<T> set(T element0, T element1, T... elements){
-		return new set<T>(set.newHashSet(elements)).put(element0).put(element1);
+		return new set<T>(Helpers.newHashSet(elements)).put(element0).put(element1);
 	}
 	
 	/**
@@ -613,7 +613,7 @@ public class x {
 	 *  
 	 */
 	public static <T> set<T> set(T[] elements){
-		return new set<T>(set.newHashSet(elements));
+		return new set<T>(Helpers.newHashSet(elements));
 	}
 	
 	/**
@@ -1593,7 +1593,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Comparable<? super T>> T max(Iterable<T> iterable){
-		return x.<T>reduce(iterable, x.<T>max());
+		return x.<T>reduce(x.<T>max(), iterable);
 	}
 	
 	/**
@@ -1616,7 +1616,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Comparable<? super T>> T min(Iterable<T> iterable){
-		return x.<T>reduce(iterable, x.<T>min());
+		return x.<T>reduce(x.<T>min(), iterable);
 	}
 	
 	/**
@@ -1639,7 +1639,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Number> T sum(Iterable<T> iterable){
-		return x.<T>reduce(iterable, x.<T>add());
+		return x.<T>reduce(x.<T>add(), iterable);
 	}
 	
 	/**
@@ -1650,7 +1650,7 @@ public class x {
 	 */
 	public static <T extends Number> T avg(Iterable<T> iterable){
 		x.assertNotEmpty(iterable);
-		double result = (x.<T>reduce(iterable, x.<T>add())).doubleValue()/x.len(iterable);
+		double result = (x.<T>reduce(x.<T>add(), iterable)).doubleValue()/x.len(iterable);
 		Class<?> cls = iterable.iterator().next().getClass();
 		if(cls.equals(Double.class)){
 			return (T)(Object)result;
@@ -1696,14 +1696,14 @@ public class x {
 	 * @param step		the increment
 	 * 
 	 */
-	public static Iterable<Integer> count(final int min,final Integer max,final int step){
+	public static Iterable<Integer> count(final int min,final int max,final int step){
 		Iterable<Integer> generator = new Iterable<Integer>(){
 			public Iterator<Integer> iterator(){
 				return new Iterator<Integer>(){
 					int currentValue = min-step;
 					@Override
 					public boolean hasNext() {
-						if(currentValue < max-1 || max == null){
+						if(currentValue < max-1){
 							return true;
 						}
 						return false;
@@ -1720,6 +1720,13 @@ public class x {
 		return generator;
 	}
 	
+	/*
+	 * Alias for compatibility with Python.
+	 */
+	public static Iterable<Integer> range(final int min,final int max,final int step){
+		return range(min, max, step);
+	}
+	
 	/**
 	 * Returns the {@link Iterable} over {@link Integer} elements starting from @param min
 	 * with the increment of 1 between the values.
@@ -1732,6 +1739,12 @@ public class x {
 	 */
 	public static Iterable<Integer> count(int min,int max){
 		return count(min,max,1);
+	}
+	/*
+	 * Alias for compatibility with Python.
+	 */
+	public static Iterable<Integer> range(final int min,final int max){
+		return range(min, max, 1);
 	}
 	
 	/**
@@ -1754,8 +1767,25 @@ public class x {
 	 * @param min	start value
 	 * 
 	 */
-	public static Iterable<Integer> countFrom(int min){
-		return count(min,null,1);
+	public static Iterable<Integer> countFrom(final int min){
+		Iterable<Integer> generator = new Iterable<Integer>(){
+			public Iterator<Integer> iterator(){
+				return new Iterator<Integer>(){
+					int currentValue = min-1;
+					@Override
+					public boolean hasNext() {
+						return true;
+					}
+
+					@Override
+					public Integer next() {
+						currentValue += 1;
+						return currentValue;
+					}
+				};
+			}
+		};
+		return generator;
 	}
 
 	/**
@@ -1848,6 +1878,36 @@ public class x {
 	}
 	
 	/**
+	 * Returns the {@link Iterable} over {@link Integer} elements starting from 0
+	 * with the increment of step between the values.
+	 * 
+	 * The last returned value by the Iterator will be the biggest {@link Integer} less than
+	 * the length of the input array. 
+	 * 
+	 * @param array
+	 * @param step		the increment
+	 * 
+	 */
+	public static <T> Iterable<Integer> count(T[] array, int step){
+		return count(Helpers.newArrayList(array),step);
+	}
+	
+	/**
+	 * Returns the {@link Iterable} over {@link Integer} elements starting from 0
+	 * with the increment of 1 between the values.
+	 * 
+	 * The last returned value by the Iterator will be the biggest {@link Integer} less than
+	 * the length of the input array. 
+	 * 
+	 * @param array
+	 * @param step		the increment
+	 * 
+	 */
+	public static <T> Iterable<Integer> count(T[] array){
+		return count(Helpers.newArrayList(array),1);
+	}
+	
+	/**
 	 * Applies the input {@link Function} to each element of the input {@link Iterable}
 	 * and returns a new {@link Iterable} containing the Functions' outputs of each element.
 	 * 
@@ -1857,7 +1917,7 @@ public class x {
 	 * @param <I,O>		input and output element types
 	 * 
 	 */
-	public static <I,O> Iterable<O> map(Iterable<I> iterable,Function<Object,O> function){
+	public static <I,O> Iterable<O> map(Function<Object,O> function, Iterable<I> iterable){
 		if(iterable instanceof set<?>){
 			set<O> newSet = new set<O>();
 			for (I element : iterable){
@@ -1883,7 +1943,7 @@ public class x {
 	 * @param <I>		input and output element types
 	 * 
 	 */
-	public static <I> I reduce(Iterable<I> iterable,Function<tuple2<I,I>,I> function){
+	public static <I> I reduce(Function<tuple2<I,I>,I> function, Iterable<I> iterable){
 		x.assertTrue(x.len(iterable) > 1);
 		Iterator<I> iter = iterable.iterator();
 		I output = function.apply(tuple2.valueOf(iter.next(), iter.next()));
@@ -1904,7 +1964,7 @@ public class x {
 	 * @param <T>	element types of the iterable
 	 * 
 	 */
-	public static <T> Iterable<T> filter(Iterable<T> iterable,Predicate<T> predicate){
+	public static <T> Iterable<T> filter(Predicate<Object> predicate, Iterable<T> iterable){
 		if(iterable instanceof set<?>){
 			set<T> newSet = new set<T>();
 			for (T element : iterable){
@@ -2227,7 +2287,7 @@ public class x {
 	 * 
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <T> Iterable<T> sorted(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function,boolean reverse){
+	public static <T> Iterable<T> sort(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function,boolean reverse){
 		ArrayList<KeyValue<?,T>> keyValues = new ArrayList<KeyValue<?,T>>();
 		for (T element: iterable){
 			if(function != null){
@@ -2262,8 +2322,8 @@ public class x {
 	 * @return a sorted {@link Iterable} of type T
 	 * 
 	 */
-	public static <T> Iterable<T> sorted(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function){
-		return sorted(iterable,function,false);
+	public static <T> Iterable<T> sort(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function){
+		return sort(iterable,function,false);
 	}
 	
 	/**
@@ -2277,8 +2337,8 @@ public class x {
 	 * @return a sorted {@link Iterable} of type T
 	 * 
 	 */
-	public static <T extends Comparable<T>> Iterable<T> sorted(Iterable<T> iterable, boolean reverse){
-		return sorted(iterable,null,reverse);
+	public static <T extends Comparable<T>> Iterable<T> sort(Iterable<T> iterable, boolean reverse){
+		return sort(iterable,null,reverse);
 	}
 	
 	/**
@@ -2290,8 +2350,8 @@ public class x {
 	 * @return a sorted {@link Iterable} of type T
 	 * 
 	 */
-	public static <T extends Comparable<T>> Iterable<T> sorted(Iterable<T> iterable){
-		return sorted(iterable,null,false);
+	public static <T extends Comparable<T>> Iterable<T> sort(Iterable<T> iterable){
+		return sort(iterable,null,false);
 	}
 	
 	/**
@@ -2304,8 +2364,8 @@ public class x {
 	 * @return a sorted {@link str} of type T
 	 * 
 	 */
-	public static str sorted(str str,Function<Object,? extends Comparable<?>> function,boolean reverse){
-		return x.str(sorted(str.toArrayList(),function,reverse));
+	public static str sort(str str,Function<Object,? extends Comparable<?>> function,boolean reverse){
+		return x.str(sort(str.toArrayList(),function,reverse));
 	}
 	
 	/**
@@ -2317,8 +2377,8 @@ public class x {
 	 * @return a sorted {@link str} of type T
 	 * 
 	 */
-	public static str sorted(str str,Function<Object,? extends Comparable<?>> function){
-		return x.str(sorted(str.toArrayList(),function,false));
+	public static str sort(str str,Function<Object,? extends Comparable<?>> function){
+		return x.str(sort(str.toArrayList(),function,false));
 	}
 	
 	/**
@@ -2328,12 +2388,12 @@ public class x {
 	 * @return a sorted {@link str} of type T
 	 * 
 	 */
-	public static str sorted(str str){
-		return x.str(sorted(str.toArrayList(),null,false));
+	public static str sort(str str){
+		return x.str(sort(str.toArrayList(),null,false));
 	}
 	
 	/**
-	 * Sorts in the given order (directe or reversed) the characters of the input {@link str}
+	 * Sorts in the given order (direct or reversed) the characters of the input {@link str}
 	 * according to {@link String#compareTo(String)}
 	 * applied to each chracter of the input {@link str}
 	 * @param str	a {@link str} string
@@ -2341,8 +2401,8 @@ public class x {
 	 * @return a sorted {@link str} of type T
 	 * 
 	 */
-	public static str sorted(str str, boolean reverse){
-		return x.str(sorted(str.toArrayList(),null,reverse));
+	public static str sort(str str, boolean reverse){
+		return x.str(sort(str.toArrayList(),null,reverse));
 	}
 	
 	/**
@@ -2350,7 +2410,7 @@ public class x {
 	 * @param iterable
 	 * 
 	 */
-	public static <T> Iterable<T> reversed(Iterable<T> iterable){
+	public static <T> Iterable<T> reverse(Iterable<T> iterable){
 		ArrayList<T> newArrayList = Helpers.newArrayList(iterable);
 		Collections.reverse(newArrayList);
 		return x.list(newArrayList);
@@ -2362,8 +2422,8 @@ public class x {
 	 * @param str
 	 * 
 	 */
-	public static str reversed(str str) throws IOException{
-		return x.str(reversed(Helpers.newArrayList(str)));
+	public static str reverse(str str) throws IOException{
+		return x.str(reverse(Helpers.newArrayList(str)));
 	}
 	
 	/**
@@ -2373,7 +2433,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Comparable<T>> Iterable<T> largestN(Iterable<T> iterable, int N){
-		return x.list(sorted(iterable,true)).sliceTo(N);
+		return x.list(sort(iterable,true)).sliceTo(N);
 	}
 	
 	/**
@@ -2383,7 +2443,7 @@ public class x {
 	 * 
 	 */
 	public static <T extends Comparable<T>> Iterable<T> smallestN(Iterable<T> iterable, int N){
-		return x.list(sorted(iterable)).sliceTo(N);
+		return x.list(sort(iterable)).sliceTo(N);
 	}
 	
 	/**

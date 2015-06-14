@@ -6,8 +6,9 @@ import java.util.NoSuchElementException;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
-public class Generator<T> implements Iterable<T>, AutoCloseable {
+public abstract class Generator<T> implements Iterable<T>, AutoCloseable {
 
 	static ThreadGroup THREAD_GROUP;
 
@@ -110,9 +111,8 @@ public class Generator<T> implements Iterable<T>, AutoCloseable {
 				try {
 						Class<?>[] classes = new Class<?>[x.len(params)];
 						
-						for (tuple item : x.enumerate(params)) {
-							item.name("idx","obj");
-							Class<?> cls = params[item.get("idx", Integer.class)].getClass();
+						for (int idx : x.count(params)) {
+							Class<?> cls = params[idx].getClass();
 							if (cls.equals(Integer.class)) {
 								cls = int.class;
 							} else if (cls.equals(Float.class)) {
@@ -122,7 +122,7 @@ public class Generator<T> implements Iterable<T>, AutoCloseable {
 							} else if (cls.equals(Boolean.class)) {
 								cls = boolean.class;
 							}
-							classes[item.get("idx", Integer.class)] = cls;
+							classes[idx] = cls;
 						}
 						Method m = thisGeneratoObject.getClass().getMethod("generator", classes);
 						m.setAccessible(true);
