@@ -24,7 +24,7 @@ x.print("Hello World!");
 #### Types similar to pythonic ones
 
 ```
-import com.wantedtech.common.xpresso.types.*
+import com.wantedtech.common.xpresso.types.*;
 ```
 Imports: set, dict, list, tuple, DefaultDict, OrderedDict, Bag, HappyFile, HappySQL
 
