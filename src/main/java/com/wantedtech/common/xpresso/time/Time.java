@@ -4,11 +4,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Time {
 	//get time in milliseconds
-	public static double time(){
+	public double time(){
 		double time = ((double)(System.currentTimeMillis())) / 1000d;
 		return time;
 	}
-	public static void sleep(int seconds){
+	public void sleep(int seconds){
 		try {
 			TimeUnit.SECONDS.sleep(seconds);
 		} catch (InterruptedException e) {

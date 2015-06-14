@@ -32,6 +32,9 @@ public class Helpers {
 	
 	public static <T> ArrayList<T> newArrayList(T[] values){
 		ArrayList<T> newArrayList = new ArrayList<T>();
+		if (values == null) {
+			return newArrayList;
+		}
 		for (T element : values){
 			newArrayList.add(element);	
 		}

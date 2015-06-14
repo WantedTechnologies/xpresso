@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 import java.io.IOException;
 import java.io.StringWriter;
 
@@ -17,12 +15,27 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 
 	HappyFile file;
 	StringBuilder builder;
+	Iterable<list<?>> iter;
 	
 	String initializedFrom;
 	
 	public csv (HappyFile file) {
 		this.file = file;
 		initializedFrom = "file";
+	}
+	
+	public csv (Iterable<?> iterable) {
+		if (iterable instanceof HappyFile) {
+			this.file = (HappyFile)iterable;
+			initializedFrom = "file";
+		} else {
+			try {
+				this.iter = (Iterable<list<?>>)iterable;
+				initializedFrom = "iter";
+			} catch (ClassCastException e) {
+				throw new ClassCastException("The input iterable has to be either a HappyFile or a Iterable<list<?>>.");
+			}
+		}
 	}
 	
 	public csv (String path, String operation, String encoding) throws IOException  {
@@ -106,5 +119,36 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 			
 		}		
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder b = new StringBuilder();
+		if(initializedFrom.equals("file") && file.getOperation().equals("r")){
+			for (String line : file) {
+				b.append(line);
+			}
+			return b.toString();
+		} else if (initializedFrom.equals("iter")) {
+			for (list<?> row : iter) {
+				List<String> rowAsList = new ArrayList<String>();
+				for (Object element : row) {
+					rowAsList.add(element.toString());
+				}
+		        StringWriter sw = new StringWriter();
+		        CSVWriter writer = new CSVWriter(sw);
+		        String[] arr = new String[x.len(rowAsList)];
+		        arr = rowAsList.toArray(arr);
+		        writer.writeNext(arr);
 
+				b.append(sw.toString());
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return b.toString();
+		}
+		return super.toString();
+	}
 }

@@ -361,14 +361,14 @@ public class Token extends HappyString {
 	
 	public boolean isMath() {
 		if (this.isMath == null) {
-			this.isMath = x.RegexNoCase("^[+-=*/\u2200-\u22ff]$").search(value) != null;
+			this.isMath = x.RegexNoCase("^[+=*/\u2200-\u22ff-]$").search(value) != null;
 		}
 		return this.isMath;
 	}
 	
 	public boolean hasMath() {
 		if (this.hasMath == null) {
-			this.hasMath = x.RegexNoCase("[+-=*/\u2200-\u22ff]").search(value) != null;
+			this.hasMath = x.RegexNoCase("[+=*/\u2200-\u22ff-]").search(value) != null;
 		}
 		return this.hasMath;
 	}
@@ -431,7 +431,7 @@ public class Token extends HappyString {
 	
 	public String lastTrigram() {
 		if (this.lastTrigram == null) {
-			this.lastTrigram = ("  " +  value).substring((" " +  value).length()-3).trim();
+			this.lastTrigram = ("  " +  value).substring((" " +  value).length()-2).trim();
 		}
 		return this.lastTrigram;
 	}

@@ -117,7 +117,7 @@ public class Test {
 			
 			x.print(x.String("hello").sliceTo(4),"0");
 			
-			x.print(Time.time());
+			x.print(x.Time.time());
 			
 			dict<String> translator = x.dict(x.tuple("a", "A"),x.tuple("b", "B"));
 			
@@ -143,20 +143,6 @@ public class Test {
 			list_int.add(1);
 			list_int.add(2);
 			list_int.add(3);
-			
-			Iterable<Integer> gen = new Generator<Integer>() {
-				public void define() throws InterruptedException{
-					int i = 0;
-					while(i<5){
-						yield(1);
-						i++;
-					}
-				}
-			};
-			
-			for(int val : gen){
-				x.print(val);
-			}
 			
 			dict<String> replacer = x.dict(x.tuple("\\bhaha\\b","ohoh"),x.tuple("\\bhjehe\\b","wow"));
 			x.print(x.Regex(replacer).sub("lala haha bebeb hehe ogogo"));
@@ -294,6 +280,7 @@ public class Test {
 
 			x.print(plansData);
 			
+			/*
 			try(HappySQL conn = x.mysql("10.0.5.32:3306", "wd", "", "jobs")){
 				String query =
 						"SELECT ID, Name FROM " +
@@ -310,7 +297,7 @@ public class Test {
 						conn2.execute(query, row.get("ID"), row.get("Name"));
 					}
 				}
-			}
+			}*/
 			
 			String stem = x.Token.stem("Working");
 			x.print(stem);
@@ -332,9 +319,9 @@ public class Test {
 			x.print(x.Token("Hello1").features());
 			 
 			x.print(x.String("Чичётка 北亰").unidecode());
-			 
+			
 			try(csv csv = new csv("/Users/andriy.burkov/Downloads"+"/test2.txt", "w")){
-				for (list<String> l : csv) {
+				for (list<String> l : lst6) {
 					csv.writerow(l);
 				}
 			}
@@ -344,6 +331,31 @@ public class Test {
 					x.print(l);
 				}
 			}
+			
+			x.print("uuuu",x.csv(lst6).toString());
+			
+			class InfiniteGen extends Generator<Integer> {
+				public void generator(int max, boolean hhh) {
+					int i = 0;
+					boolean ggg = hhh;
+					while (i < max || hhh) {
+						x.print("Still running");
+						i++;
+						yield(i);
+					}
+				}
+			};
+			
+			try (Generator<Integer> gen2 = x.generate(InfiniteGen.class, 5, true)) {
+				for (Integer i : gen2) {
+					x.print(i);
+					if (i == 10) {
+						break;
+					}
+				}
+			}
+			//x.Time.sleep(10);
+			
 			
 		}catch(Exception e){
 			throw e;

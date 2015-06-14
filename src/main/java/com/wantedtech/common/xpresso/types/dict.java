@@ -97,7 +97,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		if(this.dict.containsKey(key)){
 			return this.dict.get(key);
 		}else{
-			throw new NoSuchFieldException();
+			throw new NoSuchFieldException(key);
 		}
 	}
 	

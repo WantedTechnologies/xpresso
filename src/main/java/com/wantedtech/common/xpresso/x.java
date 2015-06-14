@@ -33,6 +33,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import com.wantedtech.common.xpresso.helpers.HappyObject;
 import com.wantedtech.common.xpresso.helpers.Helpers;
@@ -46,6 +49,7 @@ import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
+import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 import com.wantedtech.common.xpresso.functional.ParametrizedPredicate;
@@ -89,6 +93,13 @@ public class x {
 	}
 	
 	/**
+	 * Creates an Assert class object and calls its True method.
+	 */
+	public static void assertTrue(boolean expression, String message){
+		new Assert().True(expression, message);
+	}
+	
+	/**
 	 * Creates an Assert class object and calls its notNull method.
 	 */
 	public static <T> void assertNotNull(T expression){
@@ -96,10 +107,56 @@ public class x {
 	}
 	
 	/**
+	 * Creates an Assert class object and calls its notNull method.
+	 */
+	public static <T> void assertNotNull(T expression, String message){
+		new Assert().notNull(expression, message);
+	}
+	
+	/**
 	 * Creates an Assert class object and calls its notEmpty method.
 	 */
 	public static <T> void assertNotEmpty(T expression){
 		new Assert().notEmpty(expression);
+	}
+	
+	/**
+	 * Creates an Assert class object and calls its notEmpty method.
+	 */
+	public static <T> void assertNotEmpty(T expression, String message){
+		new Assert().notEmpty(expression, message);
+	}
+	
+	public static <T> Generator<T> generate(Class<? extends Generator<T>> generator, Object... params) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+		x.assertNotNull(generator);
+		boolean foundGenerateMethod = false;
+		for (Method m : generator.getMethods()){
+			if (m.getName().equals("generator")) {
+				foundGenerateMethod = true;
+				x.assertTrue(x.len(m.getParameterTypes()) == x.len(params), "The number of parameters sent to x.generate has to be the same as that used in the generator method of " + generator.getName());
+				for (tuple items : x.enumerate(m.getParameterTypes())){
+					int idx = items.get(0, int.class);
+					Class<?> type = items.get(1, Class.class);
+					Class<?> cls = params[idx].getClass();
+					if (cls.equals(Integer.class)) {
+						cls = int.class;
+					} else if (cls.equals(Float.class)) {
+						cls = float.class;
+					} else if (cls.equals(Double.class)) {
+						cls = double.class;
+					} else if (cls.equals(Boolean.class)) {
+						cls = boolean.class;
+					}
+					x.assertTrue(type.equals(cls), "Types of parameters sent to x.generate have to be the same as those used in the generator method of " + generator.getName());
+				}
+			}
+		}
+		x.assertTrue(foundGenerateMethod, "The class " + generator.getName() + " does not have the generate method. It's not a valid generator.");
+		Constructor<?> m = generator.getDeclaredConstructor();
+		m.setAccessible(true);
+		Generator<T> g = generator.cast(m.newInstance()).input(params);
+		return g;
+
 	}
 	
 	/**
@@ -312,21 +369,24 @@ public class x {
 	}
 	
 	/**
-	 * Creates a {@link csv} object from a {@link HappyFile}.
+	 * Creates a {@link csv} object from an iterable.
 	 * 
-	 * Example:
+	 * The Iterable can be either an instance of {@link HappyFile} or
+	 * an Iterable<list<?>>.
 	 * 
-	 * try (HappyFile f = x.open("filename.txt","r","utf-8"){
-	 * 		for (list<String> line : x.csv(f)){
-	 * 			//do stuff
-	 * 		}
-	 * }
+	 * When the input Iterable is a HappyFile, the csv object reads or writes
+	 * from/into the given HappyFile object.
+	 * 
+	 * When the input Iterable is an Iterable<list<?>>, the csv object can only
+	 * be used with the toString() function. It will generate the csv String representation
+	 * of the input Iterable and toString() will return this csv String representation
 	 * 
 	 * 
-	 * @param file		a {@link HappyFile} object
+	 * 
+	 * @param iterable		a {@link HappyFile} object or an Iterable<list<?>>
 	 */
-	public static csv csv(HappyFile file){
-		return new csv(file);
+	public static csv csv(Iterable<?> iterable){
+		return new csv(iterable);
 	}
 	
 	/**
@@ -1336,7 +1396,13 @@ public class x {
 		try{
 			return (Integer)(value.getClass().getMethod("length").invoke(value));
 		}catch(Exception e){
+			//e.printStackTrace();
 			
+		}
+		try{
+			return ((Object[])value).length;
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		try{
 			return (Integer)(value.getClass().getMethod("size").invoke(value));
@@ -1358,6 +1424,12 @@ public class x {
 	public static double time(){
 		return Time.time();
 	}
+	
+	/**
+	 * An instance of Time class. 
+	 * 
+	 */
+	public static Time Time = new Time();
 	
 	/**
 	 * Returns the running Timer object. This object can be then stopped and printed:
