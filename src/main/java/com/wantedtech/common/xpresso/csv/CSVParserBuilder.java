@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-package com.wantedtech.common.xpresso.csvs;
+package com.wantedtech.common.xpresso.csv;
 
 /**
  * Builder for creating a CSVParser.

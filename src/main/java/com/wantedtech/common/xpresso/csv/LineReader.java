@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.csvs;
+package com.wantedtech.common.xpresso.csv;
 
 import java.io.BufferedReader;
 import java.io.IOException;

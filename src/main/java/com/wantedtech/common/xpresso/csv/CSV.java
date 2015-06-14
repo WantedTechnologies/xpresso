@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.types;
+package com.wantedtech.common.xpresso.csv;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.csvs.CSVParser;
-import com.wantedtech.common.xpresso.csvs.CSVWriter;
+import com.wantedtech.common.xpresso.types.HappyFile;
+import com.wantedtech.common.xpresso.types.list;
 
-public class csv implements Iterable<list<String>>, AutoCloseable {
+public class CSV implements Iterable<list<String>>, AutoCloseable {
 
 	HappyFile file;
 	StringBuilder builder;
@@ -19,12 +19,12 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 	
 	String initializedFrom;
 	
-	public csv (HappyFile file) {
+	public CSV (HappyFile file) {
 		this.file = file;
 		initializedFrom = "file";
 	}
 	
-	public csv (Iterable<?> iterable) {
+	public CSV (Iterable<?> iterable) {
 		if (iterable instanceof HappyFile) {
 			this.file = (HappyFile)iterable;
 			initializedFrom = "file";
@@ -38,7 +38,7 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 		}
 	}
 	
-	public csv (String path, String operation, String encoding) throws IOException  {
+	public CSV (String path, String operation, String encoding) throws IOException  {
 		if (x.String(operation).in(x.list("r", "w"))) {
 			try {
 				file = x.open(path, operation, encoding);
@@ -52,11 +52,11 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 
 	}
 	
-	public csv (String path, String operation) throws IOException  {
+	public CSV (String path, String operation) throws IOException  {
 		this(path, operation, "utf-8");
 	}
 	
-	public csv (StringBuilder stringBuilder) {
+	public CSV (StringBuilder stringBuilder) {
 		this.builder = stringBuilder;
 		initializedFrom = "builder";
 	}
@@ -110,15 +110,6 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 		};
 		
 	}
-
-	@Override
-	public void close() throws Exception {
-		try {
-			file.close();		
-		}catch (Exception e){
-			
-		}		
-	}
 	
 	@Override
 	public String toString(){
@@ -150,5 +141,23 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 			return b.toString();
 		}
 		return super.toString();
+	}
+	
+	@Override
+	public void close() {
+		try {
+			file.close();		
+		}catch (Exception e){
+			
+		}		
+	}
+	
+	@Override
+	protected void finalize() {
+		try {
+		    close();
+		} catch (Exception e) {
+
+		}
 	}
 }

@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.wantedtech.common.xpresso.csvs;
+package com.wantedtech.common.xpresso.csv;
 
 import java.io.Reader;
 

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
@@ -320,10 +321,16 @@ public class Test {
 			 
 			x.print(x.String("Чичётка 北亰").unidecode());
 			
-			try(csv csv = new csv("/Users/andriy.burkov/Downloads"+"/test2.txt", "w")){
+			try(CSV csv = new CSV("/Users/andriy.burkov/Downloads"+"/test2.txt", "w")){
 				for (list<String> l : lst6) {
 					csv.writerow(l);
 				}
+			}
+			
+			list<list<String>> data = x.list(x.csv("path", "r")); 
+			
+			try (HappyFile f = x.open("filename.txt","w","utf-8")) {
+				f.write(x.csv(data).toString());
 			}
 			
 			try(HappyFile f = x.open("/Users/andriy.burkov/Downloads"+"/test2.txt", "r")){

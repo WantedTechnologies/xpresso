@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.csvs;
+package com.wantedtech.common.xpresso.csv;
 
 /**
  Copyright 2005 Bytecode Pty Ltd.

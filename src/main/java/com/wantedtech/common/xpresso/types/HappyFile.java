@@ -38,11 +38,11 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 	String operation;
 	String path;
 	
-	public HappyFile(String path,String operation,String encoding) throws IOException,UnsupportedOperationException{
+	public HappyFile(String path,String operation,String encoding) throws IOException,UnsupportedOperationException {
 		this.path = path;
-		try{
+		try {
 			file = new java.io.File(path);
-		}catch(Exception e){
+		} catch(Exception e) {
 			throw new IOException("Problem opening file: " + path);
 		}
 		switch(encoding.toLowerCase()){
@@ -64,14 +64,14 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 		this.operation = operation.toLowerCase();
 		switch(operation){
 			case "r":
-				try{
+				try {
 					this.fileInputStream = new FileInputStream(file);
 			        this.bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream,this.charset));
-				}catch(UnsupportedEncodingException e){
+				} catch(UnsupportedEncodingException e) {
 					System.out.println(e.getMessage());
-				}catch (IOException e){
+				} catch (IOException e) {
 					System.out.println(e.getMessage());
-				}catch (Exception e){
+				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
 				break;
@@ -94,7 +94,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 
 	}
 	
-	public HappyFile(String path,String operation) throws IOException{
+	public HappyFile(String path,String operation) throws IOException {
 		this(path,operation,"UTF-8");
 	}
 	
@@ -144,21 +144,28 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 		return this;
 	}
 	
-	public void writeLine(String line) throws IOException{
+	public void writeLine(String line) throws IOException {
 		if(!operation.equals("w")){
 			throw new UnsupportedOperationException();
 		}
 		this.outWriter.write(line+"\n");
 	}
 	
-	public void write(byte[] byteArray) throws IOException{
+	public void write(String string) throws IOException {
+		if(!operation.equals("w")){
+			throw new UnsupportedOperationException();
+		}
+		this.outWriter.write(string);
+	}
+	
+	public void write(byte[] byteArray) throws IOException {
 		if(!operation.equals("wb")){
 			throw new UnsupportedOperationException();
 		}
 		this.fileOutputStream.write(byteArray);
 	}
 	
-	public byte[] read() throws IOException{
+	public byte[] read() throws IOException {
 		if(!operation.equals("rb")){
 			throw new UnsupportedOperationException();
 		}
@@ -169,31 +176,31 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 		return fileData;
 	}
 	
-	public byte[] read(int count) throws IOException{
+	public byte[] read(int count) throws IOException {
 		if(!operation.equals("rb")){
 			throw new UnsupportedOperationException();
 		}
 		byte[] fileData = new byte[count];
-		if(fileInputStream.read(fileData) != -1){
+		if(fileInputStream.read(fileData) != -1) {
 			return fileData;
 		}else{
 			return new byte[0];
 		}
 	}
 	
-	public InputStream getInputStream(){
+	public InputStream getInputStream() {
 		return this.fileInputStream;
 	}
 	
-	public OutputStream getOutputStream(){
+	public OutputStream getOutputStream() {
 		return this.fileOutputStream;
 	}
 	
-	public String getOperation(){
+	public String getOperation() {
 		return operation;
 	}
 	
-	public void close(){
+	public void close() {
 		try{
 			outWriter.close();
 		}catch(Exception e){
@@ -217,7 +224,16 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 	}
 	
 	@Override
-	public String toString(){
+	public String toString() {
 		return x.String("").join(x.list(this));
+	}
+	
+	@Override
+	protected void finalize() {
+		try {
+		    close();
+		} catch (Exception e) {
+
+		}
 	}
 }

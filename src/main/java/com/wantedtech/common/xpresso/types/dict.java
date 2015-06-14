@@ -192,7 +192,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		return x.list(this.dict.values());
 	}
 	
-	public dict<String> inverted(){
+	public dict<String> invert(){
 		ArrayList<tuple> items = new ArrayList<tuple>();
 		for(String key:this){
 			try{

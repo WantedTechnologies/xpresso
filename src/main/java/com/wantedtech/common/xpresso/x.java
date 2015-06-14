@@ -49,6 +49,7 @@ import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
 import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
 import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
+import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
@@ -334,8 +335,8 @@ public class x {
 	 * @param encoding		the String object containing the encoding of the file
 	 * 						(can be "utf-8" or "latin-1")
 	 */
-	public static csv csv(String path,String operation,String encoding) throws IOException{
-		return new csv(path,operation,encoding);
+	public static CSV csv(String path,String operation,String encoding) throws IOException{
+		return new CSV(path,operation,encoding);
 	}
 	
 	/**
@@ -348,7 +349,7 @@ public class x {
 	 * 		//do stuff
 	 * }
 	 * 
-	 * In case of a text file, the {@link csv} object is also an Iterable containing 
+	 * In case of a text file, the {@link CSV} object is also an Iterable containing 
 	 * list<String> objects for each line of the file:
 	 * 
 	 * for(list<String> line : f){
@@ -360,16 +361,16 @@ public class x {
 	 * 						"w" (write in text mode), "wb" write in binary mode
 	 * 						"a" append in text mode, "ab" append in binary mode
 	 */
-	public static csv csv(String path,String operation) throws Exception{
+	public static CSV csv(String path,String operation) throws Exception{
 		try{
-			return new csv(path,operation);
+			return new CSV(path,operation);
 		}catch(Exception e){
 			throw e;
 		}
 	}
 	
 	/**
-	 * Creates a {@link csv} object from an iterable.
+	 * Creates a {@link CSV} object from an iterable.
 	 * 
 	 * The Iterable can be either an instance of {@link HappyFile} or
 	 * an Iterable<list<?>>.
@@ -385,12 +386,12 @@ public class x {
 	 * 
 	 * @param iterable		a {@link HappyFile} object or an Iterable<list<?>>
 	 */
-	public static csv csv(Iterable<?> iterable){
-		return new csv(iterable);
+	public static CSV csv(Iterable<?> iterable){
+		return new CSV(iterable);
 	}
 	
 	/**
-	 * Creates a {@link csv} object from a {@link StringBuilder}.
+	 * Creates a {@link CSV} object from a {@link StringBuilder}.
 	 * 
 	 * Example:
 	 * 
@@ -406,8 +407,8 @@ public class x {
 	 * 
 	 * @param file		a {@link HappyFile} object
 	 */
-	public static csv csv(StringBuilder builder){
-		return new csv(builder);
+	public static CSV csv(StringBuilder builder){
+		return new CSV(builder);
 	}
 	
 	/**

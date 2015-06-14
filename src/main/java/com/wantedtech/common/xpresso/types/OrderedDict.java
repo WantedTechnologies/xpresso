@@ -174,7 +174,7 @@ public class OrderedDict<T> extends dict<T> {
 	}
 	
 	@Override
-	public OrderedDict<String> inverted(){
+	public OrderedDict<String> invert(){
 		throw new UnsupportedOperationException("An OrderedDict can only be updated from an ordered type.");
 	}
 	

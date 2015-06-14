@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso.csvs;
+package com.wantedtech.common.xpresso.csv;
 
 /**
  * Enumeration used to tell the CSVParser what to consider null.
