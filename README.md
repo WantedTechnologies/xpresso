@@ -325,7 +325,7 @@ try (csv f = x.csv("filename.txt","r","utf-8") {
 
 ```
 try (csv f = x.csv("filename.txt","w","utf-8") {
-	for (list<?> line : iterable>){
+	for (list<?> line : iterable){
 		csv.writerow(line);
 	}
 }
