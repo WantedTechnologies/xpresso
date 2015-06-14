@@ -251,9 +251,8 @@ class FirstN extends Generator<Integer> {
 };
 
 try (Generator<Integer> iter = x.generate(FirstN.class, 500000) {
-	for (int i : iter) {
+	for (int i : iter) 
 		x.print(i);
-	}
 }
 ```
 
