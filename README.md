@@ -7,8 +7,6 @@ xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, spli
 
 xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.memo, x.Object, x.timer, x.Json, x.mysql, x.csv and others.
 
-Change language, don't change your programming style!
-
 xpresso: less boilerplate, more fun, more work done.
 
 License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
