@@ -823,7 +823,7 @@ Console: [Saint-Petersbourg, San Francisco]
 * Modify list using slicing: ```trips.setAt(3, 5).values(x.list(1, 2, 3, 4, 5));```
 * Case insensitive regex shortcut: ```x.RegexNoCase("\\bmama\\b")```
 * Replace each match by an empty string: ```x.Regex("[,.;]").clear(inputString)```
-* For more see the [comments](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java) for the main class [x](https://github.com/WantedTechnologies/xpresso/blob/master/src/main/java/com/wantedtech/common/xpresso/x.java).
+* For more see the [javadoc](http://wantedtechnologies.github.io/xpresso/) for the main class [x](http://wantedtechnologies.github.io/xpresso/com/wantedtech/common/xpresso/x.html).
 
 #### Future
 * Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
