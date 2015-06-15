@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.wantedtech.common.xpresso.Slicable;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Helpers;
+import com.wantedtech.common.xpresso.helpers.Slicable;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 
 public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Serializable{

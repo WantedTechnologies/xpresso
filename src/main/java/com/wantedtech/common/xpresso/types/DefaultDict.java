@@ -1,7 +1,7 @@
 package com.wantedtech.common.xpresso.types;
 
-import com.wantedtech.common.xpresso.ObjectFactory;
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.helpers.ObjectFactory;
 
 public class DefaultDict<T> extends dict<T> {
 

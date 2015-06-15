@@ -4,10 +4,12 @@
  * (c) Kevin Bourrillion and other contributors
  * */
 
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.helpers;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
+
+import com.wantedtech.common.xpresso.x;
 
 /**
  * Simple methods to be called at the start of your own methods to verify

@@ -1,6 +1,5 @@
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.helpers;
 
-import com.wantedtech.common.xpresso.helpers.Slicer;
 
 public interface Slicable<T> {
 

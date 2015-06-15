@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.helpers;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

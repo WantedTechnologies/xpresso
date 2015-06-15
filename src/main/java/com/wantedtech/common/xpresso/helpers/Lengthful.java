@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.helpers;
 
 public interface Lengthful {
 	public int len();

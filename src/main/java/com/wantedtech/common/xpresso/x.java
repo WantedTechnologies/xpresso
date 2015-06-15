@@ -23,6 +23,7 @@
 package com.wantedtech.common.xpresso;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,43 +35,27 @@ import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
 
-import com.wantedtech.common.xpresso.helpers.HappyObject;
-import com.wantedtech.common.xpresso.helpers.Helpers;
-import com.wantedtech.common.xpresso.helpers.HappyMySQL;
-import com.wantedtech.common.xpresso.helpers.Slicer;
-import com.wantedtech.common.xpresso.json.Json;
-import com.wantedtech.common.xpresso.strings.HappyString;
-import com.wantedtech.common.xpresso.strings.HappyStringStatic;
+import com.wantedtech.common.xpresso.helpers.*;
+import com.wantedtech.common.xpresso.json.*;
+import com.wantedtech.common.xpresso.strings.*;
 import com.wantedtech.common.xpresso.types.*;
-import com.wantedtech.common.xpresso.comprehension.ComprehensionFactory;
-import com.wantedtech.common.xpresso.comprehension.ScalarComprehensionStart;
-import com.wantedtech.common.xpresso.comprehension.Tuple1ComprehensionStart;
-import com.wantedtech.common.xpresso.comprehension.Tuple2ComprehensionStart;
-import com.wantedtech.common.xpresso.csv.CSV;
-import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.functional.lambda.LambdaFunction;
-import com.wantedtech.common.xpresso.functional.lambda.LambdaPredicate;
-import com.wantedtech.common.xpresso.regex.Regex;
-import com.wantedtech.common.xpresso.time.ThreadTimer;
-import com.wantedtech.common.xpresso.time.Time;
-import com.wantedtech.common.xpresso.time.Timer;
-import com.wantedtech.common.xpresso.types.strs.strStatic;
-import com.wantedtech.common.xpresso.types.tuples.tuple0;
-import com.wantedtech.common.xpresso.types.tuples.tuple1;
-import com.wantedtech.common.xpresso.types.tuples.tuple2;
-import com.wantedtech.common.xpresso.types.tuples.tuple3;
-import com.wantedtech.common.xpresso.types.tuples.tuple4;
-import com.wantedtech.common.xpresso.token.Token;
-import com.wantedtech.common.xpresso.token.TokenStatic;
+import com.wantedtech.common.xpresso.comprehension.*;
+import com.wantedtech.common.xpresso.csv.*;
+import com.wantedtech.common.xpresso.functional.*;
+import com.wantedtech.common.xpresso.functional.lambda.*;
+import com.wantedtech.common.xpresso.regex.*;
+import com.wantedtech.common.xpresso.time.*;
+import com.wantedtech.common.xpresso.types.strs.*;
+import com.wantedtech.common.xpresso.types.tuples.*;
+import com.wantedtech.common.xpresso.token.*;
 
 /**
- * This class contains high-level static utility methods.
- * It can be seen as a container of the highest-level methods of xpresso,
- * similar to Python's __builtin__ namespace.
+ * This class contains all important high-level static utility methods of <pre>xpresso</pre>. This is the entry point of the library. It is recommended to start exploring the Javadoc from here.
+ *  
+ * The class {@link x} can be seen as a container of the highest-level methods of xpresso, similar to Python's __builtin__ namespace.
  * 
  * @author Andriy Burkov
- * @since 0.1
+ * @since 0.01
  */
 
 public class x {
@@ -2627,6 +2612,38 @@ public class x {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> Iterable<T> sort(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function,boolean reverse){
+		class KeyValue<K extends Comparable<K>,V> implements Comparable<KeyValue<K,V>>, Serializable {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -6209178251903971368L;
+			
+			private K key;
+			private V value;
+			
+			public KeyValue(K key, V value){
+				this.key = key;
+				this.value = value;
+			}
+			
+			public K getKey(){
+				return this.key;
+			}
+			
+			public V getValue(){
+				return this.value;
+			}
+			
+			public int compareTo(KeyValue<K,V> keyValue){
+				return this.key.compareTo(keyValue.getKey());
+			}
+			
+			@Override
+			public String toString(){
+				return this.key.toString() + '~' + this.value.toString();
+			}
+		}
+
 		ArrayList<KeyValue<?,T>> keyValues = new ArrayList<KeyValue<?,T>>();
 		for (T element: iterable){
 			if(function != null){

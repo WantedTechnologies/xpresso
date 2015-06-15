@@ -1,7 +1,7 @@
 package com.wantedtech.common.xpresso.functional.lambda;
 
-import com.wantedtech.common.xpresso.Lengthful;
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.helpers.Lengthful;
 
 public class Value implements Lengthful {
 	public Object value;

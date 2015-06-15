@@ -1,6 +1,6 @@
 package com.wantedtech.common.xpresso.types;
 
-import com.wantedtech.common.xpresso.Lengthful;
+import com.wantedtech.common.xpresso.helpers.Lengthful;
 
 public interface tuple extends Comparable<tuple>, Lengthful{
 	

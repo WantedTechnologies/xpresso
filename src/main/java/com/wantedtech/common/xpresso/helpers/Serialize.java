@@ -1,4 +1,4 @@
-package com.wantedtech.common.xpresso;
+package com.wantedtech.common.xpresso.helpers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

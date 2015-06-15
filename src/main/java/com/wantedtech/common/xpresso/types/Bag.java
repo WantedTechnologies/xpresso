@@ -1,12 +1,12 @@
 package com.wantedtech.common.xpresso.types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.wantedtech.common.xpresso.KeyValue;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
@@ -161,6 +161,39 @@ public class Bag<T> implements Iterable<T>{
 	}
 	
 	public list<T> mostCommonN(int N){
+		class KeyValue<K extends Comparable<K>,V> implements Comparable<KeyValue<K,V>>, Serializable {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -6209178251903971368L;
+			
+			private K key;
+			private V value;
+			
+			public KeyValue(K key, V value){
+				this.key = key;
+				this.value = value;
+			}
+			
+			public K getKey(){
+				return this.key;
+			}
+			
+			public V getValue(){
+				return this.value;
+			}
+			
+			public int compareTo(KeyValue<K,V> keyValue){
+				return this.key.compareTo(keyValue.getKey());
+			}
+			
+			@Override
+			public String toString(){
+				return this.key.toString() + '~' + this.value.toString();
+			}
+		}
+
 		ArrayList<KeyValue<Integer,T>> kvList = new ArrayList<KeyValue<Integer,T>>();
 		for(T element : map.keySet()){
 			kvList.add(new KeyValue<Integer,T>(map.get(element),element));
