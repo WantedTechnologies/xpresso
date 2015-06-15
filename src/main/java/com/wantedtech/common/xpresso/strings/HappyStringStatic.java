@@ -180,14 +180,6 @@ public class HappyStringStatic {
      *         <tt>null</tt> argument depends on the <a
      *         href="../util/Formatter.html#syntax">conversion</a>.
      *
-     * @throws  IllegalFormatException
-     *          If a format string contains an illegal syntax, a format
-     *          specifier that is incompatible with the given arguments,
-     *          insufficient arguments given the format string, or other
-     *          illegal conditions.  For specification of all possible
-     *          formatting errors, see the <a
-     *          href="../util/Formatter.html#detail">Details</a> section of the
-     *          formatter class specification.
      *
      * @throws  NullPointerException
      *          If the <tt>format</tt> is <tt>null</tt>
@@ -195,7 +187,6 @@ public class HappyStringStatic {
      * @return  A formatted string
      *
      * @see  java.util.Formatter
-     * @since  1.5
      */
     public String format(String format, Object... args) {
     	return String.format(format, args);
@@ -224,22 +215,9 @@ public class HappyStringStatic {
      *         <tt>null</tt> argument depends on the <a
      *         href="../util/Formatter.html#syntax">conversion</a>.
      *
-     * @throws  IllegalFormatException
-     *          If a format string contains an illegal syntax, a format
-     *          specifier that is incompatible with the given arguments,
-     *          insufficient arguments given the format string, or other
-     *          illegal conditions.  For specification of all possible
-     *          formatting errors, see the <a
-     *          href="../util/Formatter.html#detail">Details</a> section of the
-     *          formatter class specification
-     *
-     * @throws  NullPointerException
-     *          If the <tt>format</tt> is <tt>null</tt>
-     *
      * @return  A formatted string
      *
      * @see  java.util.Formatter
-     * @since  1.5
      */
     public String format(Locale l, String format, Object... args) {
     	return String.format(l, format, args);

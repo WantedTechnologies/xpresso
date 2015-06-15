@@ -67,7 +67,7 @@ public final class Unidecode {
 	 * @param str         Unicode String to transliterate.
 	 * @param charsetName charset Name
 	 * @return ASCII string.
-	 * @throws UnsupportedEncodingException
+	 * @throws UnsupportedEncodingException	UnsupportedEncodingException
 	 */
 	public static String decode(final String str, final String charsetName) throws UnsupportedEncodingException {
 		return decode(new String(str.getBytes(charsetName), "UTF-8"));
@@ -132,7 +132,7 @@ public final class Unidecode {
 	 * @param str         Unicode String to initials.
 	 * @param charsetName charset Name
 	 * @return String initials.
-	 * @throws UnsupportedEncodingException
+	 * @throws UnsupportedEncodingException	UnsupportedEncodingException
 	 */
 	public static String initials(final String str, final String charsetName) throws UnsupportedEncodingException {
 		return initials(new String(str.getBytes(charsetName), "UTF-8"));

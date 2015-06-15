@@ -10,19 +10,25 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
- * Simple static methods to be called at the start of your own methods to verify
+ * Simple methods to be called at the start of your own methods to verify
  * correct arguments and state. This allows constructs such as
  * <pre>
+ * {@code
  *     if (count <= 0) {
  *       throw new IllegalArgumentException("must be positive: " + count);
- *     }</pre>
+ *     }
+ * }
+ * </pre>
  *
  * to be replaced with the more compact
  * <pre>
- *     isTrue(count > 0, "must be positive: %s", count);</pre>
+ * {@code
+ *     isTrue(count > 0, "must be positive: %s", count);
+ * }
+ * </pre>
  *
  * Note that the sense of the expression is inverted; with {@code Assert}
- * you declare what you expect to be <i>true</i>, just as you do with an
+ * you declare what you expect to be {@code true}, just as you do with an
  * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/assert.html">
  * {@code assert}</a> or a JUnit {@code assertTrue} call.
  *
@@ -30,7 +36,7 @@ import java.util.NoSuchElementException;
  * placeholder in these messages, not the full range of {@link
  * String#format(String, Object[])} specifiers.
  *
- * <p>Take care not to confuse precondition checking with other similar types
+ * Take care not to confuse precondition checking with other similar types
  * of checks! Precondition exceptions -- including those provided here, but also
  * {@link IndexOutOfBoundsException}, {@link NoSuchElementException}, {@link
  * UnsupportedOperationException} and others -- are used to signal that the
@@ -104,7 +110,8 @@ public final class Assert {
    * Ensures that an object reference passed as a parameter to the calling
    * method is not null.
    *
-   * @param reference an object reference
+   * @param reference	an object reference
+   * @param <T>			any type
    * @return the non-null reference that was validated
    * @throws NullPointerException if {@code reference} is null
    */
@@ -119,9 +126,10 @@ public final class Assert {
    * Ensures that an object reference passed as a parameter to the calling
    * method is not null.
    *
-   * @param reference an object reference
-   * @param errorMessage the exception message to use if the check fails; will
-   *     be converted to a string using {@link String#valueOf(Object)}
+   * @param <T>				any type
+   * @param reference		an object reference
+   * @param errorMessage	the exception message to use if the check fails; will
+   *     					be converted to a string using {@link String#valueOf(Object)}
    * @return the non-null reference that was validated
    * @throws NullPointerException if {@code reference} is null
    */
@@ -136,16 +144,17 @@ public final class Assert {
    * Ensures that an object reference passed as a parameter to the calling
    * method is not null.
    *
-   * @param reference an object reference
-   * @param errorMessageTemplate a template for the exception message should the
-   *     check fail. The message is formed by replacing each {@code %s}
-   *     placeholder in the template with an argument. These are matched by
-   *     position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc.
-   *     Unmatched arguments will be appended to the formatted message in square
-   *     braces. Unmatched placeholders will be left as-is.
-   * @param errorMessageArgs the arguments to be substituted into the message
-   *     template. Arguments are converted to strings using
-   *     {@link String#valueOf(Object)}.
+   * @param <T> 					any type
+   * @param reference 				an object reference
+   * @param errorMessageTemplate	Template a template for the exception message should the
+   *     							check fail. The message is formed by replacing each {@code %s}
+   *     							placeholder in the template with an argument. These are matched by
+   *     							position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc.
+   *     							Unmatched arguments will be appended to the formatted message in square
+   *		     					braces. Unmatched placeholders will be left as-is.
+   * @param errorMessageArgs		the arguments to be substituted into the message
+   *     							template. Arguments are converted to strings using
+   *     							{@link String#valueOf(Object)}.
    * @return the non-null reference that was validated
    * @throws NullPointerException if {@code reference} is null
    */
@@ -165,7 +174,7 @@ public final class Assert {
    * nor a length of zero (no elements); otherwise throwing an exception
    * with the specified message.
    *
-   * <pre>Assert.notEmpty(myArray, "The array must not be empty");</pre>
+   * <pre>x.Assert.notEmpty(myArray, "The array must not be empty");</pre>
    *
    * @param <T> the array type
    * @param array  the array to check, validated not null by this method
@@ -190,7 +199,7 @@ public final class Assert {
    * <p>Assert that the specified argument array is neither {@code null}
    * nor a length of zero (no elements); otherwise throwing an exception.
    *
-   * <pre>Assert.notEmpty(myArray);</pre>
+   * <pre>x.Assert.notEmpty(myArray);</pre>
    *
    * <p>The message in the exception is &quot;The validated array is
    * empty&quot;.
@@ -214,13 +223,12 @@ public final class Assert {
    * nor a size of zero (no elements); otherwise throwing an exception
    * with the specified message.
    *
-   * <pre>Assert.notEmpty(myIterable, "The iterable must not be empty");</pre>
+   * <pre>x.Assert.notEmpty(myIterable, "The iterable must not be empty");</pre>
    *
    * @param <T> the iterable type
    * @param iterable  the iterable to check, validated not null by this method
    * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
    * @param values  the optional values for the formatted exception message, null array not recommended
-   * @return the validated iterable (never {@code null} method for chaining)
    * @throws NullPointerException if the iterable is {@code null}
    * @throws IllegalArgumentException if the iterable is empty
    * @see #notEmpty(Object[])
@@ -238,17 +246,15 @@ public final class Assert {
    * <p>Assert that the specified argument iterable is neither {@code null}
    * nor a size of zero (no elements); otherwise throwing an exception.
    *
-   * <pre>Assert.notEmpty(myIterable);</pre>
+   * <pre>x.Assert.notEmpty(myIterable);</pre>
    *
    * <p>The message in the exception is &quot;The validated iterable is
    * empty&quot;.</p>
    *
    * @param <T> the iterable type
    * @param iterable  the iterable to check, validated not null by this method
-   * @return the validated iterable (never {@code null} method for chaining)
    * @throws NullPointerException if the iterable is {@code null}
    * @throws IllegalArgumentException if the iterable is empty
-   * @see #notEmpty(Iterable, String, Object...)
    */
   public <T> void notEmpty(final T iterable) {
       notEmpty(iterable, "The validated iterable is empty");
@@ -262,13 +268,12 @@ public final class Assert {
    * nor a size of zero (no elements); otherwise throwing an exception
    * with the specified message.
    *
-   * <pre>Assert.notEmpty(myMap, "The map must not be empty");</pre>
+   * <pre>x.Assert.notEmpty(myMap, "The map must not be empty");</pre>
    *
-   * @param <T> the map type
+   * @param <K>		the type of key
+   * @param <V>		the type of value
    * @param map  the map to check, validated not null by this method
    * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
-   * @param values  the optional values for the formatted exception message, null array not recommended
-   * @return the validated map (never {@code null} method for chaining)
    * @throws NullPointerException if the map is {@code null}
    * @throws IllegalArgumentException if the map is empty
    * @see #notEmpty(Object[])
@@ -286,17 +291,17 @@ public final class Assert {
    * <p>Assert that the specified argument map is neither {@code null}
    * nor a size of zero (no elements); otherwise throwing an exception.
    *
-   * <pre>Assert.notEmpty(myMap);</pre>
+   * <pre>x.Assert.notEmpty(myMap);</pre>
    *
    * <p>The message in the exception is &quot;The validated map is
    * empty&quot;.</p>
    *
-   * @param <T> the map type
-   * @param map  the map to check, validated not null by this method
-   * @return the validated map (never {@code null} method for chaining)
+   * @param <K>	the type of key
+   * @param <V>	the type of value
+   * @param map	the map to check, validated not null by this method
    * @throws NullPointerException if the map is {@code null}
    * @throws IllegalArgumentException if the map is empty
-   * @see #notEmpty(Map, String, Object...)
+   * @see #notEmpty(Map, String)
    */
   public <K,V> void notEmpty(final Map<K,V> map) {
       notEmpty(map, "The validated map is empty");
@@ -310,25 +315,21 @@ public final class Assert {
    * neither {@code null} nor a length of zero (no characters);
    * otherwise throwing an exception with the specified message.
    *
-   * <pre>Assert.notEmpty(myString, "The string must not be empty");</pre>
+   * <pre>x.Assert.notEmpty(myString, "The string must not be empty");</pre>
    *
-   * @param <T> the character sequence type
-   * @param chars  the character sequence to check, validated not null by this method
-   * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
-   * @param values  the optional values for the formatted exception message, null array not recommended
-   * @return the validated character sequence (never {@code null} method for chaining)
+   * @param <T>		the character sequence type
+   * @param chars	the character sequence to check, validated not null by this method
+   * @param message	the {@link String#format(String, Object...)} exception message if invalid, not null
    * @throws NullPointerException if the character sequence is {@code null}
    * @throws IllegalArgumentException if the character sequence is empty
-   * @see #notEmpty(CharSequence)
    */
-  public <T extends CharSequence> T notEmpty(final T chars, final String message) {
+  public <T extends CharSequence> void notEmpty(final T chars, final String message) {
       if (chars == null) {
           throw new NullPointerException(message);
       }
       if (chars.length() == 0) {
           throw new IllegalArgumentException(message);
       }
-      return chars;
   }
 
   

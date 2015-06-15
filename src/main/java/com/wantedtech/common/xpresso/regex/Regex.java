@@ -115,17 +115,21 @@ public class Regex implements Serializable{
 	
 	/**
 	 * a shortcut for {@link Regex#sub(String, String)}(emptyString, string)
-	 * @param string
-	 * @return
+	 * @param string	a {@link String} in which the pattern will be searched and, 
+	 * 					if found, then deleted 
+	 * @return			the copy of the input string in which all the matches of the 
+	 * 					pattern have been deleted 
 	 */
 	public String clean(String string){
 		return sub("", string);
 	}
 	
 	/**
-	 * a shortcut for {@link Regex#sub(}(emptyString, str)
-	 * @param string
-	 * @return
+	 * a shortcut for {@link Regex#sub(String, str)}(emptyString, str)
+	 * @param str	a {@link str} in which the pattern will be searched and,
+	 * 				if found, then deleted
+	 * @return		the copy of the input str in which all the matches of the 
+	 * 				pattern have been deleted
 	 */
 	public str clean(str str){
 		return sub("", str);

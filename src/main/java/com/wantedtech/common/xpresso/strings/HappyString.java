@@ -72,7 +72,6 @@ public class HappyString {
 	 * Console:   a|b|c
 	 * 
 	 * @param     string to wrap
-	 * @return    a HappyString object that wraps string
 	 */
 	
 	public HappyString(String string){
@@ -308,8 +307,8 @@ public class HappyString {
 	 * Example:
 	 * JsonArray arr = x.Json("[[\"a\",\"b\",\"c\"],[\"d\",\"e\",\"f\"]]").parse(); 
 	 * 
-	 * @param jsonString	a string with a valid Json expression
-	 * @return 				a Json object 
+	 * @param <T>	output type
+	 * @return 		an object of type T 
 	 */
 	public <T> T parseJson(){
 		return Json.parse(value); 
@@ -476,16 +475,19 @@ public class HappyString {
     /**
      * Copies characters from this string into the destination character
      * array.
-     * <p>
+     *
      * The first character to be copied is at index <code>srcBegin</code>;
      * the last character to be copied is at index <code>srcEnd-1</code>
      * (thus the total number of characters to be copied is
      * <code>srcEnd-srcBegin</code>). The characters are copied into the
      * subarray of <code>dst</code> starting at index <code>dstBegin</code>
      * and ending at index:
-     * <p><blockquote><pre>
-     *     dstbegin + (srcEnd-srcBegin) - 1
-     * </pre></blockquote>
+     * 
+     * <blockquote>
+     * <pre>
+     *     {@code dstbegin + (srcEnd-srcBegin) - 1}
+     * </pre>
+     * </blockquote> 
      *
      * @param      srcBegin   index of the first character in the string
      *                        to copy.
@@ -935,12 +937,12 @@ public class HappyString {
      * of <code>ch</code> in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == ch) && (<i>k</i> &gt;= fromIndex)
+     * (this.charAt(<i>k</i>) == ch) {@code &&} (<i>k</i> &gt;= fromIndex)
      * </pre></blockquote>
      * is true. For other values of <code>ch</code>, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == ch) && (<i>k</i> &gt;= fromIndex)
+     * (this.codePointAt(<i>k</i>) == ch) {@code &&} (<i>k</i> &gt;= fromIndex)
      * </pre></blockquote>
      * is true. In either case, if no such character occurs in this
      * string at or after position <code>fromIndex</code>, then
@@ -1001,12 +1003,12 @@ public class HappyString {
      * from 0 to 0xFFFF (inclusive), the index returned is the largest
      * value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == ch) && (<i>k</i> &lt;= fromIndex)
+     * (this.charAt(<i>k</i>) == ch) {@code &&} (<i>k</i> &lt;= fromIndex)
      * </pre></blockquote>
      * is true. For other values of <code>ch</code>, it is the
      * largest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == ch) && (<i>k</i> &lt;= fromIndex)
+     * (this.codePointAt(<i>k</i>) == ch) {@code &&} (<i>k</i> &lt;= fromIndex)
      * </pre></blockquote>
      * is true. In either case, if no such character occurs in this
      * string at or before position <code>fromIndex</code>, then
@@ -1056,7 +1058,7 @@ public class HappyString {
      *
      * <p>The returned index is the smallest value <i>k</i> for which:
      * <blockquote><pre>
-     * <i>k</i> &gt;= fromIndex && this.startsWith(str, <i>k</i>)
+     * <i>k</i> &gt;= fromIndex {@code &&} this.startsWith(str, <i>k</i>)
      * </pre></blockquote>
      * If no such value of <i>k</i> exists, then {@code -1} is returned.
      *
@@ -1146,7 +1148,7 @@ public class HappyString {
      *
      * <p>The returned index is the largest value <i>k</i> for which:
      * <blockquote><pre>
-     * <i>k</i> &lt;= fromIndex && this.startsWith(str, <i>k</i>)
+     * <i>k</i> &lt;= fromIndex {@code &&} this.startsWith(str, <i>k</i>)
      * </pre></blockquote>
      * If no such value of <i>k</i> exists, then {@code -1} is returned.
      *
@@ -1280,7 +1282,7 @@ public class HappyString {
      * str.substring(begin,&nbsp;end)</pre></blockquote>
      *
      * This method is defined so that the <tt>String</tt> class can implement
-     * the {@link CharSequence} interface. </p>
+     * the {@link CharSequence} interface.
      *
      * @param      beginIndex   the begin index, inclusive.
      * @param      endIndex     the end index, exclusive.
@@ -1290,9 +1292,6 @@ public class HappyString {
      *          if <tt>beginIndex</tt> or <tt>endIndex</tt> are negative,
      *          if <tt>endIndex</tt> is greater than <tt>length()</tt>,
      *          or if <tt>beginIndex</tt> is greater than <tt>startIndex</tt>
-     *
-     * @since 1.4
-     * @spec JSR-51
      */
     public CharSequence subSequence(int beginIndex, int endIndex) {
         return value.subSequence(beginIndex, endIndex);
@@ -1377,9 +1376,6 @@ public class HappyString {
      *          if the regular expression's syntax is invalid
      *
      * @see java.util.regex.Pattern
-     *
-     * @since 1.4
-     * @spec JSR-51
      */
     public boolean matches(String regex) {
     	return value.matches(regex);
@@ -1434,8 +1430,8 @@ public class HappyString {
      *
      * @see java.util.regex.Pattern
      *
-     * @since 1.4
-     * @spec JSR-51
+
+
      */
     public String replaceFirst(String regex, String replacement) {
     	return value.replaceFirst(regex, replacement);
@@ -1477,8 +1473,8 @@ public class HappyString {
      *
      * @see java.util.regex.Pattern
      *
-     * @since 1.4
-     * @spec JSR-51
+
+
      */
     public String replaceAll(String regex, String replacement) {
     	return value.replaceAll(regex, replacement);
@@ -1579,8 +1575,8 @@ public class HappyString {
      *
      * @see java.util.regex.Pattern
      *
-     * @since 1.4
-     * @spec JSR-51
+
+
      */
     public list<String> split(Regex regex, int limit) {
         return regex.split(value, limit);
@@ -1621,8 +1617,8 @@ public class HappyString {
      *
      * @see java.util.regex.Pattern
      *
-     * @since 1.4
-     * @spec JSR-51
+
+
      */
     public list<String> split(String regex) {
         return split(regex, 0);
@@ -1715,7 +1711,7 @@ public class HappyString {
      * <code>String</code> may be a different length than the original <code>String</code>.
      * <p>
      * Examples of locale-sensitive and 1:M case mappings are in the following table.
-     * <p>
+	 *
      * <table border="1" summary="Examples of locale-sensitive and 1:M case mappings. Shows Language code of locale, lower case, upper case, and description.">
      * <tr>
      *   <th>Language Code of Locale</th>

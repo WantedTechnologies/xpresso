@@ -13,6 +13,8 @@ public abstract class SnowballStemmer {
 
 	/**
 	 * Set the current string.
+	 * 
+	 * @param value	a {@link String} to set as current
 	 */
 	public void setCurrent(String value) {
 		current.replace(0, current.length(), value);
@@ -25,6 +27,7 @@ public abstract class SnowballStemmer {
 
 	/**
 	 * Get the current string.
+	 * @return a new StringBuffer
 	 */
 	public String getCurrent() {
 		String result = current.toString();

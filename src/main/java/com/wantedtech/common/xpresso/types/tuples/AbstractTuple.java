@@ -6,8 +6,10 @@ import java.util.Set;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.Bag;
+import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.set;
+import com.wantedtech.common.xpresso.types.str;
 import com.wantedtech.common.xpresso.types.tuple;
 
 public abstract class AbstractTuple implements tuple {
@@ -77,9 +79,72 @@ public abstract class AbstractTuple implements tuple {
 		}
 	}
     
+    public int getInt(int index) {
+    	return (int)get(index);
+    }
+    public int getInt(String fieldName) {
+    	return (int)get(fieldName);
+    }
+    
+    public float getFloat(int index) {
+    	return (float)get(index);
+    }
+    public float getFloat(String fieldName) {
+    	return (float)get(fieldName);
+    }
+    
+    public double getDouble(int index) {
+    	return (double)get(index);
+    }
+    public double getDouble(String fieldName) {
+    	return (double)get(fieldName);
+    }
+    
+    public boolean getBoolean(int index) {
+    	return (boolean)get(index);
+    }
+    public boolean getBoolean(String fieldName) {
+    	return (boolean)get(fieldName);
+    }
+    
+    public dict<?> getDict(int index) {
+    	return (dict<?>)get(index);
+    }
+    public dict<?> getDict(String fieldName) {
+    	return (dict<?>)get(fieldName);
+    }
+    
+    public tuple getTuple(int index) {
+    	return (tuple)get(index);
+    }
+    public tuple getTuple(String fieldName) {
+    	return (tuple)get(fieldName);
+    }
+    
+    public list<?> getList(int index) {
+    	return (list<?>)get(index);
+    }
+    public list<?> getList(String fieldName) {
+    	return (list<?>)get(fieldName);
+    }
+    
+    public String getString(int index) {
+    	return (String)get(index);
+    }
+    public String getString(String fieldName) {
+    	return (String)get(fieldName);
+    }
+    
+    public str getStr(int index) {
+    	return (str)get(index);
+    }
+    public str getStr(String fieldName) {
+    	return (str)get(fieldName);
+    }
+	
 	@Override
 	public tuple name(String... fieldNames) {
-		for (String fieldName : fieldNames){
+		for (String fieldName : fieldNames) {
 			this.fieldNames.add(fieldName);
 		}
 		return this;

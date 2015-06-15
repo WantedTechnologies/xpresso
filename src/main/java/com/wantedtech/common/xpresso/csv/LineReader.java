@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
+ * <p>
  * This class was created for issue #106 (https://sourceforge.net/p/opencsv/bugs/106/) where
  * carriage returns were being removed.  This class allows the user to determine if they wish to keep or
  * remove them from the data being read.
- * <p/>
+ * </p>
  * Created by scott on 2/19/15.
  */
 

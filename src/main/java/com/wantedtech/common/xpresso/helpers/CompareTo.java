@@ -63,7 +63,8 @@ public class CompareTo {
      * 
      * @param lhs  left-hand object
      * @param rhs  right-hand object
-     * @param field0, moreFields  fields to compare in the given order
+     * @param field0	including <pre>moreFields</pre> are fields to compare in the given order
+     * @param moreFields  including <pre>field0</pre> are fields to compare in the given order
      *
      */
     public CompareTo(Object lhs, Object rhs, String field0, String... moreFields) {
@@ -92,8 +93,6 @@ public class CompareTo {
      * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
      * they are considered equal.</p>
      *
-     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
-     *  is less than, equal to, or greater than <code>rhs</code>
      * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
      *  (but not both) is <code>null</code>
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
@@ -174,6 +173,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand object
      * @param rhs  right-hand object
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return int the result of comparison
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
@@ -292,6 +292,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final long lhs, final long rhs, final String fieldName) {
@@ -306,6 +307,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final int lhs, final int rhs, final String fieldName) {
@@ -320,6 +322,7 @@ public class CompareTo {
      * 
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final short lhs, final short rhs, final String fieldName) {
@@ -334,6 +337,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final char lhs, final char rhs, final String fieldName) {
@@ -348,6 +352,7 @@ public class CompareTo {
      * 
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final byte lhs, final byte rhs, final String fieldName) {
@@ -367,6 +372,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final double lhs, final double rhs, final String fieldName) {
@@ -383,6 +389,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final float lhs, final float rhs, final String fieldName) {
@@ -397,6 +404,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand value
      * @param rhs  right-hand value
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      */
     public int append(final boolean lhs, final boolean rhs, final String fieldName) {
@@ -422,7 +430,7 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a short length array is less than a long length array</li>
-     *  <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}</li>
+     *  <li>Check array contents element by element using {@code append(Object, Object, Comparator)}</li>
      * </ol>
      *
      * <p>This method will also will be called for the top level of multi-dimensional,
@@ -430,6 +438,7 @@ public class CompareTo {
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
@@ -448,7 +457,7 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a short length array is less than a long length array</li>
-     *  <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}</li>
+     *  <li>Check array contents element by element using {@code append(Object, Object, Comparator)}</li>
      * </ol>
      *
      * <p>This method will also will be called for the top level of multi-dimensional,
@@ -458,6 +467,7 @@ public class CompareTo {
      * @param rhs  right-hand array
      * @param comparator  <code>Comparator</code> to use to compare the array elements,
      *  <code>null</code> means to treat <code>lhs</code> elements as <code>Comparable</code>.
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return  the result of comparison
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
@@ -495,11 +505,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(long, long)}</li>
+     *  <li>Check array contents element by element using {@code append(long, long)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return the result of comparison
      */
     public int append(final long[] lhs, final long[] rhs, String fieldName) {
@@ -546,11 +557,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(int, int)}</li>
+     *  <li>Check array contents element by element using {@code append(int, int)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return result of comparison
      */
     public int append(final int[] lhs, final int[] rhs, String fieldName) {
@@ -597,11 +609,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(short, short)}</li>
+     *  <li>Check array contents element by element using {@code #append(short, short)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return result of comparison
      */
     public int append(final short[] lhs, final short[] rhs, String fieldName) {
@@ -644,11 +657,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(char, char)}</li>
+     *  <li>Check array contents element by element using {@code #append(char, char)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return result of comparison
      */
     public int append(final char[] lhs, final char[] rhs, String fieldName) {
@@ -691,11 +705,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(byte, byte)}</li>
+     *  <li>Check array contents element by element using {@code #append(byte, byte)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return result of comparison
      */
     public int append(final byte[] lhs, final byte[] rhs, String fieldName) {
@@ -738,11 +753,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(double, double)}</li>
+     *  <li>Check array contents element by element using {@code #append(double, double)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return result of comparison
      */
     public int append(final double[] lhs, final double[] rhs, String fieldName) {
@@ -786,11 +802,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(float, float)}</li>
+     *  <li>Check array contents element by element using {@code #append(float, float)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return the result of comparison
      */
     public int append(final float[] lhs, final float[] rhs, String fieldName) {
@@ -835,11 +852,12 @@ public class CompareTo {
      *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(boolean, boolean)}</li>
+     *  <li>Check array contents element by element using {@code append(boolean, boolean)}</li>
      * </ol>
      *
      * @param lhs  left-hand array
      * @param rhs  right-hand array
+     * @param fieldName a field name for the value of which we want to compare the two objects
      * @return result of comparison
      */
     public int append(final boolean[] lhs, final boolean[] rhs, String fieldName) {
@@ -882,7 +900,6 @@ public class CompareTo {
      * side.
      * 
      * @return final comparison result
-     * @see #build()
      */
     public int getComparison() {
         return finalComparison;

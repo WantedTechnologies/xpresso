@@ -37,6 +37,8 @@ public class Test {
 				}	
 			}
 			
+			x.print(x.String.unidecode("Городская агломерация"));
+			
 			str title = x.str("Hello‹„ World");
 			
 			dict<String> analogs = x.dict(
@@ -67,7 +69,7 @@ public class Test {
 				x.assertTrue(!item.get("char").equals(item.get("index")));
 			}
 			
-			title = x.str(x.<String>yield().apply(x.<String>asKeyOn(analogs)).when(x.in(analogs)).applyOtherwise(x.upper).forEach(title).unless(x.in(x.list("o","r"))));
+			title = x.str(x.<String>yield().apply(x.<String>asKey(analogs)).when(x.in(analogs)).applyOtherwise(x.upper).forEach(title).unless(x.in(x.list("o","r"))));
 			
 			x.print(title);
 			

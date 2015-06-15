@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.antlr.v4.runtime.*;
 
+import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.tuple;
 
@@ -65,18 +66,10 @@ public class Json<O>{
 	}
 	
     /**
-     * Encode an object into JSON text and write it to out.
-     * <p>
-     * If this object is a Map or a List, and it's also a JSONStreamAware or a JSONAware, JSONStreamAware or JSONAware will be considered firstly.
-     * <p>
-     * DO NOT call this method from dumps(Writer) of a class that implements both JSONStreamAware and (Map or List) with 
-     * "this" as the first parameter, use JsonObject.dumps(Map, Writer) or JsonArray.dumps(List, Writer) instead. 
-     * 
-     * @see org.json.simple.JsonObject#dumps(Map, Writer)
-     * @see org.json.simple.JsonArray#dumps(List, Writer)
-     * 
-     * @param value
-     * @param writer
+     * Encode an object into JSON text and returns the generated String.
+     *  
+     * @param value	object to convert into JSON
+     * @return		a {@link String} with the JSON representation of the input {@link Object}
      */
 	public static String dumps(Object value){
 		StringBuilder builder = new StringBuilder();
@@ -188,8 +181,8 @@ public class Json<O>{
 	
 	/**
 	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
-	 * @param s
-	 * @return
+	 * @param s	{@link String} to quote
+	 * @return	quoted String
 	 */
 	public static String escape(String s){
 		if(s==null)
@@ -200,10 +193,11 @@ public class Json<O>{
     }
 	
     /**
-     * @param s - Must not be null.
-     * @param sb
+     * @param s		{@link String} to escape, must not be null.
+     * @param sb	a {@link StringBuffer} (the object that will get the escaped string)
      */
     static void escape(String s, StringBuffer sb) {
+    	x.assertNotNull(s);
     	final int len = s.length();
 		for(int i=0;i<len;i++){
 			char ch=s.charAt(i);
@@ -250,13 +244,11 @@ public class Json<O>{
 	}
 	
     /**
-     * Encode a list into JSON text and write it to out. 
-     * If this list is also a JSONStreamAware or a JSONAware, JSONStreamAware and JSONAware specific behaviours will be ignored at this top level.
+     * Encode a list into JSON text and return the {@link String} with encoded object. 
      * 
-     * @see org.json.simple.JSONValue#writeJSONString(Object, Writer)
-     * 
-     * @param collection
-     * @param out
+     * @param	<T>			the type of values of the input {@link Iterable}
+     * @param	iterable	An {@link Iterable} to encode into JSON format
+     * @return				the {@link String} with the JSON representation of the input Iterable
      */
 	public static <T> String dumpsList(Iterable<T> iterable){
 		if(iterable == null){
@@ -516,9 +508,8 @@ public class Json<O>{
     /**
      * Encode a map into JSON text
      * 
-     * @see com.wantedtech.common.xpresso.json.JsonValue#dumps(Object)
-     * 
-     * @param map
+     * @param map	a {@link Map} object
+     * @return 		a {@link String} with the JSON representation of the input {@link Map}
      */
 	public static String dumpsMap(Map<?,?> map) {
 		StringBuilder builder = new StringBuilder();
