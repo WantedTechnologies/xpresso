@@ -371,12 +371,12 @@ String db = "db";
 try (HappySQL sql = x.mysql(host, user, password, db)) {
 	try (HappySQL sql2 = x.mysql(sql)){
 		String query =	"SELECT ID FROM " +
-				"tbl_Employees e " +
-				"WHERE e.Name LIKE ?";
+					"tbl_Employees e " +
+					"WHERE e.Name LIKE ?";
 		for (tuple row : sql.execute(query, "John %")) {
 			query =	"UPDATE tbl_Employees " +
-				"SET Promoted = 1 " +
-				"WHERE ID = ?";
+					"SET Promoted = 1 " +
+					"WHERE ID = ?";
 			sql2.execute(query, row.get("ID"));
 		}
 	}
