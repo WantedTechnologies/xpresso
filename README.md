@@ -82,6 +82,27 @@ for (String line : f)
 	x.print(line);
 ```
 
+#### Tuples
+
+Python:
+```
+my_car = ("Honda", "red", 2010, True)
+```
+
+xpresso:
+```
+tuple myCar = x.tuple("Honda", "red", 2010, true);
+```
+
+Dynamic name assignment to tuple elements:
+```
+myCar.name("make","color","year","good");
+x.print(myCar.get("good"),myCar.get("make"),myCar.get("year"));
+
+Console: true Honda 2010
+```
+If *name* method has not yet been called, but *get(someName)* is called for the first time, then the returned value will be *get(i)*, where *i* is the smallest index of a remaining unnamed element in the tuple. All the subsequent calls for the same value *someName*, the same element *i* will be returned by *get(someName)*.
+
 #### Neat standard object creation
 
 Python:
@@ -620,28 +641,6 @@ x.print(tok.stem());
 
 Console: Think
 ```
-
-#### Pythonic tuples
-
-Python:
-```
-my_car = ("Honda", "red", 2010, True)
-```
-
-xpresso:
-```
-tuple myCar = x.tuple("Honda", "red", 2010, true);
-```
-
-Dynamic name assignment to tuple elements:
-```
-myCar.name("make","color","year","good");
-x.print(myCar.get("good"),myCar.get("make"),myCar.get("year"));
-
-Console: true Honda 2010
-```
-If *name* method has not yet been called, but *get(someName)* is called for the first time, then the returned value will be *get(i)*, where *i* is the smallest index of a remaining unnamed element in the tuple. All the subsequent calls for the same value *someName*, the same element *i* will be returned by *get(someName)*.
-
 
 #### hashCode(), equals(...), and compareTo(...) builders
 When defining a class:
