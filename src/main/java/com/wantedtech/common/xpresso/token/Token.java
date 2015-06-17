@@ -151,42 +151,42 @@ public class Token extends HappyString {
 
 	public boolean hasDigits() {
 		if (this.hasDigits == null) {
-			this.hasDigits = x.Regex("[0-9]").search(value) != null;
+			this.hasDigits = x.Regex("[0-9]").find(value) != null;
 		}
 		return this.hasDigits;
 	}
 	
 	public boolean isDigits() {
 		if (this.isDigits == null) {
-			this.isDigits = x.Regex("^[0-9]+$").search(value) != null;			
+			this.isDigits = x.Regex("^[0-9]+$").find(value) != null;			
 		}
 		return this.isDigits;
 	}
 
 	public boolean hasSpecial() {
 		if (this.hasSpecial == null) {
-			this.hasSpecial = x.Regex("\\W").search(value) != null;
+			this.hasSpecial = x.Regex("\\W").find(value) != null;
 		}
 		return this.hasSpecial;
 	}
 		
 	public boolean isSpecial() {
 		if (this.isSpecial == null) {
-			this.isSpecial = x.Regex("^\\W+$").search(value) != null;	
+			this.isSpecial = x.Regex("^\\W+$").find(value) != null;	
 		}
 		return this.isSpecial;
 	}	
 	
 	public boolean hasDash() {
 		if (this.hasDash == null) {
-			this.hasDash = x.Regex("-").search(value) != null;	
+			this.hasDash = x.Regex("-").find(value) != null;	
 		}
 		return this.hasDash;
 	}
 	
 	public boolean isDash() {
 		if (this.isDash == null) {
-			this.isDash = x.Regex("^(-|–|—)$").search(value) != null;	
+			this.isDash = x.Regex("^(-|–|—)$").find(value) != null;	
 		}
 		return this.isDash;
 	}
@@ -194,11 +194,11 @@ public class Token extends HappyString {
 	public boolean isMoney() {
 		if (this.isMoney == null) {
 			this.isMoney = (
-				    x.Regex("^([\u20a0-\u20cf]|\\p{Sc}|¤|؋|Ar|฿|B/\\.|Br|Bs\\.|Bs\\.F\\.|GH₵|¢|c|Ch\\.|₡|D|ден|دج|.د.ب|د.ع|JD|د.ك|ل.د|дин|د.ت|د.م.|د.إ|Ð|Db|$|₫|Esc|€|ƒ|t|FBu|FCFA|Fr|FRw|CFA|G|gr|₲|h|₴|₭|Kč|kr|kn|MK|ZK|Kz|K|L|Le|E|lp|Ł|M|KM|MT|₥|Nfk|₦|Nu\\.|UM|MOP$|₱|Pt\\.|£|ج.م.|LL|LS|P|Q|q|R|R$|ر.ع.|ر.ق|ر.س|៛|RM|p|Rf\\.|₨|₨(PKR)|SRe|Rp|₪|Ksh|Sh\\.So\\.|USh|S/\\.|SDR|лв|сом|৳|WS$|₮|VT|₩|¥|zł)\\d").search(value) != null
+				    x.Regex("^([\u20a0-\u20cf]|\\p{Sc}|¤|؋|Ar|฿|B/\\.|Br|Bs\\.|Bs\\.F\\.|GH₵|¢|c|Ch\\.|₡|D|ден|دج|.د.ب|د.ع|JD|د.ك|ل.د|дин|د.ت|د.م.|د.إ|Ð|Db|$|₫|Esc|€|ƒ|t|FBu|FCFA|Fr|FRw|CFA|G|gr|₲|h|₴|₭|Kč|kr|kn|MK|ZK|Kz|K|L|Le|E|lp|Ł|M|KM|MT|₥|Nfk|₦|Nu\\.|UM|MOP$|₱|Pt\\.|£|ج.م.|LL|LS|P|Q|q|R|R$|ر.ع.|ر.ق|ر.س|៛|RM|p|Rf\\.|₨|₨(PKR)|SRe|Rp|₪|Ksh|Sh\\.So\\.|USh|S/\\.|SDR|лв|сом|৳|WS$|₮|VT|₩|¥|zł)\\d").find(value) != null
 		    )
 		    ||
 		    (
-				    x.Regex("\\d([\u20a0-\u20cf]|\\p{Sc}|¤|؋|Ar|฿|B/\\.|Br|Bs\\.|Bs\\.F\\.|GH₵|¢|c|Ch\\.|₡|D|ден|دج|.د.ب|د.ع|JD|د.ك|ل.د|дин|د.ت|د.م.|د.إ|Ð|Db|$|₫|Esc|€|ƒ|t|FBu|FCFA|Fr|FRw|CFA|G|gr|₲|h|₴|₭|Kč|kr|kn|MK|ZK|Kz|K|L|Le|E|lp|Ł|M|KM|MT|₥|Nfk|₦|Nu\\.|UM|MOP$|₱|Pt\\.|£|ج.م.|LL|LS|P|Q|q|R|R$|ر.ع.|ر.ق|ر.س|៛|RM|p|Rf\\.|₨|₨(PKR)|SRe|Rp|₪|Ksh|Sh\\.So\\.|USh|S/\\.|SDR|лв|сом|৳|WS$|₮|VT|₩|¥|zł)$").search(value) != null
+				    x.Regex("\\d([\u20a0-\u20cf]|\\p{Sc}|¤|؋|Ar|฿|B/\\.|Br|Bs\\.|Bs\\.F\\.|GH₵|¢|c|Ch\\.|₡|D|ден|دج|.د.ب|د.ع|JD|د.ك|ل.د|дин|د.ت|د.م.|د.إ|Ð|Db|$|₫|Esc|€|ƒ|t|FBu|FCFA|Fr|FRw|CFA|G|gr|₲|h|₴|₭|Kč|kr|kn|MK|ZK|Kz|K|L|Le|E|lp|Ł|M|KM|MT|₥|Nfk|₦|Nu\\.|UM|MOP$|₱|Pt\\.|£|ج.م.|LL|LS|P|Q|q|R|R$|ر.ع.|ر.ق|ر.س|៛|RM|p|Rf\\.|₨|₨(PKR)|SRe|Rp|₪|Ksh|Sh\\.So\\.|USh|S/\\.|SDR|лв|сом|৳|WS$|₮|VT|₩|¥|zł)$").find(value) != null
 		    )
 		    ;	
 		}
@@ -207,7 +207,7 @@ public class Token extends HappyString {
 	
 	public boolean isCurrency() {
 		if (this.isCurrency == null) {
-			this.isCurrency = x.Regex("^([\u20a0-\u20cf]|\\p{Sc}|¤|؋|Ar|฿|B/\\.|Br|Bs\\.|Bs\\.F\\.|GH₵|¢|c|Ch\\.|₡|D|ден|دج|.د.ب|د.ع|JD|د.ك|ل.د|дин|د.ت|د.م.|د.إ|Ð|Db|$|₫|Esc|€|ƒ|t|FBu|FCFA|Fr|FRw|CFA|G|gr|₲|h|₴|₭|Kč|kr|kn|MK|ZK|Kz|K|L|Le|E|lp|Ł|M|KM|MT|₥|Nfk|₦|Nu\\.|UM|MOP$|₱|Pt\\.|£|ج.م.|LL|LS|P|Q|q|R|R$|ر.ع.|ر.ق|ر.س|៛|RM|p|Rf\\.|₨|₨(PKR)|SRe|Rp|₪|Ksh|Sh\\.So\\.|USh|S/\\.|SDR|лв|сом|৳|WS$|₮|VT|₩|¥|zł)$").search(value) != null;	
+			this.isCurrency = x.Regex("^([\u20a0-\u20cf]|\\p{Sc}|¤|؋|Ar|฿|B/\\.|Br|Bs\\.|Bs\\.F\\.|GH₵|¢|c|Ch\\.|₡|D|ден|دج|.د.ب|د.ع|JD|د.ك|ل.د|дин|د.ت|د.م.|د.إ|Ð|Db|$|₫|Esc|€|ƒ|t|FBu|FCFA|Fr|FRw|CFA|G|gr|₲|h|₴|₭|Kč|kr|kn|MK|ZK|Kz|K|L|Le|E|lp|Ł|M|KM|MT|₥|Nfk|₦|Nu\\.|UM|MOP$|₱|Pt\\.|£|ج.م.|LL|LS|P|Q|q|R|R$|ر.ع.|ر.ق|ر.س|៛|RM|p|Rf\\.|₨|₨(PKR)|SRe|Rp|₪|Ksh|Sh\\.So\\.|USh|S/\\.|SDR|лв|сом|৳|WS$|₮|VT|₩|¥|zł)$").find(value) != null;	
 		}
 		return this.isCurrency;
 	}
@@ -215,11 +215,11 @@ public class Token extends HappyString {
 	public boolean isCamel() {
 		if (this.isCamel == null) {
 			this.isCamel = (
-					x.Regex("^\\p{javaLowerCase}+\\p{javaUpperCase}").search(value) != null
+					x.Regex("^\\p{javaLowerCase}+\\p{javaUpperCase}").find(value) != null
 		   )
 		   ||
 		   (
-				    x.Regex("^\\p{javaUpperCase}+\\p{javaLowerCase}+\\p{javaUpperCase}+").search(value) != null
+				    x.Regex("^\\p{javaUpperCase}+\\p{javaLowerCase}+\\p{javaUpperCase}+").find(value) != null
 		   )
 		   ;	
 		}
@@ -228,7 +228,7 @@ public class Token extends HappyString {
 	
 	public boolean isTitle() {
 		if (this.isTitle == null) {
-			this.isTitle = x.Regex("^\\p{javaUpperCase}\\p{javaLowerCase}+").search(value) != null;
+			this.isTitle = x.Regex("^\\p{javaUpperCase}\\p{javaLowerCase}+").find(value) != null;
 		}
 		return this.isTitle;
 	}
@@ -242,154 +242,154 @@ public class Token extends HappyString {
 	
 	public boolean isLatinAlpha() {
 		if (this.isLatinAlpha == null) {
-			this.isLatinAlpha = x.RegexNoCase("^[a-z]+$").search(value) != null;
+			this.isLatinAlpha = x.RegexNoCase("^[a-z]+$").find(value) != null;
 		}
 		return this.isLatinAlpha;
 	}
 	
 	public boolean hasLatinAlpha() {
 		if (this.hasLatinAlpha == null) {
-			this.hasLatinAlpha = x.RegexNoCase("[a-z]").search(value) != null;
+			this.hasLatinAlpha = x.RegexNoCase("[a-z]").find(value) != null;
 		}
 		return this.hasLatinAlpha;
 	}
 	
 	public boolean isGreek() {
 		if (this.isGreek == null) {
-			this.isGreek = x.RegexNoCase("^[\0370-\u03ff\u1f00-\u1fff]+$").search(value) != null;
+			this.isGreek = x.RegexNoCase("^[\0370-\u03ff\u1f00-\u1fff]+$").find(value) != null;
 		}
 		return this.isGreek;
 	}
 		
 	public boolean hasGreek() {
 		if (this.hasGreek == null) {
-			this.hasGreek = x.RegexNoCase("[\0370-\u03ff\u1f00-\u1fff]").search(value) != null;
+			this.hasGreek = x.RegexNoCase("[\0370-\u03ff\u1f00-\u1fff]").find(value) != null;
 		}
 		return this.hasGreek;
 	}
 		
 	public boolean isArabic() {
 		if (this.isArabic == null) {
-			this.isArabic = x.RegexNoCase("^[\u0600-\u06ff\ufe70-\ufefc]+$").search(value) != null;
+			this.isArabic = x.RegexNoCase("^[\u0600-\u06ff\ufe70-\ufefc]+$").find(value) != null;
 		}
 		return this.isArabic;
 	}	
 
 	public boolean hasArabic() {
 		if (this.hasArabic == null) {
-			this.hasArabic = x.RegexNoCase("[\u0600-\u06ff\ufe70-\ufefc]").search(value) != null;
+			this.hasArabic = x.RegexNoCase("[\u0600-\u06ff\ufe70-\ufefc]").find(value) != null;
 		}
 		return this.hasArabic;
 	}	
 		
 	public boolean hasRussian() {
 		if (this.hasRussian == null) {
-			this.hasRussian = x.RegexNoCase("[\u0451\u0410-\u044f]").search(value) != null;
+			this.hasRussian = x.RegexNoCase("[\u0451\u0410-\u044f]").find(value) != null;
 		}
 		return this.hasRussian;
 	}	
 		
 	public boolean isCyrillic() {
 		if (this.isCyrillic == null) {
-			this.isCyrillic = x.RegexNoCase("^[\u0400-\u04ff\u2de0-\u2dff\ua640-\ua69d]+$").search(value) != null;
+			this.isCyrillic = x.RegexNoCase("^[\u0400-\u04ff\u2de0-\u2dff\ua640-\ua69d]+$").find(value) != null;
 		}
 		return this.isCyrillic;
 	}	
 
 	public boolean hasCyrillic() {
 		if (this.hasCyrillic == null) {
-			this.hasCyrillic = x.RegexNoCase("[\u0400-\u04ff\u2de0-\u2dff\ua640-\ua69d]").search(value) != null;
+			this.hasCyrillic = x.RegexNoCase("[\u0400-\u04ff\u2de0-\u2dff\ua640-\ua69d]").find(value) != null;
 		}
 		return this.hasCyrillic;
 	}	
 		
 	public boolean isHangul() {
 		if (this.isHangul == null) {
-			this.isHangul = x.RegexNoCase("^[\u1100-\u11ff]+$").search(value) != null;
+			this.isHangul = x.RegexNoCase("^[\u1100-\u11ff]+$").find(value) != null;
 		}
 		return this.isHangul;
 	}		
 	
 	public boolean hasHangul() {
 		if (this.hasHangul == null) {
-			this.hasHangul = x.RegexNoCase("[\u1100-\u11ff]").search(value) != null;
+			this.hasHangul = x.RegexNoCase("[\u1100-\u11ff]").find(value) != null;
 		}
 		return this.hasHangul;
 	}
 
 	public boolean isHiragana() {
 		if (this.isHiragana == null) {
-			this.isHiragana = x.RegexNoCase("^[\u3041-\u3096\u3099-\u309f]+$").search(value) != null;
+			this.isHiragana = x.RegexNoCase("^[\u3041-\u3096\u3099-\u309f]+$").find(value) != null;
 		}
 		return this.isHiragana;
 	}
 	
 	public boolean hasHiragana() {
 		if (this.hasHiragana == null) {
-			this.hasHiragana = x.RegexNoCase("[\u3041-\u3096\u3099-\u309f]").search(value) != null;
+			this.hasHiragana = x.RegexNoCase("[\u3041-\u3096\u3099-\u309f]").find(value) != null;
 		}
 		return this.hasHiragana;
 	}
 	
 	public boolean isKatakana() {
 		if (this.isKatakana == null) {
-			this.isKatakana = x.RegexNoCase("^[\u30a0-\u30ff\u31f0-\u31ff]+$").search(value) != null;
+			this.isKatakana = x.RegexNoCase("^[\u30a0-\u30ff\u31f0-\u31ff]+$").find(value) != null;
 		}
 		return this.isKatakana;
 	}
 	
 	public boolean hasKatakana() {
 		if (this.hasKatakana == null) {
-			this.hasKatakana = x.RegexNoCase("[\u30a0-\u30ff\u31f0-\u31ff]").search(value) != null;
+			this.hasKatakana = x.RegexNoCase("[\u30a0-\u30ff\u31f0-\u31ff]").find(value) != null;
 		}
 		return this.hasKatakana;
 	}
 	
 	public boolean isHebrew() {
 		if (this.isHebrew == null) {
-			this.isHebrew = x.RegexNoCase("^[\u0590-\u05c7\u05D0-\u05ea\u05f0-\u05f4]+$").search(value) != null;
+			this.isHebrew = x.RegexNoCase("^[\u0590-\u05c7\u05D0-\u05ea\u05f0-\u05f4]+$").find(value) != null;
 		}
 		return this.isHebrew;
 	}
 	
 	public boolean hasHebrew() {
 		if (this.hasHebrew == null) {
-			this.hasHebrew = x.RegexNoCase("[\u0590-\u05c7\u05D0-\u05ea\u05f0-\u05f4]").search(value) != null;
+			this.hasHebrew = x.RegexNoCase("[\u0590-\u05c7\u05D0-\u05ea\u05f0-\u05f4]").find(value) != null;
 		}
 		return this.hasHebrew;
 	}
 	
 	public boolean isMath() {
 		if (this.isMath == null) {
-			this.isMath = x.RegexNoCase("^[+=*/\u2200-\u22ff-]$").search(value) != null;
+			this.isMath = x.RegexNoCase("^[+=*/\u2200-\u22ff-]$").find(value) != null;
 		}
 		return this.isMath;
 	}
 	
 	public boolean hasMath() {
 		if (this.hasMath == null) {
-			this.hasMath = x.RegexNoCase("[+=*/\u2200-\u22ff-]").search(value) != null;
+			this.hasMath = x.RegexNoCase("[+=*/\u2200-\u22ff-]").find(value) != null;
 		}
 		return this.hasMath;
 	}
 		
 	public boolean hasTurkish() {
 		if (this.hasTurkish == null) {
-			this.hasTurkish = x.RegexNoCase("[İÖÜŞğüĞ]").search(value) != null;
+			this.hasTurkish = x.RegexNoCase("[İÖÜŞğüĞ]").find(value) != null;
 		}
 		return this.hasTurkish;
 	}	
 
 	public boolean startsWithWovel() {
 		if (this.startsWithWovel == null) {
-			this.startsWithWovel = x.RegexNoCase("^[eyuioa]").search(x.String(value).unidecode()) != null;
+			this.startsWithWovel = x.RegexNoCase("^[eyuioa]").find(x.String(value).unidecode()) != null;
 		}
 		return this.startsWithWovel;
 	}
 	
 	public boolean endsWithWovel() {
 		if (this.endsWithWovel == null) {
-			this.endsWithWovel = x.RegexNoCase("[eyuioa]$").search(x.String(value).unidecode()) != null;
+			this.endsWithWovel = x.RegexNoCase("[eyuioa]$").find(x.String(value).unidecode()) != null;
 		}
 		return this.endsWithWovel;
 	}	
@@ -440,11 +440,11 @@ public class Token extends HappyString {
 		if (this.shape == null) {
 			str fullShapeStr = x.str();
 			for (String character : x.str(value)) {
-				if (x.isTrue(x.Regex("[0-9]").search(character))){
+				if (x.isTrue(x.Regex("[0-9]").find(character))){
 					fullShapeStr.append("D");
-				} else if (!character.equals("_") && x.isTrue(x.Regex("\\w").search(character)) && character.toLowerCase().equals(character)) {
+				} else if (!character.equals("_") && x.isTrue(x.Regex("\\w").find(character)) && character.toLowerCase().equals(character)) {
 					fullShapeStr.append("L");	
-				} else if (!character.equals("_") && x.isTrue(x.Regex("\\w").search(character)) && character.toUpperCase().equals(character)) {
+				} else if (!character.equals("_") && x.isTrue(x.Regex("\\w").find(character)) && character.toUpperCase().equals(character)) {
 					fullShapeStr.append("U");
 				} else {
 					fullShapeStr.append("S");
@@ -478,7 +478,7 @@ public class Token extends HappyString {
 	
 	public boolean isPunct() {
 		if (this.isPunct == null) {
-			this.isPunct = x.isTrue(x.Regex("[.,;!?:()-]").search(value));
+			this.isPunct = x.isTrue(x.Regex("[.,;!?:()-]").find(value));
 		}
 		return this.isPunct;
 	}

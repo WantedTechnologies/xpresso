@@ -18,7 +18,7 @@ public class Match implements Serializable {
 	list<Integer> groupEndsList = x.list();
 	dict<String> namedGroups = x.dict();
 	public Match(Matcher matcher){
-		for(Match groupNameMatch:x.Regex("\\(\\?<([^>]+)>").searchIter(matcher.pattern().toString())){
+		for(Match groupNameMatch:x.Regex("\\(\\?<([^>]+)>").findIter(matcher.pattern().toString())){
 			namedGroups.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
 		}
 		this.groupCount = matcher.groupCount();
@@ -51,5 +51,48 @@ public class Match implements Serializable {
 			return true;
 		}
 		return false;
+	}
+	
+	public dict<String> namedGroups() {
+		return namedGroups;
+	}
+	
+	public list<String> groups() {
+		list<String> lst = x.list();
+		for (String gStr : groupStringsList.sliceFrom(1)) {
+			lst.append(gStr);	
+		}
+		return lst;
+	}
+	public list<String> groups(String def) {
+		list<String> lst = x.list();
+		for (String gStr : groupStringsList.sliceFrom(1)) {
+			if (gStr == null) {
+				lst.append(def);	
+			}	
+		}
+		return lst;
+	}
+	public list<String> matchedGroups() {
+		list<String> lst = x.list();
+		for (String gStr : groupStringsList.sliceFrom(1)) {
+			if (gStr != null) {
+				lst.append(gStr);	
+			}	
+		}
+		return lst;
+	}
+	public dict<String> matchedNamedGroups() {
+		dict<String> dct = x.dict();
+		for (String gStr : namedGroups) {
+			try {
+				if (namedGroups.get(gStr) != null) {
+					dct.setAt(gStr).value(namedGroups.get(gStr));	
+				}
+			} catch (NoSuchFieldException e) {
+				// cant happen
+			}	
+		}
+		return dct;
 	}
 }

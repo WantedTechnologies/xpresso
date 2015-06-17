@@ -132,7 +132,7 @@ public class HappyString {
 	    newValue = newValue.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 	    return newValue;
 	}
-	
+		
 	public String translit(){
 		return x.String.translit(value);
 	}
@@ -142,13 +142,29 @@ public class HappyString {
 	}
 	
 	public int count(String substring){
-		return x.len(x.Regex(substring).searchAll(value));
+		return x.len(x.Regex(substring).findAll(value));
 	}
 	
 	public int count(char character){
 		return count(String.valueOf(character));
 	}
 	
+	public String upper(){
+		return value.toUpperCase();
+	}
+		
+	public String lower(){
+		return value.toLowerCase();
+	}
+	
+	public String strip(){
+		return value.trim();
+	}
+	
+	public String strip(String chars){
+		return value.replaceAll("^["+chars+"]+", "").replaceAll("["+chars+"]+$", "");
+	}
+		
 	@SuppressWarnings("unchecked")
 	public String translate(list<tuple> fromTo){
 		String translatedString = "";
@@ -158,7 +174,7 @@ public class HappyString {
 		tuple froms__tos = x.unzip(sortedFromTo,String.class,String.class);
 		list<String> froms = (list<String>)froms__tos.get(0);
 		Regex regex = x.Regex(x.String("|").join(froms));
-		for(Match m : regex.searchIter(value)){
+		for(Match m : regex.findIter(value)){
 			try{
 				translatedString += x.str(this.value).slice(lastStop,m.start(0)).toString()+replacementDict.get(m.group(0));	
 			}catch(NoSuchFieldException e){

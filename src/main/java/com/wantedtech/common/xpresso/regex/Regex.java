@@ -53,7 +53,7 @@ public class Regex implements Serializable{
 	public String sub(Function<Match,String> replacer,String string){
 		int currentIndex = 0;
 		StringBuilder resultString = new StringBuilder();
-		for(Match m:searchIter(string)){
+		for(Match m:findIter(string)){
 			resultString.append(x.String(string).slice(currentIndex,m.start(0)));
 			resultString.append(replacer.apply(m));
 			currentIndex = m.end(0);
@@ -68,7 +68,7 @@ public class Regex implements Serializable{
 	public String sub(dict<String> translator,String string){
 		int currentIndex = 0;
 		StringBuilder resultString = new StringBuilder();
-		for(Match m:searchIter(string)){
+		for(Match m:findIter(string)){
 			resultString.append(x.String(string).slice(currentIndex,m.start(0)));
 			try{
 				resultString.append(translator.get(m.group(0)));	
@@ -87,7 +87,7 @@ public class Regex implements Serializable{
 	public String sub(String string){
 		int currentIndex = 0;
 		StringBuilder resultString = new StringBuilder();
-		for(Match m:searchIter(string)){
+		for(Match m:findIter(string)){
 			resultString.append(x.String(string).slice(currentIndex,m.start(0)));
 			for(tuple idx__groupMatch:x.enumerate(m.groupStringsList)){
 				int idx = idx__groupMatch.get(0,Integer.class);
@@ -135,15 +135,15 @@ public class Regex implements Serializable{
 		return sub("", str);
 	}
 	
-	public MatchIterator searchIter(String string){
+	public MatchIterator findIter(String string){
 		Matcher m = pattern.matcher(string);
 		return new MatchIterator(m);
 	}
 	public MatchIterator searchIter(str str){
-		return searchIter(str.toString());
+		return findIter(str.toString());
 	}
 	
-	public Match search(String string){
+	public Match find(String string){
 		Matcher m = pattern.matcher(string);
 		if(m.find()){
 			return new Match(m);	
@@ -151,22 +151,22 @@ public class Regex implements Serializable{
 			return null;
 		}
 	}
-	public Match search(str str){
-		return search(str.toString());
+	public Match find(str str){
+		return find(str.toString());
 	}
 	
-	public Match search(String string, int startIndex){
-		return search(x.String(string).sliceFrom(startIndex));
+	public Match find(String string, int startIndex){
+		return find(x.String(string).sliceFrom(startIndex));
 	}
-	public Match search(str str, int startIndex){
-		return search(str.sliceFrom(startIndex));
+	public Match find(str str, int startIndex){
+		return find(str.sliceFrom(startIndex));
 	}
 	
-	public Match search(String string, int startIndex, int endIndex){
-		return search(x.String(string).slice(startIndex, endIndex));
+	public Match find(String string, int startIndex, int endIndex){
+		return find(x.String(string).slice(startIndex, endIndex));
 	}
-	public Match search(str str, int startIndex, int endIndex){
-		return search(str.slice(startIndex, endIndex));
+	public Match find(str str, int startIndex, int endIndex){
+		return find(str.slice(startIndex, endIndex));
 	}
 	
 	public list<String> split(String string,int limit){
@@ -187,7 +187,7 @@ public class Regex implements Serializable{
 		return split(str,Integer.MAX_VALUE);
 	}
 	
-	public list<String> searchAll(String string){
+	public list<String> findAll(String string){
 		Matcher m = pattern.matcher(string);
 		list<String> listOfStringMatches = x.list();
 		while (m.find()) {
@@ -195,9 +195,9 @@ public class Regex implements Serializable{
 		}
 		return listOfStringMatches;
 	}
-	public list<str> searchAll(str str){
+	public list<str> findAll(str str){
 		String stringInput = str.toString();
-		list<String> lstStrings = searchAll(stringInput);
+		list<String> lstStrings = findAll(stringInput);
 		list<str> listStrs = x.<str>list();
 		for (String string : lstStrings){
 			listStrs = listStrs.append(x.str(string));

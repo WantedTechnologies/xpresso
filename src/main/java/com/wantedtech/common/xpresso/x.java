@@ -50,9 +50,7 @@ import com.wantedtech.common.xpresso.types.tuples.*;
 import com.wantedtech.common.xpresso.token.*;
 
 /**
- * This class contains all important high-level static utility methods of <pre>xpresso</pre>. This is the entry point of the library. It is recommended to start exploring the Javadoc from here.
- *  
- * The class {@link x} can be seen as a container of the highest-level methods of xpresso, similar to Python's __builtin__ namespace.
+ * This is the entry point of xpresso. x contains all important high-level static utility methods of the library. It is recommended to start exploring the Javadoc from here. The class x can be seen as a container of the highest-level methods of xpresso, similar to Python's __builtin__ namespace.
  * 
  * @author Andriy Burkov
  * @since 0.01
@@ -61,69 +59,69 @@ import com.wantedtech.common.xpresso.token.*;
 public class x {
 	
 	/**
-	 * Creates an Assert class object that has useful assertion methods.
+	 * Contains an instance of {@link Assert} class object that has useful assertion methods.
 	 */
 	public static Assert Assert = new Assert();
 	
 	/**
-	 * Creates an Assert class object and calls its True method.
+	 * Gets the Assert class object and calls its True method.
 	 * 
 	 * @param expression	the expression to assert true
 	 */
 	public static void assertTrue(boolean expression){
-		new Assert().True(expression);
+		Assert.True(expression);
 	}
 	
 	/**
-	 * Creates an Assert class object and calls its True method.
+	 * Gets the Assert class object and calls its True method.
 	 * 
 	 * @param expression	the expression to assert true
 	 * @param message		the message to print in case of false
 	 */
 	public static void assertTrue(boolean expression, String message){
-		new Assert().True(expression, message);
+		Assert.True(expression, message);
 	}
 	
 	/**
-	 * Creates an Assert class object and calls its notNull method.
+	 * Gets the Assert class object object and calls its notNull method.
 	 * 
 	 * @param <T>			input type
 	 * @param expression	the expression to assert not null
 	 */
 	public static <T> void assertNotNull(T expression){
-		new Assert().notNull(expression);
+		Assert.notNull(expression);
 	}
 	
 	/**
-	 * Creates an Assert class object and calls its notNull method.
+	 * Gets the Assert class object and calls its notNull method.
 	 * 
 	 * @param <T>			input type
 	 * @param expression	the expression to assert not null
 	 * @param message		the message to print in case of null
 	 */
 	public static <T> void assertNotNull(T expression, String message){
-		new Assert().notNull(expression, message);
+		Assert.notNull(expression, message);
 	}
 	
 	/**
-	 * Creates an Assert class object and calls its notEmpty method.
+	 * Gets the Assert class object and calls its notEmpty method.
 	 * 
 	 * @param <T>			input type
 	 * @param expression	the expression to assert  not empty
 	 */
 	public static <T> void assertNotEmpty(T expression){
-		new Assert().notEmpty(expression);
+		Assert.notEmpty(expression);
 	}
 	
 	/**
-	 * Creates an Assert class object and calls its notEmpty method.
+	 * Gets the Assert class object and calls its notEmpty method.
 	 * 
 	 * @param <T>			input type
 	 * @param expression	the expression to assert  not empty
 	 * @param message		the message to print in case of empty
 	 */
 	public static <T> void assertNotEmpty(T expression, String message){
-		new Assert().notEmpty(expression, message);
+		Assert.notEmpty(expression, message);
 	}
 	
 	/*

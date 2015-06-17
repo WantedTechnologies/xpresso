@@ -129,17 +129,17 @@ public abstract class AbstractTuple implements tuple {
     }
     
     public String getString(int index) {
-    	return (String)get(index);
+    	return get(index).toString();
     }
     public String getString(String fieldName) {
-    	return (String)get(fieldName);
+    	return get(fieldName).toString();
     }
     
     public str getStr(int index) {
-    	return (str)get(index);
+    	return x.str(get(index).toString());
     }
     public str getStr(String fieldName) {
-    	return (str)get(fieldName);
+    	return x.str(get(fieldName).toString());
     }
 	
 	@Override

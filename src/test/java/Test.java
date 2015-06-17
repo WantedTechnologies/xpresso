@@ -137,9 +137,9 @@ public class Test {
 			
 			x.print(x.Regex("\\w").sub(translator, "Mama papa bonjour!"));
 			
-			x.print(x.Regex("(?<name1>a)|(?<name2>b)").search("mama").group("name1"));
+			x.print(x.Regex("(?<name1>a)|(?<name2>b)").find("mama").group("name1"));
 			
-			x.print(x.Regex("(?<name1>a)|(?<name2>b)").search("mama").group(1));
+			x.print(x.Regex("(?<name1>a)|(?<name2>b)").find("mama").group(1));
 			
 			list<String> flatten = lst6.flatten(String.class);
 			
