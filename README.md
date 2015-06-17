@@ -632,7 +632,7 @@ x.print(emails);
 
 Console: [smith@company.com, john@smith.com]
 ```
-Other patterns: x.Regex.LINK, x.Regex.EMAIL, x.Regex.IPV4, x.Regex IPV6, x.Regex.HEX_COLOR, x.Regex.ACRONYM, x.Regex.CREDIT_CARD, x.Regex.US.DATE, x.Regex.US.TIME, x.Regex.US.PHONE, x.Regex.US.PRICE, x.Regex.US.STREET_ADDRESS.
+Other patterns include x.Regex.LINK, x.Regex.EMAIL, x.Regex.IPV4, x.Regex IPV6, x.Regex.HEX_COLOR, x.Regex.ACRONYM, x.Regex.CREDIT_CARD, x.Regex.FLOAT, and so on, as well as a number of country-specific ones: x.Regex.US.DATE, x.Regex.US.TIME, x.Regex.US.PHONE, x.Regex.US.PRICE, x.Regex.US.STREET_ADDRESS, etc.
 
 #### The Token type
 ```
