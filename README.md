@@ -627,7 +627,7 @@ text = x.Regex(replacer).sub(text);
 
 #### Predefined regex patterns
 ```
-list<String> emails = x.list(x.Regex.EMAIL.findAll("Contact me at john.smith@company.com or john@smith.com"));
+list<String> emails = x.list(x.Regex.EMAIL.findAll("Contact me at john.smith@company.com or john@smith.com."));
 x.print(emails);
 
 Console: [smith@company.com, john@smith.com]
