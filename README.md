@@ -581,7 +581,7 @@ for long_word_match in re.finditer("\b\w{10,}\b",text):
 
 xpresso:
 ```
-for (Match longWordMatch : x.Regex("\\b\\w{10,}\\b").searchIter(text))
+for (Match longWordMatch : x.Regex("\\b\\w{10,}\\b").findIter(text))
     x.print(longWordMatch.group(0));
 ```
 
@@ -593,7 +593,7 @@ for long_word in re.findall("\b\w{10,}\b",text):
 
 xpresso:
 ```
-for (String longWord : x.Regex("\\b\\w{10,}\\b").searchAll(text))
+for (String longWord : x.Regex("\\b\\w{10,}\\b").findAll(text))
 	x.print(longWord);
 ```
 
@@ -617,8 +617,6 @@ Function<String,String> toUpperCaseFun = new Function<String,String>(){
 
 text = x.Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
 ```
-
-Regex.searchIter and Regex.searchAll replace Python's re.findIter and re.findAll.
 
 #### Replace with a dict
 ```
