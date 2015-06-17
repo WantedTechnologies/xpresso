@@ -625,6 +625,15 @@ dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tu
 text = x.Regex(replacer).sub(text);
 ```
 
+#### Predefined regex patterns
+```
+list<String> emails = x.list(x.Regex.EMAIL.findAll("Contact me at john.smith@company.com or john@smith.com"));
+x.print(emails);
+
+Console: [smith@company.com, john@smith.com]
+```
+Other patterns: Regex.LINK, Regex.EMAIL, Regex.IPV4, Regex IPV6, Regex.HEX_COLOR, Regex.ACRONYM, Regex.CREDIT_CARD, Regex.US.DATE, Regex.US.TIME, Regex.US.PHONE, Regex.US.PRICE, Regex.US.STREET_ADDRESS.
+
 #### The Token type
 ```
 Token tok = x.Token("MySQL5");
