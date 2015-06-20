@@ -6,7 +6,7 @@ xpresso is a Java library inspired by Python. It allows a (near) line-into-line 
 xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, generators, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
 xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.timer, x.Json, x.mysql, x.csv and others.
-
+re
 xpresso: less boilerplate, more fun, more work done.
 
 License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
@@ -602,16 +602,16 @@ for (String longWord : x.Regex("\\b\\w{10,}\\b").findAll(text))
 Python:
 ```
 def toUpperCaseFun(value):
-	return value.upper()
+	return value.group(0).upper()
 
 text = re.sub("\b\w{10,}\b",toUpperCaseFun,text)
 ```
 
 xpresso:
 ```
-Function<String,String> toUpperCaseFun = new Function<String,String>(){
-	public String apply(String value) {
-		return value.toUpperCase();
+Function<Match,String> toUpperCaseFun = new Function<Match,String>(){
+	public String apply(Match value) {
+		return value.group(0).toUpperCase();
 	}
 }
 
