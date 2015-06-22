@@ -329,7 +329,7 @@ Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
 ```
 Then, define the channel to where the workers should send the computed values as soon as those values are ready:
 ```
-Channel<Integer> channel = x.channel(Integer.class);//this channel only accepts Integer values
+Channel<Integer> channel = x.Channel(Integer.class);//this channel only accepts Integer values
 ```
 Then, start as many concurrent workers as needed:
 ```
