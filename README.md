@@ -338,7 +338,7 @@ x.go(worker, channel);
 x.go(worker, channel);
 ...
 ```
-Finally, retrieve the computed values from the channel when those values are needed:
+Finally, retrieve from the channel the values concurrently computed by the workers when those values are needed:
 ```
 for (Integer value : channel) {
 	x.print(value);
