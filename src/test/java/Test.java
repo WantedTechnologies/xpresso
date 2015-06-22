@@ -5,9 +5,9 @@ import java.util.List;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.en.sentence.Sentence;
+import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
+import com.wantedtech.common.xpresso.experimental.concurrency.SendToClosedChannelException;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
-import com.wantedtech.common.xpresso.experimental.parallel.Channel;
-import com.wantedtech.common.xpresso.experimental.parallel.SendToClosedChannelException;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Slicer;
@@ -394,7 +394,7 @@ public class Test {
 				}
 			};
 			
-			Channel<Integer> channel = x.channel(Integer.class,100);
+			Channel<Integer> channel = x.Channel(Integer.class,100);
 			
 			x.go(counter1, channel);
 			x.go(counter2, channel.sendOnly());
@@ -413,7 +413,7 @@ public class Test {
 			
 			String text = "Hello my name is Andrei. This is my test.";
 			
-			for (Sentence sent : x.EN.tokenize(text)) {
+			for (Sentence sent : x.String.EN.tokenize(text)) {
 				for (Token tok : sent) {
 					x.print(tok);
 				}

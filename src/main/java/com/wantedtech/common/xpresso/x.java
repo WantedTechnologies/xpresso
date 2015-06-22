@@ -37,14 +37,13 @@ import java.lang.Iterable;
 import java.lang.Number;
 
 import com.wantedtech.common.xpresso.helpers.*;
-import com.wantedtech.common.xpresso.en.*;
 import com.wantedtech.common.xpresso.json.*;
 import com.wantedtech.common.xpresso.strings.*;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.comprehension.*;
 import com.wantedtech.common.xpresso.csv.*;
-import com.wantedtech.common.xpresso.experimental.parallel.Channel;
-import com.wantedtech.common.xpresso.experimental.parallel.Goer;
+import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
+import com.wantedtech.common.xpresso.experimental.concurrency.Goer;
 import com.wantedtech.common.xpresso.functional.*;
 import com.wantedtech.common.xpresso.functional.lambda.*;
 import com.wantedtech.common.xpresso.regex.*;
@@ -62,15 +61,172 @@ import com.wantedtech.common.xpresso.token.*;
 
 public class x {
 	
+	/**
+	 * Starts a thread with the computation described in worker and the channel for sending computed values to.
+	 * 
+	 * Example:
+	 * 
+	 * First, define a worker as an instance of Predicate:
+	 * 
+	 * <pre>
+	 * {@code
+	 * Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
+	 *     public Boolean apply(Channel<Integer> channel) {
+	 *         while (some_condition_true) {
+	 *             Integer value = computeValue(); //compute something in parallel
+	 *             channel.send(value);            //send the computed value to the channel
+	 *         }
+	 *         return true;                        //everything went as expected
+	 *     }
+	 * };
+	 * }
+	 * <pre>
+	 * Then, define the channel to where the workers should send the computed values as soon as those values are ready:
+	 * 
+	 * <pre>
+	 * {@code
+	 * Channel<Integer> channel = x.Channel(Integer.class);//this channel only accepts Integer values
+	 * }
+	 * </pre>
+	 * Then, start as many concurrent workers as needed:
+	 * 
+	 * <pre>
+	 * {@code
+	 * x.go(worker, channel);
+	 * x.go(worker, channel);
+	 * x.go(worker, channel);
+	 * ...
+	 * }
+	 * </pre>
+	 * Finally, retrieve the computed values from the channel when those values are needed:
+	 * 
+	 * <pre>
+	 * {@code
+	 * for (Integer value : channel) {
+	 *     x.print(value);
+	 * }
+	 * }
+	 * </pre>
+	 * 
+	 * @param worker	a {@link Predicate} object whose apply method describes the computation and uses the channel to send computed values to
+	 * @param channel	a {@link Channel} to send the computed values to by the workers, and to read them from by the main routine as those values are ready
+	 * @return
+	 */
 	public static <T> Goer<T> go(Predicate<Channel<T>> worker, Channel<T> channel) {
 		return new Goer<T>(worker, channel).go(); 
 	}
-		
-	public static <T> Channel<T> channel(Class<T> type) {
+	
+	/**
+	 * Creates a new unbuffered (synchronous) channel of the given type. To be used with the x.go method to start a thread.
+	 * 
+	 * A unbuffered channel means that no values will be sent to the channel by the workers unless there's a retriever ready to retrieve those values. 
+	 * 
+	 * Example:
+	 * 
+	 * First, define a worker as an instance of Predicate:
+	 * 
+	 * <pre>
+	 * {@code
+	 * Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
+	 *     public Boolean apply(Channel<Integer> channel) {
+	 *         while (some_condition_true) {
+	 *             Integer value = computeValue(); //compute something in parallel
+	 *             channel.send(value);            //send the computed value to the channel
+	 *         }
+	 *         return true;                        //everything went as expected
+	 *     }
+	 * };
+	 * }
+	 * <pre>
+	 * Then, define the channel to where the workers should send the computed values as soon as those values are ready:
+	 * 
+	 * <pre>
+	 * {@code
+	 * Channel<Integer> channel = x.Channel(Integer.class);//this channel only accepts Integer values
+	 * }
+	 * </pre>
+	 * Then, start as many concurrent workers as needed:
+	 * 
+	 * <pre>
+	 * {@code
+	 * x.go(worker, channel);
+	 * x.go(worker, channel);
+	 * x.go(worker, channel);
+	 * ...
+	 * }
+	 * </pre>
+	 * Finally, retrieve the computed values from the channel when those values are needed:
+	 * 
+	 * <pre>
+	 * {@code
+	 * for (Integer value : channel) {
+	 *     x.print(value);
+	 * }
+	 * }
+	 * </pre>
+	 * 
+	 * @param type	type of values that can be sent to and retrieved from the channel.
+	 * @return a Channel object
+	 */
+	public static <T> Channel<T> Channel(Class<T> type) {
 		return new Channel<T>(type);
 	}
 	
-	public static <T> Channel<T> channel(Class<T> type, int bufferSize) {
+	/**
+	 * Creates a new buffered (asynchronous) channel. To be used with the x.go method to start a thread.
+	 * 
+	 * A buffered channel means that values will be sent to the channel by the workers unless there's a place in the buffer.
+	 * Even if there's no retriever ready to retrieve those values.
+	 * 
+	 * Example:
+	 * 
+	 * First, define a worker as an instance of Predicate:
+	 * 
+	 * <pre>
+	 * {@code
+	 * Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
+	 *     public Boolean apply(Channel<Integer> channel) {
+	 *         while (some_condition_true) {
+	 *             Integer value = computeValue(); //compute something in parallel
+	 *             channel.send(value);            //send the computed value to the channel
+	 *         }
+	 *         return true;                        //everything went as expected
+	 *     }
+	 * };
+	 * }
+	 * <pre>
+	 * Then, define the channel to where the workers should send the computed values as soon as those values are ready:
+	 * 
+	 * <pre>
+	 * {@code
+	 * Channel<Integer> channel = x.Channel(Integer.class, 100);//this channel with buffer size 100 only accepts Integer values 
+	 * }
+	 * </pre>
+	 * Then, start as many concurrent workers as needed:
+	 * 
+	 * <pre>
+	 * {@code
+	 * x.go(worker, channel);
+	 * x.go(worker, channel);
+	 * x.go(worker, channel);
+	 * ...
+	 * }
+	 * </pre>
+	 * Finally, retrieve the computed values from the channel when those values are needed:
+	 * 
+	 * <pre>
+	 * {@code
+	 * for (Integer value : channel) {
+	 *     x.print(value);
+	 * }
+	 * }
+	 * </pre>
+	 * 
+	 * @param type	type of values that can be sent to and retrieved from the channel.
+	 * @param bufferSize	the size of buffer
+	 * @return
+	 */
+	public static <T> Channel<T> Channel(Class<T> type, int bufferSize) {
 		return new Channel<T>(type, bufferSize);
 	}
 	
@@ -4303,13 +4459,11 @@ public class x {
 	public static Predicate<Object> isEmpty = empty;
 	
 	/**
-	 * A {@link Function} that retursn the value of the hash code of the input object. 
+	 * A {@link Function} that returns the value of the hash code of the input object. 
 	 */
 	public static Function<Object,Integer> getHashCode = new Function<Object,Integer>() {
 		public Integer apply(Object value) {
 			return value.hashCode();
 		}
 	};
-	
-	public static EN EN = new EN();
 }

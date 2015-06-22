@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import com.ibm.icu.text.Transliterator;
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.en.EN;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.ParametrizedFunction;
 import com.wantedtech.common.xpresso.functional.Predicate;
@@ -120,6 +121,8 @@ public class HappyStringStatic {
 	};
 	
 	public Function<Object, Integer> len = x.len;
+	
+	public EN EN = new EN();
 	
 	 /**
      * <p>Checks if the String contains only whitespace.</p>
