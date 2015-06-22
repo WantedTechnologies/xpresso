@@ -833,6 +833,8 @@ Console: [Saint-Petersbourg, San Francisco]
 * For more see the [javadoc](http://wantedtechnologies.github.io/xpresso/) for the main class [x](http://wantedtechnologies.github.io/xpresso/com/wantedtech/common/xpresso/x.html).
 
 #### Future
+* HTTP
+* Web server
 * Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
 
 ```
