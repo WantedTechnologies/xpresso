@@ -7,15 +7,16 @@ import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple;
 
 /**
-    """
     A string-based encoding of a particular chunking of a text.
     Internally, the ``ChunkString`` class uses a single string to
     encode the chunking of the input text.  This string contains a
     sequence of angle-bracket delimited tags, with chunking indicated
     by braces.  An example of this encoding is::
-
+	<pre>
+	{@code
         {<DT><JJ><NN>}<VBN><IN>{<DT><NN>}<.>{<DT><NN>}<VBD><.>
-
+    }
+	</pre>
     ``ChunkString`` are created from tagged texts (i.e., lists of
     ``tokens`` whose type is ``TaggedType``).  Initially, nothing is
     chunked.
@@ -31,18 +32,12 @@ import com.wantedtech.common.xpresso.types.tuple;
         encoding.  This string representation contains a sequence of
         angle-bracket delimited tags, with chunking indicated by
         braces.  An example of this encoding is::
+	<pre>
+	{@code
 
             {<DT><JJ><NN>}<VBN><IN>{<DT><NN>}<.>{<DT><NN>}<VBD><.>
-
-    :type _pieces: list(tagged tokens and chunks)
-    :ivar _pieces: The tagged tokens and chunks encoded by this ``ChunkString``.
-    :ivar _debug: The debug level.  See the constructor docs.
-
-    :cvar IN_CHUNK_PATTERN: A zero-width regexp pattern string that
-        will only match positions that are in chunks.
-    :cvar IN_CHINK_PATTERN: A zero-width regexp pattern string that
-        will only match positions that are in chinks.
-    """
+    }
+	</pre>
  * @author andriy.burkov
  *
  */
@@ -83,22 +78,7 @@ public class ChunkString {
         Construct a new ``ChunkString`` that encodes the chunking of
         the text ``tagged_tokens``.
 
-        :type chunk_struct: Tree
-        :param chunk_struct: The chunk structure to be further chunked.
-        :type debug_level: int
-        :param debug_level: The level of debugging which should be
-            applied to transformations on the ``ChunkString``.  The
-            valid levels are:
-                - 0: no checks
-                - 1: full check on to_chunkstruct
-                - 2: full check on to_chunkstruct and cursory check after
-                   each transformation.
-                - 3: full check on to_chunkstruct and full check after
-                   each transformation.
-            We recommend you use at least level 1.  You should
-            probably use level 3 if you use any non-standard
-            subclasses of ``RegexpChunkRule``.
-        """
+        @param chunk_struct: The chunk structure to be further chunked.
      */
     public ChunkString(Node chunk_struct) {
     	this._root_label = chunk_struct.label();
@@ -108,22 +88,16 @@ public class ChunkString {
     }
 
     /**
-        """
         Check to make sure that ``s`` still corresponds to some chunked
         version of ``_pieces``.
 
-        :type verify_tags: bool
-        :param verify_tags: Whether the individual tags should be
+		@param s : a {@link String} to verify
+        @param verify_tags: Whether the individual tags should be
             checked.  If this is false, ``_verify`` will check to make
             sure that ``_str`` encodes a chunked version of *some*
             list of tokens.  If this is true, then ``_verify`` will
             check to make sure that the tags in ``_str`` match those in
             ``_pieces``.
-
-        :raise ValueError: if the internal string representation of
-            this ``ChunkString`` is invalid or not consistent with _pieces.
-        """
-     * @return
      */
     void _verify(String s, int verify_tags) {
         // Check overall form
@@ -156,14 +130,10 @@ public class ChunkString {
 
 
 	/**
-	        """
 	        Return the chunk structure encoded by this ``ChunkString``.
-	
-	        :rtype: Tree
-	        :raise ValueError: If a transformation has generated an
-	            invalid chunkstring.
-	        """
-	 * @return
+
+	 * @param label : a {@link String} label to use for chunk nodes
+	 * @return a tree with tokens and chunks
 	 */
     public Node to_chunkstruct(String label) {
 
@@ -210,19 +180,13 @@ public class ChunkString {
         improper bracketing.  Note, in particular, that bracketing may
         not be nested.
 
-        :type regexp: str or regexp
-        :param regexp: A regular expression matching the substring
+        @param regexp: A regular expression matching the substring
             that should be replaced.  This will typically include a
             named group, which can be used by ``repl``.
-        :type repl: str
-        :param repl: An expression specifying what should replace the
+        @param repl: An expression specifying what should replace the
             matched substring.  Typically, this will include a named
             replacement group, specified by ``regexp``.
-        :rtype: None
-        :raise ValueError: If this transformation generated an
-            invalid chunkstring.
         """
-     * @return
      */
     public void xform(Regex regexp, String repl) {
         // Do the actual substitution

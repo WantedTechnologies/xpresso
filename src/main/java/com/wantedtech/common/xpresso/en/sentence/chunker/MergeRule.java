@@ -19,28 +19,23 @@ public class MergeRule extends RegexpChunkRule {
     String _left_tag_pattern;
     String _right_tag_pattern;
 		/**
-	        """
 	        Construct a new ``MergeRule``.
 
-	        :type right_tag_pattern: str
-	        :param right_tag_pattern: This rule's right tag
+	        @param right_tag_pattern: This rule's right tag
 	            pattern.  When applied to a ``ChunkString``, this
 	            rule will find any chunk whose end matches
 	            ``left_tag_pattern``, and immediately followed by a chunk
 	            whose beginning matches this pattern.  It will
 	            then merge those two chunks into a single chunk.
-	        :type left_tag_pattern: str
-	        :param left_tag_pattern: This rule's left tag
+	        @param left_tag_pattern: This rule's left tag
 	            pattern.  When applied to a ``ChunkString``, this
 	            rule will find any chunk whose end matches
 	            this pattern, and immediately followed by a chunk
 	            whose beginning matches ``right_tag_pattern``.  It will
 	            then merge those two chunks into a single chunk.
 
-	        :type descr: str
-	        :param descr: A short description of the purpose and/or effect
+	        @param descr: A short description of the purpose and/or effect
 	            of this rule.
-	        """
 		 * 
 		 */
 	    public MergeRule(String left_tag_pattern, String right_tag_pattern, String descr) {

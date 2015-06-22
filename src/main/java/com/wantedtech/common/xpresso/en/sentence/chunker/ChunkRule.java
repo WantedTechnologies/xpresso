@@ -19,16 +19,14 @@ public class ChunkRule extends RegexpChunkRule{
 	String _pattern;
 		/**
 	        """
-	        Construct a new ``ChinkRule``.
+	        Construct a new ``{@link ChinkRule}``.
 
-	        :type tag_pattern: str
-	        :param tag_pattern: This rule's tag pattern.  When
+	        @param tag_pattern: This rule's tag pattern.  When
 	            applied to a ``ChunkString``, this rule will
 	            find any substring that matches this tag pattern and that
 	            is contained in a chunk, and remove it from that chunk,
 	            thus creating two new chunks.
-	        :type descr: str
-	        :param descr: A short description of the purpose and/or effect
+	        @param descr: A short description of the purpose and/or effect
 	            of this rule.
 	        """
 		 */

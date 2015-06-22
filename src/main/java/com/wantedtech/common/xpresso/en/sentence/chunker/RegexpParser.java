@@ -94,19 +94,15 @@ public class RegexpParser {
     /**
         Apply the chunk parser to this input.
 
-        :type chunk_struct: Tree
-        :param chunk_struct: the chunk structure to be (further) chunked
+        @param chunk_struct: the chunk structure to be (further) chunked
             (this tree is modified, and is also returned)
-        :type trace: int
-        :param trace: The level of tracing that should be used when
+        @param trace: The level of tracing that should be used when
             parsing a text.  ``0`` will generate no tracing output;
             ``1`` will generate normal tracing output; and ``2`` or
             highter will generate verbose tracing output.  This value
             overrides the trace level value that was given to the
             constructor.
-        :return: the chunked output.
-        :rtype: Tree
-     * @return
+        @return: the chunked output.
      */
     public Node parse(Node chunk_struct, Integer trace) {
         if (trace == null) trace = this._trace;

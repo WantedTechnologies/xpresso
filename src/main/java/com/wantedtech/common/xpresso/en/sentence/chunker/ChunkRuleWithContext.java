@@ -32,30 +32,19 @@ public class ChunkRuleWithContext extends RegexpChunkRule {
 		/**
 		 * 
 		 * 
-	        """
 	        Construct a new ``ChunkRuleWithContext``.
-
-	        :type left_context_tag_pattern: str
-	        :param left_context_tag_pattern: A tag pattern that must match
+		 * 
+		 * @param left_context_tag_pattern : A tag pattern that must match
 	            the left context of ``chunk_tag_pattern`` for this rule to
 	            apply.
-	        :type chunk_tag_pattern: str
-	        :param chunk_tag_pattern: A tag pattern that must match for this
+		 * @param chunk_tag_pattern : A tag pattern that must match for this
 	            rule to apply.  If the rule does apply, then this pattern
 	            also identifies the substring that will be made into a chunk.
-	        :type right_context_tag_pattern: str
-	        :param right_context_tag_pattern: A tag pattern that must match
+		 * @param right_context_tag_pattern : A tag pattern that must match
 	            the right context of ``chunk_tag_pattern`` for this rule to
 	            apply.
-	        :type descr: str
-	        :param descr: A short description of the purpose and/or effect
+		 * @param descr : A short description of the purpose and/or effect
 	            of this rule.
-	        """
-		 * 
-		 * @param left_context_tag_pattern
-		 * @param chunk_tag_pattern
-		 * @param right_context_tag_pattern
-		 * @param descr
 		 */
 	    public ChunkRuleWithContext(String left_context_tag_pattern, String chunk_tag_pattern, String right_context_tag_pattern, String descr) {
 	        super(x.Regex("(?<left>" + ChunkerStatic.tag_pattern2re_pattern(left_context_tag_pattern) + ")(?<chunk>" + ChunkerStatic.tag_pattern2re_pattern(chunk_tag_pattern) + ")(?<right>" + ChunkerStatic.tag_pattern2re_pattern(right_context_tag_pattern) + ")" + ChunkString.IN_CHINK_PATTERN), "${left}{${chunk}}${right}", descr);

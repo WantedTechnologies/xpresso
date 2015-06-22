@@ -80,7 +80,7 @@ public class x {
 	 *     }
 	 * };
 	 * }
-	 * <pre>
+	 * </pre>
 	 * Then, define the channel to where the workers should send the computed values as soon as those values are ready:
 	 * 
 	 * <pre>
@@ -110,7 +110,8 @@ public class x {
 	 * 
 	 * @param worker	a {@link Predicate} object whose apply method describes the computation and uses the channel to send computed values to
 	 * @param channel	a {@link Channel} to send the computed values to by the workers, and to read them from by the main routine as those values are ready
-	 * @return
+	 * @param <T>		type of values one can send o and retrieve from the channel
+	 * @return	a Goer object
 	 */
 	public static <T> Goer<T> go(Predicate<Channel<T>> worker, Channel<T> channel) {
 		return new Goer<T>(worker, channel).go(); 
@@ -137,7 +138,7 @@ public class x {
 	 *     }
 	 * };
 	 * }
-	 * <pre>
+	 * </pre>
 	 * Then, define the channel to where the workers should send the computed values as soon as those values are ready:
 	 * 
 	 * <pre>
@@ -167,6 +168,7 @@ public class x {
 	 * 
 	 * @param type	type of values that can be sent to and retrieved from the channel.
 	 * @return a Channel object
+	 * @param <T>		type of values one can send o and retrieve from the channel
 	 */
 	public static <T> Channel<T> Channel(Class<T> type) {
 		return new Channel<T>(type);
@@ -194,7 +196,7 @@ public class x {
 	 *     }
 	 * };
 	 * }
-	 * <pre>
+	 * </pre>
 	 * Then, define the channel to where the workers should send the computed values as soon as those values are ready:
 	 * 
 	 * <pre>
@@ -224,7 +226,8 @@ public class x {
 	 * 
 	 * @param type	type of values that can be sent to and retrieved from the channel.
 	 * @param bufferSize	the size of buffer
-	 * @return
+	 * @param <T>		type of values one can send o and retrieve from the channel
+	 * @return a Channel object
 	 */
 	public static <T> Channel<T> Channel(Class<T> type, int bufferSize) {
 		return new Channel<T>(type, bufferSize);
@@ -1434,6 +1437,7 @@ public class x {
 	 * Factory method that returns a new {@link tuple} from a given list.
 	 *
 	 * @param lst			a list
+	 * @param <T>			type of values in teh list
 	 * @return 				a new {@link tuple} that has the same member values as the old tuple {@code value} 
 	 */
 	public static <T> tuple tupleOf(list<T> lst) {
@@ -3489,7 +3493,7 @@ public class x {
 	 * 
 	 * (regular expressions string, replacement string)
 	 * 
-	 * When you call the {@link Regex#sub(str)} or the  {@link Regex#sub(String)}
+	 * When you call the {@link Regex#translate(str)} or the  {@link Regex#translate(String)}
 	 * method of such a Regex object, the algorithms replaces each regular expressions string
 	 * from the translator dict by the corresponding replacement string.
 	 * 
@@ -3520,7 +3524,7 @@ public class x {
 	 * 
 	 * (regular expressions string, replacement string)
 	 * 
-	 * When you call the {@link Regex#sub(str)} or the  {@link Regex#sub(String)}
+	 * When you call the {@link Regex#translate(str)} or the  {@link Regex#translate(String)}
 	 * method of such a Regex object, the algorithms replaces each regular expressions string
 	 * from the translator dict by the corresponding replacement string.
 	 * 
@@ -3549,7 +3553,7 @@ public class x {
 	 * 
 	 * (regular expressions string, replacement string)
 	 * 
-	 * When you call the {@link Regex#sub(str)} or the  {@link Regex#sub(String)}
+	 * When you call the {@link Regex#translate(str)} or the  {@link Regex#translate(String)}
 	 * method of such a Regex object, the algorithms replaces each regular expressions string
 	 * from the translator dict by the corresponding replacement string.
 	 * 

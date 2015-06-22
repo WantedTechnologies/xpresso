@@ -34,30 +34,23 @@ public class RegexpChunkParser {
 	list<RegexpChunkRule> _rules;
 	
 	/**
-        """
         Construct a new ``RegexpChunkParser``.
 
-        :type rules: list(RegexpChunkRule)
-        :param rules: The sequence of rules that should be used to
+        @param rules: The sequence of rules that should be used to
             generate the chunking for a tagged text.
-        :type chunk_label: str
-        :param chunk_label: The node value that should be used for
+
+        @param chunk_label: The node value that should be used for
             chunk subtrees.  This is typically a short string
             describing the type of information contained by the chunk,
             such as ``"NP"`` for base noun phrases.
-        :type root_label: str
-        :param root_label: The node value that should be used for the
+            
+        @param root_label: The node value that should be used for the
             top node of the chunk structure.
-        :type trace: int
-        :param trace: The level of tracing that should be used when
+
+        @param trace: The level of tracing that should be used when
             parsing a text.  ``0`` will generate no tracing output;
             ``1`` will generate normal tracing output; and ``2`` or
             higher will generate verbose tracing output.
-        """
-	 * @param rules
-	 * @param chunk_label
-	 * @param root_label
-	 * @param trace
 	 */
 	
     public RegexpChunkParser(list<RegexpChunkRule> rules, String chunk_label, String root_label, int trace) {
@@ -88,26 +81,19 @@ public class RegexpChunkParser {
 
 
     /**
-        """
-        :type chunk_struct: Tree
-        :param chunk_struct: the chunk structure to be (further) chunked
-        :type trace: int
-        :param trace: The level of tracing that should be used when
+        @param chunk_struct: the chunk structure to be (further) chunked
+        @param trace: The level of tracing that should be used when
             parsing a text.  ``0`` will generate no tracing output;
             ``1`` will generate normal tracing output; and ``2`` or
             highter will generate verbose tracing output.  This value
             overrides the trace level value that was given to the
             constructor.
-        :rtype: Tree
-        :return: a chunk structure that encodes the chunks in a given
+        @return: a chunk structure that encodes the chunks in a given
             tagged sentence.  A chunk is a non-overlapping linguistic
             group, such as a noun phrase.  The set of chunks
             identified in the chunk structure depends on the rules
             used to define this ``RegexpChunkParser``.
-        """
      * 
-     * @param chunk_struct
-     * @param trace
      */
     public Node parse(Node chunk_struct, Integer trace) {
         if (x.len(chunk_struct) == 0) {
@@ -134,11 +120,7 @@ public class RegexpChunkParser {
     }
 
     /**
-        """
-        :return: the sequence of rules used by ``RegexpChunkParser``.
-        :rtype: list(RegexpChunkRule)
-        """
-     * @return
+        @return: the sequence of rules used by ``RegexpChunkParser``.
      */
     public list<RegexpChunkRule> rules() {
         return this._rules;	

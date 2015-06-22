@@ -15,36 +15,30 @@ public class ChunkerStatic {
 	    for matching sequences of tags.  The differences between regular
 	    expression patterns and tag patterns are:
 
-	        - In tag patterns, ``'<'`` and ``'>'`` act as parentheses; so
-	          ``'<NN>+'`` matches one or more repetitions of ``'<NN>'``, not
-	          ``'<NN'`` followed by one or more repetitions of ``'>'``.
+	        - In tag patterns, ``'{@code<}'`` and ``'{@code>}'`` act as parentheses; so
+	          ``'{@code<NN>+}'`` matches one or more repetitions of ``'{@code<NN>}'``, not
+	          ``'{@code<NN}'`` followed by one or more repetitions of ``'{@code>}'``.
 	        - Whitespace in tag patterns is ignored.  So
-	          ``'<DT> | <NN>'`` is equivalant to ``'<DT>|<NN>'``
-	        - In tag patterns, ``'.'`` is equivalant to ``'[^{}<>]'``; so
-	          ``'<NN.*>'`` matches any single tag starting with ``'NN'``.
+	          ``'{@code<DT> | <NN>}'`` is equivalant to ``'{@code<DT>|<NN>}'``
+	        - In tag patterns, ``'.'`` is equivalant to ``'{@code[^{}<>]}'``; so
+	          ``'{@code<NN.*>}'`` matches any single tag starting with ``'{@code NN}'``.
 
 	    In particular, ``tag_pattern2re_pattern`` performs the following
 	    transformations on the given pattern:
 
-	        - Replace '.' with '[^<>{}]'
+	        - Replace '.' with '{@code[^<>{}]}'
 	        - Remove any whitespace
-	        - Add extra parens around '<' and '>', to make '<' and '>' act
-	          like parentheses.  E.g., so that in '<NN>+', the '+' has scope
-	          over the entire '<NN>'; and so that in '<NN|IN>', the '|' has
-	          scope over 'NN' and 'IN', but not '<' or '>'.
+	        - Add extra parens around '{@code<}' and '{@code>}', to make '{@code<}' and '{@code>}' act
+	          like parentheses.  E.g., so that in '{@code<NN>+}', the '+' has scope
+	          over the entire '{@code<NN>}'; and so that in '{@code<NN|IN>}', the '|' has
+	          scope over '{@code NN}' and '{@code IN}', but not '{@code<}' or '{@code>}'.
 	        - Check to make sure the resulting pattern is valid.
 
-	    :type tag_pattern: str
-	    :param tag_pattern: The tag pattern to convert to a regular
+
+	    @param tag_pattern: a {@link String} tag pattern to convert to a regular
 	        expression pattern.
-	    :raise ValueError: If ``tag_pattern`` is not a valid tag pattern.
-	        In particular, ``tag_pattern`` should not include braces; and it
-	        should not contain nested or mismatched angle-brackets.
-	    :rtype: str
-	    :return: A regular expression pattern corresponding to
+	    @return: A regular expression pattern ({@link String}) corresponding to
 	        ``tag_pattern``.
-	    """
-	 * @return
 	 */
 	public static String tag_pattern2re_pattern(String tag_pattern) {
 	    // Clean up the regular expression

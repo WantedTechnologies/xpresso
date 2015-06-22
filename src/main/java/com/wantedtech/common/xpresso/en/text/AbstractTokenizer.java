@@ -48,7 +48,7 @@ public abstract class AbstractTokenizer {
   }
 
   /**
-   * Returns <code>true</code> if this Tokenizer has more elements.
+   * @return <code>true</code> if this Tokenizer has more elements.
    */
   public boolean hasNext() {
     if (nextToken == null) {

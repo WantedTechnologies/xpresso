@@ -88,11 +88,12 @@ public class Americanize {
    * This is deterministic spelling coversion, and so cannot deal with
    * certain cases involving complex ambiguities, but it can do most of the
    * simple cases of English to American conversion.
+   * 
+   * @param str : a {@link String} to convert 
+   * @param capitalizeTimex : whether to capitalize time expressions 
+   * @return an americanized {@link String} 
    */
   public static String americanize(String str, boolean capitalizeTimex) {
-    // System.err.println("str is |" + str + "|");
-    // System.err.println("timexMapping.contains is " +
-    //            timexMapping.containsKey(str));
     if (capitalizeTimex && timexMapping.containsKey(str)) {
       return timexMapping.get(str);
     } else if (mapping.containsKey(str)) {
@@ -108,8 +109,6 @@ public class Americanize {
         }
         Matcher m = pats[i].matcher(str);
         if (m.find()) {
-          // System.err.println("Replacing " + word + " with " +
-          //             pats[i].matcher(word).replaceAll(reps[i]));
           return m.replaceAll(reps[i]);
         }
       }
@@ -182,18 +181,4 @@ public class Americanize {
       "mapping has " + mapping.size() + " mappings; " +
       "timexMapping has " + timexMapping.size() + " mappings]";
   }
-
-
-  /**
-   * Americanize and print the command line arguments.
-   * This main method is just for debugging.
-   */
-  public static void main(String[] args) {
-    System.err.println(new Americanize());
-    System.err.println();
-    for (String arg : args) {
-      System.out.println(arg + " --> " + americanize(arg));
-    }
-  }
-
 }

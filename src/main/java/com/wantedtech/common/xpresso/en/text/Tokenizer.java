@@ -24,7 +24,7 @@ public class Tokenizer extends AbstractTokenizer implements Iterable<Sentence> {
 	/**
 	* Constructs a new Tokenizer.
 	*
-	* @param r The Reader to read tokens from
+	* @param s : a {@link String} to tokenize
 	*/
 	public Tokenizer(String s) {
 		lexer = new Lexer(new StringReader(s));

@@ -42,18 +42,15 @@ public class RegexpChunkRule {
 		/**
 	        Construct a new RegexpChunkRule.
 
-	        :type regexp: regexp or str
-	        :param regexp: The regular expression for this ``RegexpChunkRule``.
+	        @param regexp: The regular expression for this ``RegexpChunkRule``.
 	            When this rule is applied to a ``ChunkString``, any
 	            substring that matches ``regexp`` will be replaced using
 	            the replacement string ``repl``.  Note that this must be a
 	            normal regular expression, not a tag pattern.
-	        :type repl: str
-	        :param repl: The replacement expression for this ``RegexpChunkRule``.
+	        @param repl: The replacement expression for this ``RegexpChunkRule``.
 	            When this rule is applied to a ``ChunkString``, any substring
 	            that matches ``regexp`` will be replaced using ``repl``.
-	        :type descr: str
-	        :param descr: A short description of the purpose and/or effect
+	        @param descr: A short description of the purpose and/or effect
 	            of this rule.
 		 * 
 		 */
@@ -65,17 +62,11 @@ public class RegexpChunkRule {
 
 
 	    /**
-	        """
-	        Apply this rule to the given ``ChunkString``.  See the
+	        Apply this rule to the given {@link ChunkString}.  See the
 	        class reference documentation for a description of what it
 	        means to apply a rule.
 
-	        :type chunkstr: ChunkString
-	        :param chunkstr: The chunkstring to which this rule is applied.
-	        :rtype: None
-	        :raise ValueError: If this transformation generated an
-	            invalid chunkstring.
-	        """ 
+	        @param chunkstr	The {@link ChunkString} to which this rule is applied.
 	     */
 	    public void apply(ChunkString chunkstr) {
 	        chunkstr.xform(this._regexp, this._repl);	    	
@@ -83,22 +74,17 @@ public class RegexpChunkRule {
 
 
 	    /**
-	        """
 	        Return a short description of the purpose and/or effect of
 	        this rule.
-
-	        :rtype: str
-	        """
-	     * @return
+	        @return a {@link String} with a short description of the purpose and/or effect of this rule.
 	     */
 	    String descr() {
 	        return this._descr;
 	    }
 
 	    /**
-	        """
-	        Create a RegexpChunkRule from a string description.
-	        Currently, the following formats are supported::
+	        Create a {@link RegexpChunkRule} from a string description.
+	        Currently, the following formats are supported:
 
 	          {regexp}         # chunk rule
 	          }regexp{         # chink rule
@@ -109,11 +95,20 @@ public class RegexpChunkRule {
 	        text following the comment marker (``#``) will be used as
 	        the rule's description:
 
-	        >>> from nltk.chunk.regexp import RegexpChunkRule
-	        >>> RegexpChunkRule.fromstring('{<DT>?<NN.*>+}')
-	        <ChunkRule: '<DT>?<NN.*>+'>
-	        """
-	     * @return
+			Example:
+			<pre>
+			{@code
+	        RegexpChunkRule.fromstring('{<DT>?<NN.*>+}')
+	        }
+	        </pre>
+	        Console:
+	        <pre>
+	        {@code
+	        <ChunkRule: "<DT>?<NN.*>+">
+	        }
+	        </pre>
+	       @param s 	a String with a rule 
+	     * @return	a {@link RegexpChunkRule} object
 	     */
 	    static RegexpChunkRule fromstring(String s) {
 	        // Split off the comment (but don't split on '\#')
