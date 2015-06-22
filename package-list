@@ -2,6 +2,11 @@
 com.wantedtech.common.xpresso
 com.wantedtech.common.xpresso.comprehension
 com.wantedtech.common.xpresso.csv
+com.wantedtech.common.xpresso.en
+com.wantedtech.common.xpresso.en.sentence
+com.wantedtech.common.xpresso.en.sentence.chunker
+com.wantedtech.common.xpresso.en.text
+com.wantedtech.common.xpresso.experimental.concurrency
 com.wantedtech.common.xpresso.experimental.generator
 com.wantedtech.common.xpresso.functional
 com.wantedtech.common.xpresso.functional.lambda
