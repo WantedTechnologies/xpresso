@@ -315,15 +315,15 @@ Console: 0.0s
 *x.memo* can be used to cache methods of object of any Java type, not only Function. Notice the usage of the standard *x.timer*: no additional timer object needs to be created.
 
 #### Concurrency
-Concurrency in xpresso is heavily inspired by Go and is extremely simple. First, define a worker as an instance of Predicate:
+Concurrency in xpresso is inspired by [Go](https://en.wikipedia.org/wiki/Go_(programming_language)) and, as a consequence, is extremely simple. First, define a worker as an instance of Predicate:
 ```
 Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
 	public Boolean apply(Channel<Integer> channel) {
 		while (some_condition_true) {
 			Integer value = computeValue();	//compute something in parallel
-			channel.send(value);		//send the computed value to the channel
+			channel.send(value);			//send the computed value to the channel
 		}
-		return true;				//everything went as expected
+		return true;						//everything went as expected
 	}
 };
 ```
