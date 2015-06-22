@@ -834,7 +834,7 @@ Console: [Saint-Petersbourg, San Francisco]
 
 #### Future
 * HTTP
-* Web server
+* Web service
 * Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
 
 ```
