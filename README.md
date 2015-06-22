@@ -327,7 +327,7 @@ Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
 	}
 };
 ```
-Then, define the channel to where the workers should send the computed values as soon as they are ready:
+Then, define the channel to where the workers should send the computed values as soon as those values are ready:
 ```
 Channel<Integer> channel = x.channel(Integer.class);//this channel only accepts Integer values
 ```
