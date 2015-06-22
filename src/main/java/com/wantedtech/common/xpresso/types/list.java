@@ -308,6 +308,24 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
         return ngrams;
     }
 
+	/**
+	 * Swaps the elements at the specified positions in the specified list.
+	 * (If the specified positions are equal, invoking this method leaves
+	 * the list unchanged.)
+	 *
+	 * @param list The list in which to swap elements.
+	 * @param i the index of one element to be swapped.
+	 * @param j the index of the other element to be swapped.
+	 * @throws IndexOutOfBoundsException if either <tt>i</tt> or <tt>j</tt>
+	 *         is out of range (i &lt; 0 || i &gt;= list.size()
+	 *         || j &lt; 0 || j &gt;= list.size()).
+	 * @since 1.4
+	 */
+	 public void swap(int i, int j) {
+		 x.assertTrue(i < list.size());
+		 x.assertTrue(j < list.size());
+	     list.set(i, list.set(j, list.get(i)));
+	 }
 	
 	public <E> list<E> flatten(Class<E> classOfelements){
 		list<E> result = x.list();
@@ -321,6 +339,10 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 			}
 		}
 		return result;
+	}
+	
+	public void clear() {
+		list.clear();
 	}
 	
 	public list<T> copy(){

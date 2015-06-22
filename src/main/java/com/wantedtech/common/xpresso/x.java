@@ -31,16 +31,20 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
 
 import com.wantedtech.common.xpresso.helpers.*;
+import com.wantedtech.common.xpresso.en.*;
 import com.wantedtech.common.xpresso.json.*;
 import com.wantedtech.common.xpresso.strings.*;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.comprehension.*;
 import com.wantedtech.common.xpresso.csv.*;
+import com.wantedtech.common.xpresso.experimental.parallel.Channel;
+import com.wantedtech.common.xpresso.experimental.parallel.Goer;
 import com.wantedtech.common.xpresso.functional.*;
 import com.wantedtech.common.xpresso.functional.lambda.*;
 import com.wantedtech.common.xpresso.regex.*;
@@ -57,6 +61,18 @@ import com.wantedtech.common.xpresso.token.*;
  */
 
 public class x {
+	
+	public static <T> Goer<T> go(Predicate<Channel<T>> worker, Channel<T> channel) {
+		return new Goer<T>(worker, channel).go(); 
+	}
+		
+	public static <T> Channel<T> channel(Class<T> type) {
+		return new Channel<T>(type);
+	}
+	
+	public static <T> Channel<T> channel(Class<T> type, int bufferSize) {
+		return new Channel<T>(type, bufferSize);
+	}
 	
 	/**
 	 * Contains an instance of {@link Assert} class object that has useful assertion methods.
@@ -1249,13 +1265,35 @@ public class x {
 	}
 
 	/**
-	 * Factory method that returns an {@link tuple} of one element.
+	 * Factory method that returns a new {@link tuple} from a given tuple.
 	 *
-	 * @param value			a value of any type
-	 * @return 				a {@link tuple} that contains @param value
+	 * @param tpl			a tuple
+	 * @return 				a new {@link tuple} that has the same member values as the old tuple {@code value} 
 	 */
-	public static tuple tupleOf(tuple value) {
-		return value.copy();
+	public static tuple tupleOf(tuple tpl) {
+		return tpl.copy();
+    }
+	
+	/**
+	 * Factory method that returns a new {@link tuple} from a given list.
+	 *
+	 * @param lst			a list
+	 * @return 				a new {@link tuple} that has the same member values as the old tuple {@code value} 
+	 */
+	public static <T> tuple tupleOf(list<T> lst) {
+		switch (x.len(lst)) {
+			case 0:
+				return new tuple0();
+			case 1:
+				return x.tuple(lst.get(0));
+			case 2:
+				return x.tuple(lst.get(0), lst.get(1));
+			case 3:
+				return x.tuple(lst.get(0), lst.get(1), lst.get(2));
+			case 4:
+			default:
+				return x.tuple(lst.get(0), lst.get(1), lst.get(2), lst.get(3));
+		}
     }
 	
 	/**
@@ -1583,12 +1621,12 @@ public class x {
 		try{
 			return ((Object[])value).length;
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		try{
 			return (Integer)(value.getClass().getField("length").getInt(value));
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		try{
 			return (Integer)(value.getClass().getMethod("size").invoke(value));
@@ -2597,6 +2635,31 @@ public class x {
 	}
 	
 	/**
+	 * Static acces to Java's Random object methods
+	 */
+	public static Random Random = new Random();
+	
+	/**
+	 * Suffles the input iterable and returns the shuffled copy.
+	 * @param iterable	The input {@link Iterable}
+	 * @param <T>	the type of elements of the input iterable
+	 * @return	the shuffled copy of the iterable
+	 */
+	public static <T> Iterable<T> shuffle(Iterable<T> iterable) {
+        int size = x.len(iterable);
+        list<T> lst = x.list(iterable);
+		if (size < 5) {
+			for (int i=size; i>1; i--)
+				lst.swap(i-1, Random.nextInt(i));
+		} else {
+			// Shuffle array
+		    for (int i=size; i>1; i--)
+		    	lst.swap(i-1, Random.nextInt(i));
+		}
+		return lst;
+	}
+	
+	/**
 	 * Sorts the values of the input {@link Iterable} of type T according to
 	 * the evaluation function {@link Function} which is applied to each element
 	 * of the input Iterable.
@@ -3195,6 +3258,11 @@ public class x {
 	public static <O> Json<O> Json(tuple o){
 		return new Json<O>(o);
 	}
+	
+	/**
+	 * An instance of RegexStatic class. A standard acess to xpresso Regex constants and methods.
+	 */
+	public static RegexStatic Regex = new RegexStatic();
 	
 	/**
 	 * Factory method that creates a new Regex object from a string 
@@ -3832,15 +3900,15 @@ public class x {
 	 * @return true or not
 	 */
 	public static boolean isTrue(Object value){
+		if (value == null) {
+			return false;
+		}
 		try{
 			if((Boolean)value == false){
 				return false;
 			}	
 		}catch(Exception e){
 			
-		}
-		if(value == null){
-			return false;
 		}
 		if(value instanceof Truthful){
 			return ((Truthful)value).isTrue();
@@ -3899,6 +3967,25 @@ public class x {
 	public static boolean isFalse(Object value){
 		return !isTrue(value);
 	}
+	
+	/**
+	 * Checks if the input object is empty (does not contains any element).
+	 * @param object	an object to check for emptyness.
+	 * @return	true or false
+	 */
+	public static boolean isEmpty(Object object) {
+		return x.len(object) == 0;
+	}
+	
+	/**
+	 * Checks if the input object is empty (does not contains any element).
+	 * @param object	an object to check for emptyness.
+	 * @return	true or false
+	 */
+	public static boolean isNotEmpty(Object object) {
+		return x.len(object) != 0;
+	}
+	
 	/**
 	 * @return Memoizes an object and returns its memoized version.
 	 * 
@@ -4213,7 +4300,7 @@ public class x {
 	/**
 	 * A synonym to {@link x#empty}. 
 	 */
-	public static Predicate<Object> isEmpty = empty;	
+	public static Predicate<Object> isEmpty = empty;
 	
 	/**
 	 * A {@link Function} that retursn the value of the hash code of the input object. 
@@ -4223,4 +4310,6 @@ public class x {
 			return value.hashCode();
 		}
 	};
+	
+	public static EN EN = new EN();
 }

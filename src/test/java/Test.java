@@ -1,12 +1,17 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.csv.CSV;
+import com.wantedtech.common.xpresso.en.sentence.Sentence;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
+import com.wantedtech.common.xpresso.experimental.parallel.Channel;
+import com.wantedtech.common.xpresso.experimental.parallel.SendToClosedChannelException;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Slicer;
+import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 import com.wantedtech.common.xpresso.types.tuples.tuple3;
@@ -28,7 +33,7 @@ public class Test {
 	
 	public static void main(String[] args) throws Exception {
 		try{
-			
+
 			String ref_file_dir = "/Users/andriy.burkov/p/workspace/python/InternationalTitleCleanup/ref";
 			
 			try(HappyFile f = x.open(ref_file_dir+"/test.txt", "r")){
@@ -159,7 +164,7 @@ public class Test {
 			list_int.add(3);
 			
 			dict<String> replacer = x.dict(x.tuple("\\bhaha\\b","ohoh"),x.tuple("\\bhjehe\\b","wow"));
-			x.print(x.Regex(replacer).sub("lala haha bebeb hehe ogogo"));
+			x.print(x.Regex(replacer).translate("lala haha bebeb hehe ogogo"));
 			
 			x.print(x.largestN(x.set(1,2,3),2));
 			
@@ -356,14 +361,63 @@ public class Test {
 			
 			x.print("uuuu",x.csv(lst6).toString());
 			
-				for (Integer i : gen5(50000000)) {
-					x.print(i);
-					if (i == 10) {
-						break;
-					}
+			for (Integer i : gen5(50000000)) {
+				x.print(i);
+				if (i == 10) {
+					break;
 				}
-			//x.Time.sleep(10);
+			}
+			list<String> emails = x.list(x.Regex.EMAIL.findAll("Contact me at john.smith@company.com or john@smith.com."));
+
+			x.print(emails);
 			
+			Predicate<Channel<Integer>> counter1 = new Predicate<Channel<Integer>>() {
+				public Boolean apply(Channel<Integer> channel) {
+					for (int cnt : x.countTo(5)) {
+						channel.send(cnt);
+						x.print("1 put", cnt);
+					}
+					//channel.close();
+					x.print("1 finished");
+				    return true;
+				}
+			};
+			
+			Predicate<Channel<Integer>> counter2 = new Predicate<Channel<Integer>>() {
+				public Boolean apply(Channel<Integer> channel) {
+					for (int cnt : x.countTo(10)) {
+						channel.send(cnt);
+						x.print("2 put", cnt);
+					}
+					x.print("2 finished");
+				    return true;
+				}
+			};
+			
+			Channel<Integer> channel = x.channel(Integer.class,100);
+			
+			x.go(counter1, channel);
+			x.go(counter2, channel.sendOnly());
+			x.go(counter1, channel.sendOnly());
+			x.go(counter2, channel.sendOnly());
+			x.go(counter1, channel.sendOnly());
+			x.go(counter2, channel.sendOnly());
+			
+			x.print("OK");
+			
+			for (int element : channel.receiveOnly()) {
+				x.print("Read:", element);
+			}
+			
+			x.print("OK2");
+			
+			String text = "Hello my name is Andrei. This is my test.";
+			
+			for (Sentence sent : x.EN.tokenize(text)) {
+				for (Token tok : sent) {
+					x.print(tok);
+				}
+			}
 			
 		}catch(Exception e){
 			throw e;

@@ -206,7 +206,8 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 	
 	public Iterator<String> iterator(){
 		return new Iterator<String>(){
-			Iterator<Map.Entry<String, T>> entrySet = dict.entrySet().iterator();
+			Iterator<Map.Entry<String, T>> entrySet = x.shuffle(dict.entrySet()).iterator();
+
 			public boolean hasNext(){
 				return entrySet.hasNext();
 			}

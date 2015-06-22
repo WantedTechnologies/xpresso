@@ -106,6 +106,12 @@ public class HappyString {
 	}
 	
 	public String get(int index){
+		if (index < 0){
+			index = this.value.length()+index;
+			if (index < 0){
+				index = 0;
+			}
+		}
 		return String.valueOf(this.value.charAt(index));
 	}
 		

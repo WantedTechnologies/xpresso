@@ -6,7 +6,7 @@ public final class tuple0 extends AbstractTuple{
 
     private static final tuple0 INSTANCE = new tuple0();
 
-    protected tuple0() {
+    public tuple0() {
     }
 
     public static tuple0 valueOf() {

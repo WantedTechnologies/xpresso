@@ -17,17 +17,19 @@ public class Regex implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = -5558401165270154328L;
-	
-	final public static int CASE_INSENSITIVE = Pattern.CASE_INSENSITIVE;
-	final public static int I = Pattern.CASE_INSENSITIVE;
-	
-	Pattern pattern;
+
+		
+	public Pattern pattern;
 	List<String> replacements;
-	
 	
 	public Regex(String regularExpression,int flags){
 		pattern = Pattern.compile(regularExpression,flags);
+	}
+	
+	public Regex(String regularExpression){
+		pattern = Pattern.compile(regularExpression,0);
 	}
 	
 	public Regex(dict<String> translator,int flags){
@@ -48,6 +50,13 @@ public class Regex implements Serializable{
 	}
 	public str sub(String replacement,str str){
 		return x.str(sub(replacement,str.toString()));
+	}
+	Function<Object,String> sub(final String replacement) {
+		return new Function<Object,String> () {
+			public String apply(Object string) {
+				return sub(replacement, string.toString());
+			} 
+		};
 	}
 	
 	public String sub(Function<Match,String> replacer,String string){
@@ -84,7 +93,7 @@ public class Regex implements Serializable{
 		return x.str(sub(translator,str.toString()));
 	}
 	
-	public String sub(String string){
+	public String translate(String string){
 		int currentIndex = 0;
 		StringBuilder resultString = new StringBuilder();
 		for(Match m:findIter(string)){
@@ -109,8 +118,8 @@ public class Regex implements Serializable{
 		return resultString.toString();
 	}
 	
-	public str sub(str str){
-		return x.str(sub(str.toString()));
+	public str translate(str str){
+		return x.str(translate(str.toString()));
 	}
 	
 	/**
