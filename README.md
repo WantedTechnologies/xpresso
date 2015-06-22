@@ -500,6 +500,25 @@ x.print(lookAlikes);
 Console: [ape, apples]
 ```
 
+Tokenization:
+```
+String text = "English is hard. It can be understood through tough thorough thought, though.";
+
+for (Sentence s : x.String.EN.tokenize(text)) {
+	for (Token t : s) {
+		x.print(t);
+	}
+}
+
+Console: English
+is
+hard
+.
+It
+can
+...
+```
+
 #### Slicing for list, String, and str
 
 Python:
