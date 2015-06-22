@@ -5,7 +5,7 @@ xpresso is a Java library inspired by Python. It allows a (near) line-into-line 
 
 xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, generators, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
-xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.timer, x.Json, x.mysql, x.csv and others.
+xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.go, x.timer, x.Json, x.mysql, x.csv and others.
 re
 xpresso: less boilerplate, more fun, more work done.
 
@@ -313,6 +313,37 @@ x.print(x.timer.stop());
 Console: 0.0s
 ```
 *x.memo* can be used to cache methods of object of any Java type, not only Function. Notice the usage of the standard *x.timer*: no additional timer object needs to be created.
+
+#### Concurrency
+Concurrency in xpresso is heavily inspired by Go and is extremely simple. First, define a worker as an instance of Predicate:
+```
+Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
+	public Boolean apply(Channel<Integer> channel) {
+		while (some_condition_true) {
+			Integer value = computeValue();	//compute something in parallel
+			channel.send(value);		//send the computed value to the channel
+		}
+		return true;				//everything went as expected
+	}
+};
+```
+Then, define the channel to where the workers should send the computed values as soon as they are ready:
+```
+Channel<Integer> channel = x.channel(Integer.class);//this channel only accepts Integer values
+```
+Then, start as many concurrent workers as needed:
+```
+x.go(worker, channel);
+x.go(worker, channel);
+x.go(worker, channel);
+...
+```
+Finally, retrieve the computed values from the channel when those values are needed:
+```
+for (Integer value : channel) {
+	x.print(value);
+}
+```
 
 #### JSON
 Remember the *rank* dict:
