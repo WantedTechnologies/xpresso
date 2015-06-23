@@ -65,7 +65,7 @@ public class ChunkString {
             if (tok instanceof tuple) {
         		return ((tuple)tok).getString(0);            	
             } else if (tok instanceof Node) {
-                return ((Node)tok).label();
+                return ((Node)tok).getLabel();
             } else {
             	throw new IllegalArgumentException();
             }
@@ -81,8 +81,8 @@ public class ChunkString {
         @param chunk_struct: The chunk structure to be further chunked.
      */
     public ChunkString(Node chunk_struct) {
-    	this._root_label = chunk_struct.label();
-        this._pieces = chunk_struct.elements();
+    	this._root_label = chunk_struct.getLabel();
+        this._pieces = chunk_struct.getLeaves();
         list<String> tags = x.list(x.<String>yield().apply(_tag).forEach(this._pieces));
         this._str = "<" + x.String("><").join(tags) + ">";
     }

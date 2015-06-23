@@ -11,6 +11,11 @@ import com.wantedtech.common.xpresso.functional.Predicate;
 
 public class HappyStringStatic {
 	
+	public final int FULL_RATIO = 0;
+	public final int PARTIAL_RATIO = 1;
+	public final int TOKEN_SORT_RATIO = 2;
+	public final int TOKEN_SET_RATIO = 3;
+
     Transliterator anyLatin = Transliterator.getInstance("Any-Latin", Transliterator.FORWARD);
 	
 	public static ParametrizedFunction<Object,Integer> count(String substring){

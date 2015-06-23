@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.en.sentence;
 
+import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.list;
@@ -21,6 +22,14 @@ public class Sentence extends list<Token>{
 	@Override
 	public Sentence copy() {
 		return new Sentence(this);
+	}
+	
+	public list<String> toListOfStrings() {
+		list<String> lst = x.list();
+		for (Token token : this.list) {
+			lst.append(token.toString());
+		}
+		return lst;
 	}
 	
 	@Override

@@ -1455,6 +1455,15 @@ public class x {
 				return x.tuple(lst.get(0), lst.get(1), lst.get(2), lst.get(3));
 		}
     }
+
+	/**
+	 * Factory method that returns an empty {@link tuple}.
+	 *
+	 * @return 				an empty {@link tuple}
+	 */
+	public static tuple tuple() {
+        return tuple0.valueOf();
+    }
 	
 	/**
 	 * Factory method that returns an {@link tuple} of one element.
@@ -2166,7 +2175,7 @@ public class x {
 	 * @param step		the increment
 	 */
 	public static Iterable<Integer> range(final int min,final int max,final int step){
-		return range(min, max, step);
+		return count(min, max, step);
 	}
 	
 	/**
@@ -2418,14 +2427,13 @@ public class x {
 	 * @return the final value
 	 * 
 	 */
-	public static <I> I reduce(Function<tuple2<I,I>,I> function, Iterable<I> iterable, I initializer){
+	public static <I,O> O reduce(Function<Object,O> function, Iterable<I> iterable, O initializer){
 		x.assertNotNull(initializer);
-		list<I> completeList = x.listOf(initializer).extend(iterable);
-		if(x.len(completeList) == 1) {
-			return completeList.get(0);
+		if(x.len(iterable) == 0) {
+			return initializer;
 		}
-		Iterator<I> iter = completeList.iterator();
-		I output = function.apply(tuple2.valueOf(iter.next(), iter.next()));
+		Iterator<I> iter = iterable.iterator();
+		O output = function.apply(tuple2.valueOf(initializer, iter.next()));
 		while(iter.hasNext()){
 			output = function.apply(tuple2.valueOf(output, iter.next()));
 		}
@@ -2893,11 +2901,11 @@ public class x {
 		return sort(iterable,function,false);
 	}
 	
-	public static <T extends Comparable<T>> Iterable<T> sort(Iterable<T> iterable, boolean reverse){
+	public static <T extends Comparable<?>> Iterable<T> sort(Iterable<T> iterable, boolean reverse){
 		return sort(iterable,null,reverse);
 	}
 	
-	public static <T extends Comparable<T>> Iterable<T> sort(Iterable<T> iterable){
+	public static <T extends Comparable<?>> Iterable<T> sort(Iterable<T> iterable){
 		return sort(iterable,null,false);
 	}
 	

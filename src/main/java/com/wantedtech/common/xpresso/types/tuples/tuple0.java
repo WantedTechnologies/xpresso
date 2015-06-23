@@ -28,7 +28,7 @@ public final class tuple0 extends AbstractTuple{
     }
 
     @Override
-    public int compareTo(tuple o) {
+    public int compareTo(Object o) {
     	throw new IndexOutOfBoundsException();
     }
     

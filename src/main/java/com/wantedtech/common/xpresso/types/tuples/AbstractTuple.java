@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.types.Bag;
 import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
@@ -24,7 +25,7 @@ public abstract class AbstractTuple implements tuple {
     
     public abstract <E> E get(int index, Class<E> elementClass);
     
-    public int compareTo(tuple t){
+    public int compareTo(Object t){
     	return x.Object(this).compareTo(t, "value","value0","value1","value2","value3","value4","value5","value6","value7","value8","value9");
     }
     
@@ -133,6 +134,13 @@ public abstract class AbstractTuple implements tuple {
     }
     public String getString(String fieldName) {
     	return get(fieldName).toString();
+    }
+    
+    public Regex getRegex(int index) {
+    	return (Regex)get(index);
+    }
+    public Regex getRegex(String fieldName) {
+    	return (Regex)get(fieldName);
     }
     
     public str getStr(int index) {

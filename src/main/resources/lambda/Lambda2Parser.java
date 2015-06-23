@@ -8,7 +8,9 @@ import java.lang.reflect.Method;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
-import com.wantedtech.common.xpresso.types.*;
+import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.x;
 
 import org.antlr.v4.runtime.atn.*;
@@ -1294,6 +1296,8 @@ public class Lambda2Parser extends Parser {
 
 				                        if(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value instanceof Iterable<?>)
 				                            ((ComplexIdentifierContext)_localctx).value =  new Value((x.list((Iterable<?>)(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value)).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null)))));
+				                        else if(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value instanceof tuple)
+				                            ((ComplexIdentifierContext)_localctx).value =  new Value((((tuple)(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value)).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null)))));
 				                        else
 				                            throw new IllegalArgumentException("The input variable is not multi-dimensional, you cannot use the [...] notation in your lambda expression.");
 				                      

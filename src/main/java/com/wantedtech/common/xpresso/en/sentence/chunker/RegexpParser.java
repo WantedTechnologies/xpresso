@@ -2,7 +2,9 @@ package com.wantedtech.common.xpresso.en.sentence.chunker;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.regex.Match;
+import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.list;
+import com.wantedtech.common.xpresso.types.tuple;
 
 public class RegexpParser {
 
@@ -114,4 +116,34 @@ public class RegexpParser {
 
         return chunk_struct;
     }
+    
+    /**
+    Apply the chunk parser to this input.
+
+    @param pos_tags: the list of POS tag tuples in form (String POS_tag, String token) structure to be (further) chunked
+    @param trace: The level of tracing that should be used when
+        parsing a text.  ``0`` will generate no tracing output;
+        ``1`` will generate normal tracing output; and ``2`` or
+        highter will generate verbose tracing output.  This value
+        overrides the trace level value that was given to the
+        constructor.
+    @return: the chunked output.
+ */
+public Node parse(list<tuple> pos_tags, Integer trace) {
+    if (trace == null) trace = this._trace;
+    
+	Node tree = new Node("S");
+	for (tuple elem : pos_tags) {
+		tree.append(new Node(elem));
+	}
+    
+    for (int i : x.countTo(this._loop)) {
+        for (RegexpChunkParser parser : this._stages) {
+        	tree = parser.parse(tree, trace);	
+        }        	
+    }
+
+    return tree;
+}
+    
 }

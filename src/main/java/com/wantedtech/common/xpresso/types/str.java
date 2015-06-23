@@ -86,12 +86,25 @@ public class str extends list<String> implements Iterable<String>{
 	public boolean in(str str){
 		return str.toString().contains(this.toString());
 	}
-	
+	@Override
+	public boolean in(Iterable<?> iterable){
+		for (Object element : iterable) {
+			if (x.Object(this).equals(element)) {
+				return true;
+			}
+		}
+		return false;
+	}
+			
 	public boolean notIn(String string){
 		return !in(string);
 	}
 	public boolean notIn(str str){
 		return !in(str);
+	}
+	@Override
+	public boolean notIn(Iterable<?> iterable){
+		return !in(iterable);
 	}
 	
 	public boolean contains(String string){

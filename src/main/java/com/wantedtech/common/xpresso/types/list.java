@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.functional.Function;
-import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.Slicable;
 import com.wantedtech.common.xpresso.helpers.Slicer;
@@ -214,6 +212,18 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return get(((int)index));
 	}
 	
+	public T pop(Object index){
+		T val = this.get(index);
+		list.remove((int)index);
+		return val;
+	}
+	
+	public T pop(){
+		T val = this.get(list.size()-1);
+		list.remove(list.size()-1);
+		return val;
+	}
+	
 	public list<T> extend(Iterable<T> iterable){
 		for(T element : iterable){
 			this.list.add(element);
@@ -267,15 +277,20 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return this.list.contains(value);
 	}
 	
-	public boolean in(Iterable<list<T>> anotherList){
-		return x.list(anotherList).contains(this);
+	public boolean in(Iterable<?> anotherList){
+		for (Object element : anotherList) {
+			if (x.Object(this).equals(element)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean in(@SuppressWarnings("unchecked") list<T>... lists){
 		return x.list(lists).contains(this);
 	}
 	
-	public boolean notIn(Iterable<list<T>> anotherList){
+	public boolean notIn(Iterable<?> anotherList){
 		return !in(anotherList);
 	}
 	

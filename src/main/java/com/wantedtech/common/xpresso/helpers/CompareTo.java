@@ -121,15 +121,10 @@ public class CompareTo {
         
         for(String fieldName : this.fieldList){
         	if(fieldComparisons.contains(fieldName)){
-        		try {
-                	if(fieldComparisons.get(fieldName) != 0){
-                		this.finalComparison = this.fieldComparisons.get(fieldName);
-                		return;
-                	}
-    			} catch (NoSuchFieldException e) {
-    				// not possible
-    				e.printStackTrace();
-    			}        		
+            	if(fieldComparisons.get(fieldName) != 0){
+            		this.finalComparison = this.fieldComparisons.get(fieldName);
+            		return;
+            	}        		
         	}else{
         		//throw new InvalidParameterException("Couldn't find the member "+fieldName+" among the members of the lhs class!");
         	}

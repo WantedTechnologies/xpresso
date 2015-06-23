@@ -181,9 +181,9 @@ public class HappyString {
 		list<String> froms = (list<String>)froms__tos.get(0);
 		Regex regex = x.Regex(x.String("|").join(froms));
 		for(Match m : regex.findIter(value)){
-			try{
+			if (x.String(m.group(0)).in(replacementDict)) {
 				translatedString += x.str(this.value).slice(lastStop,m.start(0)).toString()+replacementDict.get(m.group(0));	
-			}catch(NoSuchFieldException e){
+			} else {
 				translatedString += x.str(this.value).slice(lastStop,m.start(0)).toString()+m.group(0);
 			}
 			lastStop = m.end(0);
@@ -280,7 +280,22 @@ public class HappyString {
 	}
 	
 	public double similarity(String anotherString){
-		return (new diff_match_patch()).get_similarity_score(this.value, anotherString);
+		return similarity(anotherString, x.String.FULL_RATIO);
+	}
+	
+	/**
+	 * @param anotherString : String to determinate similarity with 
+	 * @param flag : a type of similarity algorithm (x.String.FULL_RATIO (0) or x.String.PARTIAL_RATIO (1) or x.String.TOKEN_SORT_RATIO (2) or x.String.TOKEN_SET_RATIO (3))
+	 * 
+	 */
+	
+	public double similarity(String anotherString, int flag){
+		if (flag == x.String.PARTIAL_RATIO) {
+			return FuzzyWuzzy.partial_ratio(this.value, anotherString);
+		} else if (flag == x.String.FULL_RATIO) {
+			return FuzzyWuzzy.ratio(this.value, anotherString);
+		}
+		return FuzzyWuzzy.ratio(this.value, anotherString);
 	}
 	
 	public int search(String anotherString){

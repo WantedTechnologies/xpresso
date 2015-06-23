@@ -1,8 +1,9 @@
 package com.wantedtech.common.xpresso.types;
 
 import com.wantedtech.common.xpresso.helpers.Lengthful;
+import com.wantedtech.common.xpresso.regex.Regex;
 
-public interface tuple extends Comparable<tuple>, Lengthful{
+public interface tuple extends Comparable<Object>, Lengthful{
 	
     public int size();
     
@@ -36,6 +37,9 @@ public interface tuple extends Comparable<tuple>, Lengthful{
     public String getString(int index);
     public String getString(String fieldName);
     
+    public Regex getRegex(int index);
+    public Regex getRegex(String fieldName);
+    
     public str getStr(int index);
     public str getStr(String fieldName);
     
@@ -43,7 +47,7 @@ public interface tuple extends Comparable<tuple>, Lengthful{
     
     public tuple name(String... fieldNames);
     
-    public int compareTo(tuple o);
+    public int compareTo(Object o);
     boolean in(Iterable<tuple> iterable);
     
     tuple copy();

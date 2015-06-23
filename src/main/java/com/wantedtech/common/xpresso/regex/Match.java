@@ -16,10 +16,10 @@ public class Match implements Serializable {
 	list<String> groupStringsList = x.list();
 	list<Integer> groupStartsList = x.list();
 	list<Integer> groupEndsList = x.list();
-	dict<String> namedGroups = x.dict();
+	dict<String> groupDict = x.dict();
 	public Match(Matcher matcher){
 		for(Match groupNameMatch:x.Regex("\\(\\?<([^>]+)>").findIter(matcher.pattern().toString())){
-			namedGroups.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
+			groupDict.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
 		}
 		this.groupCount = matcher.groupCount();
 		for(Integer counter : x.countTo(groupCount+1)){
@@ -38,7 +38,7 @@ public class Match implements Serializable {
 		return groupStringsList.get(groupIndex);
 	}
 	public String group(String groupName) throws NoSuchFieldException{
-		return namedGroups.get(groupName);
+		return groupDict.get(groupName);
 	}
 	public boolean hasGroup(int groupIndex){
 		if(x.len(groupStringsList) >= groupIndex){
@@ -47,14 +47,14 @@ public class Match implements Serializable {
 		return false;
 	}
 	public boolean hasGroup(String groupName){
-		if(x.String(groupName).in(namedGroups)){
+		if(x.String(groupName).in(groupDict)){
 			return true;
 		}
 		return false;
 	}
 	
-	public dict<String> namedGroups() {
-		return namedGroups;
+	public dict<String> groupDict() {
+		return groupDict;
 	}
 	
 	public list<String> groups() {
@@ -84,13 +84,9 @@ public class Match implements Serializable {
 	}
 	public dict<String> matchedNamedGroups() {
 		dict<String> dct = x.dict();
-		for (String gStr : namedGroups) {
-			try {
-				if (namedGroups.get(gStr) != null) {
-					dct.setAt(gStr).value(namedGroups.get(gStr));	
-				}
-			} catch (NoSuchFieldException e) {
-				// cant happen
+		for (String gStr : groupDict) {
+			if (groupDict.get(gStr) != null) {
+				dct.setAt(gStr).value(groupDict.get(gStr));	
 			}	
 		}
 		return dct;

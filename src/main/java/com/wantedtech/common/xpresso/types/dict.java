@@ -93,11 +93,19 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		return Helpers.newHashMap(this.dict);
 	}
 	
-	public T get(String key) throws NoSuchFieldException{
+	public T get(String key) {
 		if(this.dict.containsKey(key)){
 			return this.dict.get(key);
 		}else{
-			throw new NoSuchFieldException(key);
+			return null;
+		}
+	}
+	
+	public T get(String key, T defaultValue) {
+		if(this.dict.containsKey(key)){
+			return this.dict.get(key);
+		}else{
+			return defaultValue;
 		}
 	}
 	
@@ -229,6 +237,10 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 	dict<T> clear(){
 		dict.clear();
 		return this;
+	}
+	
+	public void del(String key) {
+		dict.remove(key);
 	}
 	
 	public int compareTo(dict<T> anotherDict){

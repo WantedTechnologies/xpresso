@@ -102,9 +102,9 @@ public class RegexpChunkParser {
         }
 
         try {
-            chunk_struct.label();
+            chunk_struct.getLabel();
         } catch (Exception e) {
-            chunk_struct = new Node(this._root_label, chunk_struct.elements());	
+            chunk_struct = new Node(this._root_label, chunk_struct.getLeaves());	
         }
 
         //# Use the default trace value?

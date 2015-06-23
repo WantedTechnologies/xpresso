@@ -164,11 +164,7 @@ public class OrderedDict<T> extends dict<T> {
 	public list<T> values(){
 		list<T> values = x.list();
 		for(String key : keys){
-			try {
-				values.append(get(key));
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-			}
+			values.append(get(key));
 		}
 		return values;
 	}

@@ -1296,6 +1296,8 @@ public class Lambda2Parser extends Parser {
 
 				                        if(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value instanceof Iterable<?>)
 				                            ((ComplexIdentifierContext)_localctx).value =  new Value((x.list((Iterable<?>)(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value)).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null)))));
+				                        else if(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value instanceof tuple)
+				                            ((ComplexIdentifierContext)_localctx).value =  new Value((((tuple)(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value)).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null)))));
 				                        else
 				                            throw new IllegalArgumentException("The input variable is not multi-dimensional, you cannot use the [...] notation in your lambda expression.");
 				                      

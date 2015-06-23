@@ -330,6 +330,8 @@ public class Test {
 			x.print(x.String(tran).stripAccents());
 			 
 			x.print(x.String("Чичётка").similarity("Чичeтка"));
+			
+			x.print(x.String("abcd").similarity("bcde"));
 			 
 			x.print(x.String("You are cooding in Java.").search("coding"));
 			 

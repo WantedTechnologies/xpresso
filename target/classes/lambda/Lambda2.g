@@ -145,6 +145,8 @@ complexIdentifier returns [Value value]
 
                         if(inputValues.get($id70.text).value instanceof Iterable<?>)
                             $value = new Value((x.list((Iterable<?>)(inputValues.get($id70.text).value)).get(Integer.parseInt($nu70.text))));
+                        else if(inputValues.get($id70.text).value instanceof tuple)
+                            $value = new Value((((tuple)(inputValues.get($id70.text).value)).get(Integer.parseInt($nu70.text))));
                         else
                             throw new IllegalArgumentException("The input variable is not multi-dimensional, you cannot use the [...] notation in your lambda expression.");
                       }

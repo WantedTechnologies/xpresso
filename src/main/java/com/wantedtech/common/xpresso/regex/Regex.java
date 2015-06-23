@@ -37,11 +37,7 @@ public class Regex implements Serializable{
 		this.replacements = new ArrayList<String>();
 		pattern = Pattern.compile("("+x.String(")|(").join(keys)+")",flags);
 		for(String key : keys){
-			try {
-				this.replacements.add(translator.get(key));
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-			}
+			this.replacements.add(translator.get(key));
 		}
 	}
 		
