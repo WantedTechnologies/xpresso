@@ -44,6 +44,9 @@ public class Node implements Lengthful, Iterable<Node>{
 	}
 	
 	public void append(Node node) {
+		if (leaves == null) {
+			leaves = x.list();
+		}
 		leaves.append(node);
 	}
 	
@@ -68,7 +71,7 @@ public class Node implements Lengthful, Iterable<Node>{
 	private void getAllLeaves(Node startNode, list<Node> listToFill) {
 		listToFill.append(startNode);
 		if (startNode.leaves != null) {
-			for (Node element : leaves) {
+			for (Node element : startNode.leaves) {
 				getAllLeaves(element, listToFill);
 			}
 		}

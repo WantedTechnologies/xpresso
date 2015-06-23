@@ -515,6 +515,43 @@ public class x {
 	}
 	
 	/**
+	 * Opens a {@link HappyFile} for reading in text mode.
+	 * 
+	 * Example:
+	 * 
+	 * <pre>
+	 * {@code
+	 * HappyFile f = x.open("filename.txt");
+	 * }
+	 * </pre>
+	 * 
+	 * The {@link HappyFile} object is also an Iterable containing 
+	 * lines of the file:
+	 * 
+	 * <pre>
+	 * {@code
+	 * for(String line : x.open("filename.txt","r","utf-8")){
+	 * 		x.print(line);
+	 * }
+	 * }
+	 * </pre>
+	 * 
+	 * @param path			a {@link String} object containing the path to the file
+	 * @param operation		can be "r" (read in text mode with utf-8 encoding), "rb" (read in binary mode),
+	 * 						"w" (write in text mode), "wb" write in binary mode
+	 * 						"a" append in text mode, "ab" append in binary mode
+	 * @throws IOException	in case there's a problem opening file
+	 * @return 				a {@link HappyFile} object
+	 */
+	public static HappyFile open(String path) throws IOException{
+		try{
+			return new HappyFile(path,"r");
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	
+	/**
 	 * Opens a {@link HappyFile} for reading or writing in csv format.
 	 * 
 	 * Example 1:
@@ -1121,6 +1158,56 @@ public class x {
     }
 	
 	/**
+	 * Factory method that starts a new tuple comprehension.
+	 * 
+	 * The difference of a scalar comprehension from a tuple comprehension 
+	 * is that the tuple comprehension returns tuples of values.
+	 * 
+	 * Usually it's used when the elements of the input iterable
+	 * are themselves tuples, or iterables or other collection types.
+	 * But it freely can be used with iterables of scalars if needed.
+	 * 
+	 * Example 1, a list comprehension:
+	 * 
+	 * Python:
+	 * <pre>
+	 * {@code
+	 * list1 = [a.lower(), b.upper() for a, b, c, d in list0]
+	 * }
+	 * </pre>
+	 * 
+	 * xpresso:
+	 * <pre>
+	 * {@code
+	 * list<tuple> list1 = x.list(x.yield("a", "b").apply(x.lower, x.upper).where("a", "b", "c", "d").in(list0));
+	 * }
+	 * </pre>
+	 * 
+	 * Example 2, a list comprehension:
+	 * 
+	 * Python:
+	 * <pre>
+	 * {@code
+	 * list1 = [a.lower(), true for a, b, c, d in list0]
+	 * }
+	 * </pre>
+	 * 
+	 * xpresso:
+	 * <pre>
+	 * {@code
+	 * list<tuple> list1 = x.list(x.yield("a", "b").apply(x.lower).replace(True).where("a", "b", "c", "d").in(list0));
+	 * }
+	 * </pre>
+	 * @param fieldName0 and
+	 * @param fieldName1 are the names of the "fields" of each element of the input Iterable
+	 * we want in our output Iterable
+	 * @return the fist object in the sequence that builds the comprehension expression
+	 */
+	public static Tuple3ComprehensionStart yield(String fieldName0, String fieldName1, String fieldName2) {
+        return ComprehensionFactory.tuple(fieldName0, fieldName1, fieldName2);
+    }
+	
+	/**
 	 * Creates and returns a {@link Function} that takes as a parameter an {@link java.lang.Iterable} 
 	 * and uses the Function's input value as key to get a value from the
 	 * {@link java.lang.Iterable}
@@ -1352,6 +1439,104 @@ public class x {
 					newValue = func.apply(newValue);
 				}
 				return (O)newValue;
+			}
+		};
+	}
+	
+	/**
+	 * Chains a function and a predicate in the following way: {@code predicate(function(x))} where {@code x} is the input
+	 * of the chained function.
+	 *
+	 * @param function	function to chain
+	 * @param predicate	predicate to chain
+	 * 
+	 * @return 			a {@link Predicate}
+	 *                   
+	 */
+	public Predicate<Object> chain(final Function<Object,?> function, final Predicate<Object> predicate){
+		return new Predicate<Object>(){
+			@Override
+			public Boolean apply(Object value) {
+				Object newValue = x.doNothing.apply(value);
+			    newValue = function.apply(newValue);
+			    return predicate.apply(newValue);
+			}
+		};
+	}
+	
+	/**
+	 * Chains a function and a predicate in the following way: {@code predicate(function1(function0(x)))} where {@code x} is the input
+	 * of the chained function.
+	 *
+	 * @param function0	function to chain
+	 * @param function1	function to chain
+	 * @param predicate	predicate to chain
+	 * 
+	 * @return 			a {@link Predicate}
+	 *                   
+	 */
+	public Predicate<Object> chain(final Function<Object,?> function0, final Function<Object,?> function1, final Predicate<Object> predicate){
+		return new Predicate<Object>(){
+			@Override
+			public Boolean apply(Object value) {
+				Object newValue = x.doNothing.apply(value);
+			    newValue = function0.apply(newValue);
+			    newValue = function1.apply(newValue);
+			    return predicate.apply(newValue);
+			}
+		};
+	}
+	
+	/**
+	 * Chains a function and a predicate in the following way: {@code predicate(function2(function1(function0(x))))} where {@code x} is the input
+	 * of the chained function.
+	 *
+	 * @param function0	function to chain
+	 * @param function1	function to chain
+	 * @param function2	function to chain
+	 * 
+	 * @param predicate	predicate to chain
+	 * 
+	 * @return 			a {@link Predicate}
+	 *                   
+	 */
+	public Predicate<Object> chain(final Function<Object,?> function0, final Function<Object,?> function1, final Function<Object,?> function2, final Predicate<Object> predicate){
+		return new Predicate<Object>(){
+			@Override
+			public Boolean apply(Object value) {
+				Object newValue = x.doNothing.apply(value);
+			    newValue = function0.apply(newValue);
+			    newValue = function1.apply(newValue);
+			    newValue = function2.apply(newValue);
+			    return predicate.apply(newValue);
+			}
+		};
+	}
+	
+	/**
+	 * Chains a function and a predicate in the following way: {@code predicate(function3(function2(function1(function0(x)))))} where {@code x} is the input
+	 * of the chained function.
+	 *
+	 * @param function0	function to chain
+	 * @param function1	function to chain
+	 * @param function2	function to chain
+	 * @param function3	function to chain
+	 * 
+	 * @param predicate	predicate to chain
+	 * 
+	 * @return 			a {@link Predicate}
+	 *                   
+	 */
+	public Predicate<Object> chain(final Function<Object,?> function0, final Function<Object,?> function1, final Function<Object,?> function2, final Function<Object,?> function3, final Predicate<Object> predicate){
+		return new Predicate<Object>(){
+			@Override
+			public Boolean apply(Object value) {
+				Object newValue = x.doNothing.apply(value);
+			    newValue = function0.apply(newValue);
+			    newValue = function1.apply(newValue);
+			    newValue = function2.apply(newValue);
+			    newValue = function3.apply(newValue);
+			    return predicate.apply(newValue);
 			}
 		};
 	}

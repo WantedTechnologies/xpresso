@@ -15,8 +15,18 @@ public class Tuple2ComprehensionElse {
 		return new Tuple2ComprehensionElse(this.comprehension);
 	}
 	
+	public Tuple2ComprehensionElse apply(Function<Object,?> function0){
+		this.comprehension.apply(function0);
+		return new Tuple2ComprehensionElse(this.comprehension);
+	}
+	
 	public Tuple2ComprehensionElse replace(Object value0,Object value1){
 		this.comprehension.replace(value0,value1);
+		return new Tuple2ComprehensionElse(this.comprehension);
+	}
+	
+	public Tuple2ComprehensionElse replace(Object value0){
+		this.comprehension.replace(value0);
 		return new Tuple2ComprehensionElse(this.comprehension);
 	}
 	

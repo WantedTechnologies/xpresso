@@ -13,4 +13,8 @@ public class ComprehensionFactory {
 		Tuple2Comprehension comprehension = new Tuple2Comprehension(fieldName0,fieldName1);
 		return new Tuple2ComprehensionStart(comprehension);
 	}
+	public static Tuple3ComprehensionStart tuple(String fieldName0,String fieldName1,String fieldName2){
+		Tuple3Comprehension comprehension = new Tuple3Comprehension(fieldName0,fieldName1,fieldName2);
+		return new Tuple3ComprehensionStart(comprehension);
+	}
 }

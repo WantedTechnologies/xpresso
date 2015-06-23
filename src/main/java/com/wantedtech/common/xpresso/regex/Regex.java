@@ -47,7 +47,7 @@ public class Regex implements Serializable{
 	public str sub(String replacement,str str){
 		return x.str(sub(replacement,str.toString()));
 	}
-	Function<Object,String> sub(final String replacement) {
+	public Function<Object,String> sub(final String replacement) {
 		return new Function<Object,String> () {
 			public String apply(Object string) {
 				return sub(replacement, string.toString());

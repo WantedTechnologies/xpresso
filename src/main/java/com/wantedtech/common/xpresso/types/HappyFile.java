@@ -68,11 +68,9 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 					this.fileInputStream = new FileInputStream(file);
 			        this.bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream,this.charset));
 				} catch(UnsupportedEncodingException e) {
-					System.out.println(e.getMessage());
+					throw new UnsupportedEncodingException(e.getMessage());
 				} catch (IOException e) {
-					System.out.println(e.getMessage());
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					throw new IOException(e.getMessage());
 				}
 				break;
 			case "w":
@@ -111,7 +109,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 				bufferedReader.close();				
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			return false;
 		}
 		return false;
 	}

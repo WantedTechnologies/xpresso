@@ -10,7 +10,7 @@ import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.str;
 
-public class Token extends HappyString {
+public class Token extends HappyString implements Comparable<Token> {
 	
 	private list<String> featureOrder = x.list(
 			"stem",
@@ -511,5 +511,20 @@ public class Token extends HappyString {
 			throw new AccessDeniedException("The list of features in featureOrder is incomplete. It shoudld include " + x.set(featureValues.keys()).difference(x.set(featureOrder)).toString());
 		}
 		return features;
+	}
+
+	@Override
+	public int compareTo(Token o) {
+		return value.compareTo(o.toString());
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return value.equals(o.toString());
+	}
+	
+	@Override
+	public int hashCode() {
+		return value.hashCode();
 	}
 }

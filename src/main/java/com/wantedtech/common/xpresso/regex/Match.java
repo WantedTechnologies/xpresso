@@ -18,7 +18,7 @@ public class Match implements Serializable {
 	list<Integer> groupEndsList = x.list();
 	dict<String> groupDict = x.dict();
 	public Match(Matcher matcher){
-		for(Match groupNameMatch:x.Regex("\\(\\?<([^>]+)>").findIter(matcher.pattern().toString())){
+		for(Match groupNameMatch : x.Regex("\\(\\?<([^!>]+)>").findIter(matcher.pattern().toString())){
 			groupDict.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
 		}
 		this.groupCount = matcher.groupCount();
@@ -31,14 +31,23 @@ public class Match implements Serializable {
 	public int start(int groupIndex){
 		return groupStartsList.get(groupIndex);
 	}
+	public int start(){
+		return groupStartsList.get(0);
+	}
 	public int end(int groupIndex){
 		return groupEndsList.get(groupIndex);
+	}
+	public int end(){
+		return groupEndsList.get(0);
 	}
 	public String group(int groupIndex){
 		return groupStringsList.get(groupIndex);
 	}
 	public String group(String groupName) throws NoSuchFieldException{
 		return groupDict.get(groupName);
+	}
+	public String group(){
+		return groupStringsList.get(0);
 	}
 	public boolean hasGroup(int groupIndex){
 		if(x.len(groupStringsList) >= groupIndex){

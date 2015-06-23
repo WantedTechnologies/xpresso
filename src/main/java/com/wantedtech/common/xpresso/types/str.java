@@ -95,6 +95,11 @@ public class str extends list<String> implements Iterable<String>{
 		}
 		return false;
 	}
+	public boolean in(String string0, String string1, String... otherStrings){
+		list<String> lst = x.list(string0, string1);
+		lst.extend(otherStrings);
+		return in(lst);
+	}
 			
 	public boolean notIn(String string){
 		return !in(string);
@@ -105,6 +110,9 @@ public class str extends list<String> implements Iterable<String>{
 	@Override
 	public boolean notIn(Iterable<?> iterable){
 		return !in(iterable);
+	}
+	public boolean notIn(String string0, String string1, String... otherStrings){
+		return !in(string0, string1, otherStrings);
 	}
 	
 	public boolean contains(String string){
@@ -237,7 +245,7 @@ public class str extends list<String> implements Iterable<String>{
 	}
 	
 	public str title(){
-		return x.str("").join(x.yield().apply(x.String.capitalized).forEach(this.split()));
+		return x.str("").join(x.yield().apply(x.String.capitalize).forEach(this.split()));
 	}
 	
 	public str capitalize(){

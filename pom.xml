@@ -79,6 +79,12 @@
   		<artifactId>icu4j</artifactId>
   		<version>54.1.1</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.annolab.tt4j</groupId>
+  		<artifactId>org.annolab.tt4j</artifactId>
+  		<version>1.2.1</version>
+  		<scope>test</scope>
+  	</dependency>
   </dependencies>
 
 </project>

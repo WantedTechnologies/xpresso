@@ -193,7 +193,7 @@ public class HappyString {
 	}
 
 	public String title(){
-		return x.String("").join(x.yield().apply(x.String.capitalized).forEach(this.split()));
+		return x.String("").join(x.yield().apply(x.String.capitalize).forEach(this.split()));
 	}
 	
 	public String capitalize(){
@@ -335,6 +335,10 @@ public class HappyString {
 		}
 		return result;
 	}
+	
+	public String copy() {
+		return new String(this.value);
+	} 
 	
 	/**
 	 * Factory method that creates a new instance of xpresso base type (dict, list, etc)

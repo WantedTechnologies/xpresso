@@ -150,7 +150,13 @@ complexIdentifier returns [Value value]
                         else
                             throw new IllegalArgumentException("The input variable is not multi-dimensional, you cannot use the [...] notation in your lambda expression.");
                       }
-    |   id70=Identifier {$value = new Value(inputValues.get($id70.text));}
+    |   id70=Identifier {
+                            if (inputValues.containsKey($id70.text)) {
+                                $value = new Value(inputValues.get($id70.text));
+                            } else {
+                                throw new IllegalArgumentException("Could not find input variable with name " + $id70.text);
+                            }
+                        }
     ;
 
 function returns [Value value]

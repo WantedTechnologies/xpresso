@@ -12,16 +12,16 @@ public class DefaultDict<T> extends dict<T> {
 
 	T defaultValue;
 	
-	@SuppressWarnings("unchecked")
 	public DefaultDict(Class<T> valueType){
 		defaultValue = ObjectFactory.createValueOfType(valueType);
 	}
 	
+	@Override
 	public T get(String key){
 		if(x.String(key).notIn(this)){
-			this.setAt(key).value(defaultValue);
+			this.dict.put(key,defaultValue);
 		}
-		return defaultValue;
+		return this.dict.get(key);
 	}
 	
 }

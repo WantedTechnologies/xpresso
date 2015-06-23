@@ -110,7 +110,7 @@ public class HappyStringStatic {
 	public String capitalize(String string){
 		return x.String(string.toString()).capitalize();
 	}
-	public Function<Object, String> capitalized = new Function<Object, String>() {
+	public Function<Object, String> capitalize = new Function<Object, String>() {
 		public String apply(Object string) {
 			return x.String(string.toString()).capitalize();
 		}

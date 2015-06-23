@@ -1,15 +1,23 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.annolab.tt4j.TokenHandler;
+import org.annolab.tt4j.TreeTaggerException;
+import org.annolab.tt4j.TreeTaggerWrapper;
 
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.en.sentence.Sentence;
+import com.wantedtech.common.xpresso.en.sentence.chunker.Node;
+import com.wantedtech.common.xpresso.en.sentence.chunker.RegexpParser;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
 import com.wantedtech.common.xpresso.experimental.concurrency.SendToClosedChannelException;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
+import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.*;
@@ -34,6 +42,62 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		try{
 
+	        //save the advertiser score in the advertiser_scores_dict:
+			String advertiser = "aaa";
+			double advertiser_score = 100.0;
+			DefaultDict<Double> advertiser_scores_dict = x.DefaultDict(Double.class);
+	        if (x.String(advertiser).in(advertiser_scores_dict)) {
+	        	advertiser_scores_dict.setAt(advertiser).value(advertiser_scores_dict.get(advertiser) + advertiser_score);
+	        }
+	        else {
+	            advertiser_scores_dict.setAt(advertiser).value(advertiser_score);
+	        }
+	        
+	        x.print(advertiser_scores_dict);
+			
+			String grammar = "\n" +
+				    "NBAR:\n" + 
+				    "    {<NP.*|JJ.*>*<NP.*>}\n" // Uppercase Nouns and Adjectives, terminated with Nouns
+				;
+			System.setProperty("treetagger.home", "/Users/andriy.burkov/TreeTagger");
+			RegexpParser chunker = new RegexpParser(grammar);
+			TreeTaggerWrapper<String> tt;
+			tt = new TreeTaggerWrapper<String>();
+			tt.setModel("/Users/andriy.burkov/TreeTagger/english-par-linux-3.2-utf8.bin");
+			String text = "Microsoft is looking for a developer.";
+		    for (Sentence sent : x.String.EN.tokenize(text)) {
+		        //split the sentence on tokens:
+		        //if the sentence contains one of these words, then remove it from the text: it cannot contain an advertiser:
+		        if (x.len(x.set("beautiful", "parks", "playgrounds", "recreational", "play").intersection(x.set(sent.toListOfStrings()))) != 0)
+		            continue;
+		        
+	    	    final list<tuple> elements = x.list();
+	        	tt.setHandler(new TokenHandler<String>() {
+	        		public void token(String word, String pos, String lemma) {
+	        			elements.append(x.tuple(pos, word));
+	        		}
+	        	});
+	    		try {
+					tt.process(sent.toListOfStrings().toArrayList());
+				} catch (IOException e) {
+					throw new IOException(e);
+				} catch (TreeTaggerException e) {
+					throw new TreeTaggerException(e);
+				}
+	    		
+		        //get the list of chunks from the chunker
+	    		x.print(elements);
+	    		list<Node> chunk_lst = x.list(chunker.parse(elements, 0));
+	    		x.print(chunk_lst);
+		    }
+			
+			String citiespath = "/Users/andriy.burkov/p/workspace/python/JavaAdvertiserExtractor/target/classes/cities.txt";
+			
+			try (HappyFile f = x.open(citiespath)) {
+			    set<String> cities_set = x.set(x.<String>yield().apply(x.chain(x.strip,x.lower,x.Regex("^saint\\b").sub("s(?:ain)?t\\.?"))).forEach(f));
+			    set<String> cities_set_for_pattern = x.set(x.<String>yield().apply(x.lambdaF("word : f0(word) + '''\\b(?:[\\s-]city)?'''",x.chain(x.strip,x.lower))).forEach(cities_set));			
+			}
+			
 			String ref_file_dir = "/Users/andriy.burkov/p/workspace/python/InternationalTitleCleanup/ref";
 			
 			try(HappyFile f = x.open(ref_file_dir+"/test.txt", "r")){
@@ -413,9 +477,9 @@ public class Test {
 			
 			x.print("OK2");
 			
-			String text = "Hello my name is Andrei. This is my test.";
+			String text2 = "Hello my name is Andrei. This is my test.";
 			
-			for (Sentence sent : x.String.EN.tokenize(text)) {
+			for (Sentence sent : x.String.EN.tokenize(text2)) {
 				for (Token tok : sent) {
 					x.print(tok);
 				}

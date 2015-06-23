@@ -1308,7 +1308,13 @@ public class Lambda2Parser extends Parser {
 				{
 				setState(323);
 				((ComplexIdentifierContext)_localctx).id70 = match(Identifier);
-				((ComplexIdentifierContext)_localctx).value =  new Value(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)));
+
+				                            if (inputValues.containsKey((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null))) {
+				                                ((ComplexIdentifierContext)_localctx).value =  new Value(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)));
+				                            } else {
+				                                throw new IllegalArgumentException("Could not find input variable with name " + (((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null));
+				                            }
+				                        
 				}
 				break;
 			}

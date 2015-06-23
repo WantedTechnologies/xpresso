@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.helpers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +13,13 @@ import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.set;
 
 public class Helpers {
+	
+	public static String getResourcePath(Object obj, String fileName) {
+		ClassLoader classLoader = obj.getClass().getClassLoader();
+		String path = (new File(classLoader.getResource(fileName).getFile())).getAbsolutePath();
+		return path;
+	}
+	
 	public static <T> ArrayList<T> newArrayList(){
 		ArrayList<T> newArrayList = new ArrayList<T>();
 		return newArrayList;
