@@ -1,3 +1,5 @@
+//run as java -cp antlr-4.5-complete.jar org.antlr.v4.Tool Lambda2.g
+
 grammar Lambda2;
 
 @header {
@@ -191,7 +193,7 @@ Or
     ;
 
 Identifier
-    :   [a-zA-Z]+ [0-9a-zA-Z]*
+    :   [a-zA-Z_]+ [0-9a-zA-Z_]*
     ;
 
 Number

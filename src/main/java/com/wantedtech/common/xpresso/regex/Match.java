@@ -43,7 +43,7 @@ public class Match implements Serializable {
 	public String group(int groupIndex){
 		return groupStringsList.get(groupIndex);
 	}
-	public String group(String groupName) throws NoSuchFieldException{
+	public String group(String groupName) {
 		return groupDict.get(groupName);
 	}
 	public String group(){
@@ -99,5 +99,9 @@ public class Match implements Serializable {
 			}	
 		}
 		return dct;
+	}
+	@Override
+	public String toString() {
+		return "<Match: " + group() + ">";
 	}
 }

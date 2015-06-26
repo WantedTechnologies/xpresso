@@ -125,6 +125,8 @@ public class Token extends HappyString implements Comparable<Token> {
 	private String shape;
 	private String compressedShape;
 	
+	private dict<String> annotations = x.dict();
+	
 	public Token(){
 		super("");
 		throw new UnsupportedOperationException("Token cannot be empty.");
@@ -133,6 +135,14 @@ public class Token extends HappyString implements Comparable<Token> {
 	public Token(String word) {
 		super("");
 		this.value = word;
+	}
+	
+	public void annotate(String key, String value) {
+		annotations.setAt(key).value(value);
+	}
+	
+	public String getAnnotation(String key) {
+		return annotations.get(key);
 	}
 	
 	public boolean isUpper() {
@@ -495,7 +505,7 @@ public class Token extends HappyString implements Comparable<Token> {
 		OrderedDict<Object> features = x.OrderedDict();
 		dict<Object> featureValues = x.dict();
 		for (Method m : this.getClass().getDeclaredMethods()) {
-			if (m.getParameterCount() == 0 && !m.getName().equals("features")) {
+			if (m.getParameterCount() == 0 && x.String(m.getName()).notIn("features","hashCode")) {
 				try {
 					featureValues.setAt(m.getName()).value(m.invoke(this));
 				} catch (Exception e) {
@@ -513,6 +523,7 @@ public class Token extends HappyString implements Comparable<Token> {
 		return features;
 	}
 
+	
 	@Override
 	public int compareTo(Token o) {
 		return value.compareTo(o.toString());

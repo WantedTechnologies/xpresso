@@ -218,6 +218,10 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		return val;
 	}
 	
+	public void del(Object index){
+		list.remove((int)index);
+	}
+	
 	public T pop(){
 		T val = this.get(list.size()-1);
 		list.remove(list.size()-1);

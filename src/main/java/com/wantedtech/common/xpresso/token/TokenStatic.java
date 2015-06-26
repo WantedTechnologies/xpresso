@@ -1,7 +1,7 @@
 package com.wantedtech.common.xpresso.token;
 
 import com.ibm.icu.text.Transliterator;
-import com.wantedtech.common.xpresso.token.stem.Stemmer;
+import com.wantedtech.common.xpresso.token.stem.en.Stemmer;
 
 
 public class TokenStatic {

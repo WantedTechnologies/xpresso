@@ -6,6 +6,7 @@ import com.wantedtech.common.xpresso.types.dict;
 import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.str;
 import com.wantedtech.common.xpresso.types.tuple;
+import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Regex implements Serializable{
 
 		
 	public Pattern pattern;
-	List<String> replacements;
+	dict<String> replacements;
 	
 	public Regex(String regularExpression,int flags){
 		pattern = Pattern.compile(regularExpression,flags);
@@ -34,11 +35,13 @@ public class Regex implements Serializable{
 	
 	public Regex(dict<String> translator,int flags){
 		Iterable<String> keys = Helpers.newArrayList(translator.keys());
-		this.replacements = new ArrayList<String>();
-		pattern = Pattern.compile("("+x.String(")|(").join(keys)+")",flags);
-		for(String key : keys){
-			this.replacements.add(translator.get(key));
+		this.replacements = x.dict();
+		StringBuilder patternBuilder = new StringBuilder();
+		for (tuple2<Integer,String> idx__key : x.enumerate(keys)) {
+			patternBuilder.append("(<g" + idx__key.value0 + ">" +idx__key.value1 + ")|");
+			this.replacements.setAt("g"+idx__key.value0).value(translator.get(idx__key.value1));
 		}
+		pattern = Pattern.compile(x.String(patternBuilder.toString()).sliceTo(-1),flags);
 	}
 		
 	public String sub(String replacement,String string){
@@ -94,18 +97,14 @@ public class Regex implements Serializable{
 		StringBuilder resultString = new StringBuilder();
 		for(Match m:findIter(string)){
 			resultString.append(x.String(string).slice(currentIndex,m.start(0)));
-			for(tuple idx__groupMatch:x.enumerate(m.groupStringsList)){
-				int idx = idx__groupMatch.get(0,Integer.class);
+			for(tuple2<Integer,String> idx__groupName:x.enumerate(m.groupDict)){
+				int idx = idx__groupName.value0;
 				if(idx == 0){
 					continue;
 				}
-				String groupMatch = idx__groupMatch.get(1,String.class);
+				String groupMatch = m.group(idx__groupName.value1);
 				if(groupMatch != null){
-					try{
-						resultString.append(this.replacements.get(idx-1));	
-					}catch(Exception e){
-						
-					}
+					resultString.append(this.replacements.get(groupMatch));	
 					currentIndex = m.end(0);		
 				}
 			}

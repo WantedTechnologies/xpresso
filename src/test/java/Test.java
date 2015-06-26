@@ -2,27 +2,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.annolab.tt4j.TokenHandler;
-import org.annolab.tt4j.TreeTaggerException;
-import org.annolab.tt4j.TreeTaggerWrapper;
-
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.csv.CSV;
-import com.wantedtech.common.xpresso.en.sentence.Sentence;
-import com.wantedtech.common.xpresso.en.sentence.chunker.Node;
-import com.wantedtech.common.xpresso.en.sentence.chunker.RegexpParser;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
-import com.wantedtech.common.xpresso.experimental.concurrency.SendToClosedChannelException;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
-import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.Slicer;
+import com.wantedtech.common.xpresso.regex.Regex;
+import com.wantedtech.common.xpresso.sentence.Sentence;
+import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
 import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 import com.wantedtech.common.xpresso.types.tuples.tuple3;
+
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Test {
 	
@@ -42,6 +38,23 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		try{
 
+			Regex jjj = x.Regex("dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|(?:[Tt]he\\s+|an?\\s+)?(?<g1430>%%X%%)\\.?(?: has been marketing|,? through our| is strong| has more than| advocates| represents| operates| manages| markets| supplies| designs| delivers| conducts| is a specialist| is open| differentiates itself| has transformed| (?:strict )?standards| builds|,? through its|,? which recorded| has been retained)\\b|ksfhalskjghlakgjhladfksghldfkjgh");
+			
+			x.print(jjj.find("ts related items in the %%X%%. represents %%X%% with a professional manner in a high-visibility role.").group(0));
+			
+			String tran = x.String.translit("Чичётка 北亰");
+			x.print(x.String(tran).stripAccents());
+			
+			String input = "Hello world.";
+			
+			MaxentTagger tagger = new MaxentTagger(MaxentPosTagger.Model.ENGLISH_LEFT_3_WORDS);
+			
+			for (Sentence s : x.String.EN.tokenize(input)) {
+				s = tagger.tagSentence(s);
+				x.print(s);
+				x.print(s.getAnnotations("pos"));
+			}
+			
 	        //save the advertiser score in the advertiser_scores_dict:
 			String advertiser = "aaa";
 			double advertiser_score = 100.0;
@@ -54,42 +67,6 @@ public class Test {
 	        }
 	        
 	        x.print(advertiser_scores_dict);
-			
-			String grammar = "\n" +
-				    "NBAR:\n" + 
-				    "    {<NP.*|JJ.*>*<NP.*>}\n" // Uppercase Nouns and Adjectives, terminated with Nouns
-				;
-			System.setProperty("treetagger.home", "/Users/andriy.burkov/TreeTagger");
-			RegexpParser chunker = new RegexpParser(grammar);
-			TreeTaggerWrapper<String> tt;
-			tt = new TreeTaggerWrapper<String>();
-			tt.setModel("/Users/andriy.burkov/TreeTagger/english-par-linux-3.2-utf8.bin");
-			String text = "Microsoft is looking for a developer.";
-		    for (Sentence sent : x.String.EN.tokenize(text)) {
-		        //split the sentence on tokens:
-		        //if the sentence contains one of these words, then remove it from the text: it cannot contain an advertiser:
-		        if (x.len(x.set("beautiful", "parks", "playgrounds", "recreational", "play").intersection(x.set(sent.toListOfStrings()))) != 0)
-		            continue;
-		        
-	    	    final list<tuple> elements = x.list();
-	        	tt.setHandler(new TokenHandler<String>() {
-	        		public void token(String word, String pos, String lemma) {
-	        			elements.append(x.tuple(pos, word));
-	        		}
-	        	});
-	    		try {
-					tt.process(sent.toListOfStrings().toArrayList());
-				} catch (IOException e) {
-					throw new IOException(e);
-				} catch (TreeTaggerException e) {
-					throw new TreeTaggerException(e);
-				}
-	    		
-		        //get the list of chunks from the chunker
-	    		x.print(elements);
-	    		list<Node> chunk_lst = x.list(chunker.parse(elements, 0));
-	    		x.print(chunk_lst);
-		    }
 			
 			String citiespath = "/Users/andriy.burkov/p/workspace/python/JavaAdvertiserExtractor/target/classes/cities.txt";
 			
@@ -389,9 +366,7 @@ public class Test {
 			 
 			String stem2 = x.Token.stem("Marcher", "french");
 			x.print(stem2);
-			 
-			String tran = x.String.translit("Чичётка 北亰");
-			x.print(x.String(tran).stripAccents());
+			
 			 
 			x.print(x.String("Чичётка").similarity("Чичeтка"));
 			
@@ -411,12 +386,6 @@ public class Test {
 				for (list<String> l : lst6) {
 					csv.writerow(l);
 				}
-			}
-			
-			list<list<String>> data = x.list(x.csv("path", "r")); 
-			
-			try (HappyFile f = x.open("filename.txt","w","utf-8")) {
-				f.write(x.csv(data).toString());
 			}
 			
 			try(HappyFile f = x.open("/Users/andriy.burkov/Downloads"+"/test2.txt", "r")){

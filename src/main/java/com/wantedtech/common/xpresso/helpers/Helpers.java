@@ -14,8 +14,8 @@ import com.wantedtech.common.xpresso.types.set;
 
 public class Helpers {
 	
-	public static String getResourcePath(Object obj, String fileName) {
-		ClassLoader classLoader = obj.getClass().getClassLoader();
+	public static String getResourcePath(String fileName) {
+		ClassLoader classLoader = (new Helpers()).getClass().getClassLoader();
 		String path = (new File(classLoader.getResource(fileName).getFile())).getAbsolutePath();
 		return path;
 	}

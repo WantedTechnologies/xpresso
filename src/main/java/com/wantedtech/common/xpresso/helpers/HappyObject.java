@@ -62,4 +62,23 @@ public class HappyObject {
 		return !in(iterable);
 	}
 	
+	  /**
+	   * Returns a short class name for an object.
+	   * This is the class name stripped of any package name.
+	   *
+	   * @return The name of the class minus a package name, for example
+	   *         <code>ArrayList</code>
+	   */
+	  public String getShortClassName() {
+	    if (lhs == null) {
+	      return "null";
+	    }
+	    String name = lhs.getClass().getName();
+	    int index = name.lastIndexOf('.');
+	    if (index >= 0) {
+	      name = name.substring(index + 1);
+	    }
+	    return name;
+	  }
+	
 }

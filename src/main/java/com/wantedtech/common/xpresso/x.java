@@ -42,6 +42,7 @@ import com.wantedtech.common.xpresso.strings.*;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.comprehension.*;
 import com.wantedtech.common.xpresso.csv.*;
+import com.wantedtech.common.xpresso.exceptions.RuntimeIOException;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
 import com.wantedtech.common.xpresso.experimental.concurrency.Goer;
 import com.wantedtech.common.xpresso.functional.*;
@@ -470,10 +471,10 @@ public class x {
 	 * 						"a" append in text mode, "ab" append in binary mode
 	 * @param encoding		the String object containing the encoding of the file
 	 * 						(can be "utf-8" or "latin-1")
-	 * @throws IOException	in case there's a problem opening file
+	 * @throws RuntimeIOException	in case there's a problem opening file
 	 * @return 				a {@link HappyFile} object
 	 */
-	public static HappyFile open(String path,String operation,String encoding) throws IOException{
+	public static HappyFile open(String path,String operation,String encoding) throws RuntimeIOException{
 		return new HappyFile(path,operation,encoding);
 	}
 	
@@ -503,10 +504,10 @@ public class x {
 	 * @param operation		can be "r" (read in text mode with utf-8 encoding), "rb" (read in binary mode),
 	 * 						"w" (write in text mode), "wb" write in binary mode
 	 * 						"a" append in text mode, "ab" append in binary mode
-	 * @throws IOException	in case there's a problem opening file
+	 * @throws RuntimeIOException	in case there's a problem opening file
 	 * @return 				a {@link HappyFile} object
 	 */
-	public static HappyFile open(String path,String operation) throws IOException{
+	public static HappyFile open(String path,String operation) throws RuntimeIOException{
 		try{
 			return new HappyFile(path,operation);
 		}catch(Exception e){
@@ -540,10 +541,10 @@ public class x {
 	 * @param operation		can be "r" (read in text mode with utf-8 encoding), "rb" (read in binary mode),
 	 * 						"w" (write in text mode), "wb" write in binary mode
 	 * 						"a" append in text mode, "ab" append in binary mode
-	 * @throws IOException	in case there's a problem opening file
+	 * @throws RuntimeIOException	in case there's a problem opening file
 	 * @return 				a {@link HappyFile} object
 	 */
-	public static HappyFile open(String path) throws IOException{
+	public static HappyFile open(String path) throws RuntimeIOException{
 		try{
 			return new HappyFile(path,"r");
 		}catch(Exception e){
@@ -593,11 +594,15 @@ public class x {
 	 * 						"a" append in text mode, "ab" append in binary mode
 	 * @param encoding		the String object containing the encoding of the file
 	 * 						(can be "utf-8" or "latin-1")
-	 * @throws IOException	in case there's a problem opening file
+	 * @throws RuntimeIOException	in case there's a problem opening file
 	 * @return 				a {@link CSV} object
 	 */
-	public static CSV csv(String path,String operation,String encoding) throws IOException{
-		return new CSV(path,operation,encoding);
+	public static CSV csv(String path,String operation,String encoding) throws RuntimeIOException{
+		try {
+			return new CSV(path,operation,encoding);
+		} catch (IOException e) {
+			throw new RuntimeIOException(e);
+		}
 	}
 	
 	/**
@@ -628,14 +633,14 @@ public class x {
 	 * @param operation		can be "r" (read in text mode), "rb" (read in binary mode),
 	 * 						"w" (write in text mode), "wb" write in binary mode
 	 * 						"a" append in text mode, "ab" append in binary mode
-	 * @throws IOException	in case there's a problem opening file
+	 * @throws RuntimeIOException	in case there's a problem opening file
 	 * @return 				a {@link CSV} object
 	 */
-	public static CSV csv(String path,String operation) throws IOException{
+	public static CSV csv(String path,String operation) throws RuntimeIOException {
 		try{
 			return new CSV(path,operation);
 		}catch(Exception e){
-			throw e;
+			throw new RuntimeIOException(e);
 		}
 	}
 	

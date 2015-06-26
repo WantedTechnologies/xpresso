@@ -18,6 +18,7 @@ import java.io.Writer;
 import java.util.Iterator;
 
 import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.exceptions.RuntimeIOException;
 
 public class HappyFile implements Iterable<String>,Iterator<String>, Serializable, AutoCloseable {
 	
@@ -38,12 +39,12 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 	String operation;
 	String path;
 	
-	public HappyFile(String path,String operation,String encoding) throws IOException,UnsupportedOperationException {
+	public HappyFile(String path,String operation,String encoding) throws RuntimeIOException,UnsupportedOperationException {
 		this.path = path;
 		try {
 			file = new java.io.File(path);
 		} catch(Exception e) {
-			throw new IOException("Problem opening file: " + path);
+			throw new RuntimeIOException("Problem opening file: " + path);
 		}
 		switch(encoding.toLowerCase()){
 			case "utf-8":
@@ -67,24 +68,38 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 				try {
 					this.fileInputStream = new FileInputStream(file);
 			        this.bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream,this.charset));
-				} catch(UnsupportedEncodingException e) {
-					throw new UnsupportedEncodingException(e.getMessage());
-				} catch (IOException e) {
-					throw new IOException(e.getMessage());
+				} catch (Exception e) {
+					throw new RuntimeIOException(e.getMessage());
 				}
 				break;
 			case "w":
-				this.fileOutputStream = new FileOutputStream(file);
-				this.outWriter = new BufferedWriter(new OutputStreamWriter(this.fileOutputStream, charset));
+				try {
+					this.fileOutputStream = new FileOutputStream(file);
+					this.outWriter = new BufferedWriter(new OutputStreamWriter(this.fileOutputStream, charset));
+				} catch (Exception e) {
+					throw new RuntimeIOException(e.getMessage());
+				}
 				break;
 			case "a":
-				outWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path,true), charset));
+				try {
+					outWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path,true), charset));
+				} catch (Exception e) {
+					throw new RuntimeIOException(e.getMessage());
+				}
 				break;
 			case "rb":
-				this.fileInputStream = new FileInputStream(file);
+				try {
+					this.fileInputStream = new FileInputStream(file);
+				} catch (Exception e) {
+					throw new RuntimeIOException(e.getMessage());
+				}
 				break;
 			case "wb":
-				this.fileOutputStream = new FileOutputStream(file);
+				try {
+					this.fileOutputStream = new FileOutputStream(file);
+				} catch (Exception e) {
+					throw new RuntimeIOException(e.getMessage());
+				}
 				break;
 			default:
 				throw new UnsupportedOperationException("Unsupported operation: " + operation);
@@ -92,7 +107,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 
 	}
 	
-	public HappyFile(String path,String operation) throws IOException {
+	public HappyFile(String path,String operation) throws RuntimeIOException {
 		this(path,operation,"UTF-8");
 	}
 	
@@ -142,47 +157,69 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 		return this;
 	}
 	
-	public void writeLine(String line) throws IOException {
+	public void writeLine(String line) throws RuntimeIOException {
 		if(!operation.equals("w")){
 			throw new UnsupportedOperationException();
 		}
-		this.outWriter.write(line+"\n");
+
+		try {
+			this.outWriter.write(line+"\n");
+		} catch (Exception e) {
+			throw new RuntimeIOException(e.getMessage());
+		}
+
 	}
 	
-	public void write(String string) throws IOException {
+	public void write(String string) throws RuntimeIOException {
 		if(!operation.equals("w")){
 			throw new UnsupportedOperationException();
 		}
-		this.outWriter.write(string);
+		try {
+			this.outWriter.write(string);
+		} catch (Exception e) {
+			throw new RuntimeIOException(e.getMessage());
+		}
 	}
 	
-	public void write(byte[] byteArray) throws IOException {
+	public void write(byte[] byteArray) throws RuntimeIOException {
 		if(!operation.equals("wb")){
 			throw new UnsupportedOperationException();
 		}
-		this.fileOutputStream.write(byteArray);
+		try {
+			this.fileOutputStream.write(byteArray);
+		} catch (Exception e) {
+			throw new RuntimeIOException(e.getMessage());
+		}
 	}
 	
-	public byte[] read() throws IOException {
+	public byte[] read() throws RuntimeIOException {
 		if(!operation.equals("rb")){
 			throw new UnsupportedOperationException();
 		}
 		byte[] fileData = new byte[(int)this.file.length()];
-		DataInputStream dis = new DataInputStream(new FileInputStream(file));
-		dis.readFully(fileData);
-		dis.close();
-		return fileData;
+		try {
+			DataInputStream dis = new DataInputStream(new FileInputStream(file));
+			dis.readFully(fileData);
+			dis.close();
+			return fileData;
+		} catch (Exception e) {
+			throw new RuntimeIOException(e.getMessage());
+		}
 	}
 	
-	public byte[] read(int count) throws IOException {
+	public byte[] read(int count) throws RuntimeIOException {
 		if(!operation.equals("rb")){
 			throw new UnsupportedOperationException();
 		}
 		byte[] fileData = new byte[count];
-		if(fileInputStream.read(fileData) != -1) {
-			return fileData;
-		}else{
-			return new byte[0];
+		try {
+			if(fileInputStream.read(fileData) != -1) {
+				return fileData;
+			}else{
+				return new byte[0];
+			}
+		} catch (Exception e) {
+			throw new RuntimeIOException(e.getMessage());
 		}
 	}
 	
