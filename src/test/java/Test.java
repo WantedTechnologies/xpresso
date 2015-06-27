@@ -8,12 +8,15 @@ import java.util.function.Consumer;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
+import com.wantedtech.common.xpresso.experimental.concurrency.MapReduce;
 import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
+import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.regex.Regex;
+import com.wantedtech.common.xpresso.sentence.PosTagger;
 import com.wantedtech.common.xpresso.sentence.Sentence;
 import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
 import com.wantedtech.common.xpresso.token.Token;
@@ -25,20 +28,18 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Test {
 	
-	Mapper<String,Integer> mpr = new Mapper<String,Integer>() {
-
-		@Override
-		public Generator<tuple2<String, Integer>> getMapper(final String input) {
-			return new Generator<tuple2<String, Integer>> () {
-				@Override
-				public void generate() {
-					for (String word : x.String(input).split()) {
-						yield(tuple2.valueOf(word, 1));
-					}
-				}
-			};
+	static Mapper<String,Integer> mpr = new Mapper<String,Integer>() {
+		public void map(String input) {
+			for (String word : x.String(input).split()) {
+				yield(x.tuple2(word, 1));
+			}
 		}
-		
+	};
+	
+	static Reducer<Integer,Integer> rdr = new Reducer<Integer,Integer>() {
+		public void reduce(tuple2<String,list<Integer>> input) {
+			yield(x.tuple2(input.key, x.sum(input.value)));
+		}
 	};
 	
 	public static Generator<Integer> gen5(final int max) {
@@ -56,7 +57,24 @@ public class Test {
 	
 	public static void main(String[] args) throws Exception {
 		try{
+			
+			PosTagger posTagger = new MaxentPosTagger();
+			String text = "Some English text. Multiple sentences.";
+			for (Sentence sent : x.String.EN.tokenize(text)) {
+			    posTagger.tag(sent);
+			    x.print(sent.getAnnotations("pos"));
+			}
+			
+			x.print(x.String("Hello World").similarity("Hello Wold!"));
+			
+			list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),50);
 
+			x.print(lookAlikes);
+			
+			for (tuple2<String,Integer> item : new MapReduce<String,Integer,Integer>(x.list("aaa aaa","bbb aaa","ccc bbb")).map(mpr).reduce(rdr).items()) {
+				x.print(item);
+			}
+			
 			Regex jjj = x.Regex("dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|(?:[Tt]he\\s+|an?\\s+)?(?<g1430>%%X%%)\\.?(?: has been marketing|,? through our| is strong| has more than| advocates| represents| operates| manages| markets| supplies| designs| delivers| conducts| is a specialist| is open| differentiates itself| has transformed| (?:strict )?standards| builds|,? through its|,? which recorded| has been retained)\\b|ksfhalskjghlakgjhladfksghldfkjgh");
 			
 			x.print(jjj.find("ts related items in the %%X%%. represents %%X%% with a professional manner in a high-visibility role.").group(0));
@@ -392,10 +410,6 @@ public class Test {
 			x.print(x.String("abcd").similarity("bcde"));
 			 
 			x.print(x.String("You are cooding in Java.").search("coding"));
-			 
-			list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.6);
-			
-			x.print(lookAlikes);
 			 
 			x.print(x.Token("Hello1").features());
 			 

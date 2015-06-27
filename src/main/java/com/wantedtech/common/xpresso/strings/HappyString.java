@@ -279,7 +279,7 @@ public class HappyString {
 		return x.str(this.value).compress().toString();
 	}
 	
-	public double similarity(String anotherString){
+	public int similarity(String anotherString){
 		return similarity(anotherString, x.String.FULL_RATIO);
 	}
 	
@@ -289,7 +289,7 @@ public class HappyString {
 	 * 
 	 */
 	
-	public double similarity(String anotherString, int flag){
+	public int similarity(String anotherString, int flag){
 		if (flag == x.String.PARTIAL_RATIO) {
 			return FuzzyWuzzy.partial_ratio(this.value, anotherString);
 		} else if (flag == x.String.FULL_RATIO) {
@@ -312,10 +312,7 @@ public class HappyString {
 		return dmp.match_main(value, anotherString, approximateLocation);
 	}
 	
-	public list<String> lookAlikes(Iterable<String> candidates, double threshold){
-		diff_match_patch dmp = new diff_match_patch();
-		dmp.Match_Threshold = 1f - (float)threshold;
-		
+	public list<String> lookAlikes(Iterable<String> candidates, int threshold){		
 		list<String> result = x.list();
 		for (String element : candidates) {
 			if(similarity(element) >= threshold){

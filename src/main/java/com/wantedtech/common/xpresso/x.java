@@ -1656,6 +1656,15 @@ public class x {
     }
 	
 	/**
+	 * Factory method that returns an empty {@link tuple}.
+	 *
+	 * @return 				an empty {@link tuple}
+	 */
+	public static tuple tuple0() {
+        return tuple0.valueOf();
+    }
+	
+	/**
 	 * Factory method that returns an {@link tuple} of one element.
 	 *
 	 * @param value			a value of any type
@@ -1666,6 +1675,17 @@ public class x {
         return tuple1.valueOf(value);
     }
 
+	/**
+	 * Factory method that returns an {@link tuple} of one element.
+	 *
+	 * @param value			a value of any type
+	 * @param <T0>			the type of value
+	 * @return 				a {@link tuple} that contains @param value
+	 */
+	public static <T0> tuple1<T0> tuple1(T0 value) {
+        return tuple1.valueOf(value);
+    }
+	
 	/**
 	 * Factory method that returns an {@link tuple} of two elements.
 	 *
@@ -1680,6 +1700,20 @@ public class x {
         return tuple2.valueOf(value0, value1);
     }
 
+	/**
+	 * Factory method that returns an {@link tuple} of two elements.
+	 *
+	 * @param value0		a value of any type
+	 * @param value1		a value of any type (can be different of the type of value0)
+	 * @param <T0>			the type of value0
+	 * @param <T1>			the type of value1
+	 * @return 				a {@link tuple} that contains @param value0 as the first dimension
+	 * 						and @param value1 as the second dimension
+	 */
+    public static <T0, T1> tuple2<T0, T1> tuple2(T0 value0, T1 value1) {
+        return tuple2.valueOf(value0, value1);
+    }
+    
 	/**
 	 * Factory method that returns an {@link tuple} of three elements.
 	 *
@@ -1702,6 +1736,22 @@ public class x {
 	 * @param value0		a value of any type
 	 * @param value1		a value of any type (can be different of the type of value0)
 	 * @param value2		a value of any type (can be different of the types of value0 and value1)
+	 * @param <T0>			the type of value0
+	 * @param <T1>			the type of value1
+	 * @param <T2>			the type of value2
+	 * @return 				a {@link tuple} that contains @param value0 as the first dimension,
+	 * 						@param value1 as the second dimension, and @param value2 as the third dimension
+	 */
+    public static <T0, T1, T2> tuple3<T0, T1, T2> tuple3(T0 value0, T1 value1, T2 value2) {
+        return tuple3.valueOf(value0, value1, value2);
+    }
+    
+	/**
+	 * Factory method that returns an {@link tuple} of three elements.
+	 *
+	 * @param value0		a value of any type
+	 * @param value1		a value of any type (can be different of the type of value0)
+	 * @param value2		a value of any type (can be different of the types of value0 and value1)
 	 * @param value3		a value of any type (can be different of the types of value0, value1, and value3)
 	 * @param <T0>			the type of value0
 	 * @param <T1>			the type of value1
@@ -1713,6 +1763,26 @@ public class x {
 	 * 						and @param value3 as the fourth dimension
 	 */
     public static <T0, T1, T2, T3> tuple tuple(T0 value0, T1 value1, T2 value2, T3 value3) {
+        return tuple4.valueOf(value0, value1, value2, value3);
+    }
+    
+	/**
+	 * Factory method that returns an {@link tuple} of three elements.
+	 *
+	 * @param value0		a value of any type
+	 * @param value1		a value of any type (can be different of the type of value0)
+	 * @param value2		a value of any type (can be different of the types of value0 and value1)
+	 * @param value3		a value of any type (can be different of the types of value0, value1, and value3)
+	 * @param <T0>			the type of value0
+	 * @param <T1>			the type of value1
+	 * @param <T2>			the type of value2
+	 * @param <T3>			the type of value2
+	 * 
+	 * @return 				a {@link tuple} that contains @param value0 as the first dimension,
+	 * 						@param value1 as the second dimension, @param value2 as the third dimension,
+	 * 						and @param value3 as the fourth dimension
+	 */
+    public static <T0, T1, T2, T3> tuple4<T0, T1, T2, T3> tuple4(T0 value0, T1 value1, T2 value2, T3 value3) {
         return tuple4.valueOf(value0, value1, value2, value3);
     }
 
