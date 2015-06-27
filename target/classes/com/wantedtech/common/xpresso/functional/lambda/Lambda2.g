@@ -35,10 +35,12 @@ eval returns [Value value]
 lambdaExpression returns [Value value]
     :   id10=inputVars {
                             inputVarNames = $id10.value;
-                            if(x.len(inputVarNames) > 1 && !(inputValue.value instanceof tuple) && !(inputValue.value instanceof Iterable<?>)){
+                            if(x.len(inputVarNames) > 1 && !(inputValue.value instanceof tuple) && !(inputValue.value instanceof list<?>) && !(inputValue.value instanceof List<?>) && !(inputValue.value instanceof ArrayList<?>) && !(inputValue.value instanceof Collection<?>)){
                                 list<Object> replacedElement = x.list(); 
                                 for (String elementFieldName : inputVarNames){
-                                    if(x.Object(inputValue.value).hasField(elementFieldName)){
+                                    if (elementFieldName.equals("_")) {
+                                        replacedElement.append(null);
+                                    } else if(x.Object(inputValue.value).hasField(elementFieldName)){
                                         try {
                                             Field f = inputValue.value.getClass().getField(elementFieldName);
                                             f.setAccessible(true);
@@ -149,6 +151,8 @@ complexIdentifier returns [Value value]
                             $value = new Value((x.list((Iterable<?>)(inputValues.get($id70.text).value)).get(Integer.parseInt($nu70.text))));
                         else if(inputValues.get($id70.text).value instanceof tuple)
                             $value = new Value((((tuple)(inputValues.get($id70.text).value)).get(Integer.parseInt($nu70.text))));
+                        else if(inputValues.get($id70.text).value instanceof String)
+                            $value = new Value(x.String(inputValues.get($id70.text).value.toString()).get(Integer.parseInt($nu70.text)));
                         else
                             throw new IllegalArgumentException("The input variable is not multi-dimensional, you cannot use the [...] notation in your lambda expression.");
                       }

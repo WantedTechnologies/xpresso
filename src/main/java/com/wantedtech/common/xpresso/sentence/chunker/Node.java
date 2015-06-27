@@ -77,11 +77,10 @@ public class Node implements Lengthful, Iterable<Node>{
 		listToFill.append(startNode);
 		if (startNode.leaves != null) {
 			for (Node element : startNode.leaves) {
-				if (element.value != null) {
-					listToFill.append(element);
-				} else if (element.leaves != null) {
+				listToFill.append(element);
+				if (element.leaves != null) {
 					for (Node element2 : element.leaves) {
-						if (element2.value != null) {
+						if (element2.leaves != null) {
 							getAllLeaves(element2, listToFill);
 						}
 					}

@@ -38,7 +38,7 @@ public class Regex implements Serializable{
 		this.replacements = x.dict();
 		StringBuilder patternBuilder = new StringBuilder();
 		for (tuple2<Integer,String> idx__key : x.enumerate(keys)) {
-			patternBuilder.append("(<g" + idx__key.value0 + ">" +idx__key.value1 + ")|");
+			patternBuilder.append("(?<g" + idx__key.value0 + ">" +idx__key.value1 + ")|");
 			this.replacements.setAt("g"+idx__key.value0).value(translator.get(idx__key.value1));
 		}
 		pattern = Pattern.compile(x.String(patternBuilder.toString()).sliceTo(-1),flags);
@@ -104,7 +104,7 @@ public class Regex implements Serializable{
 				}
 				String groupMatch = m.group(idx__groupName.value1);
 				if(groupMatch != null){
-					resultString.append(this.replacements.get(groupMatch));	
+					resultString.append(this.replacements.get(idx__groupName.value1));	
 					currentIndex = m.end(0);		
 				}
 			}

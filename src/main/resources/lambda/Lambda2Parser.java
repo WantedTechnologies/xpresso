@@ -204,10 +204,12 @@ public class Lambda2Parser extends Parser {
 			((LambdaExpressionContext)_localctx).id10 = inputVars(0);
 
 			                            inputVarNames = ((LambdaExpressionContext)_localctx).id10.value;
-			                            if(x.len(inputVarNames) > 1 && !(inputValue.value instanceof tuple) && !(inputValue.value instanceof Iterable<?>)){
+			                            if(x.len(inputVarNames) > 1 && !(inputValue.value instanceof tuple) && !(inputValue.value instanceof list<?>) && !(inputValue.value instanceof List<?>) && !(inputValue.value instanceof ArrayList<?>) && !(inputValue.value instanceof Collection<?>)){
 			                                list<Object> replacedElement = x.list(); 
 			                                for (String elementFieldName : inputVarNames){
-			                                    if(x.Object(inputValue.value).hasField(elementFieldName)){
+			                                    if (elementFieldName.equals("_")) {
+			                                        replacedElement.append(null);
+			                                    } else if(x.Object(inputValue.value).hasField(elementFieldName)){
 			                                        try {
 			                                            Field f = inputValue.value.getClass().getField(elementFieldName);
 			                                            f.setAccessible(true);
@@ -1298,6 +1300,8 @@ public class Lambda2Parser extends Parser {
 				                            ((ComplexIdentifierContext)_localctx).value =  new Value((x.list((Iterable<?>)(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value)).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null)))));
 				                        else if(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value instanceof tuple)
 				                            ((ComplexIdentifierContext)_localctx).value =  new Value((((tuple)(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value)).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null)))));
+				                        else if(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value instanceof String)
+				                            ((ComplexIdentifierContext)_localctx).value =  new Value(x.String(inputValues.get((((ComplexIdentifierContext)_localctx).id70!=null?((ComplexIdentifierContext)_localctx).id70.getText():null)).value.toString()).get(Integer.parseInt((((ComplexIdentifierContext)_localctx).nu70!=null?((ComplexIdentifierContext)_localctx).nu70.getText():null))));
 				                        else
 				                            throw new IllegalArgumentException("The input variable is not multi-dimensional, you cannot use the [...] notation in your lambda expression.");
 				                      

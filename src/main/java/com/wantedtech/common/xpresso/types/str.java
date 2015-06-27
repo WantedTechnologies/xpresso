@@ -2,6 +2,7 @@ package com.wantedtech.common.xpresso.types;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 import java.io.IOException;
 
 import com.wantedtech.common.xpresso.x;
@@ -88,8 +89,27 @@ public class str extends list<String> implements Iterable<String>{
 	}
 	@Override
 	public boolean in(Iterable<?> iterable){
+		if (x.len(iterable) == 0) {
+			return false;
+		}
+		Object me = this;
+		Object sample = iterable.iterator().next();
+		if (sample instanceof String) {
+			if (me instanceof str)
+			me = me.toString();
+		}
+		if (sample instanceof str) {
+			if (me instanceof String)
+			me = x.str(me.toString());
+		}
+		if (iterable instanceof set<?>) {
+			return ((set<?>)iterable).contains(me);
+		}
+		if (iterable instanceof Set<?>) {
+			return ((Set<?>)iterable).contains(me);
+		}
 		for (Object element : iterable) {
-			if (x.Object(this).equals(element)) {
+			if (x.Object(me).equals(element)) {
 				return true;
 			}
 		}

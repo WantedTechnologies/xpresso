@@ -1,11 +1,14 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
+import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
@@ -21,6 +24,22 @@ import com.wantedtech.common.xpresso.types.tuples.tuple3;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Test {
+	
+	Mapper<String,Integer> mpr = new Mapper<String,Integer>() {
+
+		@Override
+		public Generator<tuple2<String, Integer>> getMapper(final String input) {
+			return new Generator<tuple2<String, Integer>> () {
+				@Override
+				public void generate() {
+					for (String word : x.String(input).split()) {
+						yield(tuple2.valueOf(word, 1));
+					}
+				}
+			};
+		}
+		
+	};
 	
 	public static Generator<Integer> gen5(final int max) {
 		return new Generator<Integer>() {

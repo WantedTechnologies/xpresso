@@ -1,11 +1,14 @@
 package com.wantedtech.common.xpresso.functional.lambda;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.antlr.v4.runtime.*;
 
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.helpers.Helpers;
+import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple;
 
 public class LambdaFunction<O> implements Function<Object,O>{
@@ -34,8 +37,12 @@ public class LambdaFunction<O> implements Function<Object,O>{
         // create a parser that feeds off the tokens buffer
         Lambda2Parser parser = new Lambda2Parser(tokens);
 		Object inputObj = input;
-		if(input instanceof Iterable<?>){ 
-			inputObj = Helpers.newArrayList((Iterable<?>)inputObj);
+		if(input instanceof list<?>){ 
+			inputObj = Helpers.newArrayList((list<?>)inputObj);
+		}else if(input instanceof List<?>){ 
+			inputObj = Helpers.newArrayList((List<?>)inputObj);
+		}else if(input instanceof Collection<?>){ 
+			inputObj = Helpers.newArrayList((Collection<?>)inputObj);
 		}else if(input instanceof tuple){
 			inputObj = new ArrayList<Object>();
 			for (int i = 0;i<((tuple)input).size();i++){

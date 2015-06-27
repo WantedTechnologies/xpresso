@@ -1,7 +1,10 @@
 package com.wantedtech.common.xpresso.helpers;
 
+import java.util.Set;
+
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.set;
+import com.wantedtech.common.xpresso.types.str;
 
 
 public class HappyObject {
@@ -46,11 +49,24 @@ public class HappyObject {
 		if(x.len(iterable) == 0) {
 			return false;
 		} else {
+			Object me = lhs;
+			Object sample = iterable.iterator().next();
+			if (sample instanceof String) {
+				if (me instanceof str)
+					me = me.toString();
+			}
+			if (sample instanceof str) {
+				if (me instanceof String)
+					me = x.str(me.toString());
+			}
 			if (iterable instanceof set<?>) {
-				return ((set<?>)(iterable)).contains(lhs);
+				return ((set<?>)(iterable)).contains(me);
+			}
+			if (iterable instanceof Set<?>) {
+				return ((Set<?>)(iterable)).contains(me);
 			}
 			for (Object element : iterable) {
-				if (element.equals(lhs)) {
+				if (element.equals(me)) {
 					return true;
 				}
 			}

@@ -2907,6 +2907,33 @@ public class x {
 	}
 	
 	/**
+	 * This method devises an iterable into a number of pieces of an (almost) equal size.
+	 * @param iterable : an interable to divise into pieces
+	 * @param numberOfPieces : the desired number of pieces
+	 */
+	public static <T> list<Iterable<T>> divise(Iterable<T> iterable, int numberOfPieces) {
+		list<Iterable<T>> result = x.list();
+		int lenOfIterbale = x.len(iterable);
+		if (lenOfIterbale <= numberOfPieces) {
+			for (T element : iterable) {
+				result.append(x.listOf(element));
+			}
+			return result;
+		}
+		
+		int lengthOfOnePiece = lenOfIterbale / numberOfPieces;
+		
+		int current = 0;
+		list<T> iterableAsList = x.list(iterable);
+		while (current <= x.len(iterableAsList)) {
+			result.append(iterableAsList.slice(current,lengthOfOnePiece));
+			current += lengthOfOnePiece;
+		}
+		return result;
+		
+	}
+	
+	/**
 	 * 
 	 * @return Makes an {@link Iterable} returning elements from the input iterable and saving a copy of each.
 	 * When the input  iterable is exhausted, return elements from the saved copy. Repeats indifinitely.
