@@ -512,8 +512,9 @@ Approximate string comparison:
 ```
 x.print(x.String("Hello World").similarity("Hello Wold!"))
 
-Console: 0.82
+Console: 91
 ```
+The output is 100% compatible with [FuzzyWuzzy](https://github.com/seatgeek/fuzzywuzzy).
 
 Approximate pattern matching:
 ```
@@ -524,7 +525,7 @@ Console: 8
 
 Get similar strings:
 ```
-list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),.5);
+list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),50);
 
 x.print(lookAlikes);
 
@@ -549,6 +550,26 @@ It
 can
 ...
 ```
+
+#### Part-of-speech tagging
+With xpresso  you can easily POS tag any English text with the very fast and accurate (~97%) Stanford CoreNLP english-left3words model:
+
+```
+import com.wantedtech.common.xpresso.sentence.Sentence;
+import com.wantedtech.common.xpresso.sentence.PosTagger;
+import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
+
+PosTagger posTagger = new MaxentPosTagger();
+String text = "Some English text. Multiple sentences.";
+for (Sentence sent : x.String.EN.tokenize(text)) {
+    posTagger.tag(sent);
+    x.print(sent.getAnnotations("pos"));
+}
+
+Console: [(Some, DT), (English, NNP), (text, NN), (., .)]
+[(Multiple, JJ), (sentences, NNS), (., .)]
+```
+
 
 #### Slicing for list, String, and str
 
