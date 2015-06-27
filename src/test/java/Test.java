@@ -32,16 +32,16 @@ public class Test {
 		public void map(String input) {
 			x.Time.sleep(5);
 			if (x.String(input).startsWith("a")) {
-				yield(x.tuple2("upper", input.toUpperCase()));				
+				yield("upper", input.toUpperCase());				
 			} else {
-				yield(x.tuple2("lower", input.toLowerCase()));
+				yield("lower", input.toLowerCase());
 			}
 		}
 	};
 	
 	static Reducer<String,String> rdr = new Reducer<String,String>() {
 		public void reduce(tuple2<String,list<String>> input) {
-			yield(x.tuple2(input.key,x.String("~").join(input.value)));
+			yield(input.key,x.String("~").join(input.value));
 		}
 	};
 	
