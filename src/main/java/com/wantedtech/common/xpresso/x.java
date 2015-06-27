@@ -45,6 +45,7 @@ import com.wantedtech.common.xpresso.csv.*;
 import com.wantedtech.common.xpresso.exceptions.RuntimeIOException;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
 import com.wantedtech.common.xpresso.experimental.concurrency.Goer;
+import com.wantedtech.common.xpresso.experimental.concurrency.MapReduce;
 import com.wantedtech.common.xpresso.functional.*;
 import com.wantedtech.common.xpresso.functional.lambda.*;
 import com.wantedtech.common.xpresso.regex.*;
@@ -61,6 +62,10 @@ import com.wantedtech.common.xpresso.token.*;
  */
 
 public class x {
+	
+	public static <I,L,O> MapReduce<I,L,O> MapReduce(Iterable<I> input) {
+		return new MapReduce<I,L,O>(input);
+	}
 	
 	/**
 	 * Starts a thread with the computation described in worker and the channel for sending computed values to.
@@ -2981,26 +2986,20 @@ public class x {
 	 * @param iterable : an interable to divise into pieces
 	 * @param numberOfPieces : the desired number of pieces
 	 */
-	public static <T> list<Iterable<T>> divise(Iterable<T> iterable, int numberOfPieces) {
-		list<Iterable<T>> result = x.list();
-		int lenOfIterbale = x.len(iterable);
-		if (lenOfIterbale <= numberOfPieces) {
-			for (T element : iterable) {
-				result.append(x.listOf(element));
-			}
-			return result;
-		}
-		
-		int lengthOfOnePiece = lenOfIterbale / numberOfPieces;
-		
-		int current = 0;
+	public static <T> list<list<T>> divise(Iterable<T> iterable, int numberOfPieces) {
 		list<T> iterableAsList = x.list(iterable);
-		while (current <= x.len(iterableAsList)) {
-			result.append(iterableAsList.slice(current,lengthOfOnePiece));
-			current += lengthOfOnePiece;
+		if (numberOfPieces > x.len(iterableAsList)) {
+			return divise(iterableAsList, x.len(iterableAsList));
 		}
-		return result;
+		int avg = (int)(x.len(iterableAsList) / (double)(numberOfPieces));
+		list<list<T>> out = x.list();
+		double last = 0.0;
 		
+		while (last < x.len(iterableAsList)) {
+			out.append(iterableAsList.slice((int)last,(int)(last + avg)));
+			last += avg;
+		}
+		return out;
 	}
 	
 	/**

@@ -31,6 +31,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		}
 		return ObjectFactory.createValueOfType(valueType);
 	}
+
 	
 	public dict(Class<T> valueType){
 		this.valueType = valueType;
@@ -231,7 +232,7 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 	
 	@Override
 	public String toString(){
-		return "{"+x.String(", ").join(this.items())+"}";
+		return "{"+x.String(", ").join(x.list(x.yield().apply(x.lambdaF("x : '''''' + x[0] + ''':''' + x[1]")).forEach(this.items())))+"}";
 	}
 	
 	dict<T> clear(){

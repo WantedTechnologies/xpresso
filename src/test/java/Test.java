@@ -28,17 +28,20 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Test {
 	
-	static Mapper<String,Integer> mpr = new Mapper<String,Integer>() {
+	static Mapper<String,String> mpr = new Mapper<String,String>() {
 		public void map(String input) {
-			for (String word : x.String(input).split()) {
-				yield(x.tuple2(word, 1));
+			x.Time.sleep(5);
+			if (x.String(input).startsWith("a")) {
+				yield(x.tuple2("upper", input.toUpperCase()));				
+			} else {
+				yield(x.tuple2("lower", input.toLowerCase()));
 			}
 		}
 	};
 	
-	static Reducer<Integer,Integer> rdr = new Reducer<Integer,Integer>() {
-		public void reduce(tuple2<String,list<Integer>> input) {
-			yield(x.tuple2(input.key, x.sum(input.value)));
+	static Reducer<String,String> rdr = new Reducer<String,String>() {
+		public void reduce(tuple2<String,list<String>> input) {
+			yield(x.tuple2(input.key,x.String("~").join(input.value)));
 		}
 	};
 	
@@ -58,22 +61,9 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		try{
 			
-			PosTagger posTagger = new MaxentPosTagger();
-			String text = "Some English text. Multiple sentences.";
-			for (Sentence sent : x.String.EN.tokenize(text)) {
-			    posTagger.tag(sent);
-			    x.print(sent.getAnnotations("pos"));
-			}
-			
-			x.print(x.String("Hello World").similarity("Hello Wold!"));
-			
-			list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),50);
-
-			x.print(lookAlikes);
-			
-			for (tuple2<String,Integer> item : new MapReduce<String,Integer,Integer>(x.list("aaa aaa","bbb aaa","ccc bbb")).map(mpr).reduce(rdr).items()) {
-				x.print(item);
-			}
+			x.timer.start();
+			x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mpr).reduce(rdr));
+			x.print(x.timer.stop());
 			
 			Regex jjj = x.Regex("dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|dgjdsjfl;kgjsdlgj;dlskfgj|(?:[Tt]he\\s+|an?\\s+)?(?<g1430>%%X%%)\\.?(?: has been marketing|,? through our| is strong| has more than| advocates| represents| operates| manages| markets| supplies| designs| delivers| conducts| is a specialist| is open| differentiates itself| has transformed| (?:strict )?standards| builds|,? through its|,? which recorded| has been retained)\\b|ksfhalskjghlakgjhladfksghldfkjgh");
 			
@@ -104,22 +94,7 @@ public class Test {
 	        }
 	        
 	        x.print(advertiser_scores_dict);
-			
-			String citiespath = "/Users/andriy.burkov/p/workspace/python/JavaAdvertiserExtractor/target/classes/cities.txt";
-			
-			try (HappyFile f = x.open(citiespath)) {
-			    set<String> cities_set = x.set(x.<String>yield().apply(x.chain(x.strip,x.lower,x.Regex("^saint\\b").sub("s(?:ain)?t\\.?"))).forEach(f));
-			    set<String> cities_set_for_pattern = x.set(x.<String>yield().apply(x.lambdaF("word : f0(word) + '''\\b(?:[\\s-]city)?'''",x.chain(x.strip,x.lower))).forEach(cities_set));			
-			}
-			
-			String ref_file_dir = "/Users/andriy.burkov/p/workspace/python/InternationalTitleCleanup/ref";
-			
-			try(HappyFile f = x.open(ref_file_dir+"/test.txt", "r")){
-				for(String line : f){
-					x.print(line);
-				}	
-			}
-			
+									
 			x.print(x.String.unidecode("Городская агломерация"));
 			
 			str title = x.str("Hello‹„ World");
@@ -414,19 +389,7 @@ public class Test {
 			x.print(x.Token("Hello1").features());
 			 
 			x.print(x.String("Чичётка 北亰").unidecode());
-			
-			try(CSV csv = new CSV("/Users/andriy.burkov/Downloads"+"/test2.txt", "w")){
-				for (list<String> l : lst6) {
-					csv.writerow(l);
-				}
-			}
-			
-			try(HappyFile f = x.open("/Users/andriy.burkov/Downloads"+"/test2.txt", "r")){
-				for (String l : f) {
-					x.print(l);
-				}
-			}
-			
+						
 			x.print("uuuu",x.csv(lst6).toString());
 			
 			for (Integer i : gen5(50000000)) {

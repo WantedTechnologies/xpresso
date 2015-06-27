@@ -30,7 +30,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 	File file;
 	Writer outWriter;
 	BufferedReader bufferedReader;
-	InputStream fileInputStream;
+	FileInputStream fileInputStream;
 	OutputStream fileOutputStream;
 	
 	String lastReadLine;
@@ -154,6 +154,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 
 	// This method implements Iterable.
 	public Iterator<String> iterator() {
+		reset();
 		return this;
 	}
 	

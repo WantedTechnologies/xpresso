@@ -12,7 +12,8 @@ public abstract class Mapper<I,O> {
 		channel.send(value);
 	}
 	
-	public void setChannel(Channel<tuple2<String,O>> channel) {
+	public Mapper<I,O> setChannel(Channel<tuple2<String,O>> channel) {
 		this.channel = channel; 
+		return this;
 	}
 }

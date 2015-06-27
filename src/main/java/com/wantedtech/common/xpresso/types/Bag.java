@@ -220,4 +220,11 @@ public class Bag<T> implements Iterable<T>{
 	public Iterator<T> iterator() {
 		return map.keySet().iterator();
 	}
+	
+	@Override
+	public String toString() {
+		list<tuple2<T,Integer>> items = this.items();
+		items = x.list(x.sort(items, x.<Integer>lambdaF("x : x[1]"), true));
+		return "{" + x.String(items.toString()).slice(1,-1) + "}";
+	}
 }
