@@ -359,7 +359,7 @@ import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
 
 static Mapper<String,String> mpr = new Mapper<String,String>() {
 	public void map(String input) {
-		x.Time.sleep(5);
+		x.Time.sleep(10); //the processing of each element takes a long time :-)
 		if (x.String(input).startsWith("a")) {
 			yield("upper", input.toUpperCase());				
 		} else {
