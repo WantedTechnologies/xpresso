@@ -374,7 +374,9 @@ static Reducer<String,String> rdr = new Reducer<String,String>() {
 	}
 };
 ```
-Our mapper does the transformation of the string case as described above, and our reducer joins the resulting values with the "~". Our MapReduce setup is now ready, so let start the crunching:
+Our mapper does the transformation of the string case as described above, and our reducer joins the resulting values with the "~".
+
+Our MapReduce setup is now ready, so let's start crunching:
 ```
 x.timer.start();
 x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mapper).reduce(reducer), x.timer.stop());
