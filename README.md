@@ -350,7 +350,7 @@ Let's assume that we have a list of elements we want to process:
 ```
 list<String> elements = x.list("Map","aNd","ReDuce","arE","aWEsome");
 ```
-The processing of each element takes a long time (10 seconds), so we want to parallelize the processing on our multicore machine. Let the processing be as follows: if the element starts with en "a", than put it in uppercase and join it with other uppercase elements using "~" as separator; if the element doesn't start with an "a", then put it to lowercase and join it with other lowercase words.
+The processing of each element takes a long time (10 seconds), so we want to parallelize the processing on our multicore machine. Let the processing be as follows: if the element starts with en "a", then put it in uppercase and join it with other uppercase elements using "~" as separator; if the element doesn't start with an "a", then put it to lowercase and join it with other lowercase words.
 
 Let's define the Mapper and Reducer:
 ```
