@@ -314,7 +314,7 @@ Console: 0.0s
 ```
 *x.memo* can be used to cache methods of object of any Java type, not only Function. Notice the usage of the standard *x.timer*: no additional timer object needs to be created.
 
-#### Concurrency
+#### Concurrency (beta)
 Concurrency in xpresso is inspired by [Go](https://en.wikipedia.org/wiki/Go_(programming_language)) and, as a consequence, is extremely simple. First, define a worker as an instance of Predicate:
 ```
 Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
@@ -344,6 +344,46 @@ for (Integer value : channel) {
 	x.print(value);
 }
 ```
+
+#### MapReduce (beta)
+Let's assume that we have a list of elements we want to process:
+```
+list<String> elements = x.list("Map","aNd","ReDuce","arE","aWEsome");
+```
+The processing of each element takes a long time, so we want to parallelize the processing on our multicore machine. Let the processing be as follows: if the element starts with en "a", than put it in uppercase and join it with other uppercase elements using "~" as separator; if the element doesn't start with an "a", then put it to lowercase and join it with other lowercase words.
+
+Let's define the Mapper and Reducer:
+```
+import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
+import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
+
+static Mapper<String,String> mapper = new Mapper<String,String>() {
+	public void map(String input) {
+		x.Time.sleep(10); //The processing of each element takes a long time :-)
+		if (x.String(input).startsWith("a")) {
+			yield(x.tuple2("upper", input.toUpperCase()));				
+		} else {
+			yield(x.tuple2("lower", input.toLowerCase()));
+		}
+	}
+};
+	
+static Reducer<String,list<String>> reducer = new Reducer<String,list<String>>() {
+	public void reduce(tuple2<String,list<String>> input) {
+		yield(x.tuple2(input.key,x.String(":").join(input.value)));
+	}
+};
+```
+Our mapper does the transformation of the string case as described above, and our reducer joins the resulting values with the ":". Our MapReduce setup is now ready, so let start the crunching:
+```
+x.timer.start();
+x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mapper).reduce(reducer), x.timer.stop());
+
+Console:
+{upper:AND~AWESOME~ARE, lower:reduce~map}
+10.013s
+```
+As you can see, the processing of all 5 elements took only about 10 seconds, while we have defined above that the processing of each single element takes 10 seconds.
 
 #### JSON
 Remember the *rank* dict:
