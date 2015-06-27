@@ -357,20 +357,20 @@ Let's define the Mapper and Reducer:
 import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
 import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
 
-static Mapper<String,String> mapper = new Mapper<String,String>() {
+static Mapper<String,String> mpr = new Mapper<String,String>() {
 	public void map(String input) {
-		x.Time.sleep(10); //The processing of each element takes a long time :-)
+		x.Time.sleep(5);
 		if (x.String(input).startsWith("a")) {
-			yield(x.tuple2("upper", input.toUpperCase()));				
+			yield("upper", input.toUpperCase());				
 		} else {
-			yield(x.tuple2("lower", input.toLowerCase()));
+			yield("lower", input.toLowerCase());
 		}
 	}
 };
-	
-static Reducer<String,list<String>> reducer = new Reducer<String,list<String>>() {
+
+static Reducer<String,String> rdr = new Reducer<String,String>() {
 	public void reduce(tuple2<String,list<String>> input) {
-		yield(x.tuple2(input.key,x.String(":").join(input.value)));
+		yield(input.key,x.String("~").join(input.value));
 	}
 };
 ```
