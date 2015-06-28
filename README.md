@@ -357,7 +357,7 @@ Let's define the Mapper and Reducer:
 import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
 import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
 
-static Mapper<String,String> mpr = new Mapper<String,String>() {
+static Mapper<String,String> mapper = new Mapper<String,String>() {
 	public void map(String input) {
 		x.Time.sleep(10); //the processing of each element takes a long time :-)
 		if (x.String(input).startsWith("a")) {
@@ -368,7 +368,7 @@ static Mapper<String,String> mpr = new Mapper<String,String>() {
 	}
 };
 
-static Reducer<String,String> rdr = new Reducer<String,String>() {
+static Reducer<String,String> reducer = new Reducer<String,String>() {
 	public void reduce(tuple2<String,list<String>> input) {
 		yield(input.key,x.String("~").join(input.value));
 	}
