@@ -249,6 +249,60 @@ x.print(plansData);
 Console: [(2016, Paris)]
 ```
 
+#### Web services
+Let's suppose we have an object of a class SomeMath which has two methods we would like to publish as web services, getSum and getProduct:
+```
+public class SomeClass() {
+	public Double getSum(Double[] values) {
+		return x.sum(values);
+	}
+	public Double getProduct(Double x, Double y) {
+		return x * y;
+	}
+	public Double anotherMethod(Double somethingElse) {
+		return somethingElse;
+	}
+}
+```
+
+In order to convert our SomeMath class into a web service, we simply need to first annotate our two methods we want to call from the network with the @ExposeAs annotation, and then start our web service:
+```
+public class SomeClass() {
+	public Double getSum(@ExposeAs("values") Double[] values) {
+		return x.sum(values);
+	}
+	public Double getProduct(@ExposeAs("x") Double x, @ExposeAs("y") Double y) {
+		return x * y;
+	}
+	public Double anotherMethod(Double somethingElse) {
+		return somethingElse;
+	}
+}
+
+WebService ws = x.WebService(new SomeClass(), 8080).start();
+```
+
+That's all! Our web service is up and running. Let's test it. Open the following url in your browser:
+```
+http://localhost:8080/SomeClass/getSum?values=5&values=6&values=7
+```
+
+The output:
+```
+18.0
+```
+Now open the following url:
+```
+http://localhost:8080/SomeClass/getProduct?x=5&y=10
+```
+
+The output:
+```
+50.0
+```
+
+If a method returns an output type of more complex classes such as Java's standard Map and List, or xpresso's own list and dict, the output will be a corresponding JSON string.
+
 #### Generators
 Python:
 ```
@@ -946,8 +1000,7 @@ Console: [Saint-Petersbourg, San Francisco]
 * For more see the [javadoc](http://wantedtechnologies.github.io/xpresso/) for the main class [x](http://wantedtechnologies.github.io/xpresso/com/wantedtech/common/xpresso/x.html).
 
 #### Future
-* HTTP
-* Web service
+* HTTP client
 * Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
 
 ```
