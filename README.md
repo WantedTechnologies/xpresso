@@ -126,7 +126,7 @@ dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),
 
 #### Functions and predicates
 ```
-import com.wantedtech.common.funcional.*
+import com.wantedtech.common.functional.*
 
 Function<Object, String> toUpperCaseFun = new Function<Object, String>() {
 	public String apply(Object value) {
