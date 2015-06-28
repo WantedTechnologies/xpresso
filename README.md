@@ -9,7 +9,7 @@ xpresso also offers multiple useful tools, usually one-liners, that save develop
 
 xpresso: less boilerplate, more fun, more work done.
 
-License: [MIT] (https://en.wikipedia.org/wiki/MIT_License).
+License: [MIT] (https://en.wikipedia.org/wikei/MIT_License).
 
 ## Usage
 
@@ -379,7 +379,7 @@ Our mapper does the transformation of the string case as described above, and ou
 Our MapReduce setup is now ready, so let's start crunching:
 ```
 x.timer.start();
-x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mapper).reduce(reducer), x.timer.stop());
+x.print(x.<String,String,String>MapReduce(elements).map(mapper).reduce(reducer), x.timer.stop());
 
 Console:
 {upper:AND~AWESOME~ARE, lower:reduce~map}
