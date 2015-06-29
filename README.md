@@ -5,7 +5,7 @@ xpresso is a Java library inspired by Python. It allows a (near) line-into-line 
 
 xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, generators, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
-xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.WebService, x.MapReduce, x.go, x.timer, x.Json, x.mysql, x.csv and others.
+xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.WebService, x.MapReduce, x.go, x.timer, x.Json, x.mysql, x.csv and others.la
 
 xpresso: less boilerplate, more fun, more work done.
 
@@ -991,7 +991,7 @@ Console: [[If, you, want], [you, want, something], [something, done, right]..., 
 ```java
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
 
-x.print(cities.smallestN(2));
+x.print(x.smallestN(cities,2));
 
 Console: [Rome, Moscow]
 ```
@@ -999,7 +999,7 @@ Console: [Rome, Moscow]
 ```java
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
 
-x.print(cities.largestN(2));
+x.print(x.largestN(cities,2));
 
 Console: [Saint-Petersbourg, San Francisco]
 ```
