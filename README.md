@@ -252,7 +252,7 @@ Console: [(2016, Paris)]
 #### Web services
 Let's suppose we have an object of a class SomeMath which has two methods we would like to publish as web services, getSum and getProduct:
 ```
-public class SomeClass() {
+public class SomeMath() {
 	public Double getSum(Double[] values) { //we want to publish this one
 		return x.sum(values);
 	}
@@ -267,7 +267,7 @@ public class SomeClass() {
 
 In order to convert our SomeMath class into a web service, we simply need to first annotate our two methods we want to call from the network with the @ExposeAs annotation, and then start our web service:
 ```
-public class SomeClass() {
+public class SomeMath() {
 	public Double getSum(@ExposeAs("values") Double[] values) {
 		return x.sum(values);
 	}
@@ -279,12 +279,12 @@ public class SomeClass() {
 	}
 }
 
-WebService ws = x.WebService(new SomeClass(), 8080).start();
+WebService ws = x.WebService(new SomeMath(), 8080).start();
 ```
 
 That's all! Our web service is up and running. Let's test it. Open the following url in your browser:
 ```
-http://localhost:8080/SomeClass/getSum?values=5&values=6&values=7
+http://localhost:8080/SomeMath/getSum?values=5&values=6&values=7
 ```
 
 The output:
@@ -293,7 +293,7 @@ The output:
 ```
 Now open the following url:
 ```
-http://localhost:8080/SomeClass/getProduct?x=5&y=10
+http://localhost:8080/SomeMath/getProduct?x=5&y=10
 ```
 
 The output:
