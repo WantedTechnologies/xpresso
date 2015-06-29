@@ -900,7 +900,7 @@ cool
 ```
 
 ```java
-for (String word : x.repeat("cool"),3)
+for (String word : x.repeat("cool",3))
     x.print(word);
 
 Console: cool
