@@ -104,14 +104,17 @@ Console: true Honda 2010
 If *name* method has not yet been called, but *get(someName)* is called for the first time, then the returned value will be *get(i)*, where *i* is the smallest index of a remaining unnamed element in the tuple. All the subsequent calls for the same value *someName*, the same element *i* will be returned by *get(someName)*.
 
 You can also define and use a typed version of tuple. For example:
-
-xpresso:
 ```java
 tuple3<String,String,Integer> myCar = x.tuple3("Honda", "red", 2010);
 
 String myCarMake = myCar.left;
 String myCarColor = myCar.middle;
 Integer myCarYear = myCar.right;
+
+tuple2<Integer,tuple3<String,String,Integer>> item = x.tuple2("car",myCar);
+
+String type = item.key; //or, alternatively String type = item.left;
+tuple3<String,String,Integer> car = item.value; //or, alternatively tuple3<String,String,Integer> car = item.right;
 ```
 
 #### Neat standard object creation
