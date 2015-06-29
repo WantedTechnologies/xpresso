@@ -250,7 +250,7 @@ Console: [(2016, Paris)]
 ```
 
 #### Web services
-Let's suppose we have an object of a class SomeMath which has two methods we would like to publish as web services, getSum and getProduct:
+Let's suppose we have an object of a class SomeMath which has two methods we would like to publish on the network as web services, getSum and getProduct:
 ```
 public class SomeMath() {
 	public Double getSum(Double[] values) { //we want to publish this one
