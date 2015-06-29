@@ -13,7 +13,7 @@ License: [MIT] (https://en.wikipedia.org/wikei/MIT_License).
 
 ## Usage
 
-```
+```java
 import com.wantedtech.common.xpresso.x;
 
 x.print("Hello World!");
@@ -23,14 +23,14 @@ x.print("Hello World!");
 
 #### Types similar to pythonic ones
 
-```
+```java
 import com.wantedtech.common.xpresso.types.*;
 ```
 Imports: set, dict, list, tuple, DefaultDict, OrderedDict, Bag, HappyFile, HappySQL
 
 
 #### Slicable and iterable str type
-```
+```java
 str city = x.str("New York City");
 
 x.print(city.slice(4,8));
@@ -38,7 +38,7 @@ x.print(city.slice(4,8));
 Console: York
 ```
 
-```
+```java
 for (String character : city)
 	x.print(character);
 
@@ -55,13 +55,13 @@ k
 #### One-line file open
 
 Python:
-```
+```python
 with open("name.txt","r","utf-8") as f:
 	#do stuff
 ```
 
 xpresso:
-```
+```java
 try (HappyFile f = x.open("name.txt","r","utf-8")) {
 	//do stuff
 }
@@ -71,13 +71,13 @@ Works for write/read/append in both text and binary mode.
 As in Python, a file opened for reading in text mode is an Iterable of strings:
 
 Python:
-```
+```python
 for line in f:
 	print line
 ```
 
 xpresso:
-```
+```java
 for (String line : f)
 	x.print(line);
 ```
@@ -85,17 +85,17 @@ for (String line : f)
 #### Tuples
 
 Python:
-```
+```python
 my_car = ("Honda", "red", 2010, True)
 ```
 
 xpresso:
-```
+```java
 tuple myCar = x.tuple("Honda", "red", 2010, true);
 ```
 
 Dynamic name assignment to tuple elements:
-```
+```java
 myCar.name("make","color","year","good");
 x.print(myCar.get("good"),myCar.get("make"),myCar.get("year"));
 
@@ -106,7 +106,7 @@ If *name* method has not yet been called, but *get(someName)* is called for the 
 #### Neat standard object creation
 
 Python:
-```
+```python
 trips = ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
 
 russian_cities = set(["Moscow","Saint-Petersburg"])
@@ -116,7 +116,7 @@ rank = dict(("Moscow":30),("Saint-Petersburg":15),("New York":20),("London":10),
 ```
 
 xpresso:
-```
+```java
 list<String> trips = x.list("Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York");
 
 set<String> russianCities = x.set("Moscow","Saint-Petersburg");
@@ -125,7 +125,7 @@ dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),
 ```
 
 #### Functions and predicates
-```
+```java
 import com.wantedtech.common.functional.*
 
 Function<Object, String> toUpperCaseFun = new Function<Object, String>() {
@@ -140,7 +140,7 @@ x.print(tripsUp);
 Console: [DUBAI, NEW YORK, LONDON, PARIS, MOSCOW, LONDON, SAINT-PETERSBURG, NEW YORK]
 ```
 
-```
+```java
 Predicate<Object> containsO = new Predicate<Object>() {
 	public Boolean apply(Object value) {
 		return x.String("o").in(value.toString()) ? true : false;
@@ -155,28 +155,28 @@ Console: [New York, London, Moscow, London, New York]
 
 #### Lambda expressions
 Python:
-```
+```python
 best_cities = reversed(sorted(item for item in rank.items(),lambda x: x[0]))
 ```
 
 xpresso:
-```
+```java
 list<String> bestCities = x.reverse(x.sort(yield().forEach(rank.items()),x.lambdaF("x: x[0]")));
 ```
 
 More complex lambda expressions:
-```
+```java
 Predicate<Object> pr = x.lambdaP("x : f0(f1(x[1])) == '''new york'''",x.lower,x.strip);
 ```
 
-```
+```java
 Function<Object,Integer> squareFun = x.lambdaF("x : x * x");
 
 Function<Object,Integer> fun = x.lambdaF("x : x[0] * 10 * (x[1] - f0(x[2])))",squareFun);
 ```
 
 Function chains:
-```
+```java
 Function<Object,Integer> incrementFun = x.lambdaF("x : x + 1");
 Function<Object,Integer> squareFun = x.lambdaF("x : x * x");
 
@@ -187,37 +187,37 @@ Function<Object,Integer> chainFun = x.chain(incrementFun,squareFun);
 #### List comprehensions
 
 Python:
-```
+```python
 foreign_trips_lower = [city.lower() for city in trips if city not in russian_cities]
 ```
 
 xpresso:
-```
+```java
 list<String> foreignTripsLower = x.list(x.<String>yield().apply(x.lower).forEach(trips).unless(x.in(russianCities)));
 ```
 
 Python:
-```
+```python
 cool_cities = dict([(city.upper(),true) for (city, score) in rank.items() if score > 5])
 ```
 
 xpresso:
-```
+```java
 dict<Integer> coolCities = x.dict(x.yield("city","_").apply(x.upper).replace(true).where("city","score").in(rank.items()).when(x.lambdaP("city, score : score > 20")));
 ```
 
 Python:
-```
+```python
 evals = [True if value == "good" else False for value in some_list]
 ```
 
 xpresso:
-```
+```java
 list<Boolean> evals = x.list(x.<Boolean>yield().replace(true).when(x.lambdaP("x : x == '''good'''")).replaceOtherwise(false).forEach(someList));
 ```
 
 You can use list comprehensions to extract properties from element objects:
-```
+```java
 class PlannedTrip {
     int year;
     String city;
@@ -241,7 +241,7 @@ Console: [(2015, Moscow), (2016, Paris)]
 ```
 You can also filter the extracted values in the same expression:
 
-```
+```java
 list<tuple> plansData = x.list(x.yield("year", "city").where("year", "city").in(plans).when(x.lambdaP("year, city : year > 2015)));
 
 x.print(plansData);
@@ -251,7 +251,7 @@ Console: [(2016, Paris)]
 
 #### Web services
 Let's suppose we have an object of a class SomeMath which has two methods we would like to publish on the network as web services, getSum and getProduct:
-```
+```java
 public class SomeMath() {
 	public Double getSum(Double[] values) { //we want to publish this one
 		return x.sum(values);
@@ -266,7 +266,7 @@ public class SomeMath() {
 ```
 
 In order to convert our SomeMath class into a web service, we simply need to first annotate our two methods we want to call from the network with the @ExposeAs annotation, and then start our web service:
-```
+```java
 public class SomeMath() {
 	public Double getSum(@ExposeAs("values") Double[] values) {
 		return x.sum(values);
@@ -305,7 +305,7 @@ If a method returns an output type of more complex classes such as Java's standa
 
 #### Generators
 Python:
-```
+```python
 def firstn(n):
 	num = 0
 	while num < n:
@@ -317,7 +317,7 @@ for i in firstn(500000):
 ```
 
 xpresso:
-```
+```java
 public Generator<Integer> firstn (final int n) {
 	return new Generator<Integer>() {
 		public void generate() {
@@ -337,7 +337,7 @@ for (int i : firstn(500000))
 #### Memoization
 
 As a quick example, let *xerox* be a *Function* object whose method *apply* copies the string *"hello"* the given number *count* of times:
-```
+```java
 Function<Integer, String> xerox = new Function<Integer, String>() {
 	public String apply(Integer count) {
 		return x.String("hello").times(count);
@@ -347,11 +347,11 @@ Function<Integer, String> xerox = new Function<Integer, String>() {
 It's a long to execute function for large values of *count*.
 
 In order to avoid the long computation for the same value of *count*, we first create a cached version of xerox using **x.memo**:
-```
+```java
 Function<Integer,String> cachedXerox = x.memo(xerox);
 ```			
 The first call of the function. The computation takes a very long time:
-```
+```java
 x.timer.start();
 String copies = cachedXerox.apply(5000000);
 x.print(x.timer.stop());
@@ -359,7 +359,7 @@ x.print(x.timer.stop());
 Console: 18.898s
 ```
 The second call with the same value of *count*, the result is instantaneous:
-```
+```java
 x.timer.start();
 String moreCopies = cachedXerox.apply(5000000);
 x.print(x.timer.stop());
@@ -370,7 +370,7 @@ Console: 0.0s
 
 #### Concurrency (beta)
 Concurrency in xpresso is inspired by [Go](https://en.wikipedia.org/wiki/Go_(programming_language)) and, as a consequence, is extremely simple. First, define a worker as an instance of Predicate:
-```
+```java
 Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
 	public Boolean apply(Channel<Integer> channel) {
 		while (some_condition_true) {
@@ -382,18 +382,18 @@ Predicate<Channel<Integer>> worker = new Predicate<Channel<Integer>>() {
 };
 ```
 Then, define the channel to where the workers should send the computed values as soon as those values are ready:
-```
+```java
 Channel<Integer> channel = x.Channel(Integer.class);//this channel only accepts Integer values
 ```
 Then, start as many concurrent workers as needed:
-```
+```java
 x.go(worker, channel);
 x.go(worker, channel);
 x.go(worker, channel);
 ...
 ```
 Finally, retrieve from the channel the values concurrently computed by the workers when those values are needed:
-```
+```java
 for (Integer value : channel) {
 	x.print(value);
 }
@@ -401,13 +401,13 @@ for (Integer value : channel) {
 
 #### MapReduce (beta)
 Let's assume that we have a list of elements we want to process:
-```
+```java
 list<String> elements = x.list("Map","aNd","ReDuce","arE","aWEsome");
 ```
 The processing of each element takes a long time (10 seconds), so we want to parallelize the processing on our multicore machine. Let the processing be as follows: if the element starts with an "a", then put it in uppercase and join it with other uppercase elements using "~" as separator; if the element doesn't start with an "a", then put it to lowercase and join it with other lowercase words.
 
 Let's define the Mapper and Reducer:
-```
+```java
 import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
 import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
 
@@ -431,7 +431,7 @@ static Reducer<String,String> reducer = new Reducer<String,String>() {
 Our mapper does the transformation of the string case as described above, and our reducer joins the resulting values with the "~".
 
 Our MapReduce setup is now ready, so let's start crunching:
-```
+```java
 x.timer.start();
 x.print(x.<String,String,String>MapReduce(elements).map(mapper).reduce(reducer), x.timer.stop());
 
@@ -443,23 +443,23 @@ As you can see, the processing of all 5 elements took only about 10 seconds, whi
 
 #### JSON
 Remember the *rank* dict:
-```
+```java
 dict<Integer> rank = x.dict(x.tuple("Moscow",30),x.tuple("Saint-Petersburg",15),x.tuple("New York",20),x.tuple("London",10),x.tuple("Paris",5),x.tuple("Dubai",32));
 ```
 
 Let's first dump it as a String:
-```
+```java
 String rankAsString = x.Json(rank).toString();
 x.print(rankAsString);
 
 Console: {"New York":20,"London":10,"Saint-Petersburg":15,"Moscow":30,"Dubai":32,"Paris":5}
 ```
 Now let's create a copy of the *rank* dict from its JSON string representation:
-```
+```java
 dict<Integer> rankCopy = x.String(rankAsString).parseJson();
 ```
 Compare the original *rank* dict to the copy:
-```
+```java
 x.print(x.Object(rank).equals(rankCopy));
 
 Console: true
@@ -467,7 +467,7 @@ Console: true
 
 #### CSV
 Read from file:
-```
+```java
 try (HappyFile f = x.open("filename.txt","r","utf-8")) {
 	for (list<String> row : x.csv(f)) {
 		//do stuff
@@ -475,12 +475,12 @@ try (HappyFile f = x.open("filename.txt","r","utf-8")) {
 }
 ```
 Or, simply:
-```
+```java
 list<list<String>> data = x.list(x.csv("filename.txt","r","utf-8"));
 ```
 
 Write to file:
-```
+```java
 try (HappyFile f = x.open("filename.txt","w","utf-8")) {
 	for (list<?> row : data){
 		x.csv(f).writerow(row);
@@ -488,14 +488,14 @@ try (HappyFile f = x.open("filename.txt","w","utf-8")) {
 }
 ```
 Or, simply:
-```
+```java
 try (HappyFile f = x.open("filename.txt","w","utf-8")) {
 	f.write(x.csv(data).toString());
 }
 ```
 
 Write to a StringBuilder:
-```
+```java
 StringBuilder builder = new StringBuilder();
 
 for (list<?> row : data) {
@@ -505,12 +505,12 @@ for (list<?> row : data) {
 String cs = c.toString();
 ```
 Or, simply:
-```
+```java
 String cs = x.csv(data).toString();
 ```
 
 #### MySQL
-```
+```java
 String host = "host:port";
 String user = "user";
 String password = "password";
@@ -534,20 +534,20 @@ try (HappySQL sql = x.mysql(host, user, password, db)) {
 #### Extended String functions
 
 Python:
-```
+```python
 if "e" in "Hello World":
     #do stuff
 ```
 
 xpresso:
-```
+```java
 if(x.String("e").in("Hello World")) {
     //do stuff
 }
 ```
 
 Python:
-```
+```python
 colorsPattern = "|".join(["black","green","red","white"]);
 
 print colorsPattern
@@ -556,7 +556,7 @@ print colorsPattern
 ```
 
 xpresso:
-```
+```java
 String colorsPattern = x.String("|").join(x.list("black","green","red","white"));
 
 x.print(colorsPattern);
@@ -565,7 +565,7 @@ Console: black|green|red|white
 ```
 
 Python:
-```
+```python
 tokens = "Moscow;London;Paris".split(";")
 
 print tokens
@@ -574,7 +574,7 @@ print tokens
 ```
 
 xpresso:
-```
+```java
 list<String> tokens = x.String("Moscow;London;Paris").split(";");
 
 x.print(tokens);
@@ -583,7 +583,7 @@ Console: [Moscow, London, Paris]
 ```
 
 Transliterate:
-```
+```java
 String trans = x.String("Чичётка 北亰").translit();
 
 x.print(trans);
@@ -596,7 +596,7 @@ Console: Cicetka bei jing
 ```
 
 Convert unicode to ascii:
-```
+```java
 String unidec = x.String("Чичётка 北亰").unidecode();
 
 x.print(unidec);
@@ -605,7 +605,7 @@ Console: Chichiotka bei jing
 ```
 
 Approximate string comparison:
-```
+```java
 x.print(x.String("Hello World").similarity("Hello Wold!"))
 
 Console: 91
@@ -613,14 +613,14 @@ Console: 91
 The output is 100% compatible with [FuzzyWuzzy](https://github.com/seatgeek/fuzzywuzzy).
 
 Approximate pattern matching:
-```
+```java
 x.print(x.String("You are cooding in Java.").search("coding"));
 
 Console: 8
 ```
 
 Get similar strings:
-```
+```java
 list<String> lookAlikes = x.String("apple").lookAlikes(x.list("ape", "apples", "peach", "puppy"),50);
 
 x.print(lookAlikes);
@@ -629,7 +629,7 @@ Console: [ape, apples]
 ```
 
 Tokenization:
-```
+```java
 String text = "English is hard. It can be understood through tough thorough thought, though.";
 
 for (Sentence s : x.String.EN.tokenize(text)) {
@@ -650,7 +650,7 @@ can
 #### Part-of-speech tagging
 With xpresso  you can easily POS tag any English text with the very fast and accurate (~97%) Stanford CoreNLP english-left3words model:
 
-```
+```java
 import com.wantedtech.common.xpresso.sentence.Sentence;
 import com.wantedtech.common.xpresso.sentence.PosTagger;
 import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
@@ -670,7 +670,7 @@ Console: [(Some, DT), (English, NNP), (text, NN), (., .)]
 #### Slicing for list, String, and str
 
 Python:
-```
+```python
 trips = ["Dubai","New York","London","Paris","Moscow","London","Saint-Petersburg","New York"]
 
 print trips[2:4]
@@ -679,21 +679,21 @@ print trips[2:4]
 ```
 
 xpresso:
-```
+```java
 x.print(trips.slice(2,4));
 
 Console: [London, Paris]
 ```
 
 Python:
-```
+```python
 print trips[:5]
 
 >>> ['Dubai','New York','London','Paris','Moscow']
 ```
 
 xpresso:
-```
+```java
 x.print(trips.sliceTo(5));
 
 Console: [Dubai, New York, London, Paris, Moscow]
@@ -702,35 +702,35 @@ Console: [Dubai, New York, London, Paris, Moscow]
 Negative and non-unit steps are supported:
 
 Python:
-```
+```python
 print trips[::-1]
 
 >>> ['New York', 'Saint-Petersburg', 'London', 'Moscow', 'Paris', 'London', 'New York', 'Dubai']
 ```
 
 xpresso:
-```
+```java
 x.print(trips.slice(-1));
 
 Console: [New York, Saint-Petersburg, London, Moscow, Paris, London, New York, Dubai]
 ```
 
 Python:
-```
+```python
 print trips[::2]
 
 >>> ['Dubai','London','Moscow','Saint-Petersburg']
 ```
 
 xpresso:
-```
+```java
 x.print(trips.slice(2));
 
 Console: [Dubai, London, Moscow, Saint-Petersburg]
 ```
 
 #### Slicer object
-```
+```java
 Slicer LAST_THREE = x.sliceFrom(-3);
 
 x.print(x.String("tic tac toe").slice(LAST_THREE));
@@ -741,25 +741,25 @@ Console: toe
 #### Iterable regex search results
 
 Python:
-```
+```python
 for long_word_match in re.finditer("\b\w{10,}\b",text):
     print long_word_match.group(0)
 ```
 
 xpresso:
-```
+```java
 for (Match longWordMatch : x.Regex("\\b\\w{10,}\\b").findIter(text))
     x.print(longWordMatch.group(0));
 ```
 
 Python:
-```
+```python
 for long_word in re.findall("\b\w{10,}\b",text):
 	print long_word
 ```
 
 xpresso:
-```
+```java
 for (String longWord : x.Regex("\\b\\w{10,}\\b").findAll(text))
 	x.print(longWord);
 ```
@@ -767,7 +767,7 @@ for (String longWord : x.Regex("\\b\\w{10,}\\b").findAll(text))
 #### Replace with a Function
 
 Python:
-```
+```python
 def toUpperCaseFun(value):
 	return value.group(0).upper()
 
@@ -775,7 +775,7 @@ text = re.sub("\b\w{10,}\b",toUpperCaseFun,text)
 ```
 
 xpresso:
-```
+```java
 Function<Match,String> toUpperCaseFun = new Function<Match,String>(){
 	public String apply(Match value) {
 		return value.group(0).toUpperCase();
@@ -786,14 +786,14 @@ text = x.Regex("\\b\\w{10,}\\b").sub(toUpperCaseFun,text);
 ```
 
 #### Replace with a dict
-```
+```java
 dict<String> replacer = x.dict(x.tuple("bad","good"),x.tuple("small","big"),x.tuple("hard","easy"));
 
 text = x.Regex(replacer).sub(text);
 ```
 
 #### Predefined regex patterns
-```
+```java
 list<String> emails = x.list(x.Regex.EMAIL.findAll("Contact me at john.smith@company.com or john@smith.com."));
 x.print(emails);
 
@@ -802,7 +802,7 @@ Console: [smith@company.com, john@smith.com]
 Other patterns include x.Regex.LINK, x.Regex.EMAIL, x.Regex.IPV4, x.Regex IPV6, x.Regex.HEX_COLOR, x.Regex.ACRONYM, x.Regex.CREDIT_CARD, x.Regex.FLOAT, and so on, as well as a number of country-specific ones: x.Regex.US.DATE, x.Regex.US.TIME, x.Regex.US.PHONE, x.Regex.US.PRICE, x.Regex.US.STREET_ADDRESS, etc.
 
 #### The Token type
-```
+```java
 Token tok = x.Token("MySQL5");
 x.print(tok.shape(), tok.isCamel(), tok.hasDigits(), tok.hasRussian());
 
@@ -818,7 +818,7 @@ Console: Think
 
 #### hashCode(), equals(...), and compareTo(...) builders
 When defining a class:
-```
+```java
 @Override
 int hashCode() {
 	return x.Object(this).hashCode();
@@ -826,7 +826,7 @@ int hashCode() {
 ```
 In the above code, xpresso first finds the members of *this* (via reflections) and then dynamically computes the hash code for *this* based on the values of its members.
 
-```
+```java
 @Override
 boolean equals(Object obj) {
 	return x.Object(this).equals(obj);
@@ -834,7 +834,7 @@ boolean equals(Object obj) {
 ```
 In the above code, xpresso first finds the members of the two objects (*this* and *obj*), and then compares the values of those members.
 
-```
+```java
 @Override
 public int compareTo(Object obj) {
 	return x.Object(this).compareTo(obj, fieldName0, fieldName1, ...);
@@ -844,7 +844,7 @@ In the above code, xpresso first finds the members of the two objects (*this* an
 
 #### Assertions
 
-```
+```java
 x.assertTrue(condition);	// throws IllegalArgumentException
 
 x.assertNotNull(parameter);	// throws NullPointerException
@@ -859,7 +859,7 @@ x.assertNotEmpty(array);
 #### Built-in iterators
 
 * cycle
-```
+```java
 for (String letter : x.cycle(x.str("ABC")))
     x.print(letter);
 
@@ -875,7 +875,7 @@ C
 ...
 ```
 
-```
+```java
 for (String letter : x.cycle(x.list("hello","world"),3))
     x.print(letter);
 
@@ -888,7 +888,7 @@ world
 ```
 
 * repeat
-```
+```java
 for (String word : x.repeat("cool"))
     x.print(word);
 
@@ -899,7 +899,7 @@ cool
 ...
 ```
 
-```
+```java
 for (String word : x.repeat("cool"),3)
     x.print(word);
 
@@ -909,7 +909,7 @@ cool
 ```
 
 * count
-```
+```java
 for (Integer index : x.countTo(3))
     x.print(index);
 
@@ -918,7 +918,7 @@ Console: 0
 2
 ```
 
-```
+```java
 for (Integer index : x.countFrom(10))
     x.print(index);
 
@@ -929,7 +929,7 @@ Console: 10
 ...
 ```
 
-```
+```java
 for (Integer index : x.count(3,10))
     x.print(index);
 
@@ -942,7 +942,7 @@ Console: 3
 9
 ```
 
-```
+```java
 for (Integer index : x.count(3,10,3))
     x.print(index);
 
@@ -954,14 +954,14 @@ Console: 3
 x.count(min, max) and x.count(min, max, step) replace Python's range(min, max) and range(min, max, step).
 
 #### Print anything
-```
+```java
 x.print("Hello World", 1, true, x.list(1, 2, 3), null);
 
 Console: Hello World 1 true [1, 2, 3] NullType
 ```
 
 #### N-grams
-```
+```java
 str phrase = "If you want something done right, you have to do it yourself.";
 
 list<str> tokens = phrase.split();
@@ -974,8 +974,7 @@ Console: [[If, you, want], [you, want, something], [something, done, right]..., 
 ```
 
 #### largestN and smallestN
-
-```
+```java
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
 
 x.print(cities.smallestN(2));
@@ -983,7 +982,7 @@ x.print(cities.smallestN(2));
 Console: [Rome, Moscow]
 ```
 
-```
+```java
 list<String> cities = x.list("Moscow","San Francisco","Saint-Petersbourg","Rome");
 
 x.print(cities.largestN(2));
@@ -1003,7 +1002,7 @@ Console: [Saint-Petersbourg, San Francisco]
 * HTTP client
 * Find longest match (in the spirit of Python's [SequenceMatcher] (https://docs.python.org/3.4/library/difflib.html#difflib.SequenceMatcher)):
 
-```
+```java
 tuple match = x.String("I like apples.").longestMatch("My girlfriend likes apples too.");
 
 x.print(match);
