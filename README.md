@@ -5,7 +5,7 @@ xpresso is a Java library inspired by Python. It allows a (near) line-into-line 
 
 xpresso implements in Java familiar pythonic methods (e.g., len, enumerate, split/join, slicing) and coding paradigms (e.g., everything is iterable, list comprehensions, generators, lambda expressions, filtering iterables using predicates and modifying them using functions).
 
-xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.MapReduce, x.go, x.timer, x.Json, x.mysql, x.csv and others.
+xpresso also offers multiple useful tools, usually one-liners, that save developer's time and make the code more readable: x.String, x.Object, x.memo, x.WebService, x.MapReduce, x.go, x.timer, x.Json, x.mysql, x.csv and others.
 
 xpresso: less boilerplate, more fun, more work done.
 
