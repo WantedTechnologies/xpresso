@@ -13,6 +13,7 @@ import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.regex.Regex;
 import com.wantedtech.common.xpresso.sentence.Sentence;
 import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
+import com.wantedtech.common.xpresso.strings.FuzzyWuzzy;
 import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
@@ -54,7 +55,13 @@ public class Test {
 	};
 	
 	public static void main(String[] args) throws Exception {
-		try{
+		try {
+			x.assertTrue(FuzzyWuzzy.ratio("this is a test", "this is a test!") == 97);
+			x.assertTrue(FuzzyWuzzy.partial_ratio("this is a test", "this is a test!") == 100);
+			x.assertTrue(FuzzyWuzzy.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear") == 91);
+			x.assertTrue(FuzzyWuzzy.token_sort_ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear", null) == 100);
+			x.assertTrue(FuzzyWuzzy.token_sort_ratio("fuzzy was a bear", "fuzzy fuzzy was a bear", null) == 84);
+			x.assertTrue(FuzzyWuzzy.token_set_ratio("fuzzy was a bear", "fuzzy fuzzy was a bear", null) == 100);
 			
 			WebService ws = x.WebService(new WebServiceTest(),8050).start();
 			

@@ -81,9 +81,12 @@ class Tuple2Comprehension extends AbstractTupleComprehension{
 		}
 		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
-			
 			if(!(element instanceof tuple) && !(element instanceof Iterable<?>)){
-				list<Object> replacedElement = x.list(); 
+				list<Object> replacedElement = x.list();
+				if (x.len(elementFieldNames) == 1 && elementFieldNames.get(0).equals("_")) {
+					replacedElement.append(element);
+					continue;
+				}
 				for (String elementFieldName : elementFieldNames){
 					if(x.Object(element).hasField(elementFieldName)){
 						try {
