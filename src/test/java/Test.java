@@ -1,14 +1,9 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 
 import com.wantedtech.common.xpresso.x;
-import com.wantedtech.common.xpresso.csv.CSV;
 import com.wantedtech.common.xpresso.experimental.concurrency.Channel;
-import com.wantedtech.common.xpresso.experimental.concurrency.MapReduce;
 import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
 import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
 import com.wantedtech.common.xpresso.experimental.generator.Generator;
@@ -16,13 +11,13 @@ import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.regex.Regex;
-import com.wantedtech.common.xpresso.sentence.PosTagger;
 import com.wantedtech.common.xpresso.sentence.Sentence;
 import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
 import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 import com.wantedtech.common.xpresso.types.tuples.tuple3;
+import com.wantedtech.common.xpresso.web.service.WebService;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
@@ -60,6 +55,8 @@ public class Test {
 	
 	public static void main(String[] args) throws Exception {
 		try{
+			
+			WebService ws = x.WebService(new WebServiceTest(),8050).start();
 			
 			x.timer.start();
 			x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mpr).reduce(rdr));

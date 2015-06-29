@@ -14,36 +14,20 @@ public class Json<O>{
 
 	String jsonString;
 	
-	public Json(String jsonString){
-			this.jsonString = jsonString;
+	public Json(Object usualString, boolean isUsualString){
+		this.jsonString = "\"" + escape(usualString.toString()) + "\"";
 	}
 	
-	public Json(String usualString, boolean isUsualString){
-		this.jsonString = "\"" + usualString + "\"";
-	}
-
-	public Json(Map<?,?> o){
-		jsonString = dumps(o);
-	}
-	
-	public Json(Iterable<?> o){
+	public Json(Object o){
+		if (jsonString instanceof String) {
+			this.jsonString = jsonString.toString();
+			return;
+		}
 		if (o instanceof dict<?>){
 			jsonString = dumps(((dict<?>) o).toHashMap());
-		}else{
-			jsonString = dumps(o);	
+			return;
 		}
-	}
-	
-	public Json(dict<?> o){
-		jsonString = dumps(o.toHashMap());
-	}
-	
-	public Json(tuple o){
 		jsonString = dumps(o);
-	}
-	
-	public Json(Integer v){
-		jsonString = dumps(v);
 	}
 	
 	@Override

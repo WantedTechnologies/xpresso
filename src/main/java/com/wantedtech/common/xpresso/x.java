@@ -49,6 +49,7 @@ import com.wantedtech.common.xpresso.experimental.concurrency.MapReduce;
 import com.wantedtech.common.xpresso.functional.*;
 import com.wantedtech.common.xpresso.functional.lambda.*;
 import com.wantedtech.common.xpresso.regex.*;
+import com.wantedtech.common.xpresso.web.service.WebService;
 import com.wantedtech.common.xpresso.time.*;
 import com.wantedtech.common.xpresso.types.strs.*;
 import com.wantedtech.common.xpresso.types.tuples.*;
@@ -63,8 +64,146 @@ import com.wantedtech.common.xpresso.token.*;
 
 public class x {
 	
-	public static <I,L,O> MapReduce<I,L,O> MapReduce(Iterable<I> input) {
-		return new MapReduce<I,L,O>(input);
+	/**
+	 * Creates a WebService object.
+	 * 
+	 * Example of usage:
+	 * 
+	 * Let's suppose we have an object of a class SomeMath which has two methods we would like to publish as web services, getSum and getProduct:
+	 * 
+	 * <pre>
+	 * {@code
+	 * public class SomeClass() {
+	 *     public Double getSum(Double[] values) {
+	 *         return x.sum(values);
+	 *     }
+	 *     public Double getProduct(Double x, Double y) {
+	 *         return x * y;
+	 *     }
+	 *     public Double anotherMethod(Double somethingElse) {
+	 *         return somethingElse;
+	 *     }
+	 * }
+	 * }
+	 * In order to convert our SomeMath class into a web service, we simply need to first annotate our two methods we want to call from the network with the @ExposeAs annotation, and then start our web service:
+	 * 
+	 * <pre>
+	 * {@code
+	 * public class SomeClass() {
+	 *     public Double getSum(@ExposeAs("values") Double[] values) {
+	 *         return x.sum(values);
+	 *     }
+	 *     public Double getProduct(@ExposeAs("x") Double x, @ExposeAs("y") Double y) {
+	 *         return x * y;
+	 *     }
+	 *     public Double anotherMethod(Double somethingElse) {
+	 *         return somethingElse;
+	 *     }
+	 * }
+	 * }
+	 * </pre>
+	 * 
+	 * <pre>
+	 * {@code
+	 * WebService ws = x.WebService(new SomeClass(), 8080).start();
+	 * }
+	 * </pre>
+	 * That's all! Our web service is up and running. Let's test it. Open the following url in your browser:
+	 * 
+	 * <pre>
+	 * {@code
+	 * http://localhost:8080/SomeClass/getSum?values=5&values=6&values=7
+	 * The output:
+	 * 
+	 * 18.0
+	 * }
+	 * </pre>
+	 * Now open the following url:
+	 * 
+	 * <pre>
+	 * {@code
+	 * http://localhost:8080/SomeClass/getProduct?x=5&y=10
+	 * The output:
+	 * 
+	 * 50.0
+	 * }
+	 * </pre>
+	 * If a method returns an output type of more complex classes such as Java's standard Map and List, or xpresso's own list and dict, the output will be a corresponding JSON string.
+	 * 
+	 * @param businessLogicObject : any java Object with at least one method
+	 *                              whose parameters are annotated with the {@code @ExposeAs} annotation 
+	 * @param port : port to deploy our web service at
+	 * @return a WebService object
+	 */
+	public static WebService WebService(Object businessLogicObject, int port) {
+		try {
+			return new WebService(businessLogicObject, port);
+		} catch (IOException e) {
+			throw new RuntimeIOException(e); 
+		}
+	}
+	
+	/**
+	 * Creates a MapReduce object.
+	 * 
+	 * Example of usage:
+	 * 
+	 * Let's assume that we have a list of elements we want to process:
+	 * 
+	 * <pre>
+	 * {@code
+	 * list<String> elements = x.list("Map","aNd","ReDuce","arE","aWEsome");
+	 * }
+	 * </pre>
+	 * The processing of each element takes a long time (10 seconds), so we want to parallelize the processing on our multicore machine. Let the processing be as follows: if the element starts with an "a", then put it in uppercase and join it with other uppercase elements using "~" as separator; if the element doesn't start with an "a", then put it to lowercase and join it with other lowercase words.
+	 * 
+	 * Let's define the Mapper and Reducer:
+	 * 
+	 * <pre>
+	 * {@code
+	 * import com.wantedtech.common.xpresso.experimental.concurrency.Mapper;
+	 * import com.wantedtech.common.xpresso.experimental.concurrency.Reducer;
+	 * 
+	 * static Mapper<String,String> mapper = new Mapper<String,String>() {
+	 *     public void map(String input) {
+	 *         x.Time.sleep(10); //the processing of each element takes a long time :-)
+	 *         if (x.String(input).startsWith("a")) {
+	 *             yield("upper", input.toUpperCase());                
+	 *         } else {
+	 *             yield("lower", input.toLowerCase());
+	 *         }
+	 *     }
+	 * };
+	 * 
+	 * static Reducer<String,String> reducer = new Reducer<String,String>() {
+	 *     public void reduce(tuple2<String,list<String>> input) {
+	 *         yield(input.key,x.String("~").join(input.value));
+	 *     }
+	 * };
+	 * }
+	 * </pre>
+	 * Our mapper does the transformation of the string case as described above, and our reducer joins the resulting values with the "~".
+	 * 
+	 * Our MapReduce setup is now ready, so let's start crunching:
+	 * 
+	 * <pre>
+	 * {@code
+	 * x.timer.start();
+	 * x.print(x.<String,String,String>MapReduce(elements).map(mapper).reduce(reducer), x.timer.stop());
+	 * 
+	 * Console:
+	 * {upper:AND~AWESOME~ARE, lower:reduce~map}
+	 * 10.013s
+	 * }
+	 * </pre>
+	 * As you can see, the processing of all 5 elements took only about 10 seconds, while we have defined above that the processing of each single element takes 10 seconds.
+	 * 
+	 * 
+	 * @param iterable : an {@link Iterable} that contains values we want to crunch in a concurrent way.
+	 * @return a MapReduce object
+	 */
+	public static <I,L,O> MapReduce<I,L,O> MapReduce(Iterable<I> iterable) {
+		return new MapReduce<I,L,O>(iterable);
 	}
 	
 	/**
@@ -582,7 +721,7 @@ public class x {
 	 * }
 	 * </pre>
 	 * 
-	 * In case of a text file, the {@link CSV} object is also an Iterable containing 
+	 * In case of a text file, the {@link csv} object is also an Iterable containing 
 	 * {@code list<String>} objects for each line of the file:
 	 * 
 	 * <pre>
@@ -600,11 +739,11 @@ public class x {
 	 * @param encoding		the String object containing the encoding of the file
 	 * 						(can be "utf-8" or "latin-1")
 	 * @throws RuntimeIOException	in case there's a problem opening file
-	 * @return 				a {@link CSV} object
+	 * @return 				a {@link csv} object
 	 */
-	public static CSV csv(String path,String operation,String encoding) throws RuntimeIOException{
+	public static csv csv(String path,String operation,String encoding) throws RuntimeIOException{
 		try {
-			return new CSV(path,operation,encoding);
+			return new csv(path,operation,encoding);
 		} catch (IOException e) {
 			throw new RuntimeIOException(e);
 		}
@@ -623,7 +762,7 @@ public class x {
 	 * }
 	 * </pre>
 	 * 
-	 * In case of a text file, the {@link CSV} object is also an {@link Iterable} containing 
+	 * In case of a text file, the {@link csv} object is also an {@link Iterable} containing 
 	 * {@code list<String>} objects for each line of the file:
 	 * 
 	 * <pre>
@@ -639,18 +778,18 @@ public class x {
 	 * 						"w" (write in text mode), "wb" write in binary mode
 	 * 						"a" append in text mode, "ab" append in binary mode
 	 * @throws RuntimeIOException	in case there's a problem opening file
-	 * @return 				a {@link CSV} object
+	 * @return 				a {@link csv} object
 	 */
-	public static CSV csv(String path,String operation) throws RuntimeIOException {
+	public static csv csv(String path,String operation) throws RuntimeIOException {
 		try{
-			return new CSV(path,operation);
+			return new csv(path,operation);
 		}catch(Exception e){
 			throw new RuntimeIOException(e);
 		}
 	}
 	
 	/**
-	 * Creates a {@link CSV} object from an iterable.
+	 * Creates a {@link csv} object from an iterable.
 	 * 
 	 * The {@link Iterable} can be either an instance of {@link HappyFile} or
 	 * an {@code Iterable<list<?>>}.
@@ -663,14 +802,14 @@ public class x {
 	 * of the input {@link Iterable} and {@code toString()} will return this csv String representation
 	 * 
 	 * @param iterable		a {@link HappyFile} object or an {@code Iterable<list<?>>}
-	 * @return 				a {@link CSV} object
+	 * @return 				a {@link csv} object
 	 */
-	public static CSV csv(Iterable<?> iterable){
-		return new CSV(iterable);
+	public static csv csv(Iterable<?> iterable){
+		return new csv(iterable);
 	}
 	
 	/**
-	 * Creates a {@link CSV} object from a {@link StringBuilder}.
+	 * Creates a {@link csv} object from a {@link StringBuilder}.
 	 * 
 	 * Example:
 	 * <pre>
@@ -688,10 +827,10 @@ public class x {
 	 * </pre>
 	 * 
 	 * @param builder		a {@link StringBuffer} object to write csv to
-	 * @return 				a {@link CSV} object
+	 * @return 				a {@link csv} object
 	 */
-	public static CSV csv(StringBuilder builder){
-		return new CSV(builder);
+	public static csv csv(StringBuilder builder){
+		return new csv(builder);
 	}
 	
 	/**
@@ -3589,9 +3728,9 @@ public class x {
 		}
 		return tuple4.valueOf(list0,list1,list2,list3);
 	}
-	
+		
 	/**
-	 * Factory method that creates a new xpresso {@link Json} object from a {@link String}. 
+	 * Factory method that creates a new xpresso {@link Json} object from an input {@link Object}. 
 	 * 
 	 * <pre>
 	 * {@code
@@ -3610,16 +3749,20 @@ public class x {
 	 *  }
 	 * </pre>
 	 * 
-	 * @param string		a String object
-	 * @param <O>			the type of the output object
-	 * @return 				a Json object 
-	 */
-	public static <O> Json<O> Json(String string){
-		return new Json<O>(string);
-	}
-	
-	/**
-	 * Factory method that creates a new xpresso {@link Json} object from a {@link Map}. 
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example:
+	 * 
+	 * list<String> lst = x.list("a","b","c");
+	 * String jsonString = x.Json(lst).toString();
+	 * 
+	 * x.print(jsonString);
+	 * 
+	 *  Console {"a", "b", "c"}
+	 *  
+	 * }
+	 * </pre>
 	 * 
 	 * <pre>
 	 * {@code
@@ -3640,76 +3783,7 @@ public class x {
 	 * @param <O>			the type of the output object
 	 * @return 				a Json object 
 	 */
-	public static <O> Json<O> Json(Map<?,?> o){
-		return new Json<O>(o);
-	}
-	
-	/**
-	 * Factory method that creates a new xpresso {@link Json} object from an {@link Iterable}. 
-	 * 
-	 * <pre>
-	 * {@code
-	 * Example 1:
-	 * 
-	 * list<String> lst = x.list("a","b","c");
-	 * String jsonString = x.Json(lst).toString();
-	 * 
-	 * x.print(jsonString);
-	 * 
-	 *  Console {"a", "b", "c"}
-	 *  
-	 * Example 2:
-	 * dict<Integer> dic = x.list(x.tuple("a":1),x.tuple("b":2));
-	 * String jsonString = x.Json(lst).toString();
-	 * 
-	 * x.print(jsonString);
-	 * 
-	 *  Console {"a": 1, "b": 2}
-	 * }
-	 * </pre>
-	 * 
-	 * @param o				an Iterable
-	 * @param <O>			the type of the output object
-	 * @return 				a Json object 
-	 */
-	public static <O> Json<O> Json(Iterable<?> o){
-		return new Json<O>(o);
-	}
-	
-	/**
-	 * Factory method that creates a new xpresso {@link Json} object from a {@link tuple}. 
-	 * 
-	 * <pre>
-	 * {@code
-	 * Example:
-	 * 
-	 * Map<String,Integer> map = Helpers.newHashMap();
-	 * map.put("a",1);
-	 * map.put("b",2);
-	 * String jsonString = x.Json(map).toString();
-	 * 
-	 * x.print(jsonString);
-	 * 
-	 *  Console {"a": 1, "b": 2}
-	 * }
-	 * </pre>
-	 * 
-	 * @param v				an Integer object
-	 * @param <O>			the type of the output object
-	 * @return 				a Json object 
-	 */	
-	public static <O> Json<O> Json(Integer v){
-		return new Json<O>(v);
-	}
-	
-	/**
-	 * Factory method that creates a new xpresso {@link Json} object from a {@link Integer}. 
-	 *  
-	 * @param o				a tuple object
-	 * @param <O>			the type of the output object
-	 * @return 				a Json object 
-	 */	
-	public static <O> Json<O> Json(tuple o){
+	public static <O> Json<O> Json(Object o){
 		return new Json<O>(o);
 	}
 	
