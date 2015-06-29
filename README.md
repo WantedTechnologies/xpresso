@@ -253,13 +253,13 @@ Console: [(2016, Paris)]
 Let's suppose we have an object of a class SomeMath which has two methods we would like to publish as web services, getSum and getProduct:
 ```
 public class SomeClass() {
-	public Double getSum(Double[] values) {
+	public Double getSum(Double[] values) { //we want to publish this one
 		return x.sum(values);
 	}
-	public Double getProduct(Double x, Double y) {
+	public Double getProduct(Double x, Double y) {//and this one
 		return x * y;
 	}
-	public Double anotherMethod(Double somethingElse) {
+	public Double anotherMethod(Double somethingElse) {//but not this one
 		return somethingElse;
 	}
 }
