@@ -11,6 +11,7 @@ import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Slicer;
 import com.wantedtech.common.xpresso.regex.Regex;
+import com.wantedtech.common.xpresso.sentence.PosTagger;
 import com.wantedtech.common.xpresso.sentence.Sentence;
 import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
 import com.wantedtech.common.xpresso.strings.FuzzyWuzzy;
@@ -77,7 +78,7 @@ public class Test {
 					    
 			x.assertTrue(FuzzyWuzzy.extractOne("cowboys", choices, null, null, null).equals(x.tuple2("Dallas Cowboys", 90)));
 			
-			WebService ws = x.WebService(new WebServiceTest(),8050).start();
+			//WebService ws = x.WebService(new WebServiceTest(),8050).start();
 			
 			x.timer.start();
 			x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mpr).reduce(rdr));
@@ -92,10 +93,10 @@ public class Test {
 			
 			String input = "Hello world.";
 			
-			MaxentTagger tagger = new MaxentTagger(MaxentPosTagger.Model.ENGLISH_LEFT_3_WORDS);
+			PosTagger tagger = new MaxentPosTagger(MaxentPosTagger.Model.ENGLISH_LEFT_3_WORDS);
 			
 			for (Sentence s : x.String.EN.tokenize(input)) {
-				s = tagger.tagSentence(s);
+				s = tagger.tag(s);
 				x.print(s);
 				x.print(s.getAnnotations("pos"));
 			}
