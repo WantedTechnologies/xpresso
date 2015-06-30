@@ -7,11 +7,22 @@ public final class tuple3<T0, T1, T2> extends AbstractTuple {
     public final T0 value0;
     public final T1 value1;
     public final T2 value2;
+    
+    /*
+     * Synonyms for value0, value1, value2
+     */
+    public final T0 left;
+    public final T1 middle;
+    public final T2 right;
 
     protected tuple3(T0 value0, T1 value1, T2 value2) {
         this.value0 = value0;
         this.value1 = value1;
         this.value2 = value2;
+        
+        this.left = value0;
+        this.middle = value1;
+        this.right = value2;
     }
 
     public static <T0, T1, T2> tuple3<T0, T1, T2> valueOf(T0 value0, T1 value1, T2 value2) {

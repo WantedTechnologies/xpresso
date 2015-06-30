@@ -477,7 +477,12 @@ public class SequenceMatcher {
                     break;
                 }
 
-                newj2len.put(j,j2len.getOrDefault(j-1,0) + 1);
+                if (j2len.containsKey(j-1)) {
+                    newj2len.put(j,j2len.get(j-1) + 1);
+                } else {
+                	newj2len.put(j,1);
+                }
+                
                 int k = newj2len.get(j);
                 if (k > bestsize) {
                     besti = i-k+1; bestj = j-k+1; bestsize = k;

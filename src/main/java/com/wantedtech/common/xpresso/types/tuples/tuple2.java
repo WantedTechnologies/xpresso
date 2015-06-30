@@ -11,11 +11,13 @@ public final class tuple2<T0, T1> extends AbstractTuple {
      * A synonym for value0
      */
     public final T0 key;
+    public final T0 left;
     
     /**
      * A synonym for value1
      */
     public final T1 value;
+    public final T1 right;
     
     /**
      * A synonym for value0
@@ -29,6 +31,9 @@ public final class tuple2<T0, T1> extends AbstractTuple {
         this.key = value0;
         this.index = value0;
         this.value = value1;
+        
+        this.left = value0;
+        this.right = value1;
     }
 
     public static <T0, T1> tuple2<T0, T1> valueOf(T0 value0, T1 value1) {

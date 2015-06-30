@@ -35,6 +35,8 @@ import java.util.Random;
 import java.util.regex.Pattern;
 import java.lang.Iterable;
 import java.lang.Number;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import com.wantedtech.common.xpresso.helpers.*;
 import com.wantedtech.common.xpresso.json.*;
@@ -63,6 +65,76 @@ import com.wantedtech.common.xpresso.token.*;
  */
 
 public class x {
+	
+	public static <O> Function<tuple,O> Function(Class<?> theClass, String methodName) {
+        Method method = null;
+		try {
+			method = theClass.getMethod(methodName, new Class<?>[] {});
+		} catch (NoSuchMethodException | SecurityException e) {
+			Method[] methods = theClass.getMethods();
+			int goodMethodsCounter = 0;
+			for (Method m : methods) {
+				if (m.getName().equals(methodName)) {
+					method = m;
+					goodMethodsCounter++;
+					if (goodMethodsCounter > 1) {
+						throw new RuntimeException("More than one method with name " + methodName + " in the class " + theClass.getName() + ". In this case use the x.Function with the method's input type class objects as parameters.");
+					}
+				}
+			}
+		}
+
+		final Method theMethod = method;
+		
+        return new Function<tuple,O>() {
+        	@SuppressWarnings("unchecked")
+			public O apply(tuple input) {
+        		Class<?>[] types = theMethod.getParameterTypes();
+        		try {
+        			switch (x.len(types)) {
+        				case 0:
+        					return (O)theMethod.invoke(null);
+        				case 1:
+        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)));
+        				case 2:
+        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)), types[1].cast(input.get(1)));
+        				case 3:
+        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)), types[1].cast(input.get(1)), types[2].cast(input.get(2)));
+        				case 4:
+        				default:
+        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)), types[1].cast(input.get(1)), types[2].cast(input.get(2)), types[3].cast(input.get(3)));
+        			}
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IndexOutOfBoundsException e) {
+					e.printStackTrace();
+					throw new RuntimeException("Tried to interpret the input " + input + " as a tuple" + x.len(types) + " of types " + x.list(types) + " but did not succeed.");
+				}
+        	}
+        };
+
+	}
+	
+	public static <I0,I1,O> Function<tuple2<I0,I1>,O> Function(Class<?> theClass, String methodName, Class<?> parameterType0, Class<?> parameterType1) {
+		
+        final Method method;
+		try {
+			method = theClass.getMethod(methodName, new Class<?>[] {parameterType0, parameterType1});
+		} catch (NoSuchMethodException | SecurityException e) {
+			throw new RuntimeException(e);
+		}
+
+        return new Function<tuple2<I0,I1>,O>() {
+        	@SuppressWarnings("unchecked")
+			public O apply(tuple2<I0,I1> input) {
+        		try {
+					Object o = method.invoke(null, input.key, input.value);
+					return (O)o;
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					throw new RuntimeException(e);
+				}
+        	}
+        };
+
+	}
 	
 	/**
 	 * Creates a WebService object.
@@ -3394,6 +3466,81 @@ public class x {
 	 */
 	public static <T extends Comparable<T>> Iterable<T> smallestN(Iterable<T> iterable, int N){
 		return x.list(sort(iterable)).sliceTo(N);
+	}
+	
+	/**
+	 * Makes an iterable that contains elements from the input iterable as long as the predicate is true.
+	 * @param <T>	any type
+	 * @param <T>	a predicate
+	 * @param iterable	an {@link Iterable} of type T
+	 * @return an {@link Iterable} that contains the N smallest elements of the input {@link Iterable}
+	 */
+	public static <T> Iterable<T> takeWhile(final Predicate<Object> predicate, final Iterable<T> iterable){
+		return new Iterable<T>() {
+
+			@Override
+			public Iterator<T> iterator() {
+				return new Iterator<T>() {
+
+					Iterator<T> inputIter = iterable.iterator();
+					
+					T next = null;
+					
+					@Override
+					public boolean hasNext() {
+						next = inputIter.next();
+						return inputIter.hasNext() && predicate.apply(next);
+					}
+
+					@Override
+					public T next() {
+						return next;
+					}					
+				};
+			}
+		};
+	}
+	
+	/**
+	 * Makes an itrable that drops elements from the input iterable as long as the predicate is true; afterwards, returns every element. Note, the iterator does not produce any output until the predicate first becomes false, so it may have a lengthy start-up time.
+	 * @param <T>	any type
+	 * @param <T>	a predicate
+	 * @param iterable	an {@link Iterable} of type T
+	 * @return an {@link Iterable} that contains the N smallest elements of the input {@link Iterable}
+	 */
+	public static <T> Iterable<T> dropWhile(final Predicate<Object> predicate, final Iterable<T> iterable){
+		return new Iterable<T>() {
+
+			@Override
+			public Iterator<T> iterator() {
+				return new Iterator<T>() {
+
+					Iterator<T> inputIter = iterable.iterator();
+					
+					Predicate<Object> pred = predicate;
+					
+					T next = null;
+					
+					@Override
+					public boolean hasNext() {
+						while (inputIter.hasNext()) {
+							next = inputIter.next();
+							if (pred.apply(next)) {
+								continue;
+							} else {
+								pred = x.FALSE;
+							}
+						}
+						return false;
+					}
+
+					@Override
+					public T next() {
+						return next;
+					}					
+				};
+			}
+		};
 	}
 	
 	/**

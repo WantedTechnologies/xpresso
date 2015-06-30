@@ -56,12 +56,26 @@ public class Test {
 	
 	public static void main(String[] args) throws Exception {
 		try {
+						
+			Function<tuple2<String,String>,Integer> ratio = x.Function(FuzzyWuzzy.class, "ratio", String.class, String.class);
+			
+			x.print("aa",ratio.apply(x.tuple2("this is a test", "this is a test!")));
+			
+			Function<tuple,Integer> ratio2 = x.Function(FuzzyWuzzy.class, "ratio");
+			
+			x.print("bb",ratio2.apply(x.tuple2("this is a test", "this is a test!")));
+			
 			x.assertTrue(FuzzyWuzzy.ratio("this is a test", "this is a test!") == 97);
 			x.assertTrue(FuzzyWuzzy.partial_ratio("this is a test", "this is a test!") == 100);
 			x.assertTrue(FuzzyWuzzy.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear") == 91);
 			x.assertTrue(FuzzyWuzzy.token_sort_ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear", null) == 100);
 			x.assertTrue(FuzzyWuzzy.token_sort_ratio("fuzzy was a bear", "fuzzy fuzzy was a bear", null) == 84);
 			x.assertTrue(FuzzyWuzzy.token_set_ratio("fuzzy was a bear", "fuzzy fuzzy was a bear", null) == 100);
+			
+			list<String> choices = x.list("Atlanta Falcons", "New York Jets", "New York Giants", "Dallas Cowboys");
+			x.assertTrue(FuzzyWuzzy.extract("new york jets", choices, null, null, 2).equals(x.list(x.tuple2("New York Jets", 100), x.tuple2("New York Giants", 79))));
+					    
+			x.assertTrue(FuzzyWuzzy.extractOne("cowboys", choices, null, null, null).equals(x.tuple2("Dallas Cowboys", 90)));
 			
 			WebService ws = x.WebService(new WebServiceTest(),8050).start();
 			

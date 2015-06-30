@@ -38,6 +38,10 @@ public class Timer {
 		return this;
 	}
 	
+	public void print() {
+		x.print(this);
+	}
+	
 	@Override
 	public String toString(){
 		if(this.started){
