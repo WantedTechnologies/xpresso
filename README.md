@@ -167,6 +167,37 @@ x.print(tripsO);
 Console: [New York, London, Moscow, London, New York]
 ```
 
+You don't need to define a new Function class every time you want to transform an iterable in a certain way. You can use the x.Function that automagically converts any static method of any Java class into a Function:
+```java
+Function<String,String> myUpper = x.Function(String.class, "toUpperCase");
+
+iterable = x.map(myUpper, iterable);
+```
+
+The x.Function method can also wrap static methods that take several arguments:
+```java
+Function<tuple3<String,Integer,Boolean>,Double> mySomeFunc = x.Function(Some.class, "someStaticMethod");
+
+Function<tuple3<String,Integer,Boolean>,Double> myOtherFunc = x.Function(Other.class, "someOtherMethod");
+
+Function<tuple3<String,Integer,Boolean>,Double> funcToUse;
+if (someCondition) {
+	funcToUse = mySomeFunc;
+} else {
+	funcToUse = myOtherFunc;
+}
+
+double sum;
+for (element : iterable) {
+	sum += funcToUse.apply(x.tuple3(element,intParam,boolParam));
+}
+```
+
+If in a certaic class there's more than one static method with the same name, you need to specify which one you want to wrap by providing parameter types:
+```java
+Function<tuple3<String,Integer,Boolean>,Double> mySomeFunc = x.Function(Some.class, "someStaticMethod", String.class, Integer.class, Boolean.class);
+```
+
 #### Lambda expressions
 Python:
 ```python
