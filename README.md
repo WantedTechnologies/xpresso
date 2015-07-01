@@ -193,7 +193,7 @@ for (element : iterable) {
 }
 ```
 
-If in a certaic class there's more than one static method with the same name, you need to specify which one you want to wrap by providing parameter types:
+If in a certain class there're more than one static method with the same name, you need to specify which one of them you want to wrap by providing parameter types:
 ```java
 Function<tuple3<String,Integer,Boolean>,Double> mySomeFunc = x.Function(Some.class, "someStaticMethod", String.class, Integer.class, Boolean.class);
 ```
