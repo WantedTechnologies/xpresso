@@ -167,7 +167,7 @@ x.print(tripsO);
 Console: [New York, London, Moscow, London, New York]
 ```
 
-You don't need to define a new Function class every time you want to transform an iterable in a certain way. You can use the x.Function that automagically converts any static method of any Java class into a Function:
+You don't need to define a new Function class every time you want to transform an iterable in a certain way. You can use the x.Function that automagically wraps any static method of any Java class into a Function:
 ```java
 Function<String,String> myUpper = x.Function(String.class, "toUpperCase");
 
