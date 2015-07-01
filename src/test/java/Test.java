@@ -78,7 +78,7 @@ public class Test {
 					    
 			x.assertTrue(FuzzyWuzzy.extractOne("cowboys", choices, null, null, null).equals(x.tuple2("Dallas Cowboys", 90)));
 			
-			//WebService ws = x.WebService(new WebServiceTest(),8050).start();
+			WebService ws = x.WebService(new WebServiceTest(),8050).start();
 			
 			x.timer.start();
 			x.print(x.<String,String,String>MapReduce(x.list("Map","aNd","ReDuce","arE","aWEsome")).map(mpr).reduce(rdr));
@@ -91,7 +91,7 @@ public class Test {
 			String tran = x.String.translit("Чичётка 北亰");
 			x.print(x.String(tran).stripAccents());
 			
-			String input = "Hello world.";
+			String input = "Hello world. How do you do?";
 			
 			PosTagger tagger = new MaxentPosTagger(MaxentPosTagger.Model.ENGLISH_LEFT_3_WORDS);
 			

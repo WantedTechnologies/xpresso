@@ -50,6 +50,7 @@ import com.wantedtech.common.xpresso.experimental.concurrency.Goer;
 import com.wantedtech.common.xpresso.experimental.concurrency.MapReduce;
 import com.wantedtech.common.xpresso.functional.*;
 import com.wantedtech.common.xpresso.functional.lambda.*;
+import com.wantedtech.common.xpresso.functional.utils.FunctionUtils;
 import com.wantedtech.common.xpresso.regex.*;
 import com.wantedtech.common.xpresso.web.service.WebService;
 import com.wantedtech.common.xpresso.time.*;
@@ -66,74 +67,59 @@ import com.wantedtech.common.xpresso.token.*;
 
 public class x {
 	
+	/**
+	 * Transform any static Java method of any class into xpresso's Function. 
+	 * @param theClass : any Java class
+	 * @param methodName : any static method
+	 * @return {@link Function} whose apply method takes the same parameters and returns the same
+	 * 							value as those of the method theClass.methodName
+	 */
 	public static <O> Function<tuple,O> Function(Class<?> theClass, String methodName) {
-        Method method = null;
-		try {
-			method = theClass.getMethod(methodName, new Class<?>[] {});
-		} catch (NoSuchMethodException | SecurityException e) {
-			Method[] methods = theClass.getMethods();
-			int goodMethodsCounter = 0;
-			for (Method m : methods) {
-				if (m.getName().equals(methodName)) {
-					method = m;
-					goodMethodsCounter++;
-					if (goodMethodsCounter > 1) {
-						throw new RuntimeException("More than one method with name " + methodName + " in the class " + theClass.getName() + ". In this case use the x.Function with the method's input type class objects as parameters.");
-					}
-				}
-			}
-		}
-
-		final Method theMethod = method;
-		
-        return new Function<tuple,O>() {
-        	@SuppressWarnings("unchecked")
-			public O apply(tuple input) {
-        		Class<?>[] types = theMethod.getParameterTypes();
-        		try {
-        			switch (x.len(types)) {
-        				case 0:
-        					return (O)theMethod.invoke(null);
-        				case 1:
-        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)));
-        				case 2:
-        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)), types[1].cast(input.get(1)));
-        				case 3:
-        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)), types[1].cast(input.get(1)), types[2].cast(input.get(2)));
-        				case 4:
-        				default:
-        					return (O)theMethod.invoke(null, types[0].cast(input.get(0)), types[1].cast(input.get(1)), types[2].cast(input.get(2)), types[3].cast(input.get(3)));
-        			}
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IndexOutOfBoundsException e) {
-					e.printStackTrace();
-					throw new RuntimeException("Tried to interpret the input " + input + " as a tuple" + x.len(types) + " of types " + x.list(types) + " but did not succeed.");
-				}
-        	}
-        };
-
+		return FunctionUtils.Function(theClass, methodName);
 	}
 	
+	/**
+	 * Transform any static Java method of any class into xpresso's Function. 
+	 * @param theClass : any Java class
+	 * @param methodName : any static method
+	 * @return {@link Function} whose apply method takes the same parameters and returns the same
+	 * 							value as those of the method theClass.methodName
+	 */
+	public static <I,O> Function<I,O> Function(Class<?> theClass, String methodName, Class<?> parameterType) {
+		return FunctionUtils.Function(theClass, methodName, parameterType);
+	}
+	
+	/**
+	 * Transform any static Java method of any class into xpresso's Function. 
+	 * @param theClass : any Java class
+	 * @param methodName : any static method
+	 * @return {@link Function} whose apply method takes the same parameters and returns the same
+	 * 							value as those of the method theClass.methodName
+	 */
 	public static <I0,I1,O> Function<tuple2<I0,I1>,O> Function(Class<?> theClass, String methodName, Class<?> parameterType0, Class<?> parameterType1) {
-		
-        final Method method;
-		try {
-			method = theClass.getMethod(methodName, new Class<?>[] {parameterType0, parameterType1});
-		} catch (NoSuchMethodException | SecurityException e) {
-			throw new RuntimeException(e);
-		}
-
-        return new Function<tuple2<I0,I1>,O>() {
-        	@SuppressWarnings("unchecked")
-			public O apply(tuple2<I0,I1> input) {
-        		try {
-					Object o = method.invoke(null, input.key, input.value);
-					return (O)o;
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					throw new RuntimeException(e);
-				}
-        	}
-        };
-
+		return FunctionUtils.Function(theClass, methodName, parameterType0, parameterType1);		
+	}
+	
+	/**
+	 * Transform any static Java method of any class into xpresso's Function. 
+	 * @param theClass : any Java class
+	 * @param methodName : any static method
+	 * @return {@link Function} whose apply method takes the same parameters and returns the same
+	 * 							value as those of the method theClass.methodName
+	 */
+	public static <I0,I1,I2,O> Function<tuple3<I0,I1,I2>,O> Function(Class<?> theClass, String methodName, Class<?> parameterType0, Class<?> parameterType1, Class<?> parameterType2) {
+		return FunctionUtils.Function(theClass, methodName, parameterType0, parameterType1, parameterType2);
+	}
+	
+	/**
+	 * Transform any static Java method of any class into xpresso's Function. 
+	 * @param theClass : any Java class
+	 * @param methodName : any static method
+	 * @return {@link Function} whose apply method takes the same parameters and returns the same
+	 * 							value as those of the method theClass.methodName
+	 */
+	public static <I0,I1,I2,I3,O> Function<tuple4<I0,I1,I2,I3>,O> Function(Class<?> theClass, String methodName, Class<?> parameterType0, Class<?> parameterType1, Class<?> parameterType2, Class<?> parameterType3) {
+		return FunctionUtils.Function(theClass, methodName, parameterType0, parameterType1, parameterType2, parameterType3);
 	}
 	
 	/**

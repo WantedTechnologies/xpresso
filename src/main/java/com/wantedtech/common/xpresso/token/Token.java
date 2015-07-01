@@ -467,7 +467,7 @@ public class Token extends HappyString implements Comparable<Token> {
 	
 	public String compressedShape() {
 		if (this.compressedShape == null) {
-			this.compressedShape = x.String(shape).compress();
+			this.compressedShape = x.String(this.shape()).compress();
 		}
 		return this.compressedShape;
 	}
