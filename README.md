@@ -111,7 +111,7 @@ String myCarMake = myCar.left;
 String myCarColor = myCar.middle;
 Integer myCarYear = myCar.right;
 
-tuple2<Integer,tuple3<String,String,Integer>> item = x.tuple2("car",myCar);
+tuple2<String,tuple3<String,String,Integer>> item = x.tuple2("car",myCar);
 
 String type = item.key; //or, alternatively String type = item.left;
 tuple3<String,String,Integer> car = item.value; //or, alternatively tuple3<String,String,Integer> car = item.right;
