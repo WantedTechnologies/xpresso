@@ -97,14 +97,13 @@ public class Regex implements Serializable{
 		StringBuilder resultString = new StringBuilder();
 		for(Match m:findIter(string)){
 			resultString.append(x.String(string).slice(currentIndex,m.start(0)));
-			for(tuple2<Integer,String> idx__groupName:x.enumerate(m.groupDict)){
-				int idx = idx__groupName.value0;
-				if(idx == 0){
-					continue;
-				}
-				String groupMatch = m.group(idx__groupName.value1);
+			for(String groupName : m.groupDict){
+				//if(groupName.equals("g0")){
+				//	continue;
+				//}
+				String groupMatch = m.group(groupName);
 				if(groupMatch != null){
-					resultString.append(this.replacements.get(idx__groupName.value1));	
+					resultString.append(this.replacements.get(groupName));	
 					currentIndex = m.end(0);		
 				}
 			}

@@ -61,44 +61,45 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
 			
-			list<Object> replacedElement = x.list(); 
-			for (String elementFieldName : elementFieldNames){
-				if(x.Object(element).hasField(elementFieldName)){
-					try {
-						Field f = element.getClass().getField(elementFieldName);
-						f.setAccessible(true);
-						replacedElement.append(f.get(element));
-					} catch (Exception e) {
-						// cant happen
-						e.printStackTrace();
+			if(!(element instanceof tuple) && !(element instanceof Iterable<?>)){
+				list<Object> replacedElement = x.list(); 
+				for (String elementFieldName : elementFieldNames){
+					if(x.Object(element).hasField(elementFieldName)){
+						try {
+							Field f = element.getClass().getField(elementFieldName);
+							f.setAccessible(true);
+							replacedElement.append(f.get(element));
+						} catch (Exception e) {
+							// cant happen
+							e.printStackTrace();
+						}
+					}else if (x.Object(element).hasMethod(elementFieldName)) {
+						try {
+							Method m = element.getClass().getMethod(elementFieldName);
+							m.setAccessible(true);
+							replacedElement.append(m.invoke(element));
+						} catch (Exception e) {
+							// cant happen
+							e.printStackTrace();
+						}
+					}else if (x.Object(element).hasMethod("get"+x.String(elementFieldName).title())) {
+						try {
+							Method m = element.getClass().getMethod("get"+x.String(elementFieldName).title());
+							m.setAccessible(true);
+							replacedElement.append(m.invoke(element));
+						} catch (Exception e) {
+							// cant happen
+							e.printStackTrace();
+						}
+					}else{
+						throw new IllegalArgumentException("Could not find the field " + elementFieldName + " in an element of the input Iterable.");
 					}
-				}else if (x.Object(element).hasMethod(elementFieldName)) {
-					try {
-						Method m = element.getClass().getMethod(elementFieldName);
-						m.setAccessible(true);
-						replacedElement.append(m.invoke(element));
-					} catch (Exception e) {
-						// cant happen
-						e.printStackTrace();
-					}
-				}else if (x.Object(element).hasMethod("get"+x.String(elementFieldName).title())) {
-					try {
-						Method m = element.getClass().getMethod("get"+x.String(elementFieldName).title());
-						m.setAccessible(true);
-						replacedElement.append(m.invoke(element));
-					} catch (Exception e) {
-						// cant happen
-						e.printStackTrace();
-					}
-				}else{
-					throw new IllegalArgumentException("Could not find the field " + elementFieldName + " in an element of the input Iterable.");
+				}
+				
+				if (x.len(replacedElement) != 0) {
+					element = replacedElement;				
 				}
 			}
-			
-			if (x.len(replacedElement) != 0) {
-				element = replacedElement;				
-			}
-
 			
 			if(x.len(element) != elementFieldNames.size()){
 				throw new IllegalArgumentException("I was expecting the dimensionality of each element of the input Iterable to be "+elementFieldNames.size());

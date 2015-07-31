@@ -130,7 +130,7 @@ public class HappyString {
 	}
 	
 	public list<String> split(){
-		return split(" ");
+		return x.list(x.<String>yield().forEach(split(" ")).unless(x.empty));
 	}
 	
 	public String stripAccents(){

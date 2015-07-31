@@ -1,5 +1,7 @@
 package com.wantedtech.common.xpresso.helpers;
 
+import com.wantedtech.common.xpresso.types.str;
+
 public class EqualsResult {
     boolean isEqual = true;
     
@@ -25,7 +27,11 @@ public class EqualsResult {
         final Class<?> lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
             // The simple case, not an array, just test the element
-            isEqual = lhs.equals(rhs);
+        	if (lhs instanceof String || lhs instanceof str) {
+                isEqual = lhs.toString().equals(rhs.toString());
+        	} else {
+                isEqual = lhs.equals(rhs);        		
+        	}
         } else if (lhs.getClass() != rhs.getClass()) {
             // Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
             this.setEquals(false);

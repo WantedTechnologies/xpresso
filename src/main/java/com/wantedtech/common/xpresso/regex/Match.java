@@ -18,7 +18,7 @@ public class Match implements Serializable {
 	list<Integer> groupEndsList = x.list();
 	dict<String> groupDict = x.dict();
 	public Match(Matcher matcher){
-		for(Match groupNameMatch : x.Regex("\\(\\?<([^!>]+)>").findIter(matcher.pattern().toString())){
+		for(Match groupNameMatch : x.Regex("\\(\\?<([^!=>]+)>").findIter(matcher.pattern().toString())){
 			groupDict.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
 		}
 		this.groupCount = matcher.groupCount();

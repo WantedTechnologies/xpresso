@@ -9,8 +9,8 @@ public class RegexStatic {
 	public AU_Regex AU = new AU_Regex();
 	public CA_Regex CA = new CA_Regex();
 	
-	public int CASE_INSENSITIVE = Pattern.CASE_INSENSITIVE;
-	public int I = Pattern.CASE_INSENSITIVE;
+	public int CASE_INSENSITIVE = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;
+	public int I = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;
 	
 	public Regex TIME_24H = new Regex("([01]?[0-9]|2[0-3]):[0-5][0-9]");
 	public Regex HTML_TAG = new Regex("<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$");
