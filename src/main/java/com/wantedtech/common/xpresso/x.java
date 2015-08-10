@@ -2012,6 +2012,24 @@ public class x {
 	}
 	
 	/**
+	 * Factory method that creates an new {@link OrderedDict} from an arrray of tuples.
+	 * 
+	 * The input tuple object has to be a <pre>{@link tuple<String,T>}</pre> of
+	 * two dimensions or a <pre>{@link tuple2<String,T>}</pre>.
+	 * 
+	 * OrderedDict in xpresso works similarly to Python's OrderedDict.
+	 * 
+	 * See <a href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">collections</a>.
+	 * 
+	 * @param tuples	an array of {@link tuple}
+	 * @return	new OrderedDict
+	 *
+	 */   
+	public static <T> OrderedDict<T> OrderedDict(tuple... tuples){
+		return new OrderedDict<T>(Helpers.newArrayList(tuples));
+	}
+	
+	/**
 	 * Factory method that returns an new empty {@link OrderedDict}.
 	 * 
 	 * OrderedDict in xpresso works similarly to Python's OrderedDict.

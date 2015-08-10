@@ -61,7 +61,7 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
 		for(Object element : elements){
 			
-			if(!(element instanceof tuple) && !(element instanceof Iterable<?>)){
+			//if(!(element instanceof tuple) && !(element instanceof Iterable<?>)){
 				list<Object> replacedElement = x.list(); 
 				for (String elementFieldName : elementFieldNames){
 					if(x.Object(element).hasField(elementFieldName)){
@@ -91,7 +91,7 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 							// cant happen
 							e.printStackTrace();
 						}
-					}else{
+					}else if (!(element instanceof tuple) && !(element instanceof Iterable<?>)){
 						throw new IllegalArgumentException("Could not find the field " + elementFieldName + " in an element of the input Iterable.");
 					}
 				}
@@ -99,7 +99,7 @@ class Tuple1Comprehension extends AbstractTupleComprehension{
 				if (x.len(replacedElement) != 0) {
 					element = replacedElement;				
 				}
-			}
+			//}
 			
 			if(x.len(element) != elementFieldNames.size()){
 				throw new IllegalArgumentException("I was expecting the dimensionality of each element of the input Iterable to be "+elementFieldNames.size());

@@ -34,7 +34,7 @@ public class Regex implements Serializable{
 	}
 	
 	public Regex(dict<String> translator,int flags){
-		Iterable<String> keys = Helpers.newArrayList(translator.keys());
+		list<String> keys = x.list(translator.keys());
 		this.replacements = x.dict();
 		StringBuilder patternBuilder = new StringBuilder();
 		for (tuple2<Integer,String> idx__key : x.enumerate(keys)) {
