@@ -117,7 +117,7 @@ public class HappyString {
 		
 	public list<String> split(String regex, int limit){
 		if(!regex.equals("")){
-			return x.list(this.value.split(x.escape(regex)));			
+			return x.list(this.value.split(x.escape(regex),-1));			
 		}else{
 			ArrayList<String> newList = new ArrayList<String>();
 			char[] arr = this.value.toCharArray();
@@ -179,6 +179,7 @@ public class HappyString {
 		list<tuple> sortedFromTo = x.list(x.reverse(x.sort(fromTo,new LambdaFunction<Integer>("x:f0(x[0])",x.len))));
 		tuple froms__tos = x.unzip(sortedFromTo,String.class,String.class);
 		list<String> froms = (list<String>)froms__tos.get(0);
+		froms = x.list(x.<String>yield().apply(x.escape).forEach(froms));
 		Regex regex = x.Regex(x.String("|").join(froms));
 		for(Match m : regex.findIter(value)){
 			if (x.String(m.group(0)).in(replacementDict)) {

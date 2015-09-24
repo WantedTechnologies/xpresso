@@ -49,6 +49,7 @@ public interface tuple extends Comparable<Object>, Lengthful{
     
     public int compareTo(Object o);
     boolean in(Iterable<tuple> iterable);
+    list<Object> toList();
     
     tuple copy();
 

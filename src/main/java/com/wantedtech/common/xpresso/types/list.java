@@ -347,7 +347,9 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 			if(element instanceof list<?>){
 				result.extend(((list<?>)element).<E>flatten(classOfelements));
 			}else if(element instanceof Iterable<?>){
-					result.extend((x.list((Iterable<?>)element)).<E>flatten(classOfelements));
+				result.extend((x.list((Iterable<?>)element)).<E>flatten(classOfelements));
+			}else if(element instanceof tuple){
+				result.extend(((tuple)element).toList().<E>flatten(classOfelements));
 			}else{	
 				result.append(classOfelements.cast(element));
 			}
@@ -395,4 +397,9 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 		}
 		return false;
 	}
+	
+	public boolean notEquals(Object o) {
+		return !equals(o);
+	}
+	
 }

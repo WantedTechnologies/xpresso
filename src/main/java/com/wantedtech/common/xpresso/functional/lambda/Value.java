@@ -59,20 +59,28 @@ public class Value implements Lengthful {
 		return new Value(false);
 	}
 	public Value plus(Value value){
-		if(value.value instanceof Integer){
-			if(this.value instanceof Integer){
+		if(value.value instanceof Integer) {
+			if(this.value instanceof Integer) {
 				this.value	= ((Integer)this.value) + (Integer)(value.value);
-			}else if(this.value instanceof Double){
+			} else if(this.value instanceof Double) {
 				this.value	= ((Double)this.value) + (Double)(value.value);
+			} else if(this.value instanceof String) {
+				this.value	= ((String)this.value) + String.valueOf(value.value);
 			}
-		}else if(value.value instanceof Double){
-			if(this.value instanceof Integer){
+		} else if(value.value instanceof Double) {
+			if(this.value instanceof Integer) {
 				this.value	= ((Integer)this.value) + (Double)(value.value);
-			}else if(this.value instanceof Double){
+			} else if(this.value instanceof Double) {
 				this.value	= ((Double)this.value) + (Double)(value.value);
+			} else if(this.value instanceof String) {
+				this.value	= ((String)this.value) + String.valueOf(value.value);
 			}
-		}else if(value.value instanceof String){
-			this.value	= ((String)this.value) + (String)(value.value);
+		} else if(value.value instanceof String) {
+			if (this.value instanceof String) {
+				this.value	= ((String)this.value) + (String)(value.value);
+			} else {
+				this.value	= (String.valueOf(this.value) + (String)(value.value));				
+			}
 		}
 		return this;
 	}

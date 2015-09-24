@@ -16,6 +16,10 @@ public class DefaultDict<T> extends dict<T> {
 		defaultValue = ObjectFactory.createValueOfType(valueType);
 	}
 	
+	public DefaultDict(T value){
+		defaultValue = value;
+	}
+	
 	@Override
 	public T get(String key){
 		if(x.String(key).notIn(this)){

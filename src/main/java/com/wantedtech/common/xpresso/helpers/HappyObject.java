@@ -20,7 +20,7 @@ public class HappyObject {
 	}
 	
 	public boolean equals(Object rhs){
-		return Equals.reflectionEquals(this.lhs, rhs, new String[0]);
+		return Equals.reflectionEquals(this.lhs, rhs, new String[]{"hash"});
 	}
 	
 	public int compareTo(Object rhs, String fieldName0, String... fieldNames){

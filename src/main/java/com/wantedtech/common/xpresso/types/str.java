@@ -50,7 +50,7 @@ public class str extends list<String> implements Iterable<String>{
 	
 	public str plus(String... strings){
 		try {
-			return new str(x.String("").join(strings));
+			return new str(toString()+x.String("").join(strings));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new str();

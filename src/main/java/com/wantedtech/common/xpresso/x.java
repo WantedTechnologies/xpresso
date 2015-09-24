@@ -1993,6 +1993,21 @@ public class x {
 	}
 	
 	/**
+	 * Factory method that returns an new {@link DefaultDict} of type @param defaultvalue.
+	 * 
+	 * DefaultDict in xpresso works similarly to Python's defaultdict.
+	 * 
+	 * See <a href="https://docs.python.org/2/library/collections.html">collections</a>.
+	 * 
+	 * @param defaultType	a Class{@code <T>} object
+	 * @param <T> 			any type
+	 * @return	a new DefaultDict
+	 */   
+	public static <T> DefaultDict<T> DefaultDict(T defaultValue){
+		return new DefaultDict<T>(defaultValue);
+	}
+	
+	/**
 	 * Factory method that returns an new {@link OrderedDict} from an input {@link Iterable}.
 	 * 
 	 * The input iterable object has to be an {@code Iterable<tuple>} or
@@ -3386,6 +3401,15 @@ public class x {
 	public static <O> Json<O> Json(Object o){
 		return new Json<O>(o);
 	}
+	
+	/**
+	 * A Function that takes any string as input and returns a case insensitive Regex as output.
+	 */
+	public static Function<Object,Regex> RegexNoCase = new Function<Object,Regex>() {
+		public Regex apply(Object input) {
+			return x.RegexNoCase(input.toString());
+		}
+	};
 	
 	/**
 	 * An instance of RegexStatic class. A standard acess to xpresso Regex constants and methods.

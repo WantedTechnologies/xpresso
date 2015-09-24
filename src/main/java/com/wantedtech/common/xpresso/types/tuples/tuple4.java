@@ -1,5 +1,7 @@
 package com.wantedtech.common.xpresso.types.tuples;
 
+import com.wantedtech.common.xpresso.x;
+import com.wantedtech.common.xpresso.types.list;
 import com.wantedtech.common.xpresso.types.tuple;
 
 public final class tuple4<T0, T1, T2, T3> extends AbstractTuple {
@@ -65,5 +67,10 @@ public final class tuple4<T0, T1, T2, T3> extends AbstractTuple {
     public tuple copy(){
     	return new tuple4<T0,T1,T2,T3>(this.value0,this.value1,this.value2,this.value3);
     }
+    
+	@Override
+	public list<Object> toList() {
+		return x.list(get(0),get(1),get(2),get(3));
+	}
     
 }

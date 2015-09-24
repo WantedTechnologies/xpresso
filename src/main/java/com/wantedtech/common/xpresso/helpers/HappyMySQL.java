@@ -67,9 +67,12 @@ public class HappyMySQL implements HappySQL{
 	public Iterator<tuple> iterator() {
 		return new Iterator<tuple>(){
 
+			boolean firstNextCalled = false;
+			
 			@Override
 			public boolean hasNext() {
 				try {
+					firstNextCalled = true;
 					return resultSet.next();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -84,6 +87,8 @@ public class HappyMySQL implements HappySQL{
 				ResultSetMetaData metaData;
 				
 				try {
+					
+					if (!firstNextCalled) resultSet.next();
 					
 					metaData = resultSet.getMetaData();
 					

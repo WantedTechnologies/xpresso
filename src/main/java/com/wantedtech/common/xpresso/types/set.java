@@ -222,4 +222,7 @@ public class set<T> implements Iterable<T>,Serializable,Comparable<set<T>>{
 		return false;
 	}
 	
+	public boolean notEquals(Object o) {
+		return !equals(o);
+	}
 }
