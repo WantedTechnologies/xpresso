@@ -33,7 +33,7 @@ public class RegexStatic implements Function<Object, Regex> {
 			 "|6(?:011|5[0-9]{2})[- ]?[0-9]{4}[- ]?[0-9]{4}[- ]?[0-9]{4}" + 	// Discover
 			 "|35(?:2[89]|[3-8]\\d)[- ]?[0-9]{4}[- ]?[0-9]{4}[- ]?[0-9]{4}" +	// JCB
 			 ")\\b",Pattern.CASE_INSENSITIVE);
-
+	
 	@Override
 	public Regex apply(Object input) {
 		return x.Regex(input.toString());

@@ -25,6 +25,10 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Test {
 	
+	DefaultDict<DefaultDict<String>> ff = x.DefaultDict(x.DefaultDict(String.class));
+	
+	DefaultDict<DefaultDict<Integer>> stats = x.DefaultDict(x.DefaultDict(Integer.class));
+	
 	static Mapper<String,String> mpr = new Mapper<String,String>() {
 		public void map(String input) {
 			x.Time.sleep(5);

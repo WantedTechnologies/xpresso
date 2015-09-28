@@ -136,6 +136,9 @@ public class HappyString {
 	public String stripAccents(){
 	    String newValue = Normalizer.normalize(value, Normalizer.Form.NFD);
 	    newValue = newValue.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+	    if (x.len(newValue) != x.len(value)) {
+	    	return value;
+	    }
 	    return newValue;
 	}
 		
