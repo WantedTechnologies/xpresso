@@ -676,6 +676,8 @@ public class Regex implements Serializable{
 	    }
 
 	    boolean saw_backslash = false;
+	    boolean saw_open_bracket = false;
+	    boolean saw_power = false;
 
 	    for (int curpos = 0; curpos < oldstr.length(); curpos++) {
 	        int curchar = oldstr.codePointAt(curpos);
@@ -684,6 +686,25 @@ public class Regex implements Serializable{
 	            curpos++; /****WE HATES UTF-16! WE HATES IT FOREVERSES!!!****/
 	        }
 
+	        if (!saw_backslash) {
+	            if (curchar == '[') {
+	            	saw_open_bracket = true;
+	            }
+	        }
+	        if (!saw_backslash) {
+	            if (curchar == '^') {
+	            	saw_power = true;
+	            }
+	        }
+	        if (!saw_backslash) {
+	            if (curchar == ']') {
+	            	if (saw_open_bracket) {
+	            		saw_open_bracket = false;
+	            		saw_power = false;
+	            	}
+	            }
+	        }
+	        
 	        if (!saw_backslash) {
 	            if (curchar == '\\') {
 	                saw_backslash = true;
@@ -729,9 +750,9 @@ public class Regex implements Serializable{
 	            case 'S':  newstr.append(not_whitespace_charclass);
 	                       break; /* switch */
 
-	            case 'w':  newstr.append(identifier_charclass);
+	            case 'w':  if (saw_open_bracket && saw_power) { newstr.append(not_identifier_charclass); } else { newstr.append(identifier_charclass); }
 	                       break; /* switch */
-	            case 'W':  newstr.append(not_identifier_charclass);
+	            case 'W':  if (saw_open_bracket && saw_power) { newstr.append(identifier_charclass); } else { newstr.append(not_identifier_charclass); }
 	                       break; /* switch */
 
 	            case 'Y':  newstr.append(legacy_grapheme_cluster);
@@ -760,11 +781,11 @@ public class Regex implements Serializable{
 	}
 	
 	public Regex(String regularExpression,int flags){
-		pattern = Pattern.compile(unicodefy(regularExpression),flags);
+		pattern = Pattern.compile(regularExpression,flags);
 	}
 	
 	public Regex(String regularExpression){
-		pattern = Pattern.compile(unicodefy(regularExpression),0);
+		pattern = Pattern.compile(regularExpression,0);
 	}
 	
 	public Regex(dict<String> translator,int flags){
@@ -775,7 +796,7 @@ public class Regex implements Serializable{
 			patternBuilder.append("(?<g" + idx__key.value0 + ">" +idx__key.value1 + ")|");
 			this.replacements.setAt("g"+idx__key.value0).value(translator.get(idx__key.value1));
 		}
-		pattern = Pattern.compile(unicodefy(x.String(patternBuilder.toString()).sliceTo(-1)),flags);
+		pattern = Pattern.compile(x.String(patternBuilder.toString()).sliceTo(-1),flags);
 	}
 		
 	public String sub(String replacement,String string){

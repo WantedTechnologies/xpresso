@@ -34,6 +34,10 @@ public class RegexStatic implements Function<Object, Regex> {
 			 "|35(?:2[89]|[3-8]\\d)[- ]?[0-9]{4}[- ]?[0-9]{4}[- ]?[0-9]{4}" +	// JCB
 			 ")\\b",Pattern.CASE_INSENSITIVE);
 	
+	public String unicodefy(String pattern) {
+		return Regex.unicodefy(pattern);
+	}
+	
 	@Override
 	public Regex apply(Object input) {
 		return x.Regex(input.toString());

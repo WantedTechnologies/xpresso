@@ -62,6 +62,8 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		try {
 			
+			x.print(x.Regex("[\\w'.+&/-]").findAll("He;-*llo World"));
+			
 			Function<tuple2<String,String>,Integer> ratio = x.Function(FuzzyWuzzy.class, "ratio", String.class, String.class);
 			
 			x.print("aa",ratio.apply(x.tuple2("this is a test", "this is a test!")));
