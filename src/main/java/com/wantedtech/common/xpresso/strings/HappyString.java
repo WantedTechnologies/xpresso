@@ -214,8 +214,7 @@ public class HappyString {
 	}
 	
 	public boolean in(Iterable<String> iterable){
-		list<String> lst = x.list(iterable);
-		return x.Object(this.value).in(lst);
+		return x.Object(this.value).in(iterable);
 	}
 	
 	public boolean in(String string){
