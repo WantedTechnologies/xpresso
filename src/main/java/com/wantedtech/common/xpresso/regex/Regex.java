@@ -781,11 +781,11 @@ public class Regex implements Serializable{
 	}
 	
 	public Regex(String regularExpression,int flags){
-		pattern = Pattern.compile(regularExpression,flags);
+		pattern = Pattern.compile(regularExpression,flags | Pattern.UNICODE_CHARACTER_CLASS);
 	}
 	
 	public Regex(String regularExpression){
-		pattern = Pattern.compile(regularExpression,0);
+		pattern = Pattern.compile(regularExpression,0 | Pattern.UNICODE_CHARACTER_CLASS);
 	}
 	
 	public Regex(dict<String> translator,int flags){
@@ -796,7 +796,7 @@ public class Regex implements Serializable{
 			patternBuilder.append("(?<g" + idx__key.value0 + ">" +idx__key.value1 + ")|");
 			this.replacements.setAt("g"+idx__key.value0).value(translator.get(idx__key.value1));
 		}
-		pattern = Pattern.compile(x.String(patternBuilder.toString()).sliceTo(-1),flags);
+		pattern = Pattern.compile(x.String(patternBuilder.toString()).sliceTo(-1),flags | Pattern.UNICODE_CHARACTER_CLASS);
 	}
 		
 	public String sub(String replacement,String string){
