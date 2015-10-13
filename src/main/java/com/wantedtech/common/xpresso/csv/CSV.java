@@ -13,11 +13,11 @@ import com.wantedtech.common.xpresso.types.list;
 
 public class csv implements Iterable<list<String>>, AutoCloseable {
 
+	String initializedFrom;
+	
 	HappyFile file;
 	StringBuilder builder;
 	Iterable<list<?>> iter;
-	
-	String initializedFrom;
 	
 	public csv (HappyFile file) {
 		this.file = file;
