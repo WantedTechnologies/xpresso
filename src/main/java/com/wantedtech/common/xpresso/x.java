@@ -775,7 +775,7 @@ public class x {
 	 * }
 	 * </pre>
 	 * 
-	 * In case of a text file, the {@link csv} object is also an Iterable containing 
+	 * In case of a text file, the {@link csv2} object is also an Iterable containing 
 	 * {@code list<String>} objects for each line of the file:
 	 * 
 	 * <pre>
@@ -793,11 +793,11 @@ public class x {
 	 * @param encoding		the String object containing the encoding of the file
 	 * 						(can be "utf-8" or "latin-1")
 	 * @throws RuntimeIOException	in case there's a problem opening file
-	 * @return 				a {@link csv} object
+	 * @return 				a {@link csv2} object
 	 */
-	public static csv csv(String path,String operation,String encoding) throws RuntimeIOException{
+	public static csv2 csv(String path,String operation,String encoding) throws RuntimeIOException{
 		try {
-			return new csv(path,operation,encoding);
+			return new csv2(path,operation,encoding);
 		} catch (IOException e) {
 			throw new RuntimeIOException(e);
 		}
@@ -816,7 +816,7 @@ public class x {
 	 * }
 	 * </pre>
 	 * 
-	 * In case of a text file, the {@link csv} object is also an {@link Iterable} containing 
+	 * In case of a text file, the {@link csv2} object is also an {@link Iterable} containing 
 	 * {@code list<String>} objects for each line of the file:
 	 * 
 	 * <pre>
@@ -832,18 +832,18 @@ public class x {
 	 * 						"w" (write in text mode), "wb" write in binary mode
 	 * 						"a" append in text mode, "ab" append in binary mode
 	 * @throws RuntimeIOException	in case there's a problem opening file
-	 * @return 				a {@link csv} object
+	 * @return 				a {@link csv2} object
 	 */
-	public static csv csv(String path,String operation) throws RuntimeIOException {
+	public static csv2 csv(String path,String operation) throws RuntimeIOException {
 		try{
-			return new csv(path,operation);
+			return new csv2(path,operation);
 		}catch(Exception e){
 			throw new RuntimeIOException(e);
 		}
 	}
 	
 	/**
-	 * Creates a {@link csv} object from an iterable.
+	 * Creates a {@link csv2} object from an iterable.
 	 * 
 	 * The {@link Iterable} can be either an instance of {@link HappyFile} or
 	 * an {@code Iterable<list<?>>}.
@@ -856,14 +856,14 @@ public class x {
 	 * of the input {@link Iterable} and {@code toString()} will return this csv String representation
 	 * 
 	 * @param iterable		a {@link HappyFile} object or an {@code Iterable<list<?>>}
-	 * @return 				a {@link csv} object
+	 * @return 				a {@link csv2} object
 	 */
-	public static csv csv(Iterable<?> iterable){
-		return new csv(iterable);
+	public static csv2 csv(Iterable<?> iterable){
+		return new csv2(iterable);
 	}
 	
 	/**
-	 * Creates a {@link csv} object from a {@link StringBuilder}.
+	 * Creates a {@link csv2} object from a {@link StringBuilder}.
 	 * 
 	 * Example:
 	 * <pre>
@@ -881,10 +881,10 @@ public class x {
 	 * </pre>
 	 * 
 	 * @param builder		a {@link StringBuffer} object to write csv to
-	 * @return 				a {@link csv} object
+	 * @return 				a {@link csv2} object
 	 */
-	public static csv csv(StringBuilder builder){
-		return new csv(builder);
+	public static csv2 csv(StringBuilder builder){
+		return new csv2(builder);
 	}
 	
 	/**

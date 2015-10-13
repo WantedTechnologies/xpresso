@@ -11,7 +11,7 @@ import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.HappyFile;
 import com.wantedtech.common.xpresso.types.list;
 
-public class csv implements Iterable<list<String>>, AutoCloseable {
+public class csv2 implements Iterable<list<String>>, AutoCloseable {
 
 	String initializedFrom;
 	
@@ -19,12 +19,12 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 	StringBuilder builder;
 	Iterable<list<?>> iter;
 	
-	public csv (HappyFile file) {
+	public csv2 (HappyFile file) {
 		this.file = file;
 		initializedFrom = "file";
 	}
 	
-	public csv (Iterable<?> iterable) {
+	public csv2 (Iterable<?> iterable) {
 		if (iterable instanceof HappyFile) {
 			this.file = (HappyFile)iterable;
 			initializedFrom = "file";
@@ -38,7 +38,7 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 		}
 	}
 	
-	public csv (String path, String operation, String encoding) throws IOException  {
+	public csv2 (String path, String operation, String encoding) throws IOException  {
 		if (x.String(operation).in(x.list("r", "w"))) {
 			try {
 				file = x.open(path, operation, encoding);
@@ -52,11 +52,11 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 
 	}
 	
-	public csv (String path, String operation) throws IOException  {
+	public csv2 (String path, String operation) throws IOException  {
 		this(path, operation, "utf-8");
 	}
 	
-	public csv (StringBuilder stringBuilder) {
+	public csv2 (StringBuilder stringBuilder) {
 		this.builder = stringBuilder;
 		initializedFrom = "builder";
 	}
