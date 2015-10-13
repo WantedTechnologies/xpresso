@@ -494,11 +494,11 @@ public class Token extends HappyString implements Comparable<Token> {
 	}
 	
 	public String stem() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
-		return x.Token.stem(value);
+		return (new TokenStatic()).stem(value);
 	}
 	
 	public String stem(String stemmerName) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
-		return x.Token.stem(value, stemmerName);
+		return (new TokenStatic()).stem(value, stemmerName);
 	}
 
 	public OrderedDict<Object> features() throws NoSuchFieldException, AccessDeniedException{

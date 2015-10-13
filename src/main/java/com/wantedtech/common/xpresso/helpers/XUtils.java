@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -471,9 +472,9 @@ public class XUtils {
 		return lst;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <T> Iterable<T> sort(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function,boolean reverse){
-		class KeyValue<K extends Comparable<K>,V> implements Comparable<KeyValue<K,V>>, Serializable {
+	@SuppressWarnings({ "unchecked" })
+	public static <V,K extends Comparable<K>> Iterable<V> sort(Iterable<V> iterable,Function<Object,K> function,boolean reverse){
+		class KeyValue implements Comparable<KeyValue>, Serializable {
 			/**
 			 * 
 			 */
@@ -495,7 +496,7 @@ public class XUtils {
 				return this.value;
 			}
 			
-			public int compareTo(KeyValue<K,V> keyValue){
+			public int compareTo(KeyValue keyValue){
 				return this.key.compareTo(keyValue.getKey());
 			}
 			
@@ -505,12 +506,12 @@ public class XUtils {
 			}
 		}
 
-		ArrayList<KeyValue<?,T>> keyValues = new ArrayList<KeyValue<?,T>>();
-		for (T element: iterable){
+		List<KeyValue> keyValues = new ArrayList<KeyValue>();
+		for (V element: iterable){
 			if(function != null){
 				keyValues.add(new KeyValue(function.apply(element),element));	
 			}else{
-				keyValues.add(new KeyValue((Comparable<?>)element,element));
+				keyValues.add(new KeyValue((K)element,element));
 			}
 		}
 		
@@ -519,8 +520,8 @@ public class XUtils {
 		if(reverse){
 			Collections.reverse(keyValues);
 		}
-		ArrayList<T> resultList = new ArrayList<T>();
-		for (KeyValue<?,T> keyValue : keyValues){
+		ArrayList<V> resultList = new ArrayList<V>();
+		for (KeyValue keyValue : keyValues){
 			resultList.add(keyValue.getValue());
 		}
 		if(iterable instanceof list<?>){

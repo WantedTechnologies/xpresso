@@ -13,7 +13,7 @@ import com.wantedtech.common.xpresso.types.set;
 import com.wantedtech.common.xpresso.types.str;
 import com.wantedtech.common.xpresso.types.tuple;
 
-public abstract class AbstractTuple implements tuple {
+public abstract class AbstractTuple extends tuple {
 
     public ArrayList<String> fieldNames = new ArrayList<String>();
 	
@@ -25,7 +25,7 @@ public abstract class AbstractTuple implements tuple {
     
     public abstract <E> E get(int index, Class<E> elementClass);
     
-    public int compareTo(Object t){
+    public int compareTo(tuple t){
     	return x.Object(this).compareTo(t, "value","value0","value1","value2","value3","value4","value5","value6","value7","value8","value9");
     }
     

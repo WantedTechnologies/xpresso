@@ -3001,27 +3001,27 @@ public class x {
 	 * @return a sorted {@link Iterable} of type T
 	 * 
 	 */
-	public static <T> Iterable<T> sort(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function,boolean reverse){
+	public static <K extends Comparable<K>,V> Iterable<V> sort(Iterable<V> iterable,Function<Object,K> function,boolean reverse){
 		return XUtils.sort(iterable, function, reverse);
 	}
 	
-	public static <T> Iterable<T> sort(Iterable<T> iterable,Function<Object,? extends Comparable<?>> function){
+	public static <K extends Comparable<K>,V> Iterable<V> sort(Iterable<V> iterable,Function<Object,K> function){
 		return sort(iterable,function,false);
 	}
 	
-	public static <T extends Comparable<?>> Iterable<T> sort(Iterable<T> iterable, boolean reverse){
+	public static <T extends Comparable<? super T>> Iterable<T> sort(Iterable<T> iterable, boolean reverse){
 		return sort(iterable,null,reverse);
 	}
 	
-	public static <T extends Comparable<?>> Iterable<T> sort(Iterable<T> iterable){
+	public static <T extends Comparable<? super T>> Iterable<T> sort(Iterable<T> iterable){
 		return sort(iterable,null,false);
 	}
 	
-	public static str sort(str str,Function<Object,? extends Comparable<?>> function,boolean reverse){
+	public static <K extends Comparable<K>> str sort(str str,Function<Object,K> function,boolean reverse){
 		return x.str(sort(str.toArrayList(),function,reverse));
 	}
 	
-	public static str sort(str str,Function<Object,? extends Comparable<?>> function){
+	public static <K extends Comparable<K>> str sort(str str,Function<Object,K> function){
 		return x.str(sort(str.toArrayList(),function,false));
 	}
 	

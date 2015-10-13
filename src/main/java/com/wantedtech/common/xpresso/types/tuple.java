@@ -3,54 +3,54 @@ package com.wantedtech.common.xpresso.types;
 import com.wantedtech.common.xpresso.helpers.Lengthful;
 import com.wantedtech.common.xpresso.regex.Regex;
 
-public interface tuple extends Comparable<Object>, Lengthful{
+public abstract class tuple implements Comparable<tuple>, Lengthful {
 	
-    public int size();
+    public abstract int size();
     
-    public int len();
+    public abstract int len();
     
-    public <E> E get(int index, Class<E> elementClass);
-    public Object get(int index);
-    public Object get(String fieldName);
+    public abstract <E> E get(int index, Class<E> elementClass);
+    public abstract Object get(int index);
+    public abstract Object get(String fieldName);
     
-    public int getInt(int index);
-    public int getInt(String fieldName);
+    public abstract int getInt(int index);
+    public abstract int getInt(String fieldName);
     
-    public float getFloat(int index);
-    public float getFloat(String fieldName);
+    public abstract float getFloat(int index);
+    public abstract float getFloat(String fieldName);
     
-    public double getDouble(int index);
-    public double getDouble(String fieldName);
+    public abstract double getDouble(int index);
+    public abstract double getDouble(String fieldName);
     
-    public boolean getBoolean(int index);
-    public boolean getBoolean(String fieldName);
+    public abstract boolean getBoolean(int index);
+    public abstract boolean getBoolean(String fieldName);
     
-    public dict<?> getDict(int index);
-    public dict<?> getDict(String fieldName);
+    public abstract dict<?> getDict(int index);
+    public abstract dict<?> getDict(String fieldName);
     
-    public tuple getTuple(int index);
-    public tuple getTuple(String fieldName);
+    public abstract tuple getTuple(int index);
+    public abstract tuple getTuple(String fieldName);
     
-    public list<?> getList(int index);
-    public list<?> getList(String fieldName);
+    public abstract list<?> getList(int index);
+    public abstract list<?> getList(String fieldName);
     
-    public String getString(int index);
-    public String getString(String fieldName);
+    public abstract String getString(int index);
+    public abstract String getString(String fieldName);
     
-    public Regex getRegex(int index);
-    public Regex getRegex(String fieldName);
+    public abstract Regex getRegex(int index);
+    public abstract Regex getRegex(String fieldName);
     
-    public str getStr(int index);
-    public str getStr(String fieldName);
+    public abstract str getStr(int index);
+    public abstract str getStr(String fieldName);
     
-    public <E> E get(String fieldName, Class<E> elementClass);
+    public abstract <E> E get(String fieldName, Class<E> elementClass);
     
-    public tuple name(String... fieldNames);
+    public abstract tuple name(String... fieldNames);
     
-    public int compareTo(Object o);
-    boolean in(Iterable<tuple> iterable);
-    list<Object> toList();
+    public abstract int compareTo(tuple o);
+    public abstract boolean in(Iterable<tuple> iterable);
+    public abstract list<Object> toList();
     
-    tuple copy();
+    public abstract tuple copy();
 
 }
