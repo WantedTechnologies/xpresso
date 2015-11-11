@@ -897,7 +897,7 @@ public class Regex implements Serializable{
 		Matcher m = pattern.matcher(string);
 		return new MatchIterator(m);
 	}
-	public MatchIterator searchIter(str str){
+	public MatchIterator findIter(str str){
 		return findIter(str.toString());
 	}
 	

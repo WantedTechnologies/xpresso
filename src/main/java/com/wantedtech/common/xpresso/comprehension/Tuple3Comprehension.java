@@ -102,7 +102,7 @@ class Tuple3Comprehension extends AbstractTupleComprehension{
 			}
 		}
 		original_elements = Helpers.newArrayList((Iterable<Object>)elements);
-		for(Object element : elements){
+		for(Object element : original_elements){
 			
 			if(!(element instanceof tuple) && !(element instanceof Iterable<?>)){
 				list<Object> replacedElement = x.list(); 

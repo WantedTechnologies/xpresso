@@ -3588,7 +3588,7 @@ public class x {
 	 * @param startIndex	a start index for slicing
 	 * @param endIndex		an end index for slicing 
 	 */
-	public Slicer slice(int startIndex,int endIndex){
+	public static Slicer slice(int startIndex,int endIndex){
 		return slice(startIndex, endIndex, 1);
 	}
 	
@@ -3614,7 +3614,7 @@ public class x {
 	 * @param step			a step for slicing
 	 * @param endIndex		an end index for slicing  
 	 */
-	public Slicer slice(int startIndex,int endIndex, int step){
+	public static Slicer slice(int startIndex,int endIndex, int step){
 		return new Slicer(startIndex, endIndex, step, false);	
 	}
 	
@@ -3638,7 +3638,7 @@ public class x {
 	 * </pre>
 	 * 
 	 */
-	public Slicer slice(){
+	public static Slicer slice(){
 		return slice(1);
 	}
 	
@@ -3663,7 +3663,7 @@ public class x {
 	 * 
 	 * @param step	the step of slicer 
 	 */
-	public Slicer slice(int step){
+	public static Slicer slice(int step){
 		if (step < 0){
 			return new Slicer(Integer.MAX_VALUE,0,step,true);	
 		}else{
@@ -3692,7 +3692,7 @@ public class x {
 	 * @param step			a step for slicing
 	 * @param endIndex		an end index for slicing   
 	 */
-	public Slicer sliceTo(int endIndex, int step){
+	public static Slicer sliceTo(int endIndex, int step){
 		int startIndex = 0;
 		if (step < 0){
 			startIndex = Integer.MAX_VALUE-1;
@@ -3721,7 +3721,7 @@ public class x {
 	 * 
 	 * @param endIndex		an end index for slicing   
 	 */
-	public Slicer sliceTo(int endIndex){
+	public static Slicer sliceTo(int endIndex){
 		return sliceTo(endIndex, 1);
 	}
 	
@@ -3747,7 +3747,7 @@ public class x {
 	 * @param startIndex	a start index for slicing
 	 * @param step			a step for slicing  
 	 */
-	public Slicer sliceFrom(int startIndex, int step){
+	public static Slicer sliceFrom(int startIndex, int step){
 		int endIndex = Integer.MAX_VALUE-1;
 		if (step < 0){
 			endIndex = 0;
@@ -3776,7 +3776,7 @@ public class x {
 	 * 
 	 * @param startIndex	a start index for slicing 
 	 */
-	public Slicer sliceFrom(int startIndex){
+	public static Slicer sliceFrom(int startIndex){
 		return sliceFrom(startIndex,1);
 	}
 	
