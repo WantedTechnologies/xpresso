@@ -151,7 +151,7 @@ public class HappyString {
 	}
 	
 	public int count(String substring){
-		return x.len(x.Regex(substring).findAll(value));
+		return x.len(x.Regex(x.escape(substring)).findAll(value));
 	}
 	
 	public int count(char character){
@@ -197,7 +197,7 @@ public class HappyString {
 	}
 
 	public String title(){
-		return x.String("").join(x.yield().apply(x.String.capitalize).forEach(this.split()));
+		return x.String(" ").join(x.yield().apply(x.String.capitalize).forEach(this.split()));
 	}
 	
 	public String capitalize(){
