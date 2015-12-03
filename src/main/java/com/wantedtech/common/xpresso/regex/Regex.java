@@ -24,6 +24,7 @@ public class Regex implements Serializable{
 		
 	public Pattern pattern;
 	dict<String> replacements;
+	dict<Pattern> searches;
 	
 	/******************************************************
 	 * Translate
@@ -791,10 +792,12 @@ public class Regex implements Serializable{
 	public Regex(dict<String> translator,int flags){
 		list<String> keys = x.list(translator.keys());
 		this.replacements = x.dict();
+		this.searches = x.dict();
 		StringBuilder patternBuilder = new StringBuilder();
 		for (tuple2<Integer,String> idx__key : x.enumerate(keys)) {
 			patternBuilder.append("(?<g" + idx__key.value0 + ">" +idx__key.value1 + ")|");
 			this.replacements.setAt("g"+idx__key.value0).value(translator.get(idx__key.value1));
+			this.searches.setAt("g"+idx__key.value0).value(Pattern.compile(idx__key.value1,flags | Pattern.UNICODE_CHARACTER_CLASS));
 		}
 		pattern = Pattern.compile(x.String(patternBuilder.toString()).sliceTo(-1),flags | Pattern.UNICODE_CHARACTER_CLASS);
 	}
@@ -858,7 +861,11 @@ public class Regex implements Serializable{
 				//}
 				String groupMatch = m.group(groupName);
 				if(groupMatch != null){
-					resultString.append(this.replacements.get(groupName));	
+					if (x.String("$").in(this.replacements.get(groupName))) {
+						resultString.append(this.searches.get(groupName).matcher(m.groupDict.get(groupName)).replaceAll(this.replacements.get(groupName)));
+					} else {
+						resultString.append(this.replacements.get(groupName));
+					}	
 					currentIndex = m.end(0);		
 				}
 			}

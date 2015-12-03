@@ -214,6 +214,9 @@ public class HappyString {
 	}
 	
 	public boolean in(Iterable<String> iterable){
+		if(iterable instanceof str) {
+			return iterable.toString().contains(this.toString());
+		}
 		return x.Object(this.value).in(iterable);
 	}
 	
