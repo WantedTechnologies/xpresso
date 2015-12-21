@@ -1,8 +1,6 @@
 package com.wantedtech.common.xpresso.sentence.chunker;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.helpers.Lengthful;

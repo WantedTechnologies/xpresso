@@ -3,7 +3,6 @@ package com.wantedtech.common.xpresso.regex;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 
 import com.wantedtech.common.xpresso.x;

@@ -9,8 +9,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.HappySQL;

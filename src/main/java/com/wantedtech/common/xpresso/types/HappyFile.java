@@ -272,4 +272,10 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 
 		}
 	}
+
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		
+	}
 }

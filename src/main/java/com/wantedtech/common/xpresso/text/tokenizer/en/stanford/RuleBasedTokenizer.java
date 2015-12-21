@@ -3,8 +3,6 @@ package com.wantedtech.common.xpresso.text.tokenizer.en.stanford;
 
 import java.io.*;
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.sentence.Sentence;
