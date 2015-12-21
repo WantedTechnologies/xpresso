@@ -82,6 +82,11 @@ public class HappyMySQL implements HappySQL{
 			}
 
 			@Override
+			public void remove() {
+
+			}
+			
+			@Override
 			public tuple next() {
 				
 				ResultSetMetaData metaData;

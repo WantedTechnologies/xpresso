@@ -69,6 +69,12 @@ public class RuleBasedTokenizer extends AbstractTokenizer implements Tokenizer {
 			public Sentence next() {
 				return nextSent.copy();
 			}
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 	}
 

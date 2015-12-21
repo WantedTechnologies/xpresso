@@ -96,6 +96,12 @@ public class XUtils {
 						currentIter++;
 						return iterators.get(currentIter).next();
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -214,6 +220,12 @@ public class XUtils {
 						currentValue += step;
 						return currentValue;
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -235,6 +247,12 @@ public class XUtils {
 						currentValue += 1;
 						return currentValue;
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -259,6 +277,12 @@ public class XUtils {
 						currentValue += step;
 						return currentValue;
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -289,6 +313,12 @@ public class XUtils {
 						}
 						return currentValue;
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -384,6 +414,12 @@ public class XUtils {
 						currentCount++;
 						return tuple2.valueOf(currentCount, iter.next());
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -411,6 +447,12 @@ public class XUtils {
 						currentCount++;
 						return iter.next();
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -450,6 +492,13 @@ public class XUtils {
 						currentCount++;
 						return value;
 					}
+					
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -550,7 +599,13 @@ public class XUtils {
 					@Override
 					public T next() {
 						return next;
-					}					
+					}	
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};
@@ -585,7 +640,13 @@ public class XUtils {
 					@Override
 					public T next() {
 						return next;
-					}					
+					}		
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};

@@ -130,6 +130,12 @@ public class Bag<T> implements Iterable<T>{
 						currentElementCurrentCount++;
 						return currentElement;
 					}
+					
+					@Override
+					public void remove() {
+
+					}
+					
 				};
 			}
 		};

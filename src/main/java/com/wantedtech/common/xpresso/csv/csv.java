@@ -107,6 +107,12 @@ public class csv implements Iterable<list<String>>, AutoCloseable {
 					throw new NoSuchElementException();
 				}
 			}
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 		
 	}

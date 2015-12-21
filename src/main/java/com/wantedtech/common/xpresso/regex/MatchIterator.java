@@ -35,6 +35,12 @@ public class MatchIterator implements Iterable<Match>, Serializable{
 			public Match next() {
 				return new Match(matcher);
 			}
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 	}
 }

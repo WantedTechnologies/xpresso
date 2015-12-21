@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.wantedtech</groupId>
+  <artifactId>xpresso</artifactId>
+  <version>0.1.5</version>
+  <name>xpresso</name>
+  <description>The most pythonic way to code in Java</description>
+  
+	<build>
+		<pluginManagement>
+		<plugins>
+		    <!-- Ignore/Execute plugin execution -->
+		    <plugin>
+		        <groupId>org.eclipse.m2e</groupId>
+		        <artifactId>lifecycle-mapping</artifactId>
+		        <version>1.0.0</version>
+		        <configuration>
+		            <lifecycleMappingMetadata>
+		                <pluginExecutions>
+		                    <!-- copy-dependency plugin -->
+		                    <pluginExecution>
+		                        <pluginExecutionFilter>
+		                            <groupId>org.apache.maven.plugins</groupId>
+		                            <artifactId>maven-dependency-plugin</artifactId>
+		                            <versionRange>[2.8.0,)</versionRange>
+		                            <goals>
+		                                <goal>copy-dependencies</goal>
+		                            </goals>
+		                        </pluginExecutionFilter>
+		                        <action>
+		                            <ignore />
+		                        </action>
+		                    </pluginExecution>
+		                </pluginExecutions>
+		            </lifecycleMappingMetadata>
+		        </configuration>
+		    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>2.9.1</version>
+    </plugin>
+		   </plugins></pluginManagement>
+		   <plugins>
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>3.3</version>
+  <configuration>
+    <source>1.7</source>
+    <target>1.7</target>
+  </configuration>
+</plugin>
+<plugin>
+<artifactId>maven-assembly-plugin</artifactId>
+<version>2.2</version>
+<configuration>
+<descriptorRefs>
+<descriptorRef>jar-with-dependencies</descriptorRef>
+</descriptorRefs>
+</configuration>
+<executions>
+<execution>
+<id>make-assembly</id>
+<phase>package</phase>
+<goals>
+<goal>single</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+		   </plugins>
+	</build>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.antlr</groupId>
+  		<artifactId>antlr4-runtime</artifactId>
+  		<version>4.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+  		<version>5.1.35</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.ibm.icu</groupId>
+  		<artifactId>icu4j</artifactId>
+  		<version>54.1.1</version>
+  	</dependency>
+	<dependency>
+		<groupId>edu.stanford.nlp</groupId>
+		<artifactId>stanford-corenlp</artifactId>
+		<version>3.4.1</version>
+	</dependency>
+  </dependencies>
+
+</project>

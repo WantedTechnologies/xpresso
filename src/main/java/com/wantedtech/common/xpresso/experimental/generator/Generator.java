@@ -56,6 +56,12 @@ public abstract class Generator<T> implements Iterable<T>, AutoCloseable {
 				//x.print("next_out");
 				return nextItem;
 			}
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 	}
 

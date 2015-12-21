@@ -148,7 +148,13 @@ public class Channel<T> implements Iterable<T>{
 			@Override
 			public T next() {
 				return receive();
-			}			
+			}
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 	}
 }

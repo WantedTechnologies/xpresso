@@ -223,6 +223,12 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 			public String next(){
 				return entrySet.next().getKey();
 			}
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 	}
 	

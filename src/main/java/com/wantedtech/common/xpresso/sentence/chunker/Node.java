@@ -105,7 +105,13 @@ public class Node implements Lengthful, Iterable<Node>{
 			@Override
 			public Node next() {
 				return iter.next();
-			}			
+			}	
+			
+			@Override
+			public void remove() {
+
+			}
+			
 		};
 	}
 }
