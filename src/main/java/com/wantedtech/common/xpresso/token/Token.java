@@ -505,7 +505,7 @@ public class Token extends HappyString implements Comparable<Token> {
 		OrderedDict<Object> features = x.OrderedDict();
 		dict<Object> featureValues = x.dict();
 		for (Method m : this.getClass().getDeclaredMethods()) {
-			if (m.getParameterCount() == 0 && x.String(m.getName()).notIn("features","hashCode")) {
+			if (m.getParameterTypes().length == 0 && x.String(m.getName()).notIn("features","hashCode")) {
 				try {
 					featureValues.setAt(m.getName()).value(m.invoke(this));
 				} catch (Exception e) {
