@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.io.IOException;
+import java.io.Serializable;
 
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.functional.Function;
 import com.wantedtech.common.xpresso.functional.Predicate;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 
-public class str extends list<String> implements Iterable<String>{
+public class str extends list<String> implements Iterable<String>, Serializable {
 	
 	/**
 	 * 

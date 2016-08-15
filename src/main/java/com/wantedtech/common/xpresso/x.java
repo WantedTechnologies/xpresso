@@ -23,6 +23,7 @@
 package com.wantedtech.common.xpresso;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +49,8 @@ import com.wantedtech.common.xpresso.functional.*;
 import com.wantedtech.common.xpresso.functional.lambda.*;
 import com.wantedtech.common.xpresso.functional.utils.FunctionUtils;
 import com.wantedtech.common.xpresso.regex.*;
+import com.wantedtech.common.xpresso.web.client.HappyURL;
+import com.wantedtech.common.xpresso.web.client.HappyURLStatic;
 import com.wantedtech.common.xpresso.web.service.WebService;
 import com.wantedtech.common.xpresso.time.*;
 import com.wantedtech.common.xpresso.types.strs.*;
@@ -61,8 +64,13 @@ import com.wantedtech.common.xpresso.token.*;
  * @since 0.01
  */
 
-public class x {
+public class x implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3028939360849178017L;
+
 	/**
 	 * Automagically wraps any static Java method of any class into xpresso's Function.
 	 * 
@@ -227,6 +235,7 @@ public class x {
 		try {
 			return new WebService(businessLogicObject, port);
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new RuntimeIOException(e); 
 		}
 	}
@@ -585,6 +594,30 @@ public class x {
 	 */
 	public static HappySQL mysql(HappyMySQL sql) throws ClassNotFoundException, SQLException{
 		return new HappyMySQL(sql.dbHost, sql.userName, sql.password, sql.dbName);
+	}
+	
+	/**
+	 * 
+	 * Creates a new instance of a HappyMySQL object with the same parameters as
+	 * those of the input HappyMySQL object.
+	 * 
+	 * @param url	A {@link String} with the URL
+	 * 
+	 * @return	an {@link HappyURL} object that has the {@link HappyURL#readText(String)} method
+	 * 		  	
+	 * 
+	 * 			Example:
+	 * 			<pre>
+	 * 			{@code
+	 * 			try (HappyURL url = x.URL("http://www.google.com")) {	
+	 * 				String text = url.readText();
+	 * 			}
+	 * 			</pre>
+	 * @throws IOException 
+	 *  
+	 */
+	public static HappyURL URL(String url) throws IOException {
+		return new HappyURL(url);
 	} 
 	
 	/**
@@ -948,6 +981,161 @@ public class x {
 	 * Returns a {@link HappyString HappyString} object that extends the String object
 	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
 	 * 
+	 * 
+	 * Example 1: 
+	 * <pre>
+	 * {@code
+	 * 			  boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   true
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   a|b|c
+	 * 
+	 * @param character    	char to wrap
+	 * @return    			a {@link HappyString} object that wraps char
+	 */
+	public static HappyString String(double number){
+		return new HappyString(String.valueOf(number));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
+	 * 
+	 * Example 1: 
+	 * <pre>
+	 * {@code
+	 * 			  boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   true
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   a|b|c
+	 * 
+	 * @param character    	char to wrap
+	 * @return    			a {@link HappyString} object that wraps char
+	 */
+	public static HappyString String(float number){
+		return new HappyString(String.valueOf(number));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
+	 * 
+	 * Example 1: 
+	 * <pre>
+	 * {@code
+	 * 			  boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   true
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   a|b|c
+	 * 
+	 * @param character    	char to wrap
+	 * @return    			a {@link HappyString} object that wraps char
+	 */
+	public static HappyString String(long number){
+		return new HappyString(String.valueOf(number));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
+	 * 
+	 * Example 1: 
+	 * <pre>
+	 * {@code
+	 * 			  boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   true
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   a|b|c
+	 * 
+	 * @param character    	char to wrap
+	 * @return    			a {@link HappyString} object that wraps char
+	 */
+	public static HappyString String(boolean number){
+		return new HappyString(String.valueOf(number));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
+	 * 
+	 * Example 1: 
+	 * <pre>
+	 * {@code
+	 * 			  boolean q = x.String("na").in("banana");
+	 *            x.print(q);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   true
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example 2: String s = x.String("|").join(x.listOf("a","b","c"));
+	 *            x.print(s);
+	 * }
+	 * </pre>
+	 *                   
+	 * Console:   a|b|c
+	 * 
+	 * @param character    	char to wrap
+	 * @return    			a {@link HappyString} object that wraps char
+	 */
+	public static HappyString String(int number){
+		return new HappyString(String.valueOf(number));
+	}
+	
+	/**
+	 * Returns a {@link HappyString HappyString} object that extends the String object
+	 * with additional methods, such as {@link HappyString#join}, {@link HappyString#split}, and {@link HappyString#in}.
+	 * 
 	 * <pre>
 	 * {@code
 	 * Example 1: boolean q = x.String("na").in("banana");
@@ -996,6 +1184,20 @@ public class x {
 	public static HappyString String(str str){
 		return new HappyString(str.toString());
 	}
+	
+	/**
+	 * For consistency, {@link x#URL x.URL} contains an instance of a utility
+	 * {@link HappyURLStatic} object that implements some static URL utility methods
+	 * such as "encode" and "decode".
+	 * 
+	 * <pre>
+	 * {@code
+	 * Example 1: String encodedURL = x.URL.encode("some string");
+	 * }
+	 * </pre>
+	 * 
+	 */
+	public static HappyURLStatic URL = new HappyURLStatic();
 	
 	/**
 	 * For consistency, {@link x#String x.String} contains an instance of a utility

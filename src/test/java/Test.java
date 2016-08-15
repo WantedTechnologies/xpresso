@@ -15,6 +15,7 @@ import com.wantedtech.common.xpresso.sentence.PosTagger;
 import com.wantedtech.common.xpresso.sentence.Sentence;
 import com.wantedtech.common.xpresso.sentence.pos.en.stanford.MaxentPosTagger;
 import com.wantedtech.common.xpresso.strings.FuzzyWuzzy;
+import com.wantedtech.common.xpresso.strings.HappyString;
 import com.wantedtech.common.xpresso.token.Token;
 import com.wantedtech.common.xpresso.types.*;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
@@ -58,9 +59,21 @@ public class Test {
 			}
 		};
 	};
+
+	public enum Day {
+	    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+	    THURSDAY, FRIDAY, SATURDAY 
+	}
 	
 	public static void main(String[] args) throws Exception {
 		try {
+			
+			x.print(x.Object(Day.SUNDAY).equals(Day.SUNDAY));
+			
+			x.print(x.listOf(x.listOf(x.String("hello"))).flatten(HappyString.class));
+			
+			String kor = "공식적인";
+			x.print(x.String(kor).stripAccents());
 			
 			x.print(x.Regex("[\\w'.+&/-]").findAll("He;-*llo World"));
 			
@@ -474,6 +487,8 @@ public class Test {
 					x.print(tok);
 				}
 			}
+			
+			ws.stop();
 			
 		}catch(Exception e){
 			throw e;

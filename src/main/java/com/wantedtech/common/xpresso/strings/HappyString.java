@@ -78,6 +78,26 @@ public class HappyString {
 		this.value = string;
 	}
 	
+	public HappyString(int number){
+		this.value = String.valueOf(number);
+	}
+	
+	public HappyString(double number){
+		this.value = String.valueOf(number);
+	}
+	
+	public HappyString(boolean number){
+		this.value = String.valueOf(number);
+	}
+	
+	public HappyString(float number){
+		this.value = String.valueOf(number);
+	}
+	
+	public HappyString(long number){
+		this.value = String.valueOf(number);
+	}
+	
 	public final String join(Iterable<?> parts){
 		return join(parts.iterator());
 	}
@@ -117,7 +137,7 @@ public class HappyString {
 		
 	public list<String> split(String regex, int limit){
 		if(!regex.equals("")){
-			return x.list(this.value.split(x.escape(regex),-1));			
+			return x.list(this.value.split(regex,-1));			
 		}else{
 			ArrayList<String> newList = new ArrayList<String>();
 			char[] arr = this.value.toCharArray();

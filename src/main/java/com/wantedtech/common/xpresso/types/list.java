@@ -8,6 +8,7 @@ import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.Slicable;
 import com.wantedtech.common.xpresso.helpers.Slicer;
+import com.wantedtech.common.xpresso.strings.HappyString;
 
 public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Serializable{
 	
@@ -343,16 +344,20 @@ public class list<T> implements Iterable<T>,Slicable<T>,Comparable<list<T>>,Seri
 	
 	public <E> list<E> flatten(Class<E> classOfelements){
 		list<E> result = x.list();
-		for(T element : this){
-			if(element instanceof list<?>){
-				result.extend(((list<?>)element).<E>flatten(classOfelements));
-			}else if(element instanceof Iterable<?>){
-				result.extend((x.list((Iterable<?>)element)).<E>flatten(classOfelements));
-			}else if(element instanceof tuple){
-				result.extend(((tuple)element).toList().<E>flatten(classOfelements));
-			}else{	
-				result.append(classOfelements.cast(element));
-			}
+		if (!(this instanceof str)) {
+			for (T element : this){
+				if (element instanceof list<?>) {
+					result.extend(((list<?>)element).<E>flatten(classOfelements));
+				} else if (element instanceof Iterable<?>) {
+					result.extend((x.list((Iterable<?>)element)).<E>flatten(classOfelements));
+				} else if (element instanceof tuple) {
+					result.extend(((tuple)element).toList().<E>flatten(classOfelements));
+				} else {	
+					result.append(classOfelements.cast(element));
+				}
+			}	
+		} else {
+			result.append(classOfelements.cast(this.toString()));
 		}
 		return result;
 	}

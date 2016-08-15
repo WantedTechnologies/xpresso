@@ -916,22 +916,36 @@ public class Regex implements Serializable{
 			return null;
 		}
 	}
+	
+	private Match findFrom(String string, int startIndex){
+		Matcher m = pattern.matcher(string);
+		if(m.find()){
+			return new Match(m, startIndex);	
+		}else{
+			return null;
+		}
+	}
+	
+	private Match findFrom(str str, int startIndex){
+		return findFrom(str.toString(), startIndex);
+	}
+	
 	public Match find(str str){
 		return find(str.toString());
 	}
 	
 	public Match find(String string, int startIndex){
-		return find(x.String(string).sliceFrom(startIndex));
+		return findFrom(x.String(string).sliceFrom(startIndex), startIndex);
 	}
 	public Match find(str str, int startIndex){
-		return find(str.sliceFrom(startIndex));
+		return findFrom(str.sliceFrom(startIndex), startIndex);
 	}
 	
 	public Match find(String string, int startIndex, int endIndex){
-		return find(x.String(string).slice(startIndex, endIndex));
+		return findFrom(x.String(string).slice(startIndex, endIndex), startIndex);
 	}
 	public Match find(str str, int startIndex, int endIndex){
-		return find(str.slice(startIndex, endIndex));
+		return findFrom(str.slice(startIndex, endIndex), startIndex);
 	}
 	
 	public list<String> split(String string,int limit){

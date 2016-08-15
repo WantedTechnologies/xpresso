@@ -19,7 +19,12 @@ public class HappyObject {
 		return new HashCode(this.lhs, new String[0]).getHashCode();
 	}
 	
-	public boolean equals(Object rhs){
+	public boolean equals(Object rhs) {
+		if (rhs instanceof Enum && lhs instanceof Enum) {
+			if (Equals.reflectionEquals(this.lhs, rhs, new String[]{"hash"}) && rhs != lhs) {
+				return false;
+			}
+		}
 		return Equals.reflectionEquals(this.lhs, rhs, new String[]{"hash"});
 	}
 	

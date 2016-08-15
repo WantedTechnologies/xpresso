@@ -9,6 +9,7 @@ import java.util.Map;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.helpers.Helpers;
 import com.wantedtech.common.xpresso.helpers.ObjectFactory;
+import com.wantedtech.common.xpresso.strings.HappyString;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
 public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<T>>{
@@ -110,6 +111,22 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 		}
 	}
 	
+	public T get(HappyString key) {
+		if(this.dict.containsKey(key.toString())){
+			return this.dict.get(key.toString());
+		}else{
+			return null;
+		}
+	}
+	
+	public T get(HappyString key, T defaultValue) {
+		if(this.dict.containsKey(key.toString())){
+			return this.dict.get(key.toString());
+		}else{
+			return defaultValue;
+		}
+	}
+	
 	protected dict<T> put(String key, T value){
 		this.dict.put(key,value);
 		if(value != null){
@@ -170,6 +187,11 @@ public class dict<T> implements Iterable<String>, Serializable, Comparable<dict<
 	
 	public dict<T> setAt(String key){
 		setAtKey = key;
+		return this;
+	}
+	
+	public dict<T> setAt(HappyString key){
+		setAtKey = key.toString();
 		return this;
 	}
 	

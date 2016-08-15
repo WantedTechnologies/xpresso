@@ -1,9 +1,11 @@
 package com.wantedtech.common.xpresso.types;
 
+import java.io.Serializable;
+
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.helpers.ObjectFactory;
 
-public class DefaultDict<T> extends dict<T> {
+public class DefaultDict<T> extends dict<T> implements Serializable {
 
 	/**
 	 * 

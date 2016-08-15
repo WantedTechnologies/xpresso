@@ -1,11 +1,18 @@
 package com.wantedtech.common.xpresso.types;
 
+import java.io.Serializable;
+
 import com.wantedtech.common.xpresso.helpers.Lengthful;
 import com.wantedtech.common.xpresso.regex.Regex;
 
-public abstract class tuple implements Comparable<tuple>, Lengthful {
+public abstract class tuple implements Comparable<tuple>, Lengthful, Serializable {
 	
-    public abstract int size();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9072012019120187807L;
+
+	public abstract int size();
     
     public abstract int len();
     

@@ -17,16 +17,19 @@ public class Match implements Serializable {
 	list<Integer> groupStartsList = x.list();
 	list<Integer> groupEndsList = x.list();
 	dict<String> groupDict = x.dict();
-	public Match(Matcher matcher){
+	public Match(Matcher matcher, int addToStart){
 		for(Match groupNameMatch : x.Regex("\\(\\?<([^!=>]+)>").findIter(matcher.pattern().toString())){
 			groupDict.setAt(groupNameMatch.group(1)).value(matcher.group(groupNameMatch.group(1)));
 		}
 		this.groupCount = matcher.groupCount();
 		for(Integer counter : x.countTo(groupCount+1)){
 			groupStringsList.append(matcher.group(counter));
-			groupStartsList.append(matcher.start(counter));
-			groupEndsList.append(matcher.end(counter));
+			groupStartsList.append(matcher.start(counter) + addToStart);
+			groupEndsList.append(matcher.end(counter) + addToStart);
 		}
+	}
+	public Match(Matcher matcher){
+		this(matcher,0);
 	}
 	public int start(int groupIndex){
 		return groupStartsList.get(groupIndex);

@@ -23,8 +23,13 @@ public class WebService {
 	        @SuppressWarnings("unchecked")
 			Map<String, Object> params = (Map<String, Object>)exchange.getAttribute("parameters");
 	        //now you can use the params
+	       
 	        
 	        HttpContext context = exchange.getHttpContext();
+	        
+	        Headers headers = exchange.getResponseHeaders();
+
+	        headers.add("Access-Control-Allow-Origin", "*");
 	        
 	        String path = context.getPath();
 	        

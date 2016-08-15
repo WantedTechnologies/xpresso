@@ -10,8 +10,13 @@ import java.util.Map;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
-public class Bag<T> implements Iterable<T>{
+public class Bag<T> implements Iterable<T>, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2670258994194146567L;
+
 	Map<T,Integer> map = new HashMap<T,Integer>();
 	
 	T toBeSetAt;

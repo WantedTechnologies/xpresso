@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 import com.wantedtech.common.xpresso.x;
 import com.wantedtech.common.xpresso.types.tuples.tuple2;
 
-public class OrderedDict<T> extends dict<T> {
+public class OrderedDict<T> extends dict<T> implements Serializable {
 
 	/**
 	 * 

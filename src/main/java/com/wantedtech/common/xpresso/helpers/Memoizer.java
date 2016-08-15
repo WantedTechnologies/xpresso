@@ -1,5 +1,6 @@
 package com.wantedtech.common.xpresso.helpers;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,7 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Memoizer implements InvocationHandler {
+public class Memoizer implements InvocationHandler, Serializable {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4048850714654588931L;
+
   public static Object memoize(Object object) {
       return Proxy.newProxyInstance(
         object.getClass().getClassLoader(),

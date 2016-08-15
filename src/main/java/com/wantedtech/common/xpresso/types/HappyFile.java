@@ -159,7 +159,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 	}
 	
 	public void writeLine(String line) throws RuntimeIOException {
-		if(!operation.equals("w")){
+		if(!operation.equals("w") && !operation.equals("a")){
 			throw new UnsupportedOperationException();
 		}
 
@@ -172,7 +172,7 @@ public class HappyFile implements Iterable<String>,Iterator<String>, Serializabl
 	}
 	
 	public void write(String string) throws RuntimeIOException {
-		if(!operation.equals("w")){
+		if(!operation.equals("w") && !operation.equals("a")){
 			throw new UnsupportedOperationException();
 		}
 		try {
